@@ -1,0 +1,51 @@
+{
+	paragraphs: [
+		{
+			sentences: [
+				{
+					words: [
+						{
+							text: "Esimeses"
+						},
+						{
+							text: "vannaema"
+						},
+						{
+							text: "New"
+						},
+						{
+							text: "York"
+						},
+						{
+							text: "."
+						}
+					]
+				},
+				{
+					words: [
+						{
+							text: "mine"
+						},
+						{
+							text: "poodi"
+						},
+						{
+							text: "."
+						}
+					]
+				}
+			]
+		},
+		{
+			sentences: [
+				{
+						words: [
+							{
+								text: "viimane"
+							}
+						]
+				}
+			]
+		}
+	]
+}

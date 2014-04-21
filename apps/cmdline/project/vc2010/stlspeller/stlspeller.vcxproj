@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{214353D6-14B1-4715-B0BA-DEF1234E8AF3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>stlspeller</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Platform)_$(Configuration)\</OutDir>
+    <IntDir>$(Platform)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Platform)_$(Configuration)\</OutDir>
+    <IntDir>$(Platform)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Platform)_$(Configuration)\</OutDir>
+    <IntDir>$(Platform)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Platform)_$(Configuration)\</OutDir>
+    <IntDir>$(Platform)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\lib\etana\adhoc.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvahy1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvai.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvalyh1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvalyh2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvamitte.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvans1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvans2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvapn1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvapn2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvash1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvasuf1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvavi1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arvax.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\arva_av.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\bins.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\bsearch.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkgeon.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkhy1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkhy2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chklyh0.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chklyh1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chklyh2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chklyh3.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chklyh4.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkmin.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkmitte.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chknr2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkoleta.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkvaljend.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\chkx.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\close_d.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\cmorf.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\cxxcash.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\cxxraam.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\cyybs.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\echopath.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\etmrfa.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\etmrfverstr.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\find_fd.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\hjk_cxx.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk30.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk33.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk4.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk5.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kchk6.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kjuhtum.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\komp.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\kr6nksud1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\loefailist.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\mittesona.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\mrf-gen.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\mrf2yh2mrf.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\open_d1.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\open_d2.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\open_dm.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readeel.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readends.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readfgrs.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readfms.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readgrs.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readloe.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readprf.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\readsuf.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\rfi.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\rooma.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\silp.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\sloendid.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\sobivus.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\strcnv.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\strtosi.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\tloendid.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\tmk2t.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\tmk2tx.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\ty_lp.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\etana\valjatr.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fscinit.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsdata.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsdll.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsexception.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsfile.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsfixalloc.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fshugeinteger.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fslist.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsmemory.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsreg.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsstring.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsthread.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fstime.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fstrace.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsvar.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fswav.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\proof\linguistic.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp" />
+    <ClCompile Include="..\..\..\stlspeller\speller.cpp" />
+    <ClCompile Include="..\..\..\stlspeller\stlspeller.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

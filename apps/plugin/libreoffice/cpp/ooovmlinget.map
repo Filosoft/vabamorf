@@ -1,0 +1,10 @@
+# Unix exports
+{
+	global:
+		Java_ee_vabamorf_ooo_linguistic_et_Linguistic_init;
+		Java_ee_vabamorf_ooo_linguistic_et_Linguistic_terminate;
+		Java_ee_vabamorf_ooo_linguistic_et_Linguistic_spell;
+		Java_ee_vabamorf_ooo_linguistic_et_Linguistic_suggest;
+	local:
+		*;
+};

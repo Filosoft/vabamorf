@@ -1,0 +1,13 @@
+CC=gcc
+FLAGS=-Os -DNDEBUG -Wall -DFSUTF16 -std=gnu++0x -fdata-sections -ffunction-sections
+SOFLAGS=-fpic -shared -fno-strict-aliasing -Wl,--gc-sections
+INCLUDE=
+INCLUDE_JDK=-I /usr/lib/jvm/java-6-openjdk/include
+FILES=unix/../cpp/ooovmlinget.cpp unix/../../../../lib/proof/*.cpp unix/../../../../lib/etana/*.cpp unix/../../../../lib/fsc/*.cpp unix/../../../../lib/fsc/fsjni/*.cpp
+MAP=-fvisibility=hidden -DGNULDFIX -Wl,--version-script,unix/../cpp/ooovmlinget.map
+LIBS=`gcc -print-file-name=libstdc++_pic.a` -pthread -static-libgcc -ldl
+
+all:
+	$(CC) $(FLAGS) $(SOFLAGS) $(INCLUDE) $(INCLUDE_JDK) -o ooovmlinget.lin $(FILES) $(MAP) $(LIBS)
+	strip ooovmlinget.lin
+	ldd -r ooovmlinget.lin

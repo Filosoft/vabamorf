@@ -1,0 +1,25 @@
+# Run first "source /usr/lib/openoffice/basis3.2/sdk/setsdkenv_unix.sh" (or similar)
+PRJ=$(OO_SDK_HOME)
+SETTINGS=$(PRJ)/settings
+
+include $(SETTINGS)/settings.mk
+include $(SETTINGS)/std.mk
+include $(SETTINGS)/dk.mk
+
+JPD=ee/vabamorf/ooo/linguistic/et/
+
+COMMONFILES= \
+	$(JPD)PropChgHelper.class \
+	$(JPD)Utils.class \
+	$(JPD)Linguistic.class \
+	
+SPELLERFILES= \
+	$(JPD)EstonianSpellChecker.class \
+	$(JPD)PropChgHelper_Spell.class \
+	$(JPD)XSpellAlternatives_impl.class
+
+all:
+	rm -rf ee
+	$(SDK_JAVAC) $(JAVAC_FLAGS) -target 5 -classpath "$(CLASSPATH);." -d . unix/../java/*.java
+	$(SDK_JAR) cfm EstonianSpellChecker.uno.jar unix/../java/EstonianSpellChecker.uno.Manifest $(SPELLERFILES) $(COMMONFILES)
+#	rm -rf ee

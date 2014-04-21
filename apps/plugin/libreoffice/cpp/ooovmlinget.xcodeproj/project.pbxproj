@@ -1,0 +1,631 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6989287418D4C4B100641012 /* fscinit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286418D4C4B100641012 /* fscinit.cpp */; };
+		6989287518D4C4B100641012 /* fsdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286518D4C4B100641012 /* fsdata.cpp */; };
+		6989287618D4C4B100641012 /* fsdll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286618D4C4B100641012 /* fsdll.cpp */; };
+		6989287718D4C4B100641012 /* fsexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286718D4C4B100641012 /* fsexception.cpp */; };
+		6989287818D4C4B100641012 /* fsfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286818D4C4B100641012 /* fsfile.cpp */; };
+		6989287918D4C4B100641012 /* fsfixalloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286918D4C4B100641012 /* fsfixalloc.cpp */; };
+		6989287A18D4C4B100641012 /* fshugeinteger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286A18D4C4B100641012 /* fshugeinteger.cpp */; };
+		6989287B18D4C4B100641012 /* fslist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286B18D4C4B100641012 /* fslist.cpp */; };
+		6989287C18D4C4B100641012 /* fsmemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286C18D4C4B100641012 /* fsmemory.cpp */; };
+		6989287D18D4C4B100641012 /* fsreg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286D18D4C4B100641012 /* fsreg.cpp */; };
+		6989287E18D4C4B100641012 /* fsstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286E18D4C4B100641012 /* fsstring.cpp */; };
+		6989287F18D4C4B100641012 /* fsthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989286F18D4C4B100641012 /* fsthread.cpp */; };
+		6989288018D4C4B100641012 /* fstime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989287018D4C4B100641012 /* fstime.cpp */; };
+		6989288118D4C4B100641012 /* fstrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989287118D4C4B100641012 /* fstrace.cpp */; };
+		6989288218D4C4B100641012 /* fsvar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989287218D4C4B100641012 /* fsvar.cpp */; };
+		6989288318D4C4B100641012 /* fswav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989287318D4C4B100641012 /* fswav.cpp */; };
+		6989288718D4C4CE00641012 /* linguistic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288418D4C4CE00641012 /* linguistic.cpp */; };
+		6989288818D4C4CE00641012 /* ptword.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288518D4C4CE00641012 /* ptword.cpp */; };
+		6989288918D4C4CE00641012 /* suggestor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288618D4C4CE00641012 /* suggestor.cpp */; };
+		698928D818D4C57400641012 /* adhoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288A18D4C57400641012 /* adhoc.cpp */; };
+		698928D918D4C57400641012 /* arva_av.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288B18D4C57400641012 /* arva_av.cpp */; };
+		698928DA18D4C57400641012 /* arvahy1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288C18D4C57400641012 /* arvahy1.cpp */; };
+		698928DB18D4C57400641012 /* arvai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288D18D4C57400641012 /* arvai.cpp */; };
+		698928DC18D4C57400641012 /* arvalyh1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288E18D4C57400641012 /* arvalyh1.cpp */; };
+		698928DD18D4C57400641012 /* arvalyh2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989288F18D4C57400641012 /* arvalyh2.cpp */; };
+		698928DE18D4C57400641012 /* arvamitte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289018D4C57400641012 /* arvamitte.cpp */; };
+		698928DF18D4C57400641012 /* arvans1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289118D4C57400641012 /* arvans1.cpp */; };
+		698928E018D4C57400641012 /* arvans2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289218D4C57400641012 /* arvans2.cpp */; };
+		698928E118D4C57400641012 /* arvapn1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289318D4C57400641012 /* arvapn1.cpp */; };
+		698928E218D4C57400641012 /* arvapn2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289418D4C57400641012 /* arvapn2.cpp */; };
+		698928E318D4C57400641012 /* arvash1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289518D4C57400641012 /* arvash1.cpp */; };
+		698928E418D4C57400641012 /* arvasuf1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289618D4C57400641012 /* arvasuf1.cpp */; };
+		698928E518D4C57400641012 /* arvavi1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289718D4C57400641012 /* arvavi1.cpp */; };
+		698928E618D4C57400641012 /* arvax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289818D4C57400641012 /* arvax.cpp */; };
+		698928E718D4C57400641012 /* bins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289918D4C57400641012 /* bins.cpp */; };
+		698928E818D4C57400641012 /* bsearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289A18D4C57400641012 /* bsearch.cpp */; };
+		698928E918D4C57400641012 /* chkgeon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289B18D4C57400641012 /* chkgeon.cpp */; };
+		698928EA18D4C57400641012 /* chkhy1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289C18D4C57400641012 /* chkhy1.cpp */; };
+		698928EB18D4C57400641012 /* chkhy2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289D18D4C57400641012 /* chkhy2.cpp */; };
+		698928EC18D4C57400641012 /* chklyh0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289E18D4C57400641012 /* chklyh0.cpp */; };
+		698928ED18D4C57400641012 /* chklyh1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989289F18D4C57400641012 /* chklyh1.cpp */; };
+		698928EE18D4C57400641012 /* chklyh2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A018D4C57400641012 /* chklyh2.cpp */; };
+		698928EF18D4C57400641012 /* chklyh3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A118D4C57400641012 /* chklyh3.cpp */; };
+		698928F018D4C57400641012 /* chklyh4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A218D4C57400641012 /* chklyh4.cpp */; };
+		698928F118D4C57400641012 /* chkmin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A318D4C57400641012 /* chkmin.cpp */; };
+		698928F218D4C57400641012 /* chkmitte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A418D4C57400641012 /* chkmitte.cpp */; };
+		698928F318D4C57400641012 /* chknr2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A518D4C57400641012 /* chknr2.cpp */; };
+		698928F418D4C57400641012 /* chkoleta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A618D4C57400641012 /* chkoleta.cpp */; };
+		698928F518D4C57400641012 /* chkvaljend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A718D4C57400641012 /* chkvaljend.cpp */; };
+		698928F618D4C57400641012 /* chkx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A818D4C57400641012 /* chkx.cpp */; };
+		698928F718D4C57400641012 /* close_d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928A918D4C57400641012 /* close_d.cpp */; };
+		698928F818D4C57400641012 /* cmorf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928AA18D4C57400641012 /* cmorf.cpp */; };
+		698928F918D4C57400641012 /* cxxcash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928AB18D4C57400641012 /* cxxcash.cpp */; };
+		698928FA18D4C57400641012 /* cxxraam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928AC18D4C57400641012 /* cxxraam.cpp */; };
+		698928FB18D4C57400641012 /* cyybs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928AD18D4C57400641012 /* cyybs.cpp */; };
+		698928FC18D4C57400641012 /* echopath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928AE18D4C57400641012 /* echopath.cpp */; };
+		698928FD18D4C57400641012 /* etmrfa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928AF18D4C57400641012 /* etmrfa.cpp */; };
+		698928FE18D4C57400641012 /* etmrfverstr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B018D4C57400641012 /* etmrfverstr.cpp */; };
+		698928FF18D4C57400641012 /* find_fd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B118D4C57400641012 /* find_fd.cpp */; };
+		6989290018D4C57400641012 /* hjk_cxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B218D4C57400641012 /* hjk_cxx.cpp */; };
+		6989290118D4C57400641012 /* kchk1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B318D4C57400641012 /* kchk1.cpp */; };
+		6989290218D4C57400641012 /* kchk2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B418D4C57400641012 /* kchk2.cpp */; };
+		6989290318D4C57400641012 /* kchk4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B518D4C57400641012 /* kchk4.cpp */; };
+		6989290418D4C57400641012 /* kchk5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B618D4C57400641012 /* kchk5.cpp */; };
+		6989290518D4C57400641012 /* kchk6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B718D4C57400641012 /* kchk6.cpp */; };
+		6989290618D4C57400641012 /* kchk30.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B818D4C57400641012 /* kchk30.cpp */; };
+		6989290718D4C57400641012 /* kchk33.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928B918D4C57400641012 /* kchk33.cpp */; };
+		6989290818D4C57400641012 /* kjuhtum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928BA18D4C57400641012 /* kjuhtum.cpp */; };
+		6989290918D4C57400641012 /* komp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928BB18D4C57400641012 /* komp.cpp */; };
+		6989290A18D4C57400641012 /* kr6nksud1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928BC18D4C57400641012 /* kr6nksud1.cpp */; };
+		6989290B18D4C57400641012 /* loefailist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928BD18D4C57400641012 /* loefailist.cpp */; };
+		6989290C18D4C57400641012 /* mittesona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928BE18D4C57400641012 /* mittesona.cpp */; };
+		6989290D18D4C57400641012 /* mrf-gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928BF18D4C57400641012 /* mrf-gen.cpp */; };
+		6989290E18D4C57400641012 /* mrf2yh2mrf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C018D4C57400641012 /* mrf2yh2mrf.cpp */; };
+		6989290F18D4C57400641012 /* open_d1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C118D4C57400641012 /* open_d1.cpp */; };
+		6989291018D4C57400641012 /* open_d2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C218D4C57400641012 /* open_d2.cpp */; };
+		6989291118D4C57400641012 /* open_dm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C318D4C57400641012 /* open_dm.cpp */; };
+		6989291218D4C57400641012 /* readeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C418D4C57400641012 /* readeel.cpp */; };
+		6989291318D4C57400641012 /* readends.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C518D4C57400641012 /* readends.cpp */; };
+		6989291418D4C57400641012 /* readfgrs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C618D4C57400641012 /* readfgrs.cpp */; };
+		6989291518D4C57400641012 /* readfms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C718D4C57400641012 /* readfms.cpp */; };
+		6989291618D4C57400641012 /* readgrs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C818D4C57400641012 /* readgrs.cpp */; };
+		6989291718D4C57400641012 /* readloe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928C918D4C57400641012 /* readloe.cpp */; };
+		6989291818D4C57400641012 /* readprf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928CA18D4C57400641012 /* readprf.cpp */; };
+		6989291918D4C57400641012 /* readsuf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928CB18D4C57400641012 /* readsuf.cpp */; };
+		6989291A18D4C57400641012 /* rfi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928CC18D4C57400641012 /* rfi.cpp */; };
+		6989291B18D4C57400641012 /* rooma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928CD18D4C57400641012 /* rooma.cpp */; };
+		6989291C18D4C57400641012 /* silp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928CE18D4C57400641012 /* silp.cpp */; };
+		6989291D18D4C57400641012 /* sloendid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928CF18D4C57400641012 /* sloendid.cpp */; };
+		6989291E18D4C57400641012 /* sobivus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D018D4C57400641012 /* sobivus.cpp */; };
+		6989291F18D4C57400641012 /* strcnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D118D4C57400641012 /* strcnv.cpp */; };
+		6989292018D4C57400641012 /* strtosi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D218D4C57400641012 /* strtosi.cpp */; };
+		6989292118D4C57400641012 /* tloendid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D318D4C57400641012 /* tloendid.cpp */; };
+		6989292218D4C57400641012 /* tmk2t.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D418D4C57400641012 /* tmk2t.cpp */; };
+		6989292318D4C57400641012 /* tmk2tx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D518D4C57400641012 /* tmk2tx.cpp */; };
+		6989292418D4C57400641012 /* ty_lp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D618D4C57400641012 /* ty_lp.cpp */; };
+		6989292518D4C57400641012 /* valjatr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 698928D718D4C57400641012 /* valjatr.cpp */; };
+		6989293A18D4C6C200641012 /* fsjni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6989293918D4C6C200641012 /* fsjni.cpp */; };
+		699668DF13AE493E0056482C /* ooovmlinget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 699668DE13AE493E0056482C /* ooovmlinget.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6989286418D4C4B100641012 /* fscinit.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fscinit.cpp; path = ../../../../lib/fsc/fscinit.cpp; sourceTree = SOURCE_ROOT; };
+		6989286518D4C4B100641012 /* fsdata.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsdata.cpp; path = ../../../../lib/fsc/fsdata.cpp; sourceTree = SOURCE_ROOT; };
+		6989286618D4C4B100641012 /* fsdll.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsdll.cpp; path = ../../../../lib/fsc/fsdll.cpp; sourceTree = SOURCE_ROOT; };
+		6989286718D4C4B100641012 /* fsexception.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsexception.cpp; path = ../../../../lib/fsc/fsexception.cpp; sourceTree = SOURCE_ROOT; };
+		6989286818D4C4B100641012 /* fsfile.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsfile.cpp; path = ../../../../lib/fsc/fsfile.cpp; sourceTree = SOURCE_ROOT; };
+		6989286918D4C4B100641012 /* fsfixalloc.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsfixalloc.cpp; path = ../../../../lib/fsc/fsfixalloc.cpp; sourceTree = SOURCE_ROOT; };
+		6989286A18D4C4B100641012 /* fshugeinteger.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fshugeinteger.cpp; path = ../../../../lib/fsc/fshugeinteger.cpp; sourceTree = SOURCE_ROOT; };
+		6989286B18D4C4B100641012 /* fslist.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fslist.cpp; path = ../../../../lib/fsc/fslist.cpp; sourceTree = SOURCE_ROOT; };
+		6989286C18D4C4B100641012 /* fsmemory.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsmemory.cpp; path = ../../../../lib/fsc/fsmemory.cpp; sourceTree = SOURCE_ROOT; };
+		6989286D18D4C4B100641012 /* fsreg.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsreg.cpp; path = ../../../../lib/fsc/fsreg.cpp; sourceTree = SOURCE_ROOT; };
+		6989286E18D4C4B100641012 /* fsstring.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsstring.cpp; path = ../../../../lib/fsc/fsstring.cpp; sourceTree = SOURCE_ROOT; };
+		6989286F18D4C4B100641012 /* fsthread.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsthread.cpp; path = ../../../../lib/fsc/fsthread.cpp; sourceTree = SOURCE_ROOT; };
+		6989287018D4C4B100641012 /* fstime.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fstime.cpp; path = ../../../../lib/fsc/fstime.cpp; sourceTree = SOURCE_ROOT; };
+		6989287118D4C4B100641012 /* fstrace.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fstrace.cpp; path = ../../../../lib/fsc/fstrace.cpp; sourceTree = SOURCE_ROOT; };
+		6989287218D4C4B100641012 /* fsvar.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsvar.cpp; path = ../../../../lib/fsc/fsvar.cpp; sourceTree = SOURCE_ROOT; };
+		6989287318D4C4B100641012 /* fswav.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fswav.cpp; path = ../../../../lib/fsc/fswav.cpp; sourceTree = SOURCE_ROOT; };
+		6989288418D4C4CE00641012 /* linguistic.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = linguistic.cpp; path = ../../../../lib/proof/linguistic.cpp; sourceTree = SOURCE_ROOT; };
+		6989288518D4C4CE00641012 /* ptword.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = ptword.cpp; path = ../../../../lib/proof/ptword.cpp; sourceTree = SOURCE_ROOT; };
+		6989288618D4C4CE00641012 /* suggestor.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = suggestor.cpp; path = ../../../../lib/proof/suggestor.cpp; sourceTree = SOURCE_ROOT; };
+		6989288A18D4C57400641012 /* adhoc.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = adhoc.cpp; path = ../../../../lib/etana/adhoc.cpp; sourceTree = SOURCE_ROOT; };
+		6989288B18D4C57400641012 /* arva_av.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arva_av.cpp; path = ../../../../lib/etana/arva_av.cpp; sourceTree = SOURCE_ROOT; };
+		6989288C18D4C57400641012 /* arvahy1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvahy1.cpp; path = ../../../../lib/etana/arvahy1.cpp; sourceTree = SOURCE_ROOT; };
+		6989288D18D4C57400641012 /* arvai.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvai.cpp; path = ../../../../lib/etana/arvai.cpp; sourceTree = SOURCE_ROOT; };
+		6989288E18D4C57400641012 /* arvalyh1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvalyh1.cpp; path = ../../../../lib/etana/arvalyh1.cpp; sourceTree = SOURCE_ROOT; };
+		6989288F18D4C57400641012 /* arvalyh2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvalyh2.cpp; path = ../../../../lib/etana/arvalyh2.cpp; sourceTree = SOURCE_ROOT; };
+		6989289018D4C57400641012 /* arvamitte.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvamitte.cpp; path = ../../../../lib/etana/arvamitte.cpp; sourceTree = SOURCE_ROOT; };
+		6989289118D4C57400641012 /* arvans1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvans1.cpp; path = ../../../../lib/etana/arvans1.cpp; sourceTree = SOURCE_ROOT; };
+		6989289218D4C57400641012 /* arvans2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvans2.cpp; path = ../../../../lib/etana/arvans2.cpp; sourceTree = SOURCE_ROOT; };
+		6989289318D4C57400641012 /* arvapn1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvapn1.cpp; path = ../../../../lib/etana/arvapn1.cpp; sourceTree = SOURCE_ROOT; };
+		6989289418D4C57400641012 /* arvapn2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvapn2.cpp; path = ../../../../lib/etana/arvapn2.cpp; sourceTree = SOURCE_ROOT; };
+		6989289518D4C57400641012 /* arvash1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvash1.cpp; path = ../../../../lib/etana/arvash1.cpp; sourceTree = SOURCE_ROOT; };
+		6989289618D4C57400641012 /* arvasuf1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvasuf1.cpp; path = ../../../../lib/etana/arvasuf1.cpp; sourceTree = SOURCE_ROOT; };
+		6989289718D4C57400641012 /* arvavi1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvavi1.cpp; path = ../../../../lib/etana/arvavi1.cpp; sourceTree = SOURCE_ROOT; };
+		6989289818D4C57400641012 /* arvax.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = arvax.cpp; path = ../../../../lib/etana/arvax.cpp; sourceTree = SOURCE_ROOT; };
+		6989289918D4C57400641012 /* bins.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = bins.cpp; path = ../../../../lib/etana/bins.cpp; sourceTree = SOURCE_ROOT; };
+		6989289A18D4C57400641012 /* bsearch.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = bsearch.cpp; path = ../../../../lib/etana/bsearch.cpp; sourceTree = SOURCE_ROOT; };
+		6989289B18D4C57400641012 /* chkgeon.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkgeon.cpp; path = ../../../../lib/etana/chkgeon.cpp; sourceTree = SOURCE_ROOT; };
+		6989289C18D4C57400641012 /* chkhy1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkhy1.cpp; path = ../../../../lib/etana/chkhy1.cpp; sourceTree = SOURCE_ROOT; };
+		6989289D18D4C57400641012 /* chkhy2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkhy2.cpp; path = ../../../../lib/etana/chkhy2.cpp; sourceTree = SOURCE_ROOT; };
+		6989289E18D4C57400641012 /* chklyh0.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chklyh0.cpp; path = ../../../../lib/etana/chklyh0.cpp; sourceTree = SOURCE_ROOT; };
+		6989289F18D4C57400641012 /* chklyh1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chklyh1.cpp; path = ../../../../lib/etana/chklyh1.cpp; sourceTree = SOURCE_ROOT; };
+		698928A018D4C57400641012 /* chklyh2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chklyh2.cpp; path = ../../../../lib/etana/chklyh2.cpp; sourceTree = SOURCE_ROOT; };
+		698928A118D4C57400641012 /* chklyh3.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chklyh3.cpp; path = ../../../../lib/etana/chklyh3.cpp; sourceTree = SOURCE_ROOT; };
+		698928A218D4C57400641012 /* chklyh4.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chklyh4.cpp; path = ../../../../lib/etana/chklyh4.cpp; sourceTree = SOURCE_ROOT; };
+		698928A318D4C57400641012 /* chkmin.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkmin.cpp; path = ../../../../lib/etana/chkmin.cpp; sourceTree = SOURCE_ROOT; };
+		698928A418D4C57400641012 /* chkmitte.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkmitte.cpp; path = ../../../../lib/etana/chkmitte.cpp; sourceTree = SOURCE_ROOT; };
+		698928A518D4C57400641012 /* chknr2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chknr2.cpp; path = ../../../../lib/etana/chknr2.cpp; sourceTree = SOURCE_ROOT; };
+		698928A618D4C57400641012 /* chkoleta.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkoleta.cpp; path = ../../../../lib/etana/chkoleta.cpp; sourceTree = SOURCE_ROOT; };
+		698928A718D4C57400641012 /* chkvaljend.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkvaljend.cpp; path = ../../../../lib/etana/chkvaljend.cpp; sourceTree = SOURCE_ROOT; };
+		698928A818D4C57400641012 /* chkx.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = chkx.cpp; path = ../../../../lib/etana/chkx.cpp; sourceTree = SOURCE_ROOT; };
+		698928A918D4C57400641012 /* close_d.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = close_d.cpp; path = ../../../../lib/etana/close_d.cpp; sourceTree = SOURCE_ROOT; };
+		698928AA18D4C57400641012 /* cmorf.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = cmorf.cpp; path = ../../../../lib/etana/cmorf.cpp; sourceTree = SOURCE_ROOT; };
+		698928AB18D4C57400641012 /* cxxcash.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = cxxcash.cpp; path = ../../../../lib/etana/cxxcash.cpp; sourceTree = SOURCE_ROOT; };
+		698928AC18D4C57400641012 /* cxxraam.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = cxxraam.cpp; path = ../../../../lib/etana/cxxraam.cpp; sourceTree = SOURCE_ROOT; };
+		698928AD18D4C57400641012 /* cyybs.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = cyybs.cpp; path = ../../../../lib/etana/cyybs.cpp; sourceTree = SOURCE_ROOT; };
+		698928AE18D4C57400641012 /* echopath.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = echopath.cpp; path = ../../../../lib/etana/echopath.cpp; sourceTree = SOURCE_ROOT; };
+		698928AF18D4C57400641012 /* etmrfa.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = etmrfa.cpp; path = ../../../../lib/etana/etmrfa.cpp; sourceTree = SOURCE_ROOT; };
+		698928B018D4C57400641012 /* etmrfverstr.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = etmrfverstr.cpp; path = ../../../../lib/etana/etmrfverstr.cpp; sourceTree = SOURCE_ROOT; };
+		698928B118D4C57400641012 /* find_fd.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = find_fd.cpp; path = ../../../../lib/etana/find_fd.cpp; sourceTree = SOURCE_ROOT; };
+		698928B218D4C57400641012 /* hjk_cxx.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = hjk_cxx.cpp; path = ../../../../lib/etana/hjk_cxx.cpp; sourceTree = SOURCE_ROOT; };
+		698928B318D4C57400641012 /* kchk1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk1.cpp; path = ../../../../lib/etana/kchk1.cpp; sourceTree = SOURCE_ROOT; };
+		698928B418D4C57400641012 /* kchk2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk2.cpp; path = ../../../../lib/etana/kchk2.cpp; sourceTree = SOURCE_ROOT; };
+		698928B518D4C57400641012 /* kchk4.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk4.cpp; path = ../../../../lib/etana/kchk4.cpp; sourceTree = SOURCE_ROOT; };
+		698928B618D4C57400641012 /* kchk5.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk5.cpp; path = ../../../../lib/etana/kchk5.cpp; sourceTree = SOURCE_ROOT; };
+		698928B718D4C57400641012 /* kchk6.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk6.cpp; path = ../../../../lib/etana/kchk6.cpp; sourceTree = SOURCE_ROOT; };
+		698928B818D4C57400641012 /* kchk30.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk30.cpp; path = ../../../../lib/etana/kchk30.cpp; sourceTree = SOURCE_ROOT; };
+		698928B918D4C57400641012 /* kchk33.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kchk33.cpp; path = ../../../../lib/etana/kchk33.cpp; sourceTree = SOURCE_ROOT; };
+		698928BA18D4C57400641012 /* kjuhtum.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kjuhtum.cpp; path = ../../../../lib/etana/kjuhtum.cpp; sourceTree = SOURCE_ROOT; };
+		698928BB18D4C57400641012 /* komp.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = komp.cpp; path = ../../../../lib/etana/komp.cpp; sourceTree = SOURCE_ROOT; };
+		698928BC18D4C57400641012 /* kr6nksud1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = kr6nksud1.cpp; path = ../../../../lib/etana/kr6nksud1.cpp; sourceTree = SOURCE_ROOT; };
+		698928BD18D4C57400641012 /* loefailist.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = loefailist.cpp; path = ../../../../lib/etana/loefailist.cpp; sourceTree = SOURCE_ROOT; };
+		698928BE18D4C57400641012 /* mittesona.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = mittesona.cpp; path = ../../../../lib/etana/mittesona.cpp; sourceTree = SOURCE_ROOT; };
+		698928BF18D4C57400641012 /* mrf-gen.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = "mrf-gen.cpp"; path = "../../../../lib/etana/mrf-gen.cpp"; sourceTree = SOURCE_ROOT; };
+		698928C018D4C57400641012 /* mrf2yh2mrf.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = mrf2yh2mrf.cpp; path = ../../../../lib/etana/mrf2yh2mrf.cpp; sourceTree = SOURCE_ROOT; };
+		698928C118D4C57400641012 /* open_d1.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = open_d1.cpp; path = ../../../../lib/etana/open_d1.cpp; sourceTree = SOURCE_ROOT; };
+		698928C218D4C57400641012 /* open_d2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = open_d2.cpp; path = ../../../../lib/etana/open_d2.cpp; sourceTree = SOURCE_ROOT; };
+		698928C318D4C57400641012 /* open_dm.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = open_dm.cpp; path = ../../../../lib/etana/open_dm.cpp; sourceTree = SOURCE_ROOT; };
+		698928C418D4C57400641012 /* readeel.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readeel.cpp; path = ../../../../lib/etana/readeel.cpp; sourceTree = SOURCE_ROOT; };
+		698928C518D4C57400641012 /* readends.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readends.cpp; path = ../../../../lib/etana/readends.cpp; sourceTree = SOURCE_ROOT; };
+		698928C618D4C57400641012 /* readfgrs.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readfgrs.cpp; path = ../../../../lib/etana/readfgrs.cpp; sourceTree = SOURCE_ROOT; };
+		698928C718D4C57400641012 /* readfms.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readfms.cpp; path = ../../../../lib/etana/readfms.cpp; sourceTree = SOURCE_ROOT; };
+		698928C818D4C57400641012 /* readgrs.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readgrs.cpp; path = ../../../../lib/etana/readgrs.cpp; sourceTree = SOURCE_ROOT; };
+		698928C918D4C57400641012 /* readloe.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readloe.cpp; path = ../../../../lib/etana/readloe.cpp; sourceTree = SOURCE_ROOT; };
+		698928CA18D4C57400641012 /* readprf.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readprf.cpp; path = ../../../../lib/etana/readprf.cpp; sourceTree = SOURCE_ROOT; };
+		698928CB18D4C57400641012 /* readsuf.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = readsuf.cpp; path = ../../../../lib/etana/readsuf.cpp; sourceTree = SOURCE_ROOT; };
+		698928CC18D4C57400641012 /* rfi.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = rfi.cpp; path = ../../../../lib/etana/rfi.cpp; sourceTree = SOURCE_ROOT; };
+		698928CD18D4C57400641012 /* rooma.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = rooma.cpp; path = ../../../../lib/etana/rooma.cpp; sourceTree = SOURCE_ROOT; };
+		698928CE18D4C57400641012 /* silp.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = silp.cpp; path = ../../../../lib/etana/silp.cpp; sourceTree = SOURCE_ROOT; };
+		698928CF18D4C57400641012 /* sloendid.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = sloendid.cpp; path = ../../../../lib/etana/sloendid.cpp; sourceTree = SOURCE_ROOT; };
+		698928D018D4C57400641012 /* sobivus.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = sobivus.cpp; path = ../../../../lib/etana/sobivus.cpp; sourceTree = SOURCE_ROOT; };
+		698928D118D4C57400641012 /* strcnv.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = strcnv.cpp; path = ../../../../lib/etana/strcnv.cpp; sourceTree = SOURCE_ROOT; };
+		698928D218D4C57400641012 /* strtosi.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = strtosi.cpp; path = ../../../../lib/etana/strtosi.cpp; sourceTree = SOURCE_ROOT; };
+		698928D318D4C57400641012 /* tloendid.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = tloendid.cpp; path = ../../../../lib/etana/tloendid.cpp; sourceTree = SOURCE_ROOT; };
+		698928D418D4C57400641012 /* tmk2t.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = tmk2t.cpp; path = ../../../../lib/etana/tmk2t.cpp; sourceTree = SOURCE_ROOT; };
+		698928D518D4C57400641012 /* tmk2tx.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = tmk2tx.cpp; path = ../../../../lib/etana/tmk2tx.cpp; sourceTree = SOURCE_ROOT; };
+		698928D618D4C57400641012 /* ty_lp.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = ty_lp.cpp; path = ../../../../lib/etana/ty_lp.cpp; sourceTree = SOURCE_ROOT; };
+		698928D718D4C57400641012 /* valjatr.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = valjatr.cpp; path = ../../../../lib/etana/valjatr.cpp; sourceTree = SOURCE_ROOT; };
+		6989293918D4C6C200641012 /* fsjni.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = fsjni.cpp; path = ../../../../lib/fsc/fsjni/fsjni.cpp; sourceTree = SOURCE_ROOT; };
+		699668DE13AE493E0056482C /* ooovmlinget.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = ooovmlinget.cpp; sourceTree = "<group>"; };
+		D2AAC0630554660B00DB518D /* libooovmlinget.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libooovmlinget.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D289988505E68E00004EDB86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* ooovmlinget */ = {
+			isa = PBXGroup;
+			children = (
+				6989286318D4C42000641012 /* Proof */,
+				6989286218D4C41800641012 /* ETAna */,
+				6989286118D4C40F00641012 /* FSC */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = ooovmlinget;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				699668DE13AE493E0056482C /* ooovmlinget.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC0630554660B00DB518D /* libooovmlinget.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6989286118D4C40F00641012 /* FSC */ = {
+			isa = PBXGroup;
+			children = (
+				6989293918D4C6C200641012 /* fsjni.cpp */,
+				6989286418D4C4B100641012 /* fscinit.cpp */,
+				6989286518D4C4B100641012 /* fsdata.cpp */,
+				6989286618D4C4B100641012 /* fsdll.cpp */,
+				6989286718D4C4B100641012 /* fsexception.cpp */,
+				6989286818D4C4B100641012 /* fsfile.cpp */,
+				6989286918D4C4B100641012 /* fsfixalloc.cpp */,
+				6989286A18D4C4B100641012 /* fshugeinteger.cpp */,
+				6989286B18D4C4B100641012 /* fslist.cpp */,
+				6989286C18D4C4B100641012 /* fsmemory.cpp */,
+				6989286D18D4C4B100641012 /* fsreg.cpp */,
+				6989286E18D4C4B100641012 /* fsstring.cpp */,
+				6989286F18D4C4B100641012 /* fsthread.cpp */,
+				6989287018D4C4B100641012 /* fstime.cpp */,
+				6989287118D4C4B100641012 /* fstrace.cpp */,
+				6989287218D4C4B100641012 /* fsvar.cpp */,
+				6989287318D4C4B100641012 /* fswav.cpp */,
+			);
+			name = FSC;
+			sourceTree = "<group>";
+		};
+		6989286218D4C41800641012 /* ETAna */ = {
+			isa = PBXGroup;
+			children = (
+				6989288A18D4C57400641012 /* adhoc.cpp */,
+				6989288B18D4C57400641012 /* arva_av.cpp */,
+				6989288C18D4C57400641012 /* arvahy1.cpp */,
+				6989288D18D4C57400641012 /* arvai.cpp */,
+				6989288E18D4C57400641012 /* arvalyh1.cpp */,
+				6989288F18D4C57400641012 /* arvalyh2.cpp */,
+				6989289018D4C57400641012 /* arvamitte.cpp */,
+				6989289118D4C57400641012 /* arvans1.cpp */,
+				6989289218D4C57400641012 /* arvans2.cpp */,
+				6989289318D4C57400641012 /* arvapn1.cpp */,
+				6989289418D4C57400641012 /* arvapn2.cpp */,
+				6989289518D4C57400641012 /* arvash1.cpp */,
+				6989289618D4C57400641012 /* arvasuf1.cpp */,
+				6989289718D4C57400641012 /* arvavi1.cpp */,
+				6989289818D4C57400641012 /* arvax.cpp */,
+				6989289918D4C57400641012 /* bins.cpp */,
+				6989289A18D4C57400641012 /* bsearch.cpp */,
+				6989289B18D4C57400641012 /* chkgeon.cpp */,
+				6989289C18D4C57400641012 /* chkhy1.cpp */,
+				6989289D18D4C57400641012 /* chkhy2.cpp */,
+				6989289E18D4C57400641012 /* chklyh0.cpp */,
+				6989289F18D4C57400641012 /* chklyh1.cpp */,
+				698928A018D4C57400641012 /* chklyh2.cpp */,
+				698928A118D4C57400641012 /* chklyh3.cpp */,
+				698928A218D4C57400641012 /* chklyh4.cpp */,
+				698928A318D4C57400641012 /* chkmin.cpp */,
+				698928A418D4C57400641012 /* chkmitte.cpp */,
+				698928A518D4C57400641012 /* chknr2.cpp */,
+				698928A618D4C57400641012 /* chkoleta.cpp */,
+				698928A718D4C57400641012 /* chkvaljend.cpp */,
+				698928A818D4C57400641012 /* chkx.cpp */,
+				698928A918D4C57400641012 /* close_d.cpp */,
+				698928AA18D4C57400641012 /* cmorf.cpp */,
+				698928AB18D4C57400641012 /* cxxcash.cpp */,
+				698928AC18D4C57400641012 /* cxxraam.cpp */,
+				698928AD18D4C57400641012 /* cyybs.cpp */,
+				698928AE18D4C57400641012 /* echopath.cpp */,
+				698928AF18D4C57400641012 /* etmrfa.cpp */,
+				698928B018D4C57400641012 /* etmrfverstr.cpp */,
+				698928B118D4C57400641012 /* find_fd.cpp */,
+				698928B218D4C57400641012 /* hjk_cxx.cpp */,
+				698928B318D4C57400641012 /* kchk1.cpp */,
+				698928B418D4C57400641012 /* kchk2.cpp */,
+				698928B518D4C57400641012 /* kchk4.cpp */,
+				698928B618D4C57400641012 /* kchk5.cpp */,
+				698928B718D4C57400641012 /* kchk6.cpp */,
+				698928B818D4C57400641012 /* kchk30.cpp */,
+				698928B918D4C57400641012 /* kchk33.cpp */,
+				698928BA18D4C57400641012 /* kjuhtum.cpp */,
+				698928BB18D4C57400641012 /* komp.cpp */,
+				698928BC18D4C57400641012 /* kr6nksud1.cpp */,
+				698928BD18D4C57400641012 /* loefailist.cpp */,
+				698928BE18D4C57400641012 /* mittesona.cpp */,
+				698928BF18D4C57400641012 /* mrf-gen.cpp */,
+				698928C018D4C57400641012 /* mrf2yh2mrf.cpp */,
+				698928C118D4C57400641012 /* open_d1.cpp */,
+				698928C218D4C57400641012 /* open_d2.cpp */,
+				698928C318D4C57400641012 /* open_dm.cpp */,
+				698928C418D4C57400641012 /* readeel.cpp */,
+				698928C518D4C57400641012 /* readends.cpp */,
+				698928C618D4C57400641012 /* readfgrs.cpp */,
+				698928C718D4C57400641012 /* readfms.cpp */,
+				698928C818D4C57400641012 /* readgrs.cpp */,
+				698928C918D4C57400641012 /* readloe.cpp */,
+				698928CA18D4C57400641012 /* readprf.cpp */,
+				698928CB18D4C57400641012 /* readsuf.cpp */,
+				698928CC18D4C57400641012 /* rfi.cpp */,
+				698928CD18D4C57400641012 /* rooma.cpp */,
+				698928CE18D4C57400641012 /* silp.cpp */,
+				698928CF18D4C57400641012 /* sloendid.cpp */,
+				698928D018D4C57400641012 /* sobivus.cpp */,
+				698928D118D4C57400641012 /* strcnv.cpp */,
+				698928D218D4C57400641012 /* strtosi.cpp */,
+				698928D318D4C57400641012 /* tloendid.cpp */,
+				698928D418D4C57400641012 /* tmk2t.cpp */,
+				698928D518D4C57400641012 /* tmk2tx.cpp */,
+				698928D618D4C57400641012 /* ty_lp.cpp */,
+				698928D718D4C57400641012 /* valjatr.cpp */,
+			);
+			name = ETAna;
+			sourceTree = "<group>";
+		};
+		6989286318D4C42000641012 /* Proof */ = {
+			isa = PBXGroup;
+			children = (
+				6989288418D4C4CE00641012 /* linguistic.cpp */,
+				6989288518D4C4CE00641012 /* ptword.cpp */,
+				6989288618D4C4CE00641012 /* suggestor.cpp */,
+			);
+			name = Proof;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC0600554660B00DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC0620554660B00DB518D /* ooovmlinget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB914A08733D8E0010E9CD /* Build configuration list for PBXNativeTarget "ooovmlinget" */;
+			buildPhases = (
+				D2AAC0600554660B00DB518D /* Headers */,
+				D2AAC0610554660B00DB518D /* Sources */,
+				D289988505E68E00004EDB86 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ooovmlinget;
+			productName = ooovmlinget;
+			productReference = D2AAC0630554660B00DB518D /* libooovmlinget.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB914E08733D8E0010E9CD /* Build configuration list for PBXProject "ooovmlinget" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* ooovmlinget */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC0620554660B00DB518D /* ooovmlinget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC0610554660B00DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				699668DF13AE493E0056482C /* ooovmlinget.cpp in Sources */,
+				6989287418D4C4B100641012 /* fscinit.cpp in Sources */,
+				6989287518D4C4B100641012 /* fsdata.cpp in Sources */,
+				6989287618D4C4B100641012 /* fsdll.cpp in Sources */,
+				6989287718D4C4B100641012 /* fsexception.cpp in Sources */,
+				6989287818D4C4B100641012 /* fsfile.cpp in Sources */,
+				6989287918D4C4B100641012 /* fsfixalloc.cpp in Sources */,
+				6989287A18D4C4B100641012 /* fshugeinteger.cpp in Sources */,
+				6989287B18D4C4B100641012 /* fslist.cpp in Sources */,
+				6989287C18D4C4B100641012 /* fsmemory.cpp in Sources */,
+				6989287D18D4C4B100641012 /* fsreg.cpp in Sources */,
+				6989287E18D4C4B100641012 /* fsstring.cpp in Sources */,
+				6989287F18D4C4B100641012 /* fsthread.cpp in Sources */,
+				6989288018D4C4B100641012 /* fstime.cpp in Sources */,
+				6989288118D4C4B100641012 /* fstrace.cpp in Sources */,
+				6989288218D4C4B100641012 /* fsvar.cpp in Sources */,
+				6989288318D4C4B100641012 /* fswav.cpp in Sources */,
+				6989288718D4C4CE00641012 /* linguistic.cpp in Sources */,
+				6989288818D4C4CE00641012 /* ptword.cpp in Sources */,
+				6989288918D4C4CE00641012 /* suggestor.cpp in Sources */,
+				698928D818D4C57400641012 /* adhoc.cpp in Sources */,
+				698928D918D4C57400641012 /* arva_av.cpp in Sources */,
+				698928DA18D4C57400641012 /* arvahy1.cpp in Sources */,
+				698928DB18D4C57400641012 /* arvai.cpp in Sources */,
+				698928DC18D4C57400641012 /* arvalyh1.cpp in Sources */,
+				698928DD18D4C57400641012 /* arvalyh2.cpp in Sources */,
+				698928DE18D4C57400641012 /* arvamitte.cpp in Sources */,
+				698928DF18D4C57400641012 /* arvans1.cpp in Sources */,
+				698928E018D4C57400641012 /* arvans2.cpp in Sources */,
+				698928E118D4C57400641012 /* arvapn1.cpp in Sources */,
+				698928E218D4C57400641012 /* arvapn2.cpp in Sources */,
+				698928E318D4C57400641012 /* arvash1.cpp in Sources */,
+				698928E418D4C57400641012 /* arvasuf1.cpp in Sources */,
+				698928E518D4C57400641012 /* arvavi1.cpp in Sources */,
+				698928E618D4C57400641012 /* arvax.cpp in Sources */,
+				698928E718D4C57400641012 /* bins.cpp in Sources */,
+				698928E818D4C57400641012 /* bsearch.cpp in Sources */,
+				698928E918D4C57400641012 /* chkgeon.cpp in Sources */,
+				698928EA18D4C57400641012 /* chkhy1.cpp in Sources */,
+				698928EB18D4C57400641012 /* chkhy2.cpp in Sources */,
+				698928EC18D4C57400641012 /* chklyh0.cpp in Sources */,
+				698928ED18D4C57400641012 /* chklyh1.cpp in Sources */,
+				698928EE18D4C57400641012 /* chklyh2.cpp in Sources */,
+				698928EF18D4C57400641012 /* chklyh3.cpp in Sources */,
+				698928F018D4C57400641012 /* chklyh4.cpp in Sources */,
+				698928F118D4C57400641012 /* chkmin.cpp in Sources */,
+				698928F218D4C57400641012 /* chkmitte.cpp in Sources */,
+				698928F318D4C57400641012 /* chknr2.cpp in Sources */,
+				698928F418D4C57400641012 /* chkoleta.cpp in Sources */,
+				698928F518D4C57400641012 /* chkvaljend.cpp in Sources */,
+				698928F618D4C57400641012 /* chkx.cpp in Sources */,
+				698928F718D4C57400641012 /* close_d.cpp in Sources */,
+				698928F818D4C57400641012 /* cmorf.cpp in Sources */,
+				698928F918D4C57400641012 /* cxxcash.cpp in Sources */,
+				698928FA18D4C57400641012 /* cxxraam.cpp in Sources */,
+				698928FB18D4C57400641012 /* cyybs.cpp in Sources */,
+				698928FC18D4C57400641012 /* echopath.cpp in Sources */,
+				698928FD18D4C57400641012 /* etmrfa.cpp in Sources */,
+				698928FE18D4C57400641012 /* etmrfverstr.cpp in Sources */,
+				698928FF18D4C57400641012 /* find_fd.cpp in Sources */,
+				6989290018D4C57400641012 /* hjk_cxx.cpp in Sources */,
+				6989290118D4C57400641012 /* kchk1.cpp in Sources */,
+				6989290218D4C57400641012 /* kchk2.cpp in Sources */,
+				6989290318D4C57400641012 /* kchk4.cpp in Sources */,
+				6989290418D4C57400641012 /* kchk5.cpp in Sources */,
+				6989290518D4C57400641012 /* kchk6.cpp in Sources */,
+				6989290618D4C57400641012 /* kchk30.cpp in Sources */,
+				6989290718D4C57400641012 /* kchk33.cpp in Sources */,
+				6989290818D4C57400641012 /* kjuhtum.cpp in Sources */,
+				6989290918D4C57400641012 /* komp.cpp in Sources */,
+				6989290A18D4C57400641012 /* kr6nksud1.cpp in Sources */,
+				6989290B18D4C57400641012 /* loefailist.cpp in Sources */,
+				6989290C18D4C57400641012 /* mittesona.cpp in Sources */,
+				6989290D18D4C57400641012 /* mrf-gen.cpp in Sources */,
+				6989290E18D4C57400641012 /* mrf2yh2mrf.cpp in Sources */,
+				6989290F18D4C57400641012 /* open_d1.cpp in Sources */,
+				6989291018D4C57400641012 /* open_d2.cpp in Sources */,
+				6989291118D4C57400641012 /* open_dm.cpp in Sources */,
+				6989291218D4C57400641012 /* readeel.cpp in Sources */,
+				6989291318D4C57400641012 /* readends.cpp in Sources */,
+				6989291418D4C57400641012 /* readfgrs.cpp in Sources */,
+				6989291518D4C57400641012 /* readfms.cpp in Sources */,
+				6989291618D4C57400641012 /* readgrs.cpp in Sources */,
+				6989291718D4C57400641012 /* readloe.cpp in Sources */,
+				6989291818D4C57400641012 /* readprf.cpp in Sources */,
+				6989291918D4C57400641012 /* readsuf.cpp in Sources */,
+				6989291A18D4C57400641012 /* rfi.cpp in Sources */,
+				6989291B18D4C57400641012 /* rooma.cpp in Sources */,
+				6989291C18D4C57400641012 /* silp.cpp in Sources */,
+				6989291D18D4C57400641012 /* sloendid.cpp in Sources */,
+				6989291E18D4C57400641012 /* sobivus.cpp in Sources */,
+				6989291F18D4C57400641012 /* strcnv.cpp in Sources */,
+				6989292018D4C57400641012 /* strtosi.cpp in Sources */,
+				6989292118D4C57400641012 /* tloendid.cpp in Sources */,
+				6989292218D4C57400641012 /* tmk2t.cpp in Sources */,
+				6989292318D4C57400641012 /* tmk2tx.cpp in Sources */,
+				6989292418D4C57400641012 /* ty_lp.cpp in Sources */,
+				6989292518D4C57400641012 /* valjatr.cpp in Sources */,
+				6989293A18D4C6C200641012 /* fsjni.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB914B08733D8E0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = ooovmlinget;
+			};
+			name = Debug;
+		};
+		1DEB914C08733D8E0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = lib;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = ooovmlinget;
+			};
+			name = Release;
+		};
+		1DEB914F08733D8E0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+			};
+			name = Debug;
+		};
+		1DEB915008733D8E0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+					x86_64,
+				);
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = /Users/PRR/Release;
+				EXPORTED_SYMBOLS_FILE = ooovmlinget.exp;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					UNIX,
+					NDEBUG,
+					FSUTF16,
+				);
+				GCC_VERSION = 4.0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Headers;
+				INSTALL_MODE_FLAG = 0755;
+				INSTALL_PATH = /ooovmlinget;
+				PREBINDING = YES;
+				SDKROOT = macosx10.4;
+				"SDKROOT[arch=x86_64]" = macosx10.5;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB914A08733D8E0010E9CD /* Build configuration list for PBXNativeTarget "ooovmlinget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB914B08733D8E0010E9CD /* Debug */,
+				1DEB914C08733D8E0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB914E08733D8E0010E9CD /* Build configuration list for PBXProject "ooovmlinget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB914F08733D8E0010E9CD /* Debug */,
+				1DEB915008733D8E0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

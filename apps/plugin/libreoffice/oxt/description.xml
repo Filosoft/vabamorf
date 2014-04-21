@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://openoffice.org/extensions/description/2006"
+			 xmlns:d="http://openoffice.org/extensions/description/2006"
+			 xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<version value="4.1" />
+	<identifier value="ee.vabamorf.ooo.linguistic.et.Extension" />
+	<platform value="windows_x86,linux_x86,linux_x86_64,macosx_x86,macosx_x86_64,macosx_powerpc" />
+
+	<dependencies>
+		<OpenOffice.org-minimal-version value="3.0.1" d:name="OpenOffice.org 3.0.1" />
+	</dependencies>
+
+	<display-name>
+		<name lang="en">Estonian speller (Openmorph)</name>
+		<name lang="et">Eesti keele speller (Vabamorf)</name>
+	</display-name>
+
+<!--	<icon>
+		<default xlink:href="images/icon.png" />
+	</icon> -->
+
+	<publisher>
+		<name xlink:href="http://www.filosoft.ee/index_en.html" lang="en">Filosoft</name>
+		<name xlink:href="http://www.filosoft.ee/" lang="et">Filosoft</name>
+	</publisher>
+
+	<registration>
+		<simple-license accept-by="admin" default-license-id="lic-en" >
+			<license-text xlink:href="registration/license_en.txt" lang="en" license-id="lic-en" />
+			<license-text xlink:href="registration/license_et.txt" lang="et" license-id="lic-et" />
+		</simple-license>
+	</registration>
+
+</description>
