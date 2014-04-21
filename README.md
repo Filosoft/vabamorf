@@ -1,4 +1,4 @@
-openmorf
+vabamorf
 ========
 
 Eesti keele morfanalüsaator
