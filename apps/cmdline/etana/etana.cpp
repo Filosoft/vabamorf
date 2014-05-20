@@ -27,137 +27,154 @@ protected:
 		//printf("OnObjectReadStart(%s)\n", (const char *)szKey);
 		if (szKey.IsEmpty()) {
 			m_Writer.ObjectStart();
-			m_iCollectData--;
 		} else if (szKey=="/paragraphs") {
 			m_Writer.Key("paragraphs");
 			m_Writer.ArrayStart();
-		} else if (szKey.EndsWith("/sentences")) {
+			m_iCollectData--;
+		} else if (KeyMatch(szKey, "/paragraphs/%d")) {
 			m_Writer.ObjectStart();
+			m_iCollectData++;
+		} else if (KeyMatch(szKey, "/paragraphs/%d/sentences")) {
 			m_Writer.Key("sentences");
 			m_Writer.ArrayStart();
-		} else if (szKey.EndsWith("/words")) {
+			m_iCollectData--;
+		} else if (KeyMatch(szKey, "/paragraphs/%d/sentences/%d")) {
 			m_iCollectData++;
 		}
 	}
+
+	void SubKeys(const CFSAString szExcept, const CFSVar &Data) {
+		for (INTPTR ip=0; ip<Data.GetSize(); ip++) {
+			CFSAString szKey=Data.GetKey(ip);
+			if (szKey==szExcept) continue;
+			m_Writer.Key(szKey);
+			m_Writer.Val(Data[szKey]);
+		}
+	}
+
 	void OnValReadEnd(const CFSAString &szKey, CFSVar &Data) {
 		//printf("OnObjectReadEnd(%s, ...)\n", (const char *)szKey);
 		if (szKey.IsEmpty()) {
+			SubKeys("paragraphs", Data);
 			m_Writer.ObjectEnd();
+		} else if (szKey=="/paragraphs") {
+			m_Writer.ArrayEnd();
 			m_iCollectData++;
-		}  else if (szKey=="/paragraphs") {
-			m_Writer.ArrayEnd();
-		} else if (szKey.EndsWith("/sentences")) {
-			m_Writer.ArrayEnd();
+		} else if (KeyMatch(szKey, "/paragraphs/%d")) {
+			SubKeys("sentences", Data);
 			m_Writer.ObjectEnd();
-		} else if (szKey.EndsWith("/words")) {
-			m_Writer.ObjectStart();
+			m_iCollectData--;
+		} else if (KeyMatch(szKey, "/paragraphs/%d/sentences")) {
+			m_Writer.ArrayEnd();
+			m_iCollectData++;
+		} else if (KeyMatch(szKey, "/paragraphs/%d/sentences/%d")) {
+			if (Data.KeyExist("words")) {
+				CFSVar &Words=Data["words"];
 
-			if (m_Settings.m_szCommand=="spell") {
+				if (m_Settings.m_szCommand=="spell") {
 
-				m_Morf.SetFlags(MF_DFLT_SPL);
-				m_Morf.SetMaxTasand();
-				m_Morf.Clr();
+					m_Morf.SetFlags(MF_DFLT_SPL);
+					m_Morf.SetMaxTasand();
+					m_Morf.Clr();
 
-				for (INTPTR ip=0; ip<Data.GetSize(); ip++) {
-					CFSVar &Word=Data[ip];
-					CFSWString szText=Word["text"].GetWString();
-					m_Morf.Set1(szText);
-					m_Morf.Tag<int>((int)ip, PRMS_TAGSINT);
-				}
-
-				LYLI Lyli;
-				bool bSpelling=true;
-				while (m_Morf.Flush(Lyli)) {
-					if (Lyli.lipp & PRMS_TAGSINT){
-						INTPTR ipPos=Lyli.ptr.arv;
-						Data[ipPos]["spelling"]=bSpelling;
-					} else if (Lyli.lipp & PRMS_MRF) {
-						bSpelling=Lyli.ptr.pMrfAnal->on_tulem();
+					for (INTPTR ip=0; ip<Words.GetSize(); ip++) {
+						CFSVar &Word=Words[ip];
+						CFSWString szText=Word["text"].GetWString();
+						m_Morf.Set1(szText);
+						m_Morf.Tag<int>((int)ip, PRMS_TAGSINT);
 					}
-				}
 
-				if (m_Settings.m_bSpellSuggest) {
-					for (INTPTR ip=0; ip<Data.GetSize(); ip++) {
-						if (!Data[ip]["spelling"].GetBool()) {
-							m_Morf.SetMaxTasand();
-							CFSVar Suggs;
-							Suggs.Cast(CFSVar::VAR_ARRAY);
-							Suggest(Data[ip]["text"].GetWString(), ip==0);
-							for (INTPTR ipSugg=0; ipSugg<GetSize(); ipSugg++) {
-								CFSWString szSugg;
-								GetItem(ipSugg, szSugg);
-								Suggs[ipSugg]=szSugg;
+					LYLI Lyli;
+					bool bSpelling=true;
+					while (m_Morf.Flush(Lyli)) {
+						if (Lyli.lipp & PRMS_TAGSINT){
+							INTPTR ipPos=Lyli.ptr.arv;
+							Words[ipPos]["spelling"]=bSpelling;
+						} else if (Lyli.lipp & PRMS_MRF) {
+							bSpelling=Lyli.ptr.pMrfAnal->on_tulem();
+						}
+					}
+
+					if (m_Settings.m_bSpellSuggest) {
+						for (INTPTR ip=0; ip<Words.GetSize(); ip++) {
+							if (!Words[ip]["spelling"].GetBool()) {
+								m_Morf.SetMaxTasand();
+								CFSVar Suggs;
+								Suggs.Cast(CFSVar::VAR_ARRAY);
+								Suggest(Words[ip]["text"].GetWString(), ip==0);
+								for (INTPTR ipSugg=0; ipSugg<GetSize(); ipSugg++) {
+									CFSWString szSugg;
+									GetItem(ipSugg, szSugg);
+									Suggs[ipSugg]=szSugg;
+								}
+								Words[ip]["suggestions"]=Suggs;
 							}
-							Data[ip]["suggestions"]=Suggs;
 						}
+					}
+
+				} else if (m_Settings.m_szCommand=="analyze") {
+
+					MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA;
+					if (m_Settings.m_bAnalyzeGuess) Flags|=MF_OLETA;
+					if (m_Settings.m_bAnalyzePhon) Flags|=MF_KR6NKSA;
+					m_Morf.SetFlags(Flags);
+					m_Morf.SetMaxTasand();
+					m_Morf.Clr();
+
+					CFSArray<CFSVar> Words2;
+					for (INTPTR ip=0; ip<Words.GetSize(); ip++) {
+						CFSVar &Word=Words[ip];
+						Words2.AddItem(Word);
+						CFSWString szText=Word["text"].GetWString();
+						m_Morf.Set1(szText);
+						m_Morf.Tag<int>((int)ip, PRMS_TAGSINT);
+					}
+					Words.Cleanup();
+					Words.Cast(CFSVar::VAR_ARRAY);
+
+					LYLI Lyli;
+					CFSVar Analysis;
+					Analysis.Cast(CFSVar::VAR_ARRAY);
+					INTPTR ipLastPos=-1;
+					INTPTR ipDeleted=0;
+
+					while (m_Morf.Flush(Lyli)) {
+						if (Lyli.lipp & PRMS_TAGSINT){
+							INTPTR ipPos=-ipDeleted+Lyli.ptr.arv;
+							if (ipLastPos==-1) {
+								Words2[ipPos]["analysis"]=Analysis;
+								ipLastPos=ipPos;
+							} else {
+								Words2[ipLastPos]["text"]=Words2[ipLastPos]["text"].GetAString()+" "+Words2[ipPos]["text"].GetAString();
+								Words2.RemoveItem(ipPos);
+								ipDeleted++;
+							}
+						} else if (Lyli.lipp & PRMS_MRF) {
+							Analysis.Cleanup();
+							Analysis.Cast(CFSVar::VAR_ARRAY);
+							ipLastPos=-1;
+							Lyli.ptr.pMrfAnal->StrctKomadLahku();
+							for (INTPTR ipTul=0; ipTul<Lyli.ptr.pMrfAnal->idxLast; ipTul++){
+								MRFTUL Tul=*(*Lyli.ptr.pMrfAnal)[(int)ipTul];
+								CFSVar Analysis1;
+								Analysis1["root"]=Tul.tyvi;
+								Analysis1["ending"]=Tul.lopp;
+								Analysis1["clitic"]=Tul.kigi;
+								Analysis1["partofspeech"]=Tul.sl;
+								CFSWString szForm=Tul.vormid; szForm.TrimRight(L", ");
+								Analysis1["form"]=szForm;
+								Analysis[ipTul]=Analysis1;
+							}
+						}
+					}
+
+					for (INTPTR ip=0; ip<Words2.GetSize(); ip++) {
+						Words[ip]=Words2[ip];
 					}
 				}
 
-			} else if (m_Settings.m_szCommand=="analyze") {
-
-				MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA;
-				if (m_Settings.m_bAnalyzeGuess) Flags|=MF_OLETA;
-				if (m_Settings.m_bAnalyzePhon) Flags|=MF_KR6NKSA;
-				m_Morf.SetFlags(Flags);
-				m_Morf.SetMaxTasand();
-				m_Morf.Clr();
-
-				CFSArray<CFSVar> Words;
-				for (INTPTR ip=0; ip<Data.GetSize(); ip++) {
-					CFSVar &Word=Data[ip];
-					Words.AddItem(Word);
-					CFSWString szText=Word["text"].GetWString();
-					m_Morf.Set1(szText);
-					m_Morf.Tag<int>((int)ip, PRMS_TAGSINT);
-				}
-				Data.Cleanup();
-				Data.Cast(CFSVar::VAR_ARRAY);
-
-				LYLI Lyli;
-				CFSVar Analysis;
-				Analysis.Cast(CFSVar::VAR_ARRAY);
-				INTPTR ipLastPos=-1;
-				INTPTR ipDeleted=0;
-
-				while (m_Morf.Flush(Lyli)) {
-					if (Lyli.lipp & PRMS_TAGSINT){
-						INTPTR ipPos=-ipDeleted+Lyli.ptr.arv;
-						if (ipLastPos==-1) {
-							Words[ipPos]["analysis"]=Analysis;
-							ipLastPos=ipPos;
-						} else {
-							Words[ipLastPos]["text"]=Words[ipLastPos]["text"].GetAString()+" "+Words[ipPos]["text"].GetAString();
-							Words.RemoveItem(ipPos);
-							ipDeleted++;
-						}
-					} else if (Lyli.lipp & PRMS_MRF) {
-						Analysis.Cleanup();
-						Analysis.Cast(CFSVar::VAR_ARRAY);
-						ipLastPos=-1;
-						Lyli.ptr.pMrfAnal->StrctKomadLahku();
-						for (INTPTR ipTul=0; ipTul<Lyli.ptr.pMrfAnal->idxLast; ipTul++){
-							MRFTUL Tul=*(*Lyli.ptr.pMrfAnal)[(int)ipTul];
-							CFSVar Analysis1;
-							Analysis1["root"]=Tul.tyvi;
-							Analysis1["ending"]=Tul.lopp;
-							Analysis1["clitic"]=Tul.kigi;
-							Analysis1["partofspeech"]=Tul.sl;
-							CFSWString szForm=Tul.vormid; szForm.TrimRight(L", ");
-							Analysis1["form"]=szForm;
-							Analysis[ipTul]=Analysis1;
-						}
-					}
-				}
-
-				for (INTPTR ip=0; ip<Words.GetSize(); ip++) {
-					Data[ip]=Words[ip];
-				}
 			}
-
-			m_Writer.Key("words");
 			m_Writer.Val(Data);
-
-			m_Writer.ObjectEnd();
 			m_iCollectData--;
 		}
 	}
@@ -181,6 +198,7 @@ protected:
 
 		return SPL_NOERROR;
 	}
+
 	void SetLevel(long lLevel) {
 		m_Morf.SetMaxTasand(lLevel);
 	}

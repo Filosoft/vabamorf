@@ -20,21 +20,33 @@ protected:
 	void OnValReadStart(const CFSAString &szKey) {
 		if (szKey.IsEmpty()) {
 			m_Writer.ObjectStart();
+		} else if (szKey=="/words") {
 			m_Writer.Key("words");
 			m_Writer.ArrayStart();
 			m_iCollectData--;
-			m_ipWordIndex=0;
-			m_szWordKey.Format("/words/%zd", m_ipWordIndex);
-		} else if (szKey==m_szWordKey) {
+		} else if (KeyMatch(szKey, "/words/%d")) {
 			m_iCollectData++;
 		}
 	}
+
+	void SubKeys(const CFSAString szExcept, const CFSVar &Data) {
+		for (INTPTR ip=0; ip<Data.GetSize(); ip++) {
+			CFSAString szKey=Data.GetKey(ip);
+			if (szKey==szExcept) continue;
+			m_Writer.Key(szKey);
+			m_Writer.Val(Data[szKey]);
+		}
+	}
+
 	void OnValReadEnd(const CFSAString &szKey, CFSVar &Data) {
 		if (szKey.IsEmpty()) {
-			m_Writer.ArrayEnd();
+			SubKeys("words", Data);
 			m_Writer.ObjectEnd();
+		} else if (szKey=="/words") {
+			m_Writer.ArrayEnd();
 			m_iCollectData++;
-		} else if (szKey==m_szWordKey) {
+		} else if (KeyMatch(szKey, "/words/%d")) {
+
 			const CFSVar &Word=Data;
 
 			MRFTUL Input;
@@ -56,9 +68,6 @@ protected:
 			}
 
 			m_Writer.Val(Data);
-
-			m_ipWordIndex++;
-			m_szWordKey.Format("/words/%zd", m_ipWordIndex);
 			m_iCollectData--;
 		}
 	}
@@ -67,9 +76,6 @@ protected:
 	ETMRFAS &m_Morf;
 	CSettings m_Settings;
 	CJSONWriter m_Writer;
-
-	INTPTR m_ipWordIndex;
-	CFSAString m_szWordKey;
 };
 
 int PrintUsage() {
