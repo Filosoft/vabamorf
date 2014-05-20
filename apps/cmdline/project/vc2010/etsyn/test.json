@@ -1,27 +1,27 @@
 {
-	words: [
+	"words": [
 		{
-			lemma: "pood",
-			partofspeech: "S",
-			form: "sg p"
+			"lemma": "pood",
+			"partofspeech": "S",
+			"form": "sg p"
 		},
 		{
-			lemma: "pooma",
-			partofspeech: "V",
-			form: "ti"
+			"lemma": "pooma",
+			"partofspeech": "V",
+			"form": "ti"
 		},
 		{
-			lemma: "kaitse",
-			form: "sg g"
+			"lemma": "kaitse",
+			"form": "sg g"
 		},
 		{
-			lemma: "palk",
-			form: "sg kom"
+			"lemma": "palk",
+			"form": "sg kom"
 		},
 		{
-			lemma: "palk",
-			form: "sg kom",
-			hint: "palga"
+			"lemma": "palk",
+			"form": "sg kom",
+			"hint": "palga"
 		}
 	]
 }

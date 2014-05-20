@@ -1,47 +1,47 @@
 {
-	paragraphs: [
+	"paragraphs": [
 		{
-			sentences: [
+			"sentences": [
 				{
-					words: [
+					"words": [
 						{
-							text: "Esimeses"
+							"text": "Esimeses"
 						},
 						{
-							text: "vannaema"
+							"text": "vannaema"
 						},
 						{
-							text: "New"
+							"text": "New"
 						},
 						{
-							text: "York"
+							"text": "York"
 						},
 						{
-							text: "."
+							"text": "."
 						}
 					]
 				},
 				{
-					words: [
+					"words": [
 						{
-							text: "mine"
+							"text": "mine"
 						},
 						{
-							text: "poodi"
+							"text": "poodi"
 						},
 						{
-							text: "."
+							"text": "."
 						}
 					]
 				}
 			]
 		},
 		{
-			sentences: [
+			"sentences": [
 				{
-						words: [
+						"words": [
 							{
-								text: "viimane"
+								"text": "viimane"
 							}
 						]
 				}
