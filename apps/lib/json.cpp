@@ -238,7 +238,7 @@ void CJSONWriter::Val(const CFSVar &Var) {
 		case CFSVar::VAR_ARRAY:
 			ArrayStart();
 			for (INTPTR ip=0; ip<Var.GetSize(); ip++) {
-				Val(Var[Var.GetKey(ip)]);
+				Val(Var[ip]);
 			}
 			ArrayEnd();
 		break;
