@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Vabamorfi Java integratsiooni näide</title>
+</head>
+<body>
+	<h2><i>Native</i> teegi kompileerimine</h2>
+	<div>Windowsil avage apps/cmdline/project/vc2010/cmdline.sln ja kompileerige java projekt</div>
+	<div>Unixil käivitage kataloogis apps/cmdline/project/unix make -f Makefile.java cpp</div>
+
+	<h2>Java liidese ja testprogrammi kompileerimine</h2>
+	<div>Windowsil kompileerige apps/cmdline/java kataloogis olevad java failid</div>
+	<div>Unixil käivitage kataloogis apps/cmdline/project/unix make -f Makefile.java java</div>
+
+	<h2>Kasutamine</h2>
+	<ul>
+	<li>Kopeerige kompileeritud <i>native</i> teek (morph_jni.dll või libmorph_jni.so) süsteemi teele.
+	<li>Kopeerige et.dct kompileeritud Java klasside juurde.
+	<li>Käivitage MorphTest andes parameetriteks analüüsitavad sõnad. NB! mõni konsool ei pruugi hakkama saada täpitähtedega.
+	<li>Muutke soovi korral MorphTest.java faili seadistamaks tarkvara tööd.
+	</ul>
+
+</body>
+</html>

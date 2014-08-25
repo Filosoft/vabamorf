@@ -1,0 +1,9 @@
+# Unix exports
+{
+	global:
+		Java_ee_filosoft_vabamorf_Morph_init;
+		Java_ee_filosoft_vabamorf_Morph_terminate;
+		Java_ee_filosoft_vabamorf_Morph_analyze;
+		Java_ee_filosoft_vabamorf_Morph_synthesize;
+	local: *;
+};
