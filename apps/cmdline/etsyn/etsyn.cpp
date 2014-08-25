@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
 			OutFile.Open(OutFileName, "wb");
 		}
 
-		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA;
+		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_GEN;
 		if (Settings.m_bGuess) Flags|=MF_OLETA;
 		if (Settings.m_bPhon) Flags|=MF_KR6NKSA;
 
