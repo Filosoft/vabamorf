@@ -1,0 +1,11 @@
+# Unix exports
+{
+	global:
+		Java_ee_filosoft_vabamorf_Linguistic_open;
+		Java_ee_filosoft_vabamorf_Linguistic_close;
+		Java_ee_filosoft_vabamorf_Linguistic_spellWord;
+		Java_ee_filosoft_vabamorf_Linguistic_suggest;
+		Java_ee_filosoft_vabamorf_Linguistic_analyze;
+		Java_ee_filosoft_vabamorf_Linguistic_synthesize;
+	local: *;
+};

@@ -13,24 +13,6 @@ class CMyLinguistic : public CLinguistic {
 public:
 };
 
-class CMySuggestor : public CSuggestor{
-public:
-	CMySuggestor(CMyLinguistic *pLinguistic) {
-		m_pLinguistic=pLinguistic;
-	}
-
-protected:
-	virtual SPLRESULT SpellWord(const CFSWString &szWord, CFSWString &szWordReal, long *pLevel) {
-		return m_pLinguistic->SpellWord(szWord, &szWordReal, pLevel);
-	}
-
-	virtual void SetLevel(long lLevel) {
-		m_pLinguistic->SetLevel(lLevel);
-	}
-
-	CMyLinguistic *m_pLinguistic;
-};
-
 extern "C" {
 
 GNULDFIX_EXPORT jboolean JNICALL Java_ee_vabamorf_ooo_linguistic_et_Linguistic_init
@@ -90,16 +72,14 @@ GNULDFIX_EXPORT jboolean JNICALL Java_ee_vabamorf_ooo_linguistic_et_Linguistic_s
 			return JNI_TRUE;
 		}
 
-		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_SPL|MF_LUBAMITMIKUO;
 		if (!bIsSpellUpperCase) {
 			CFSWString szLower=Word.m_szWord.ToLower();
 			CFSWString szUpper=Word.m_szWord.ToUpper();
 			if (szUpper==Word.m_szWord && szLower!=Word.m_szWord) return JNI_TRUE;
-			Flags&=(~MF_LYHREZH);
+			pLinguistic->m_bAbbrevations=false;
 		}
-		else Flags|=MF_LYHREZH;
-		pLinguistic->SetFlags(Flags);
-		pLinguistic->SetLevel(100);
+		else pLinguistic->m_bAbbrevations=true;;
+
 		if (pLinguistic->SpellWord(Word.m_szWord)==0) return JNI_TRUE;
 		return JNI_FALSE;
 	} catch (...) {
@@ -122,15 +102,10 @@ GNULDFIX_EXPORT jobjectArray JNICALL Java_ee_vabamorf_ooo_linguistic_et_Linguist
 	}
 
 	try {
-		pLinguistic->SetFlags(MF_DFLT_SUG|MF_LUBAMITMIKUO);
-		pLinguistic->SetLevel(100);
-		CMySuggestor Suggestor(pLinguistic);
-		Suggestor.Suggest(Word.m_szWord);
-		jobjectArray suggs=(jobjectArray)env->NewObjectArray(Suggestor.GetSize(), env->FindClass("java/lang/String"), 0);
-		for (INTPTR ip=0; ip<Suggestor.GetSize(); ip++) {
-			CFSWString szWord;
-			Suggestor.GetItem(ip, szWord);
-			env->SetObjectArrayElement(suggs, ip, FSJNIWtoStr(env, szWord));
+		CFSWStringArray Suggestions=pLinguistic->Suggest(Word.m_szWord);
+		jobjectArray suggs=(jobjectArray)env->NewObjectArray(Suggestions.GetSize(), env->FindClass("java/lang/String"), 0);
+		for (INTPTR ip=0; ip<Suggestions.GetSize(); ip++) {
+			env->SetObjectArrayElement(suggs, ip, FSJNIWtoStr(env, Suggestions[ip]));
 		}
 		return suggs;
 	} catch(...) {

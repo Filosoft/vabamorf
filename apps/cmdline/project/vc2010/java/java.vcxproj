@@ -66,25 +66,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(Platform)_$(Configuration)\</IntDir>
-    <TargetName>morph_jni</TargetName>
+    <TargetName>linguistic_jni</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(Platform)_$(Configuration)\</IntDir>
-    <TargetName>morph_jni</TargetName>
+    <TargetName>linguistic_jni</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(Platform)_$(Configuration)\</IntDir>
-    <TargetName>morph_jni</TargetName>
+    <TargetName>linguistic_jni</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(Platform)_$(Configuration)\</IntDir>
-    <TargetName>morph_jni</TargetName>
+    <TargetName>linguistic_jni</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -257,7 +257,9 @@
     <ClCompile Include="..\..\..\..\..\lib\fsc\fstrace.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\fsc\fsvar.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\fsc\fswav.cpp" />
-    <ClCompile Include="..\..\..\java\morph.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\proof\linguistic.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp" />
+    <ClCompile Include="..\..\..\java\linguistic_jni.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

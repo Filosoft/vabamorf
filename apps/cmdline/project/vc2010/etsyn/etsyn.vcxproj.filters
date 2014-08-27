@@ -22,6 +22,9 @@
     <Filter Include="etana">
       <UniqueIdentifier>{60e68931-8790-479c-96d6-e4ae2684bc17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proof">
+      <UniqueIdentifier>{10b6673e-3943-434b-a211-f8804a00e909}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\etsyn\etsyn.cpp">
@@ -311,6 +314,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\lib\etana\valjatr.cpp">
       <Filter>etana</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\linguistic.cpp">
+      <Filter>proof</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

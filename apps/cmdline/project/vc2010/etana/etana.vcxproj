@@ -245,6 +245,7 @@
     <ClCompile Include="..\..\..\..\..\lib\fsc\fstrace.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\fsc\fsvar.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\fsc\fswav.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\proof\linguistic.cpp" />
     <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp" />
     <ClCompile Include="..\..\..\..\lib\json.cpp" />
     <ClCompile Include="..\..\..\etana\etana.cpp" />

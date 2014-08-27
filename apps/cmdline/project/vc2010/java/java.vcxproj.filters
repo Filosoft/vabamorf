@@ -19,6 +19,9 @@
     <Filter Include="etana">
       <UniqueIdentifier>{37df6a39-60b4-4c47-838e-742d1cf03866}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proof">
+      <UniqueIdentifier>{779930d7-56b3-4f5b-a06f-e2f1992e3606}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\lib\fsc\fscinit.cpp">
@@ -71,9 +74,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\lib\fsc\fsjni\fsjni.cpp">
       <Filter>fsc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\java\morph.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\lib\etana\adhoc.cpp">
       <Filter>etana</Filter>
@@ -308,6 +308,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\lib\etana\valjatr.cpp">
       <Filter>etana</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\java\linguistic_jni.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\linguistic.cpp">
+      <Filter>proof</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp">
+      <Filter>proof</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
