@@ -48,7 +48,7 @@ JNIEXPORT void JNICALL Java_ee_filosoft_vabamorf_Linguistic_close(JNIEnv *env, j
 }
 
 // Speller
-jint JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWord(JNIEnv *env, jobject jobj, jstring word)
+JNIEXPORT jint JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWord(JNIEnv *env, jobject jobj, jstring word)
 {
 	FUNCTION_HEADER;
 	if (!linguistic) return -1;
@@ -60,7 +60,7 @@ jint JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWord(JNIEnv *env, jobject
 	}
 }
 
-jintArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWords(JNIEnv *env, jobject jobj, jobjectArray words)
+JNIEXPORT jintArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWords(JNIEnv *env, jobject jobj, jobjectArray words)
 {
 	FUNCTION_HEADER;
 	if (!linguistic) return NULL;
@@ -85,7 +85,7 @@ jintArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWords(JNIEnv *env, j
 	}
 }
 
-jobjectArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_suggest(JNIEnv *env, jobject jobj, jstring word, jboolean startSentence)
+JNIEXPORT jobjectArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_suggest(JNIEnv *env, jobject jobj, jstring word, jboolean startSentence)
 {
 	FUNCTION_HEADER;
 	if (!linguistic) return NULL;
