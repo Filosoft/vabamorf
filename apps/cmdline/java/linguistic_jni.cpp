@@ -48,14 +48,38 @@ JNIEXPORT void JNICALL Java_ee_filosoft_vabamorf_Linguistic_close(JNIEnv *env, j
 }
 
 // Speller
-jboolean JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWord(JNIEnv *env, jobject jobj, jstring word)
+jint JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWord(JNIEnv *env, jobject jobj, jstring word)
+{
+	FUNCTION_HEADER;
+	if (!linguistic) return -1;
+
+	try {
+		return linguistic->SpellWord(FSJNIStrtoW(env, word));
+	} catch (...) {
+		return -1;
+	}
+}
+
+jintArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_spellWords(JNIEnv *env, jobject jobj, jobjectArray words)
 {
 	FUNCTION_HEADER;
 	if (!linguistic) return NULL;
 
 	try {
-		if (linguistic->SpellWord(FSJNIStrtoW(env, word))==SPL_NOERROR) return JNI_TRUE;
-		return JNI_FALSE;
+		CFSArray<CPTWord> ptwords;
+		INTPTR ipSize = env->GetArrayLength(words);
+		for (INTPTR ip=0; ip<ipSize; ip++) {
+			ptwords.AddItem(FSJNIStrtoW(env, (jstring)env->GetObjectArrayElement(words, ip)));
+		}
+
+		CFSArray<SPLRESULT> splresults = linguistic->SpellWords(ptwords);
+
+		jintArray result = env->NewIntArray(splresults.GetSize());
+		for (INTPTR ip=0; ip<splresults.GetSize(); ip++) {
+			jint result1 = splresults[ip];
+			env->SetIntArrayRegion(result, ip, 1, &result1);
+		}
+		return result;
 	} catch (...) {
 		return NULL;
 	}

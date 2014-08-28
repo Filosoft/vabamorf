@@ -9,13 +9,20 @@ class LinguisticTest {
 		// linguistic.phon = true;
 		
 		System.out.println("Init: " + linguistic.open("et.dct"));
+
+		int[] spellings = linguistic.spellWords(args);
+		System.out.println("spellWords(...)");
+		for (int i = 0; spellings != null && i < args.length; i++) {
+			System.out.println("  " + args[i] + " - " + spellings[i]);
+		}
+		
 		for (int i = 0; i < args.length; i++) {
 
-			System.out.println("spell(" + args[i] + ")");
-			boolean spellResult = linguistic.spellWord(args[i]);
-			System.out.println("    " + spellResult);
-			if (!spellResult) {
-				System.out.println("suggest(" + args[i] + ")");
+			System.out.println("spellWord(" + args[i] + ")");
+			int spellResult = linguistic.spellWord(args[i]);
+			System.out.println("  " + spellResult);
+			if (spellResult > 0) {
+				System.out.println("  suggest(" + args[i] + ")");
 				String suggs[] = linguistic.suggest(args[i]);
 				for (int j = 0; suggs != null && j < suggs.length; j++) {
 					System.out.println("    " + suggs[j]);

@@ -18,7 +18,8 @@ public class Linguistic {
 	public native boolean open(String fileName);
 	public native void close();
 	
-	public native boolean spellWord(String word);
+	public native int spellWord(String word);
+	public native int[] spellWords(String words[]);
 	public String[] suggest(String word) { return suggest(word, false); }
 	public native String[] suggest(String word, boolean startSentence);
 	
