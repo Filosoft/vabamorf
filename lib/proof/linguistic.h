@@ -47,7 +47,7 @@ public:
 	SPLRESULT SpellWord(const CFSWString &szWord);
 
 /**
-* Checks spelling of word sequence. HAs primitive knowledge of phrases like New York.
+* Checks spelling of word sequence. Has primitive knowledge of phrases like New York.
 * Throws exception on error.
 * @param[in] Words Words to check.
 * @return list of results per work. SPL_NOERROR if specific word is correct. Result size is equal to word list size.
@@ -75,16 +75,31 @@ public:
 * Synthesizes a word according to provided morphological information.
 * Throws exception on error.
 * @param[in] MorphInfo Morphological information about the word.
-* @param[in] szHint Paradigm hint for a word palgi/palga
+* @param[in] szHint Paradigm hint for a word (sg g) eg. palgi/palga
 * @return list of morphologically detailed generated words. Form a real word by combining m_szRoot+m_szEnding+m_szClitic;
 */
 	CFSArray<CMorphInfo> Synthesize(const CMorphInfo &MorphInfo, CFSWString szHint);
 
 public:
-	bool m_bAbbrevations; // Analyze abbrevations stricktly. Applies to Spell, Analyze
-	bool m_bRomanNumerals; // Analyze Roman numerals. Applies to Speller, Analyze
-	bool m_bGuess; // Guess words. Applier to Analyze, Synthesize
-	bool m_bPhonetic; // Phenetic transcription. Applies to Analyze, Synthesize
+/**
+* Analyze abbrevations stricktly. Applies to Spell, Analyze
+*/
+	bool m_bAbbrevations;
+
+/**
+*  Analyze Roman numerals. Applies to Spell, Analyze
+*/
+	bool m_bRomanNumerals;
+
+/**
+* Guess words. Applier to Analyze, Synthesize
+*/
+	bool m_bGuess;
+
+/**
+* Generates phenetic transcription. Applies to Analyze, Synthesize
+*/
+	bool m_bPhonetic;
 
 protected:
 	ETMRFAS *m_pMorph;
