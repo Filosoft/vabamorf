@@ -8,14 +8,14 @@ LibreOffice'i spelleri kompileerimiseks:
   Projektifail: cpp/ooofslinget.xcodeproj
   Väljundfail: ooofslinget.mac
 1.3.1 x86-32 Linuxil gcc-ga
-  Käivitage make -f unix/Makefile.cpp
-  Väljundfail: ooofslinget.lin_x86
+  Käivitage make -f unix/Makefile_cpp
+  Väljundfail: oofslinget.lin -> ooofslinget.lin_x86
 1.3.2 x86-64 Linuxil gcc-ga
-  Käivitage make -f unix/Makefile.cpp
-  Väljundfail: ooofslinget.lin_x64
+  Käivitage make -f unix/Makefile_cpp
+  Väljundfail: oofslinget.lin -> ooofslinget.lin_x64
 
 2. Kompileeri LibreOffice arenduskeskkonnas java kood
-  Käivitage make -f unix/Makefile.java
+  Käivitage make -f unix/Makefile_java
   Kopeerige väljundfailid *.jar oxt/ kataloogi
   
 3. Lisage sõnastik
