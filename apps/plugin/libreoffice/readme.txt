@@ -19,7 +19,7 @@ LibreOffice'i spelleri kompileerimiseks:
   Kopeerige väljundfailid *.jar oxt/ kataloogi
   
 3. Lisage sõnastik
-  Kopeerige /dct/et.dct -> oxt/fslinget.lex
+  Kopeerige /dct/et.dct -> oxt/ kataloogi
 
 4. Valmistage installipakk
   Kui 7za ei asu PATHis, kopeerige see oxt kataloogi
