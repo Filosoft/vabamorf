@@ -1,0 +1,361 @@
+suf:0093|S+0-0=0@masin S+0-0=0@masina!\S\.2+9!
+suf:0093|S+0-0=0@t<öö!\S\.26+9!%öö>ö[I%
+suf:0093|S+0-0=0@p<uu!\S\.26+9!%uu>u[I%
+suf:0093|S+0-0=0@m<ees S+0-0=0@mehe S+0-0=0@mees[TE!\S\.13^I^! **$PL.P$: S+0-0=0@mehi; $ADT$: --
+suf:0093|S+0-0=0@kiri S+0-0=0@k<irja S+0-0=0@kirja!\S\.24^U^!
+suf:0093|S+0-0=0@t<ee!\S\.26+9!%ee>e[I%
+suf:0093|S+0-0=0@k<oht S+0-0=0@k<ohta S+0-0=0@koha!\S\.22^I^!
+suf:0093|S+0-0=0@p<äev S+0-0=0@p<äeva S+0-0=0@päeva!\S\.22^I^+7!
+suf:0093|S+0-0=0@vahend S+0-0=0@vahendi!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@l<aud S+0-0=0@l<auda S+0-0=0@laua!\S\.22^U^!
+suf:0093|S+0-0=0@kivi S+0-0=0@k<ivvi!\S\.17^E^!
+suf:0093|S+0-0=0@m<eeter S+0-0=0@m<eetri!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@j<oon S+0-0=0@joone S+0-0=0@joon[TE!\S\.13^I^+7! **$ADT$: S+0-0=0@j<oon[DE
+suf:0093|S+0-0=0@l<eht S+0-0=0@l<ehte S+0-0=0@lehe!\S\.22^I^!
+suf:0093|S+0-0=0@süst<eem S+0-0=0@süst<eemi S+0-0=0@süsteemi!\S\.22^E^+7!
+suf:0093|S+0-0=0@vesi S+0-0=0@v<ee S+0-0=0@v<e[TT S+0-0=0@ve[TE!\S\.15!
+suf:0093|S+0-0=0@k<ord S+0-0=0@k<orda S+0-0=0@korra!\S\.22^I^!
+suf:0093|S+0-0=0@t<aim S+0-0=0@t<aime S+0-0=0@taime!\S\.22^I^!
+suf:0093|S+d-0=0@kujuline S+d-0=0@kujulise S+d-0=0@kujulis[T!\A\.12^I^+7!
+suf:0093|S+0-0=0@r<uum S+0-0=0@r<uumi S+0-0=0@ruumi!\S\.22^E^+3!
+suf:0093|S+0-0=0@aine S+0-0=0@<aine!\S\.6+9!
+suf:0093|S+0-0=0@p<unkt S+0-0=0@p<unkti S+0-0=0@punkti!\S\.22^E^!
+suf:0093|S+0-0=0@ala (S+0-0=0@alla)!\S\.17^U^!
+suf:0093|S+0-0=0@m<äng S+0-0=0@m<ängu S+0-0=0@mängu!\S\.22^E^!
+suf:0093|S+d-0=0@rikas S+d-0=0@r<ikka!\A\.7+9!
+suf:0093|S+0-0=0@seade S+0-0=0@s<eadme!\S\.5+9!
+suf:0093|S+0-0=0@v<orm S+0-0=0@v<ormi S+0-0=0@vormi!\S\.22^E^!
+suf:0093|AB+d-0=0@v<õitu!\DA\!
+suf:0093|S+0-0=0@anne S+0-0=0@<ande!\S\.6+9!
+suf:0093|S+0-0=0@k<iht S+0-0=0@k<ihti S+0-0=0@kihi!\S\.22^E^!
+suf:0093|S+0-0=0@riie S+0-0=0@r<iide!\S\.6+9!
+suf:0093|S+0-0=0@l<oom S+0-0=0@l<ooma S+0-0=0@looma!\S\.22^I^!
+suf:0093|S+0-0=0@võime S+0-0=0@v<õime!\S\.6+9!
+suf:0093|S+0-0=0@m<ärk S+0-0=0@m<ärki S+0-0=0@märgi!\S\.22^E^!
+suf:0093|S+0-0=0@p<ea!\S\.26! S+0-0=0@**$PL.P$: S+0-0=0@p<ä[ID
+suf:0093|S+0-0=0@tehnika!\S\.1+9!
+suf:0093|S+0-0=0@sõna (S+0-0=0@s<õnna)!\S\.17^U^!
+suf:0093|S+0-0=0@t<ööstus S+0-0=0@t<ööstuse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+d-0=0@alune S+d-0=0@aluse S+d-0=0@alus[T!\A\.10+9!
+suf:0093|S+0-0=0@võte S+0-0=0@v<õtte!\S\.6+9!
+suf:0093|S+0-0=0@osa S+0-0=0@<ossa!\S\.17^I^+7!
+suf:0093|S+0-0=0@hape S+0-0=0@h<appe!\S\.6+9!
+suf:0093|S+0-0=0@õl]i (S+0-0=0@<õl]li)!\S\.17!
+suf:0093|S+0-0=0@n<urk S+0-0=0@n<urka S+0-0=0@nurga!\S\.22^I^!
+suf:0093|S+0-0=0@j<aam S+0-0=0@j<aama S+0-0=0@jaama!\S\.22^U^!
+suf:0093|S+d-0=0@v<õistlus S+d-0=0@v<õistluse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@h<ein S+0-0=0@h<eina S+0-0=0@heina S+0-0=0@hein[TE!\S\.23^U^!&&(!\S\.22^U^!)
+suf:0093|S+0-0=0@j<õud S+0-0=0@j<õudu S+0-0=0@j<õu!\S\.22^E^!
+suf:0093|S+0-0=0@n<ahk S+0-0=0@n<ahka S+0-0=0@naha!\S\.22^U^!
+suf:0093|S+0-0=0@paber S+0-0=0@paberi!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@tehas S+0-0=0@tehase!\S\.9+9!
+suf:0093|S+0-0=0@p<ind S+0-0=0@p<inda S+0-0=0@pinna!\S\.22^U^!
+suf:0093|S+0-0=0@tunne S+0-0=0@t<unde!\S\.6+9!
+suf:0093|S+0-0=0@rohi S+0-0=0@r<ohtu S+0-0=0@rohu!\S\.24^E^!
+suf:0093|S+0-0=0@p?õlet<ik S+0-0=0@p?õlet<ikku S+0-0=0@p?õletiku!\S\.25^E^+11!
+suf:0093|S+0-0=0@k<äik S+0-0=0@k<äiku S+0-0=0@käigu!\S\.22^E^!
+suf:0093|SN+d-0=0@k<aupa!\D\!
+suf:0093|S+0-0=0@s<õit S+0-0=0@s<õitu S+0-0=0@sõidu!\S\.22^E^!
+suf:0093|S+0-0=0@kogu (S+0-0=0@k<okku)!\S\.17!
+suf:0093|S+0-0=0@j<alg S+0-0=0@j<alga S+0-0=0@jala!\S\.22^U^!
+suf:0093|S+0-0=0@tul]i S+0-0=0@tule S+0-0=0@tulle!\S\.20! **$SG.P$: S+0-0=0@t<ul[D
+suf:0093|SD+0-0=0@olek SD+0-0=0@oleku!\S\.2+9!
+suf:0093|S+0-0=0@t<ükk S+0-0=0@t<ükki S+0-0=0@tüki!\S\.22^E^!
+suf:0093|S+0-0=0@l<ill S+0-0=0@l<ille S+0-0=0@lille!\S\.22^I^!
+suf:0093|S+0-0=0@k<ool] S+0-0=0@k<ool]i S+0-0=0@kool]i!\S\.22^E^!
+suf:0093|S+0-0=0@pl<aan] S+0-0=0@pl<aan]i S+0-0=0@plaan]i!\S\.22^E^!
+suf:0093|S+0-0=0@t<ööline S+0-0=0@t<öölise S+0-0=0@t<öölis[T!\S\.12^I^+7!&&(!\S\.10+7!)
+suf:0093|S+0-0=0@materjal S+0-0=0@materjali!\S\.19^E^+7!
+suf:0093|S+d-0=0@t<äis S+d-0=0@täie S+d-0=0@t<äi[T S+d-0=0@täi[TE (S+d-0=0@t<äis]i)!\AS\.14^I^! **$ADT$: S+d-0=0@t<äi[DE
+suf:0093|S+0-0=0@toru S+0-0=0@torru!\S\.17!
+suf:0093|SABCGN+d-0=0@p<oolne SABCGN+d-0=0@p<oolse!\A\.2+9!
+suf:0093|S+0-0=0@minek S+0-0=0@mineku!\SW\.2+9!
+suf:0093|S+0-0=0@?apar<aat S+0-0=0@?apar<aati S+0-0=0@?aparaadi!\S\.22^E^+7!
+suf:0093|S+0-0=0@r<iist S+0-0=0@r<iista S+0-0=0@riista!\S\.22^U^!
+suf:0093|S+0-0=0@v<õrk S+0-0=0@v<õrku S+0-0=0@võrgu!\S\.22^E^!
+suf:0093|S+0-0=0@kala (S+0-0=0@k<alla)!\S\.17^U^!
+suf:0093|S+0-0=0@<auk S+0-0=0@<auku S+0-0=0@augu!\S\.22^E^!
+suf:0093|S+0-0=0@l<aul S+0-0=0@l<aulu S+0-0=0@laulu!\S\.22^E^!
+suf:0093|S+0-0=0@tõbi S+0-0=0@tõbe S+0-0=0@tõve S+0-0=0@t<õppe!\S\.21!
+suf:0093|S+0-0=0@kasvatus S+0-0=0@kasvatuse!\S\.11^I^+7!
+suf:0093|S+0-0=0@n<õu!\S\.17!
+suf:0093|S+0-0=0@koda S+0-0=0@koja S+0-0=0@k<otta!\S\.18!
+suf:0093|S+0-0=0@raamat S+0-0=0@raamatu!\S\.2+9!
+suf:0093|S+0-0=0@raha (S+0-0=0@r<ahha)!\S\.17!
+suf:0093|S+0-0=0@r<aud S+0-0=0@r<auda S+0-0=0@raua!\S\.22^U^!
+suf:0093|S+0-0=0@v<ool S+0-0=0@v<oolu S+0-0=0@voolu!\S\.22^E^!
+suf:0093|S+0-0=0@elu S+0-0=0@<ellu!\S\.17!
+suf:0093|S+0-0=0@pl<aat] S+0-0=0@pl<aat]i S+0-0=0@plaad]i!\S\.22^E^!
+suf:0093|S+0-0=0@maja S+0-0=0@m<ajja!\S\.17^U^!
+suf:0093|S+0-0=0@l<uu!\S\.26!
+suf:0093|S+d-0=0@vastane S+d-0=0@vastase S+d-0=0@vastas[T!\A\.10+9!
+suf:0093|S+0-0=0@panek S+0-0=0@paneku!\S\.2+9!
+suf:0093|S+0-0=0@<õigus S+0-0=0@<õiguse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@poliitika!\S\.1+9!
+suf:0093|S+0-0=0@t<un]d S+0-0=0@t<un]di S+0-0=0@tun]ni!\S\.22^E^!
+suf:0093|SN+0-0=0@pidi!\D\!
+suf:0093|S+0-0=0@l<ind S+0-0=0@l<indu S+0-0=0@linnu!\S\.22^E^!
+suf:0093|S+0-0=0@kate S+0-0=0@k<atte!\S\.6+9!
+suf:0093|S+0-0=0@s<ort S+0-0=0@s<orti S+0-0=0@sordi!\S\.22^E^!
+suf:0093|S+0-0=0@k<as]t S+0-0=0@k<as]ti S+0-0=0@kas]ti!\S\.22^E^!
+suf:0093|SG+d-0=0@<aegne SG+d-0=0@<aegse!\A\.2+9!
+suf:0093|S+0-0=0@k<aal S+0-0=0@k<aalu S+0-0=0@kaalu!\S\.22^E^!
+suf:0093|S+d-0=0@k<indel S+d-0=0@k<indla!\A\.2+9!
+suf:0093|S+0-0=0@l<aev S+0-0=0@l<aeva S+0-0=0@laeva!\S\.22^U^!
+suf:0093|S+0-0=0@p?eri<ood S+0-0=0@p?eri<oodi S+0-0=0@p?erioodi!\S\.22^E^+7!
+suf:0093|S+0-0=0@pidamine S+0-0=0@pidamise S+0-0=0@pidamis[T!\S\.12^I^+7!
+suf:0093|S+0-0=0@õpetus S+0-0=0@õpetuse!\S\.11^I^+7!
+suf:0093|S+0-0=0@<aed S+0-0=0@<aeda S+0-0=0@aia!\S\.22^U^!
+suf:0093|S+0-0=0@kult<uur S+0-0=0@kult<uuri S+0-0=0@kultuuri!\S\.22^E^+7!
+suf:0093|S+0-0=0@j<ooks S+0-0=0@j<ooksu S+0-0=0@jooksu!\S\.22^E^!
+suf:0093|S+0-0=0@h<aigus S+0-0=0@h<aiguse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@ahi S+0-0=0@<ahju S+0-0=0@ahju!\S\.24^E^!
+suf:0093|S+0-0=0@vabrik S+0-0=0@vabriku!\S\.2+9!
+suf:0093|S+0-0=0@s<ilm S+0-0=0@s<ilma S+0-0=0@silma!\S\.22^I^!
+suf:0093|S+0-0=0@t<eadus S+0-0=0@t<eaduse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@k<ot]t S+0-0=0@k<ot]ti S+0-0=0@kot]i!\S\.22^E^!
+suf:0093|S+d-0=0@t<aoline S+d-0=0@t<aolise S+d-0=0@t<aolis[T!\A\.12^I^+7!&&(!\A\.10+7!)
+suf:0093|S+0-0=0@k<arp S+0-0=0@k<arpi S+0-0=0@karbi!\S\.22^E^!
+suf:0093|S+0-0=0@m<eister S+0-0=0@m<eistri!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@ratas S+0-0=0@r<atta!\S\.7+9!
+suf:0093|S+0-0=0@m<ets S+0-0=0@m<etsa S+0-0=0@metsa!\S\.22^I^!
+suf:0093|S+0-0=0@j<uht S+0-0=0@j<uhti S+0-0=0@juhi!\S\.22^E^!
+suf:0093|S+0-0=0@vägi S+0-0=0@väge S+0-0=0@v<äe S+0-0=0@v<äkke!\S\.21!
+suf:0093|S+d-0=0@pärane S+d-0=0@pärase S+d-0=0@päras[T!\A\.10+9!
+suf:0093|S+0-0=0@s<ein S+0-0=0@s<eina S+0-0=0@seina S+0-0=0@sein[TE!\S\.23^U^+7!&&(!\S\.22^U^!)
+suf:0093|S+0-0=0@harjutus S+0-0=0@harjutuse!\S\.11^I^+7!
+suf:0093|S+0-0=0@k<aart S+0-0=0@k<aarti S+0-0=0@kaardi!\S\.22^E^!
+suf:0093|SN+d-0=0@vaheline SN+d-0=0@vahelise SN+d-0=0@vahelis[T!\A\.12^I^+7!
+suf:0093|S+0-0=0@m<aks S+0-0=0@m<aksu S+0-0=0@maksu!\S\.22^E^!
+suf:0093|S+0-0=0@väl]i S+0-0=0@v<äl]ja S+0-0=0@väl]ja!\S\.24^U^!
+suf:0093|S+0-0=0@p<ink S+0-0=0@p<inki S+0-0=0@pingi!\S\.22^E^!
+suf:0093|S+0-0=0@k<un]st S+0-0=0@k<un]sti S+0-0=0@kun]sti!\S\.22^E^!
+suf:0093|S+0-0=0@hoone S+0-0=0@h<oone!\S\.6+9!
+suf:0093|S+0-0=0@kaitse S+0-0=0@k<aitse!\S\.6+9!
+suf:0093|S+0-0=0@aste S+0-0=0@<astme!\S\.5+9!
+suf:0093|S+0-0=0@toodang S+0-0=0@toodangu!\S\.2+9!
+suf:0093|S+0-0=0@rahvas S+0-0=0@r<ahva!\S\.7+9!
+suf:0093|S+0-0=0@tarve S+0-0=0@t<arbe!\S\.6+9!
+suf:0093|S+0-0=0@vil]i S+0-0=0@v<il]ja S+0-0=0@vil]ja!\S\.24^U^!
+suf:0093|S+0-0=0@k<eel S+0-0=0@keele S+0-0=0@keel[TE!\S\.13^I^+7! **$ADT$: S+0-0=0@k<eel[DE
+suf:0093|S+0-0=0@<aasta!\S\.1+9!
+suf:0093|S+0-0=0@kl<aas] S+0-0=0@kl<aas]i S+0-0=0@klaas]i!\S\.22^E^!
+suf:0093|S+0-0=0@k<indlus S+0-0=0@k<indluse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@f<il]m S+0-0=0@f<il]mi S+0-0=0@fil]mi!\S\.22^E^!
+suf:0093|S+0-0=0@m<ootor S+0-0=0@m<ootori!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@j<uur S+0-0=0@juure S+0-0=0@juur[TE!\S\.13^I^+7! **$ADT$: S+0-0=0@j<uur[DE
+suf:0093|S+0-0=0@vedu S+0-0=0@v<eo (S+0-0=0@v<ettu)!\S\.18!
+suf:0093|S+0-0=0@kulu (S+0-0=0@k<ullu)!\S\.17!
+suf:0093|S+0-0=0@toode S+0-0=0@t<oote!\S\.6+9!
+suf:0093|S+0-0=0@p<üük S+0-0=0@p<üüki S+0-0=0@püügi!\S\.22^E^!
+suf:0093|S+0-0=0@k<auplus S+0-0=0@k<aupluse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@m<ängija!\S\.1+9!
+suf:0093|S+0-0=0@seeme S+0-0=0@s<eemne!\S\.5+9!
+suf:0093|S+0-0=0@r<ühm S+0-0=0@r<ühma S+0-0=0@rühma!\S\.22^I^!
+suf:0093|S+0-0=0@l<amp S+0-0=0@l<ampi S+0-0=0@lambi!\SA\.22^E^!
+suf:0093|S+0-0=0@h<ind S+0-0=0@h<inda S+0-0=0@hinna!\S\.22^U^!
+suf:0093|S+0-0=0@r<iik S+0-0=0@r<iiki S+0-0=0@riigi!\S\.22^E^!
+suf:0093|S+0-0=0@n<orm S+0-0=0@n<ormi S+0-0=0@normi!\S\.22^E^!
+suf:0093|S+0-0=0@komisjon S+0-0=0@komisjoni!\S\.19^E^+7!
+suf:0093|S+0-0=0@tera (S+0-0=0@t<erra)!\S\.17^I^!
+suf:0093|S+0-0=0@meetod S+0-0=0@meetodi!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@kude S+0-0=0@k<oe (S+0-0=0@kutte)!\S\.18!
+suf:0093|S+0-0=0@p<oeg S+0-0=0@p<oega S+0-0=0@poja!\S\.22^I^!
+suf:0093|S+0-0=0@l<iin S+0-0=0@l<iini S+0-0=0@liini!\S\.22^E^!
+suf:0093|S+0-0=0@lihas S+0-0=0@lihase!\S\.9+9!
+suf:0093|S+0-0=0@j<utt S+0-0=0@j<uttu S+0-0=0@jutu!\S\.22^E^!
+suf:0093|S+d-0=0@v<aene S+d-0=0@v<aese S+d-0=0@v<aes[T!\AS\.10+9!
+suf:0093|S+0-0=0@r<ing S+0-0=0@r<ingi S+0-0=0@ringi!\S\.22^E^!
+suf:0093|S+0-0=0@s<upp S+0-0=0@s<uppi S+0-0=0@supi!\S\.22^E^!
+suf:0093|S+0-0=0@ehitis S+0-0=0@ehitise!\S\.11^I^+7!
+suf:0093|S+0-0=0@lugu S+0-0=0@l<oo!\S\.18!
+suf:0093|S+0-0=0@jahu (S+0-0=0@j<ahhu)!\S\.17!
+suf:0093|S+0-0=0@m<uld S+0-0=0@m<ulda S+0-0=0@mulla!\S\.22^I^!
+suf:0093|S+0-0=0@?osak<ond S+0-0=0@?osak<onda S+0-0=0@?osakonna!\S\.22^I^+7!
+suf:0093|S+0-0=0@side (S+0-0=0@s<itte)!\S\.16!
+suf:0093|S+0-0=0@l<õng S+0-0=0@l<õnga S+0-0=0@lõnga!\S\.22^U^!
+suf:0093|S+0-0=0@p<akk S+0-0=0@p<akki S+0-0=0@paki!\S\.22^E^!
+suf:0093|N+d-0=0@<aastane N+d-0=0@<aastase N+d-0=0@<aastas[T!\A\.12^I^+7!&&!\A\.10+7!
+suf:0093|S+0-0=0@h<oog S+0-0=0@h<oogu S+0-0=0@h<oo!\S\.22^E^!
+suf:0093|S+0-0=0@<organ S+0-0=0@<organi!\S\.2+9!%i>e[I%
+suf:0093|S+0-0=0@s<epp S+0-0=0@s<eppa S+0-0=0@sepa!\S\.22^I^!
+suf:0093|S+0-0=0@k<oor S+0-0=0@koore S+0-0=0@koor[TE!\S\.13^I^+7! **$ADT$: S+0-0=0@k<oor[DE
+suf:0093|S+0-0=0@l<aps S+0-0=0@lapse S+0-0=0@l<as[T S+0-0=0@las[TE (S+0-0=0@lapsi)!\S\.14^I^!; $ADT$: --
+suf:0093|S+0-0=0@<oskus S+0-0=0@<oskuse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+0-0=0@ravi (S+0-0=0@r<avvi)!\S\.17!
+suf:0093|S+0-0=0@s<amm S+0-0=0@s<ammu S+0-0=0@sammu!\S\.22^E^!
+suf:0093|S+0-0=0@t<äht S+0-0=0@t<ähte S+0-0=0@tähe!\S\.22^I^!
+suf:0093|S+0-0=0@f<ond S+0-0=0@f<ondi S+0-0=0@fondi!\S\.22^E^!
+suf:0093|S+0-0=0@pinge S+0-0=0@p<inge!\S\.6+9!
+suf:0093|S+d-0=0@r<ohke!\A\.1+9!
+suf:0093|S+0-0=0@s<aak S+0-0=0@s<aaki S+0-0=0@saagi!\S\.22^E^!
+suf:0093|S+0-0=0@k<ell S+0-0=0@k<ella S+0-0=0@kella!\S\.22^I^!
+suf:0093|S+0-0=0@kohus S+0-0=0@kohuse!\S\.9+9!
+suf:0093|N+0-0=0@k<eelne N+0-0=0@k<eelse!\A\.2+9!
+suf:0093|N+0-0=0@k<eelsus N+0-0=0@k<eelsuse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|S+d-0=0@j<ärgne S+d-0=0@j<ärgse!\A\.2+9!
+suf:0093|N+0-0=0@m<eelne N+0-0=0@m<eelse!\A\.2+9!
+suf:0093|N+0-0=0@m<eelsus N+0-0=0@m<eelsuse!\S\.11^I^+7!&&!\S\.9+7!
+suf:0093|N+0-0=0@n<urkne N+0-0=0@n<urkse!\A\.2+9!
+suf:0093|S+d-0=0@m<aa!\S\.26!
+suf:0093|SN+0-0=0@m<ööda!\D\!
+suf:0093|S+d-0=0@kujuliselt!\D\!
+suf:0093|S+d-0=0@r<ikkalt!\D\!
+suf:0093|SABCGN+d-0=0@p<oolselt!\D\!
+suf:0093|SG+d-0=0@<aegselt!\D\!
+suf:0093|S+d-0=0@j<ärgselt!\D\!
+suf:0093|S+d-0=0@k<indlalt!\D\!
+suf:0093|SG+d-0=0@päraselt!\D\!
+suf:0093|SN+d-0=0@vaheliselt!\D\!
+suf:0093|N+d-0=0@<aastaselt!\D\!
+suf:0093|S+d-0=0@r<ohkelt!\D\!
+suf:0093|N+0-0=0@k<eelselt!\D\!
+suf:0093|N+0-0=0@m<eelselt!\D\!
+suf:0093|N+0-0=0@n<urkselt!\D\!
+suf:0093|S+d-0=0@p<ealt!\D\!
+suf:0093|S+0-0=0@nõue S+0-0=0@n<õude!\S\.6+9!
+suf:0093|S+0-0=0@luule S+0-0=0@l<uule!\S\.6+9!
+suf:0093|S+d-0=0@m<aalane S+d-0=0@m<aalase S+d-0=0@m<aalas[T!\S\.12^I^+7!&&(!\S\.10+7!)
+suf:0093|S+0-0=0@salu S+0-0=0@s<allu!\S\.17!
+suf:0093|S+d-0=0@lõhnane S+d-0=0@lõhnase S+d-0=0@lõhnas[T!\A\.10+9!
+suf:0093|N+d-0=0@pal]line N+d-0=0@pal]lise N+d-0=0@pal]lis[T!\A\.10+9!
+suf:0909|S+d-0=0@j<õuline S+d-0=0@j<õulise S+d-0=0@j<õulis[T!\A\.12^I^+7!&&(!\A\.10+7!)
+suf:0909|S+d-0=0@k<artmatu!\A\.1+9!
+suf:0909|S+d-0=0@pidaja!\S\.1+9!
+suf:0909|S+d-0=0@p<ooldaja!\S\.1+9!
+suf:0909|S+d-0=0@sugune S+d-0=0@suguse S+d-0=0@sugus[T!\A\.10+9!
+suf:0909|S+d-0=0@v?aenul<ik S+d-0=0@v?aenul<ikku S+d-0=0@v?aenuliku!\A\.25^E^+11!
+suf:0909|S+d-0=0@<õrn S+d-0=0@<õrna S+d-0=0@õrna!\B\.22^U^!
+suf:0093|S+0-0=0@haaval!\D\!
+suf:0093|FV+ma-0=0@mine FV+ma-0=0@mise FV+ma-0=0@mis[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@misekene FV+ma-0=0@misekese FV+ma-0=0@misekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@miseke FV+ma-0=0@misekese FV+ma-0=0@misekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@ja!\S\.1+9!
+suf:0093|FV+ma-0=0@jakene FV+ma-0=0@jakese FV+ma-0=0@jakes[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@jake FV+ma-0=0@jakese FV+ma-0=0@jakes[T!\S\.12^I^+7!
+suf:0093|FV+v-0=0@v FV+v-0=0@va!\A\.2+9!
+suf:0093|FV+v-0=0@valt!\D\!
+suf:0093|FV+v-0=0@vus FV+v-0=0@vuse!\S\.11^I^+7!
+suf:0093|FV+v-0=0@vam FV+v-0=0@vama!\C\.2+9!
+suf:0093|FV+v-0=0@vamini!\D\!
+suf:0093|FV+v-0=0@vaim FV+v-0=0@vaima!\U\.2+9!
+suf:0093|FV+v-0=0@vakene FV+v-0=0@vakese FV+v-0=0@vakes[T!\A\.12^I^+7!
+suf:0093|FV+v-0=0@vake FV+v-0=0@vakese FV+v-0=0@vakes[T!\A\.12^I^+7!
+suf:0093|FV+tav-0=0@tav FV+tav-0=0@tava!\A\.2+9!
+suf:0093|FV+tav-0=0@tavalt!\D\!
+suf:0093|FV+tav-0=0@tavasti!\D\!
+suf:0093|FV+tav-0=0@tavus FV+tav-0=0@tavuse!\S\.11^I^+7!
+suf:0093|FV+tav-0=0@tavam FV+tav-0=0@tavama!\C\.2+9!
+suf:0093|FV+tav-0=0@tavaim FV+tav-0=0@tavaima!\U\.2+9!
+suf:0093|FV+tav-0=0@tavakene FV+tav-0=0@tavakese FV+tav-0=0@tavakes[T!\A\.12^I^+7!
+suf:0093|FV+tav-0=0@tavake FV+tav-0=0@tavakese FV+tav-0=0@tavakes[T!\A\.12^I^+7!
+suf:0093|FV+dav-0=0@dav FV+dav-0=0@dava!\A\.2+9!
+suf:0093|FV+dav-0=0@davalt!\D\!
+suf:0093|FV+dav-0=0@davasti!\D\!
+suf:0093|FV+dav-0=0@davus FV+dav-0=0@davuse!\S\.11^I^+7!
+suf:0093|FV+dav-0=0@davam FV+dav-0=0@davama!\C\.2+9!
+suf:0093|FV+dav-0=0@davaim FV+dav-0=0@davaima!\U\.2+9!
+suf:0093|FV+dav-0=0@davakene FV+dav-0=0@davakese FV+dav-0=0@davakes[T!\A\.12^I^+7!
+suf:0093|FV+dav-0=0@davake FV+dav-0=0@davakese FV+dav-0=0@davakes[T!\A\.12^I^+7!
+suf:0093|FV+mata-0=0@matu!\A\.1+9!
+suf:0093|FV+mata-0=0@matult!\D\!
+suf:0093|FV+mata-0=0@matus FV+mata-0=0@matuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+mata-0=0@matum FV+mata-0=0@matuma!\C\.2+9!
+suf:0093|FV+mata-0=0@matuim FV+mata-0=0@matuima!\U\.2+9!
+suf:0093|FV+tama-0=0@tamatu!\A\.1+9!
+suf:0093|FV+tama-0=0@tamatult!\D\!
+suf:0093|FV+tama-0=0@tamatus FV+tama-0=0@tamatuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+tama-0=0@tamatum FV+tama-0=0@tamatuma!\C\.2+9!
+suf:0093|FV+tama-0=0@tamatuim FV+tama-0=0@tamatuima!\U\.2+9!
+suf:0093|FV+dama-0=0@damatu!\A\.1+9!
+suf:0093|FV+dama-0=0@damatult!\D\!
+suf:0093|FV+dama-0=0@damatus FV+dama-0=0@damatuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+dama-0=0@damatum FV+dama-0=0@damatuma!\C\.2+9!
+suf:0093|FV+dama-0=0@damatuim FV+dama-0=0@damatuima!\U\.2+9!
+suf:0093|FV+nud-0=0@nu!\S\.1+9!
+suf:0093|FV+nud-0=0@nult!\D\!
+suf:0093|FV+nud-0=0@num FV+nud-0=0@numa!\C\.2+9!
+suf:0093|FV+nud-0=0@nuim FV+nud-0=0@nuima!\U\.2+9!
+suf:0093|FV+tud-0=0@tu!\S\.1+9!
+suf:0093|FV+dud-0=0@du!\S\.1+9!
+suf:0093|FV+tud-0=0@tult!\D\!
+suf:0093|FV+tud-0=0@tum FV+tud-0=0@tuma!\C\.2+9!
+suf:0093|FV+tud-0=0@tuim FV+tud-0=0@tuima!\U\.2+9!
+suf:0093|FV+tud-0=0@tus FV+tud-0=0@tuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+dud-0=0@dult!\D\!
+suf:0093|FV+dud-0=0@dum FV+dud-0=0@duma!\C\.2+9!
+suf:0093|FV+dud-0=0@duim FV+dud-0=0@duima!\U\.2+9!
+suf:0093|FV+dud-0=0@dus FV+dud-0=0@duse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+mata-0=0@mata!\A\!
+suf:0093|FSANCUB+d-0=0@kene FSANCUB+d-0=0@kese FSANCUB+d-0=0@kes[T!\S\.12^I^+7!
+suf:0093|FSANCUB+d-0=0@ke FSANCUB+d-0=0@kese FSANCUB+d-0=0@kes[T!\S\.12^I^+7!
+suf:0093|FSNG+d-0=0@line FSNG+d-0=0@lise FSNG+d-0=0@lis[T!\A\.12^I^+7!
+suf:0093|FSNG+d-0=0@lisus FSNG+d-0=0@lisuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FSNG+d-0=0@liselt!\D\!
+suf:0093|FSNG+d-0=0@lisem FSNG+d-0=0@lisema!\C\.2+9!
+suf:0093|FSNG+d-0=0@lisim FSNG+d-0=0@lisima!\U\.2+9!
+suf:0093|FSNG+0-0=0@l<ik FSNG+0-0=0@l<ikku FSNG+0-0=0@liku!\A\.25^E^+11!
+suf:0093|FSNG+0-0=0@l<ikkus FSNG+0-0=0@l<ikkuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FSNG+0-0=0@likult!\D\!
+suf:0093|FSNG+0-0=0@likum FSNG+0-0=0@likuma!\C\.2+9!
+suf:0093|FSNG+0-0=0@likem FSNG+0-0=0@likema!\U\.2+9!
+suf:0093|FA+is-0=0@im FA+is-0=0@ima!\U\.2+9!
+suf:0093|FA+es-ik=3@ikem FA+es-ik=3@ikema!\U\.2+9!
+suf:0093|FA+d-0=0@m FA+d-0=0@ma!\C\.2+9!
+suf:0093|FA+d-0=0@mini!\D\!
+suf:0093|FV+ma-0=0@jask<ond FV+ma-0=0@jask<onda FV+ma-0=0@jaskonna!\S\.22^I^+7!
+suf:0093|FV+ma-0=0@jask<ondl<ik FV+ma-0=0@jask<ondl<ikku FV+ma-0=0@jask<ondliku!\A\.25^E^+11!
+suf:0093|FV+ma-0=0@jask<ondl<ikkus FV+ma-0=0@jask<ondl<ikkuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+ma-0=0@jaskonniti!\D\!
+suf:0093|FV+ma-0=0@jaskonnakene FV+ma-0=0@jaskonnakese FV+ma-0=0@jaskonnakes[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@jaskonnake FV+ma-0=0@jaskonnakese FV+ma-0=0@jaskonnakes[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@jal<ik FV+ma-0=0@jal<ikku FV+ma-0=0@jaliku!\A\.25^E^+11!
+suf:0093|FV+ma-0=0@jal<ikkus FV+ma-0=0@jal<ikkuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FV+ma-0=0@jalikult!\D\!
+suf:0093|FV+ma-0=0@jalikum FV+ma-0=0@jalikuma!\C\.2+9!
+suf:0093|FV+ma-0=0@jalikem FV+ma-0=0@jalikema!\U\.2+9!
+suf:0093|FA+0-iku=2@<ikkus FA+0-iku=2@<ikkuse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FA+0-ne=0@sus FA+0-ne=0@suse!\S\.11^I^+7!&&(!\S\.9+7!)
+suf:0093|FA+0-atu=3@atus FA+0-atu=3@atuse!\S\.11^I^+7!
+suf:0093|FA+0-etu=3@etus FA+0-etu=3@etuse!\S\.11^I^+7!
+suf:0093|FA+0-itu=3@itus FA+0-itu=3@ituse!\S\.11^I^+7!
+suf:0093|FA+0-utu=3@utus FA+0-utu=3@utuse!\S\.11^I^+7!
+suf:0093|FA+0-kas=0@kus FA+0-kas=0@kuse!\S\.11^I^+7!
+suf:0093|FA+d-eda=1@edus FA+d-eda=1@eduse!\S\.11^I^+7!
+suf:0093|FC+d-ma=1@mus FC+d-ma=1@muse!\S\.11^I^+7!
+suf:0093|FV+ma-ta=0@tusekene FV+ma-ta=0@tusekese FV+ma-ta=0@tusekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-ta=0@tuseke FV+ma-ta=0@tusekese FV+ma-ta=0@tusekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-ta=0@tuslik FV+ma-ta=0@tuslikku FV+ma-ta=0@tusliku!\A\.25^E^+11!
+suf:0093|FV+ma-u=1@umus FV+ma-u=1@umuse!\S\.11^I^+7!
+suf:0093|FV+ma-u=1@umusekene FV+ma-u=1@umusekese FV+ma-u=1@umusekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-u=1@umuseke FV+ma-u=1@umusekese FV+ma-u=1@umusekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-u=1@umuslik FV+ma-u=1@umuslikku FV+ma-u=1@umusliku!\A\.25^E^+11!
+suf:0093|FV+s-le=0@lus FV+s-le=0@luse!\S\.11^I^+7!
+suf:0093|FV+s-le=0@lusekene FV+s-le=0@lusekese FV+s-le=0@lusekes[T!\S\.12^I^+7!
+suf:0093|FV+s-le=0@luseke FV+s-le=0@lusekese FV+s-le=0@lusekes[T!\S\.12^I^+7!
+suf:0093|FV+s-le=0@lusl<ik FV+s-le=0@lusl<ikku FV+s-le=0@lusliku!\A\.25^E^+11!
+suf:0093|FV+ma-tse=0@tsus FV+ma-tse=0@tsuse!\S\.11^I^+7!
+suf:0093|FV+ma-tse=0@tsusekene FV+ma-tse=0@tsusekese FV+ma-tse=0@tsusekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-tse=0@tsuseke FV+ma-tse=0@tsusekese FV+ma-tse=0@tsusekes[T!\S\.12^I^+7!
+suf:0093|FV+ma-tse=0@tsusl<ik FV+ma-tse=0@tsusl<ikku FV+ma-tse=0@tsusliku!\A\.25^E^+11!
+suf:0093|FV+a-ll=0@lu!\S\.17!
+suf:0093|FV+a-ll=0@lukene FV+a-ll=0@lukese FV+a-ll=0@lukes[T!\S\.12^I^+7!
+suf:0093|FV+a-ll=0@luke FV+a-ll=0@lukese FV+a-ll=0@lukes[T!\S\.12^I^+7!
+suf:0093|FS+0-ism=0@<ist FS+0-ism=0@<isti FS+0-ism=0@?isti!\S\.22^E^+7!
+suf:0093|FS+0-ism=0@<istl<ik FS+0-ism=0@<istl<ikku FS+0-ism=0@<istliku!\A\.25^E^+11!
+suf:0093|FS+0-ism=0@<istl<ikkus FS+0-ism=0@<istl<ikkuse!\S\.11^I^+7!
+suf:0093|FS+0-ism=0@<istlikult!\D\!
+suf:0093|FS+0-ism=0@<istlikum FS+0-ism=0@<istlikuma!\C\.2+9!
+suf:0093|FS+0-ism=0@<istlikem FS+0-ism=0@<istlikema!\U\.2+9!
+suf:0093|FS+0-lane=0@lasl<ik FS+0-lane=0@lasl<ikku FS+0-lane=0@lasliku!\A\.25^E^+11!
+suf:0093|FS+0-lane=0@lasl<ikkus FS+0-lane=0@lasl<ikkuse!\S\.11^I^+7!
+suf:0093|FS+0-lane=0@laslikult!\D\!
+suf:0093|FS+0-lane=0@laslikum FS+0-lane=0@laslikuma!\C\.2+9!
+suf:0093|FS+0-lane=0@laslikem FS+0-lane=0@laslikema!\U\.2+9!
+suf:0093|FS+0-kond=0@konniti!\D\!
+suf:0093|FV+ma-0=0@janna!\S\.16!
+suf:0093|FV+ma-0=0@jannakene FV+ma-0=0@jannakese FV+ma-0=0@jannakes[T!\S\.12^I^+7!
+suf:0093|FV+ma-0=0@jannake FV+ma-0=0@jannakese FV+ma-0=0@jannakes[T!\S\.12^I^+7!
+suf:0093|FS+d-i=1@iti!\D\!
+suf:0093|FS+d-e=1@eti!\D\!
+suf:0093|FS+d-u=1@uti!\D\!
