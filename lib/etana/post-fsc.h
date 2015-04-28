@@ -1708,7 +1708,7 @@ public:
         while (ReadLine(&xstr) == true)
         {
             xstr.TrimRight();
-            AddClone(xstr); // jama korral siit throw
+            TMPLPTRARRAYBIN<REC, KEY>::AddClone(xstr); // jama korral siit throw
         }
         Close();
         return true;

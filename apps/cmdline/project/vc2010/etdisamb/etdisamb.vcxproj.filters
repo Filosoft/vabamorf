@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{d02f23dc-a4a1-4a2b-a017-ff69240142b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSC">
+      <UniqueIdentifier>{2f73caee-5de7-4c18-b8f3-730c4259ab64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proof">
+      <UniqueIdentifier>{eca5af23-1bd1-4bd0-bc26-7ccf6ce0e5fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="etyhh">
+      <UniqueIdentifier>{1cb7e35e-a9cc-48df-8b0b-553f2f627d47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="etana">
+      <UniqueIdentifier>{6d59fad3-95e3-498d-b0e2-936960f4fd64}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\etdisamb\etdisamb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\json.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fscinit.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsdata.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsdll.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsexception.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsfile.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsfixalloc.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fshugeinteger.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fslist.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsmemory.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsreg.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsstring.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsthread.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fstime.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fstrace.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fsvar.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\fsc\fswav.cpp">
+      <Filter>FSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\ptword.cpp">
+      <Filter>proof</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\disambiguator.cpp">
+      <Filter>proof</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\etyhh\et3myh.cpp">
+      <Filter>etyhh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\etana\mrf2yh2mrf.cpp">
+      <Filter>etana</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\etana\tloendid.cpp">
+      <Filter>etyhh</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

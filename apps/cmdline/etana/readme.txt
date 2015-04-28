@@ -1,6 +1,6 @@
 Kasutamine
 ----------
-etana käivitamine ilma parameetriteta kuvab käsureaparameetrid koos seletusega.
+etana käivitamine -help parameetriga kuvab käsureaparameetrid koos seletusega.
 
 Sisendfail
 ----------

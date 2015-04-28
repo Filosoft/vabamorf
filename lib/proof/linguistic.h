@@ -25,6 +25,7 @@ public:
 	CLinguistic() :
 		m_bAbbrevations(true), m_bRomanNumerals(true),
 		m_bGuess(false), m_bPhonetic(false),
+		m_bProperName(false), m_bCombineWords(false),
 		m_pMorph(0) { }
 	virtual ~CLinguistic() { Close(); }
 
@@ -72,6 +73,14 @@ public:
 	CFSArray<CMorphInfo> Analyze(const CFSWString &szWord);
 
 /**
+* Morphologically analyzes a sentense. Has primitive knowledge of phrases like New York.
+* Throws exception on error.
+* @param[in] Words Words to analyze.
+* @return list of morphological information per word.
+*/
+	CFSArray<CMorphInfos> AnalyzeSentense(const CPTWordArray &Words);
+
+/**
 * Synthesizes a word according to provided morphological information.
 * Throws exception on error.
 * @param[in] MorphInfo Morphological information about the word.
@@ -100,6 +109,16 @@ public:
 * Generates phenetic transcription. Applies to Analyze, Synthesize
 */
 	bool m_bPhonetic;
+
+/**
+* Executes additional name analysis, useful for disambiguator. Applies to Analyze, requires full sentense
+*/
+	bool m_bProperName;
+	
+/**
+* Combines words that should be considered as one entity. Applies to Analyze, Spell, requires full sentense
+*/
+	bool m_bCombineWords;
 
 protected:
 	ETMRFAS *m_pMorph;

@@ -319,7 +319,7 @@
       <Filter>proof</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>proof</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

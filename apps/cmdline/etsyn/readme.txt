@@ -1,6 +1,6 @@
 Kasutamine
 ----------
-etsyn käivitamine ilma parameetriteta kuvab käsureaparameetrid koos seletusega.
+etsyn käivitamine -help parameetriga kuvab käsureaparameetrid koos seletusega.
 
 Sisendfail
 ----------

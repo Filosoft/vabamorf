@@ -321,5 +321,8 @@
     <ClCompile Include="..\..\..\..\..\lib\proof\linguistic.cpp">
       <Filter>proof</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\lib\proof\ptword.cpp">
+      <Filter>proof</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

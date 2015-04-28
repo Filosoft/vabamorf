@@ -6,28 +6,6 @@
 #include "linguistic.h"
 #include "suggestor.h"
 
-static void MRFTULtoMorphInfo(CMorphInfo &MorphInfo, const MRFTUL &Tul)
-{
-	MorphInfo.m_szRoot=Tul.tyvi;
-	MorphInfo.m_szEnding=Tul.lopp;
-	MorphInfo.m_szClitic=Tul.kigi;
-	MorphInfo.m_cPOS=Tul.sl[0];
-	MorphInfo.m_szForm=Tul.vormid;
-	MorphInfo.m_szForm.TrimRight(L", ");
-}
-
-static void MorphInfotoMRFTUL(MRFTUL &Tul, const CMorphInfo &MorphInfo)
-{
-	Tul.tyvi=MorphInfo.m_szRoot;
-	Tul.lopp=MorphInfo.m_szEnding;
-	Tul.kigi=MorphInfo.m_szClitic;
-	Tul.sl=MorphInfo.m_cPOS;
-	Tul.vormid=MorphInfo.m_szForm;
-	if (!MorphInfo.m_szForm.IsEmpty()) {
-		Tul.vormid+=L", ";
-	}
-}
-
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -70,7 +48,7 @@ SPLRESULT CLinguistic::SpellWord(const CFSWString &szWord)
 
 		m_pMorph->Clr();
 		m_pMorph->SetMaxTasand();
-		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_SPL|MF_LUBAMITMIKUO;
+		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_SPL;
 		if (!m_bAbbrevations) Flags&=(~MF_LYHREZH);
 		if (!m_bRomanNumerals) Flags|=MF_ARAROOMA;
 		m_pMorph->SetFlags(Flags);
@@ -98,6 +76,7 @@ CFSArray<SPLRESULT> CLinguistic::SpellWords(const CPTWordArray &Words)
 		m_pMorph->Clr();
 		m_pMorph->SetMaxTasand();
 		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_SPL;
+		if (m_bCombineWords) Flags|=MF_V0TAKOKKU;
 		if (!m_bAbbrevations) Flags&=(~MF_LYHREZH);
 		if (!m_bRomanNumerals) Flags|=MF_ARAROOMA;
 		m_pMorph->SetFlags(Flags);
@@ -189,12 +168,12 @@ CFSArray<CMorphInfo> CLinguistic::Analyze(const CFSWString &szWord)
 		}
 		CFSArray<CMorphInfo> Results;
 		if (szWord.IsEmpty()) {
-			return SPL_NOERROR;
+			return Results;
 		}
 
 		m_pMorph->Clr();
 		m_pMorph->SetMaxTasand();
-		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA;
+		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA &(~MF_V0TAKOKKU);
 		if (!m_bAbbrevations) Flags&=(~MF_LYHREZH);
 		if (!m_bRomanNumerals) Flags|=MF_ARAROOMA;
 		if (m_bGuess) { Flags|=MF_OLETA; Flags&=(~MF_PIKADVALED); }
@@ -217,6 +196,53 @@ CFSArray<CMorphInfo> CLinguistic::Analyze(const CFSWString &szWord)
 	}
 }
 
+CFSArray<CMorphInfos> CLinguistic::AnalyzeSentense(const CPTWordArray &Words)
+{
+	try {
+		if (!m_pMorph) {
+			throw CLinguisticException(CLinguisticException::MAINDICT);
+		}
+		CFSArray<CMorphInfos> Result;
+		m_pMorph->Clr();
+		m_pMorph->SetMaxTasand();
+		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA | MF_YHESTA;
+		if (!m_bCombineWords) Flags&=(~MF_V0TAKOKKU);
+		if (!m_bAbbrevations) Flags&=(~MF_LYHREZH);
+		if (!m_bRomanNumerals) Flags|=MF_ARAROOMA;
+		if (m_bGuess) { Flags|=MF_OLETA; Flags&=(~MF_PIKADVALED); }
+		if (m_bPhonetic) Flags|=MF_KR6NKSA;
+		if (m_bProperName) Flags|=MF_LISAPNANAL;
+		m_pMorph->SetFlags(Flags);
+
+		m_pMorph->Set1(new LYLI(FSWSTR("<s>"), PRMS_TAGBOS));
+		for (INTPTR ip=0; ip<Words.GetSize(); ip++){
+			Result.AddItem(CMorphInfos());
+			m_pMorph->Set1(Words[ip].m_szWord);
+			m_pMorph->Tag<int>((int)ip, PRMS_TAGSINT);
+		}
+		m_pMorph->Set1(new LYLI(FSWSTR("</s>"), PRMS_TAGEOS));
+
+		LYLI Lyli;
+		CMorphInfos Result1;
+		while (m_pMorph->Flush(Lyli)){
+			if (Lyli.lipp == PRMS_TAGSINT){
+				INTPTR ipPos=Lyli.ptr.arv;
+				ASSERT(ipPos<Words.GetSize());
+				Result[ipPos]=Result1;
+				Result1=CMorphInfos();
+			}
+			else if (Lyli.lipp & PRMS_MRF){
+				Lyli.ptr.pMrfAnal->StrctKomadLahku();
+				MRFTULEMUSEDtoMorphInfos(Result1, *Lyli.ptr.pMrfAnal);
+			}
+		}
+
+		return Result;
+	} catch(const VEAD&) {
+		throw CLinguisticException(CLinguisticException::MAINDICT, CLinguisticException::UNDEFINED);
+	}
+}
+
 CFSArray<CMorphInfo> CLinguistic::Synthesize(const CMorphInfo &MorphInfo, CFSWString szHint)
 {
 	try {
@@ -230,7 +256,7 @@ CFSArray<CMorphInfo> CLinguistic::Synthesize(const CMorphInfo &MorphInfo, CFSWSt
 
 		m_pMorph->Clr();
 		m_pMorph->SetMaxTasand();
-		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_GEN;
+		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_GEN &(~MF_V0TAKOKKU);
 		if (m_bGuess) Flags|=MF_OLETA;
 		if (m_bPhonetic) Flags|=MF_KR6NKSA;
 		m_pMorph->SetFlags(Flags);

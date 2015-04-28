@@ -82,10 +82,11 @@ int PrintUsage() {
 	fprintf(stderr, "\n");
 	fprintf(stderr, "Options:\n");
 	fprintf(stderr, " -in file  -- read input from file, default input from stdin\n");
-	fprintf(stderr, " -out file -- write output to file, default output stdout\n");
+	fprintf(stderr, " -out file -- write output to file, default output to stdout\n");
 	fprintf(stderr, " -lex file -- path to lexicon file, default et.dct\n");
 	fprintf(stderr, " -guess    -- guess forms for unknown words\n");
 	fprintf(stderr, " -phonetic -- add phonetic markup\n");
+	fprintf(stderr, " -help     -- this screen\n");
 	fprintf(stderr, "\n");
 	return -1;
 }
@@ -97,14 +98,12 @@ int main(int argc, char* argv[])
 
 	try {
 		// Command line parsing
-		if (argc<=1) {
-			return PrintUsage();
-		}
-
 		CSettings Settings;
 		CFSAString InFileName, OutFileName, LexFileName="et.dct";
 		for (int i=1; i<argc; i++) {
-			if (CFSAString("-lex")==argv[i]) {
+			if (CFSAString("-help")==argv[i]) {
+				return PrintUsage();
+			} else if (CFSAString("-lex")==argv[i]) {
 				if (i+1<argc) {
 					LexFileName=argv[++i];
 				} else {
