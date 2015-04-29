@@ -48,7 +48,22 @@
 
 	<h2>Vabamorfi kasutamine</h2>
 	<div>Kompileeritud programmi käivitamisel -help parameetriga kuvatakse täpne parameetrite kirjeldus.</div>
-	<div>Programmidele vajaliku sõnastikufaili leiate dct/binary kataloogist..</div>
+	<div>Programmidele vajaliku sõnastikufaili leiate dct/binary kataloogist.</div>
 	<div>Analüsaatori ja Süntesaatori VC2010 projektikaustades on toodud näite-sisendfailid (test.json)</div>
+
+	<h2>Näited</h2>
+	<div>Mõned näited Vabamorfi kasutamisest</div>
+	<ul>
+		<li>Morfoloogiline analüüs:<br>
+			etana analyze -in test.json -out analyze.json
+		<li>Morfoloogiline analüüs oletaja ja foneetilise märgendusega:<br>
+			etana analyze -phonetic -guess -in test.json -out analyze.json
+		<li>Speller soovitajaga:<br>
+			etana spell -suggest -in test.json -out spell.json
+		<li>Süntees oletajaga:<br>
+			etsyn -guess -in test.json -out syn.json
+		<li>Ühestatud morfoloogiline analüüs:<br>
+			etana analyze -propername -guess -in test.json | etdisamb -out disamb.json
+	</ul>
 </body>
 </html>
