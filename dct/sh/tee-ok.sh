@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# NB jooksev kataloog peab olema ${UFSD_TMP}
+# NB! jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
 #	${UFSD_EXE}/dct-noom
