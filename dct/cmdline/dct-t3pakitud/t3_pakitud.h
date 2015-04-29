@@ -8,7 +8,7 @@ dct/data/yhh/all.cooked on sellisel kujul:
 - Igale sõnale, kirjavahemärgile jms järgneb tühikuga eraldatult ühestamismärgend.
 
 Ühestaja andmefail tehakse 2 programmi abil:
-- dct-t3mesta -cio kodeering treeningkorpus
+- dct-t3mesta treeningkorpus
 - dct-t3pakitud
 
 dct-t3mesta teeb treeningkorpuse põhjal failid:
@@ -53,8 +53,6 @@ treeningkorpuse põhjal leitud sõnest sõltumatuid mitmesusklasse (vt faili kla
 
 #include "../../../lib/etyhh/dctmetainf.h"
 #include "../../../lib/etyhh/t3common.h"
-
-#include "../../../lib/cmdline-old-style/cmd-line-parms.h"
 
 /** ühestamismärgendite loend tekstifailist pakitud andmefaili */
 class TAGS2DCT : public TMPLPTRARRAYBIN<PCFSAString, CFSAString>

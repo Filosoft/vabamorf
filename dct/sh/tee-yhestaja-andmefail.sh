@@ -48,7 +48,7 @@ echo "== " Teeme ühestaja andmefailid
 #PATH=${UFSD_BINDCT}:$PATH
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-${UFSD_EXE}/dct-t3mesta -cio utf8 ${UFSD_SRC_YHH}/all.cooked
+${UFSD_EXE}/dct-t3mesta ${UFSD_SRC_YHH}/all.cooked
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 ${UFSD_EXE}/dct-t3pakitud
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus

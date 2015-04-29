@@ -8,7 +8,7 @@ dct/data/yhh/all.cooked on sellisel kujul:
 - Igale sõnale, kirjavahemärgile jms järgneb tühikuga eraldatult ühestamismärgend.
 
 Ühestaja andmefail tehakse 2 programmi abil:
-- dct-t3mesta -cio kodeering treeningkorpus
+- dct-t3mesta treeningkorpus
 - dct-t3pakitud
 
 dct-t3mesta teeb treeningkorpuse põhjal failid:
@@ -53,8 +53,6 @@ treeningkorpuse põhjal leitud sõnest sõltumatuid mitmesusklasse (vt faili kla
 
 #include "../../../lib/etana/post-fsc.h"
 #include "../../../lib/etyhh/t3lex.h"
-#include "../../../lib/cmdline-old-style/cmd-line-parms.h"
-#include "../../../lib/cmdline-old-style/cmd-line-flags.h"
 
 /** Kest MainTemplate&lt;&gt; seest kasutamiseks */
 class T3MESTAJA_DATAFAILID
@@ -90,9 +88,14 @@ class T3MESTAJA_DATAFAILID
         void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
             {
             Stop();
-            liputaja.Start(argc,argv,_ext_,
-                        lippudeLoend,lippudeLoendiPikkus, T3_MK_JAOTUSB, 0LL, 
-                        /*MF_DFLT_OLETA|*/T3_MK_JAOTUSB);
+            if(argc != 2 || strcmp(argv[1], "-h")==0 || strcmp(argv[1], "--help")==0)
+                treeningKorpus=NULL;
+            else
+                treeningKorpus=argv[1];
+            lipud.Set(T3_MK_JAOTUSB);
+            //liputaja.Start(argc,argv,_ext_,
+            //            lippudeLoend,lippudeLoendiPikkus, T3_MK_JAOTUSB, 0LL, 
+            //            /*MF_DFLT_OLETA|*/T3_MK_JAOTUSB);
             // T3_MK_JAOTUSB lipp peab olema püsti
             // Selle puudumisel kasutab vana eksperimendi 
             // koodi kontekstist sõltumatute tõenäosuste (mitmesusklasside) 
@@ -114,41 +117,45 @@ class T3MESTAJA_DATAFAILID
         void Run(void)
             {
             CFSString ext;
-            failideAlgUS=liputaja.Liputa();
+            //failideAlgUS=liputaja.Liputa();
 
-            if(failideAlgUS!=liputaja.argc-1)
-                throw(VEAD(ERR_X_TYKK,ERR_MINGIJAMA,__FILE__,__LINE__," ",
-                                                            "Sobimatu käsurida"));
+            if(treeningKorpus==NULL)
+            {
+               printf("%s\n", "süntaks: dct-t3mesta cooked-treeningfail");
+               return;
+            }
             T3mestaTxtTab(
-                &(liputaja.lipud),                  // morfi lipud
-                liputaja.l2.codePageIn,             // treeningkorpuse kooditabel
-                liputaja.argv[failideAlgUS],        // treeningkorpus
-                -1  // mitmesusKlassidesIgnoreeeri, ei kasuta.
-                    // Jäänuk katsest visata mingi arv sagedustabeli ülemisse 
-                    // otsa kuuluvaid sõnu leksikonist välja, 
-                    // osa selleks vajalikust koodist on preaguseks kadunud... 
-                );
+                &lipud,             // morfi lipud
+                inCodePage,         // treeningkorpuse kooditabel
+                treeningKorpus,     // treeningkorpus
+                -1); // mitmesusKlassidesIgnoreeeri, ei kasuta.
+                     // Jäänuk katsest visata mingi arv sagedustabeli ülemisse 
+                     // otsa kuuluvaid sõnu leksikonist välja, 
+                     // osa selleks vajalikust koodist on preaguseks kadunud... 
+            
             }
 
         /** Taastab argumentideta konstruktori järgse seisu */
         void Stop(void)
             {
-            liputaja.Stop();
             InitClassVariables();
             }
 
     private:
-
-        /** Käsurealt antud lippude hoidla */
-        LIPUTAJA liputaja;
+        /** (morfi) lipud programmi käitumise tüürimiseks */
+        MRF_FLAGS lipud;
         
+        /** cooked-faili kodeering */
+        PFSCODEPAGE inCodePage;
+         
         /** esimese failinime indeks argv-massiivis */
-        int failideAlgUS; 
+        const char *treeningKorpus;
 
         /** Muutujate esialgseks initsialiseerimiseks konstruktoris */
         void InitClassVariables(void)
             {
-            failideAlgUS= -1;
+            inCodePage=PFSCP_UTF8;
+            treeningKorpus=NULL;
             }
 
         /** Initsialiseeritud klassi invariant */
