@@ -12,11 +12,11 @@
 
 //=========================================================
 
-/// "cooced"-korpusefailist tekstikujul ühestaja andmefailide tegemiseks
+/// "cooked"-korpusefailist tekstikujul ühestaja andmefailide tegemiseks
 //
 /// @a Sisendiks on "cooked"-korpusefail. 
 /// Selles on iga lause ise real ja iga sõna taga on tühikuga 
-/// eraldatult tema ühestamismägend.
+/// eraldatult tema ühestamismärgend.
 ///
 /// @a Väljundiks on kolm tekstifaili:
 /// - @a taglist.txt ühestamismärgendite loend
@@ -36,7 +36,7 @@ class T3a :
             InitClassVariables();
             }
 
-        /** "cooced"-korpusefailist tekstikujul ühesaja andmefailide tegemiseks
+        /** "cooked"-korpusefailist tekstikujul ühestaja andmefailide tegemiseks
          * 
          * @a Sisendiks on "cooked"-korpusefail. 
          * Selles on iga lause ise real ja iga sõna taga on tühikuga 
@@ -68,11 +68,11 @@ class T3a :
         int mitmesusKlassidesIgnoreeeri;
         
         /** alati 'true'. 'false' korral eksperiment kontekstist sõltumatute 
-         * teõenäosuste teistsuguse arvutamisega */
+         * tõenäosuste teistsuguse arvutamisega */
         bool kasutaMitmesusKlasseJaotusB;
         
         /** alati 'false'. 'true' korral eksperiment kontekstist sõltumatute 
-         * täenäosuste hulga täendamiseks morfist saadud märgenditega */
+         * tõenäosuste hulga täiendamiseks morfist saadud märgenditega */
         bool lisaLexiMorfistMargendeid; 
 
    private:
