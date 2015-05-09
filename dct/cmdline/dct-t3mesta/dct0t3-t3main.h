@@ -48,7 +48,7 @@ class T3a :
          *     <li> @a lex.txt sõna + ühestamismärgendid tõenäosustega 
          * </ul> 
          * 
-         * @param flags -- analüüüsi-sünteesi-ühestamis käiku mõjutavad lipud
+         * @param flags -- analüüsi-sünteesi-ühestamis käiku mõjutavad lipud
          * @param cookedFile -- treenikorpus
          * @param inCodePage -- treeningkorpuse kooditabel
          * @param dctFile -- morfi sõnastik
@@ -61,7 +61,7 @@ class T3a :
             const int  _mitmesusKlassidesIgnoreeeri
             );
         
-        /** lipud, millest analüüüsi-sünteesi-ühestamise käitumine teatud juhtudel sõltub */
+        /** lipud, millest analüüsi-sünteesi-ühestamise käitumine teatud juhtudel sõltub */
         MRF_FLAGS mrfFlags;
 
         /** ignoreeri vorme mille sagedus sagedustabelis sellega >= */
