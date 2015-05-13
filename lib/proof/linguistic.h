@@ -9,10 +9,12 @@
 
 class CLinguisticException : public CFSException {
 public:
-	enum eMajor { MAINDICT, SPELLER, HYPHENATOR, THESAURUS };
-	enum eMinor { UNDEFINED, OPEN, READ };
+	enum eMajor { MAINDICT };
+	enum eMinor { UNDEFINED, OPEN };
 
 	CLinguisticException(long lMajor, long lMinor=UNDEFINED) : m_lMajor(lMajor), m_lMinor(lMinor) { }
+
+	CFSString GetText() const;
 
 	long m_lMajor, m_lMinor;
 };
@@ -73,12 +75,12 @@ public:
 	CFSArray<CMorphInfo> Analyze(const CFSWString &szWord);
 
 /**
-* Morphologically analyzes a sentense. Has primitive knowledge of phrases like New York.
+* Morphologically analyzes a sentence. Has primitive knowledge of phrases like New York.
 * Throws exception on error.
 * @param[in] Words Words to analyze.
 * @return list of morphological information per word.
 */
-	CFSArray<CMorphInfos> AnalyzeSentense(const CPTWordArray &Words);
+	CFSArray<CMorphInfos> AnalyzeSentence(const CPTWordArray &Words);
 
 /**
 * Synthesizes a word according to provided morphological information.

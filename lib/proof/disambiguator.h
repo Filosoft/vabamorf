@@ -10,6 +10,8 @@ public:
 
 	CDisambiguatorException(long lMajor, long lMinor=UNDEFINED) : m_lMajor(lMajor), m_lMinor(lMinor) { }
 
+	CFSString GetText() const;
+
 	long m_lMajor, m_lMinor;
 };
 
