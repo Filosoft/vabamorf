@@ -7,6 +7,7 @@
 		Java_ee_filosoft_vabamorf_Linguistic_spellWords;
 		Java_ee_filosoft_vabamorf_Linguistic_suggest;
 		Java_ee_filosoft_vabamorf_Linguistic_analyze;
+		Java_ee_filosoft_vabamorf_Linguistic_analyzeSentence;
 		Java_ee_filosoft_vabamorf_Linguistic_synthesize;
 	local: *;
 };

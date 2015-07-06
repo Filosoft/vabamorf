@@ -3,17 +3,6 @@ package ee.filosoft.vabamorf;
 public class Linguistic {
 	
 /**
-* Morphological information about a word. Used for analyze output and synthesize input.
-*/
-	static public class MorphInfo {
-		public String root;
-		public String ending;
-		public String clitic;
-		public char pos;
-		public String form;
-	}
-
-/**
 * Analyze abbrevations stricktly. Applies to spell, analyze.
 */
 	public boolean abbrevations = true;
@@ -32,6 +21,11 @@ public class Linguistic {
 * Generates phenetic transcription. Applies to analyze, synthesize
 */
 	public boolean phonetic = false;
+
+/**
+* Executes additional name analysis, useful for disambiguator. Applies to Analyze, requires full sentense
+*/
+	public boolean properName = false;
 
 /**
 * Initiates linguistic.
@@ -83,6 +77,13 @@ public class Linguistic {
 	public native MorphInfo[] analyze(String word);
 
 /**
+* Morphologically analyzes a sentence.
+* @param words Words to analyze.
+* @return list of morphological information per word.
+*/
+	public native MorphInfos[] analyzeSentence(String words[]);
+
+/**
 * Synthesizes a word according to provided morphological information.
 * @param info Morphological information about the word.
 * @param hint Paradigm hint for a word (sg g) eg. palgi/palga
@@ -93,7 +94,7 @@ public class Linguistic {
 	protected void finalize() {
 		close();
 	}
-	private long lingId;
+	private long objId;
 	static {
 		System.loadLibrary("linguistic_jni");
 	}	

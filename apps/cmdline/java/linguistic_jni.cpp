@@ -1,15 +1,17 @@
 #include "../../../lib/proof/proof.h"
 #include "../../../lib/fsc/fsjni/fsjni.h"
+#include "utils.h"
 
 FSDLL_ENTRYPOINT;
 
 #define FUNCTION_HEADER \
-	CLinguistic *linguistic = (CLinguistic *)FSJNIGetLongField(env, jobj, "lingId"); \
+	CLinguistic *linguistic = (CLinguistic *)FSJNIGetLongField(env, jobj, "objId"); \
 	if (linguistic) { \
 		linguistic->m_bAbbrevations = (FSJNIGetBooleanField(env, jobj, "abbrevations") != JNI_FALSE); \
 		linguistic->m_bRomanNumerals = (FSJNIGetBooleanField(env, jobj, "romanNumerals") != JNI_FALSE); \
 		linguistic->m_bGuess = (FSJNIGetBooleanField(env, jobj, "guess") != JNI_FALSE); \
 		linguistic->m_bPhonetic = (FSJNIGetBooleanField(env, jobj, "phonetic") != JNI_FALSE); \
+		linguistic->m_bProperName = (FSJNIGetBooleanField(env, jobj, "properName") != JNI_FALSE); \
 	}
 
 extern "C" {
@@ -19,7 +21,7 @@ JNIEXPORT jboolean JNICALL Java_ee_filosoft_vabamorf_Linguistic_open(JNIEnv *env
 	FUNCTION_HEADER;
 
 	if (linguistic) {
-		FSJNISetLongField(env, jobj, "lingId", (jlong)0);
+		FSJNISetLongField(env, jobj, "objId", (jlong)0);
 		IGNORE_FSEXCEPTION( delete linguistic; )
 	}
 
@@ -31,7 +33,7 @@ JNIEXPORT jboolean JNICALL Java_ee_filosoft_vabamorf_Linguistic_open(JNIEnv *env
 #endif
 		linguistic = new CLinguistic();
 		linguistic->Open(fileNameT);
-		FSJNISetLongField(env, jobj, "lingId", (jlong)linguistic);
+		FSJNISetLongField(env, jobj, "objId", (jlong)linguistic);
 		return JNI_TRUE;
 	} catch(...) {
 		return JNI_FALSE;
@@ -42,7 +44,7 @@ JNIEXPORT void JNICALL Java_ee_filosoft_vabamorf_Linguistic_close(JNIEnv *env, j
 	FUNCTION_HEADER;
 
 	if (linguistic) {
-		FSJNISetLongField(env, jobj, "lingId", (jlong)0);
+		FSJNISetLongField(env, jobj, "objId", (jlong)0);
 		IGNORE_FSEXCEPTION( delete linguistic; )
 	}
 }
@@ -92,6 +94,7 @@ JNIEXPORT jobjectArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_suggest(JNIE
 
 	try {
 		CFSWStringArray suggestions = linguistic->Suggest(FSJNIStrtoW(env, word), startSentence!=JNI_FALSE);
+
 		jobjectArray suggs = (jobjectArray)env->NewObjectArray(suggestions.GetSize(), env->FindClass("java/lang/String"), 0);
 		for (INTPTR ip=0; ip<suggestions.GetSize(); ip++) {
 			env->SetObjectArrayElement(suggs, ip, FSJNIWtoStr(env, suggestions[ip]));
@@ -108,20 +111,35 @@ JNIEXPORT jobjectArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_analyze(JNIE
 	if (!linguistic) return NULL;
 
 	try {
-		jclass MorphInfoClass = env->FindClass("ee/filosoft/vabamorf/Linguistic$MorphInfo");
-		jmethodID MorphInfoClassConstructor = (MorphInfoClass ? env->GetMethodID(MorphInfoClass, "<init>", "()V") : 0);
-		if (!MorphInfoClassConstructor) return NULL;
-
 		CFSArray<CMorphInfo> results = linguistic->Analyze(FSJNIStrtoW(env, word));
+
 		jobjectArray analyzes=(jobjectArray)env->NewObjectArray(results.GetSize(), env->FindClass("java/lang/Object"), 0);
 		for (INTPTR ip=0; ip<results.GetSize(); ip++) {
-			jobject analyze1=env->NewObject(MorphInfoClass, MorphInfoClassConstructor);
-			FSJNISetStringField(env, analyze1, "root", FSJNIWtoStr(env, results[ip].m_szRoot));
-			FSJNISetStringField(env, analyze1, "ending", FSJNIWtoStr(env, results[ip].m_szEnding));
-			FSJNISetStringField(env, analyze1, "clitic", FSJNIWtoStr(env, results[ip].m_szClitic));
-			FSJNISetCharField(env, analyze1, "pos", results[ip].m_cPOS);
-			FSJNISetStringField(env, analyze1, "form", FSJNIWtoStr(env, results[ip].m_szForm));
-			env->SetObjectArrayElement(analyzes, ip, analyze1);
+			env->SetObjectArrayElement(analyzes, ip, MorphInfoToJNI(env, results[ip]));
+		}
+		return analyzes;
+	} catch(...) {
+		return NULL;
+	}
+}
+
+JNIEXPORT jobjectArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_analyzeSentence(JNIEnv *env, jobject jobj, jobjectArray words)
+{
+	FUNCTION_HEADER;
+	if (!linguistic) return NULL;
+
+	try {
+		CFSArray<CPTWord> ptwords;
+		INTPTR ipSize = env->GetArrayLength(words);
+		for (INTPTR ip=0; ip<ipSize; ip++) {
+			ptwords.AddItem(FSJNIStrtoW(env, (jstring)env->GetObjectArrayElement(words, ip)));
+		}
+
+		CFSArray<CMorphInfos> results = linguistic->AnalyzeSentence(ptwords);
+
+		jobjectArray analyzes = (jobjectArray)env->NewObjectArray(results.GetSize(), env->FindClass("java/lang/Object"), 0);
+		for (INTPTR ip = 0; ip < results.GetSize(); ip++) {
+			env->SetObjectArrayElement(analyzes, ip, MorphInfosToJNI(env, results[ip]));
 		}
 		return analyzes;
 	} catch(...) {
@@ -135,27 +153,14 @@ JNIEXPORT jobjectArray JNICALL Java_ee_filosoft_vabamorf_Linguistic_synthesize(J
 	if (!linguistic) return NULL;
 
 	try {
-		jclass MorphInfoClass = env->FindClass("ee/filosoft/vabamorf/Linguistic$MorphInfo");
-		jmethodID MorphInfoClassConstructor = (MorphInfoClass ? env->GetMethodID(MorphInfoClass, "<init>", "()V") : 0);
-		if (!MorphInfoClassConstructor) return NULL;
+		CMorphInfo MorphInfo = JNIToMorphInfo(env, info);
+		MorphInfo.m_szEnding.Empty();
 
-		CMorphInfo morphInfo;
-		morphInfo.m_szRoot = FSJNIStrtoW(env, FSJNIGetStringField(env, info, "root"));
-		morphInfo.m_szClitic = FSJNIStrtoW(env, FSJNIGetStringField(env, info, "clitic"));
-		morphInfo.m_cPOS = FSJNIGetCharField(env, info, "pos");
-		morphInfo.m_szForm = FSJNIStrtoW(env, FSJNIGetStringField(env, info, "form"));
-
-		CFSArray<CMorphInfo> results = linguistic->Synthesize(morphInfo, FSJNIStrtoW(env, hint));
+		CFSArray<CMorphInfo> results = linguistic->Synthesize(MorphInfo, FSJNIStrtoW(env, hint));
 
 		jobjectArray synths=(jobjectArray)env->NewObjectArray(results.GetSize(), env->FindClass("java/lang/Object"), 0);
 		for (INTPTR ip=0; ip<results.GetSize(); ip++) {
-			jobject analyze1=env->NewObject(MorphInfoClass, MorphInfoClassConstructor);
-			FSJNISetStringField(env, analyze1, "root", FSJNIWtoStr(env, results[ip].m_szRoot));
-			FSJNISetStringField(env, analyze1, "ending", FSJNIWtoStr(env, results[ip].m_szEnding));
-			FSJNISetStringField(env, analyze1, "clitic", FSJNIWtoStr(env, results[ip].m_szClitic));
-			FSJNISetCharField(env, analyze1, "pos", results[ip].m_cPOS);
-			FSJNISetStringField(env, analyze1, "form", FSJNIWtoStr(env, results[ip].m_szForm));
-			env->SetObjectArrayElement(synths, ip, analyze1);
+			env->SetObjectArrayElement(synths, ip, MorphInfoToJNI(env, results[ip]));
 		}
 		return synths;
 	} catch(...) {

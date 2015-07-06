@@ -1,0 +1,8 @@
+# Unix exports
+{
+	global:
+		Java_ee_filosoft_vabamorf_Disambiguator_open;
+		Java_ee_filosoft_vabamorf_Disambiguator_close;
+		Java_ee_filosoft_vabamorf_Disambiguator_disambiguate;
+	local: *;
+};

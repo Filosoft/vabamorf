@@ -318,5 +318,8 @@
     <ClCompile Include="..\..\..\..\..\lib\proof\suggestor.cpp">
       <Filter>proof</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\java\utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
