@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h2><i>Native</i> teegi kompileerimine</h2>
-	<div>Windowsil avage apps/cmdline/project/vc2010/cmdline.sln ja kompileerige java projekt</div>
+	<div>Windowsil avage apps/cmdline/project/vc2010/cmdline.sln ja kompileerige *_jni projektid</div>
 	<div>Unixil käivitage kataloogis apps/cmdline/project/unix make -f Makefile.java cpp</div>
 	<div>Vajadusel kohendage projektifailides kasutatav JDK kataloog oma Java installatsioonile vastavaks.</div>
 
@@ -16,10 +16,12 @@
 
 	<h2>Kasutamine</h2>
 	<ul>
-	<li>Kopeerige kompileeritud <i>native</i> teek (linguistic_jni.dll või liblinguistic_jni.so) süsteemi teele.
-	<li>Kopeerige et.dct kompileeritud Java klasside juurde.
-	<li>Käivitage LinguisticTest andes parameetriteks analüüsitavad sõnad. NB! mõni konsool ei pruugi hakkama saada täpitähtedega.
-	<li>Muutke soovi korral LinguisticTest.java faili seadistamaks tarkvara tööd.
+	<li>Kopeerige kompileeritud <i>native</i> teegid (*.dll või *.so) süsteemi teele.
+	<li>Kopeerige et.dct ja et3.dct kompileeritud Java klasside juurde.
+	<li>Käivitage LinguisticTest andes parameetriteks analüüsitavad sõnad või
+	käivitage DisambiguatorTest andes parameetriks tühikutega eraldatud lause.
+	NB! mõni konsool ei pruugi hakkama saada täpitähtedega.
+	<li>Muutke soovi korral *Test.java faile seadistamaks tarkvara tööd.
 	</ul>
 
 </body>
