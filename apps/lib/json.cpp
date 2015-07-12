@@ -18,8 +18,30 @@ CFSAString CJSONReader::ReadString()
 	CFSAString szStr;
 	while (GetChar()) {
 		if (m_cCh=='\\') {
-			szStr+=m_cCh;
-			if (GetChar()) szStr+=m_cCh;
+			if (!GetChar()) break;
+			if (m_cCh=='\\') szStr+='\\';
+			else if (m_cCh=='\'' && cQuote=='\'') szStr+='\'';
+			else if (m_cCh=='"' && cQuote=='"') szStr+='"';
+			else if (m_cCh=='n') szStr+='\n';
+			else if (m_cCh=='r') szStr+='\r';
+			else if (m_cCh=='t') szStr+='\t';
+			else if (m_cCh=='b') szStr+='\b';
+			else if (m_cCh=='f') szStr+='\f';
+			else if (m_cCh=='u') {
+				bool Error=false;
+				wchar_t Char=0;
+				for (INTPTR ip=0; !Error && ip<4; ip++) {
+					Error=!GetChar();
+					char Code=m_cCh;
+					Char*=0x10;
+					if (Code>='0' && Code<='9') Char+=Code-'0';
+					else if (Code>='a' && Code<='f') Char+=Code-'f'+10;
+					else if (Code>='A' && Code<='F') Char+=Code-'F'+10;
+					else Error=true;
+				}
+				if (Error) break;
+				szStr+=FSStrWtoA(Char, FSCP_UTF8);
+			}
 			else break;
 		} else if (m_cCh==cQuote) {
 			GetChar(true);
