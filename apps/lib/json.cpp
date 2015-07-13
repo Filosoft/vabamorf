@@ -335,8 +335,14 @@ void CJSONWriter::ArrayEnd() {
 
 void CJSONWriter::Text(const CFSAString &szStr) {
 	for (INTPTR ip=0; ip<szStr.GetLength(); ip++) {
-		if (szStr[ip]=='\"') m_Stream.WriteChar('\\');
-		m_Stream.WriteChar(szStr[ip]);
+		if (szStr[ip]=='\\') m_Stream.WriteText("\\\\");
+		else if (szStr[ip]=='\"') m_Stream.WriteText("\\\"");
+		else if (szStr[ip]=='\n') m_Stream.WriteText("\\n");
+		else if (szStr[ip]=='\r') m_Stream.WriteText("\\r");
+		else if (szStr[ip]=='\t') m_Stream.WriteText("\\t");
+		else if (szStr[ip]=='\b') m_Stream.WriteText("\\b");
+		else if (szStr[ip]=='\f') m_Stream.WriteText("\\f");
+		else m_Stream.WriteChar(szStr[ip]);
 	}
 }
 
