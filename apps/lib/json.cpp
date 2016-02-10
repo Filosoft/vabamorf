@@ -306,31 +306,31 @@ void CJSONWriter::NullVal() {
 void CJSONWriter::ObjectStart() {
 	Comma();
 	m_Comma[GetLevel()]=COMMA_VAL;
-	Text("{");
+	m_Stream.WriteChar('{');
 	m_Comma.AddItem(COMMA_KEY);
 }
 
 void CJSONWriter::ObjectEnd() {
 	RT_ASSERT(GetLevel()>0);
 	m_Comma.RemoveItem(GetLevel());
-	Text("\n");
+	m_Stream.WriteChar('\n');
 	Indent();
-	Text("}");
+	m_Stream.WriteChar('}');
 }
 
 void CJSONWriter::ArrayStart() {
 	Comma();
 	m_Comma[GetLevel()]=COMMA_VAL;
-	Text("[");
+	m_Stream.WriteChar('[');
 	m_Comma.AddItem(COMMA_KEY);
 }
 
 void CJSONWriter::ArrayEnd() {
 	RT_ASSERT(GetLevel()>0);
 	m_Comma.RemoveItem(GetLevel());
-	Text("\n");
+	m_Stream.WriteChar('\n');
 	Indent();
-	Text("]");
+	m_Stream.WriteChar(']');
 }
 
 void CJSONWriter::Text(const CFSAString &szStr) {
