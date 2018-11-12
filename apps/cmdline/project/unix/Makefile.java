@@ -1,5 +1,5 @@
 CC=g++
-FLAGS=-O2 -DNDEBUG -Wall -std=gnu++0x -fdata-sections -ffunction-sections -Wl,--gc-sections
+FLAGS=-O2  -fno-delete-null-pointer-checks -DNDEBUG -Wall -std=gnu++0x -fdata-sections -ffunction-sections -Wl,--gc-sections
 SOFLAGS=-fpic -shared -fno-strict-aliasing
 INCLUDE=-I /usr/lib/jvm/default-java/include
 COMMONCPP=../../java/utils.cpp ../../../../lib/proof/*.cpp ../../../../lib/etana/*.cpp ../../../lib/*.cpp ../../../../lib/fsc/*.cpp ../../../../lib/fsc/fsjni/*.cpp
