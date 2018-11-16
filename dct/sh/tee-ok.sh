@@ -1,14 +1,17 @@
 #!/bin/bash
 
-# NB! jooksev kataloog peab olema ${UFSD_TMP}
+echo "______________________________________________________________________"
+echo '[[' $0
+echo ""
+
+# NB jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
 #	${UFSD_EXE}/dct-noom
 #	${UFSD_EXE}/dct-vrb
 
-pushd ${UFSD_TMP}
+pushd ${UFSD_TMP} > /dev/null
 
-echo ++ $0 ++
 
 # Korjame jooksvasse kataloogi sõnastiku tegemiseks vajalikud
 # failid kokku,
@@ -31,12 +34,9 @@ echo ++ $0 ++
 #     suf.sok      sufiksid
 #     *.err        vigased sisendread
 
-echo == tesaurus
-
-echo == `pwd`
-
-if [ x${FLAG_SAURUS} = x--saurus ]
+if [ "${FLAG_SAURUS}" = "--saurus" ]
 then
+  echo == tesaurus
   cat ${UFSD_SRC_TES}/saurus.html.s6n \
   | iconv -f utf8 -t ucs-2le \
   > saurus.uc.s6n || exit 1
@@ -89,7 +89,7 @@ echo "  --> nomm.pala.txt"
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
-echo "#== Genereerime failist fs_lex pöörduvad:"
+echo "== Genereerime failist fs_lex pöörduvad:"
 for X in vvsv tesv lisav xpv sagev
 do
   cat ${UFSD_SRC_MRF}/fs_lex \
@@ -126,7 +126,7 @@ echo " --> suf"
 #     suf.sok      sufiksid
 #     *.err        vigased sisendread
 echo "== NIM/VRB-ime failid: X lgr --> X.[s]ok lgr"
-${UFSD_EXE}/dct-noom mmm.pala.txt  mmm.ok   mmm.err || exit 1
+${UFSD_EXE}/dct-noom mmm.pala.txt  mmm.ok   mmm.err  || exit 1
 ${UFSD_EXE}/dct-noom nomm.pala.txt nomm.ok  nomm.err || exit 1
 ${UFSD_EXE}/dct-vrb  verb.pala.txt verb.ok  verb.err || exit 1
 ${UFSD_EXE}/dct-noom suf           suf.sok  suf.err  || exit 1
@@ -137,5 +137,6 @@ ${UFSD_EXE}/dct-noom suf           suf.sok  suf.err  || exit 1
 rm suf *.pala.txt 
 #rm *.err
 
-popd
+popd > /dev/null
+echo ']]' $0
 

@@ -24,6 +24,7 @@ class CLOEND
             assert(EmptyClassInvariant());
             }
 
+        
         /// Argumentidega konstruktor
         //
         /// Kui kirjete v�rdlusfunktsiooni pole antud, ei j�rjsesta
@@ -35,6 +36,7 @@ class CLOEND
             const CMPFUNSRT _cmpsrt_,   ///< v�rdleb(kirje, kirje)
             const CMPFUNBS  _cmpbs_     ///< v�rdleb(v�ti,  kirje)
             )
+        /*{{2018-11-01
         try
             {
             InitClassVariables();
@@ -45,8 +47,22 @@ class CLOEND
             {
             Stop();
             throw;
-            }
-
+            }*/
+        {
+            try
+                {
+                InitClassVariables();
+                Start(_ptr_, _len_,  _cmpsrt_, _cmpbs_);
+                assert( ClassInvariant() );
+                }
+            catch(...)
+                {
+                Stop();
+                throw;
+                }
+        }
+        //}}2018-11-01    
+        
         /// Klassi initsailiseerimiseks peale argumentideta konstruktorit
         //
         /// Kui kirjete v�rdlusfunktsiooni pole antud, ei j�rjsesta

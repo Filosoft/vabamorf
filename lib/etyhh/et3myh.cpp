@@ -114,7 +114,8 @@ void ET3UTF8AHEL::Run(AHEL2_UTF8& analyysid)
     
     // Leiame morf analüüside==sõnade tegeliku arvu ahelas.
     // analyysid.idxLast-nSona==tag'ide arv massiivis analyysid
-    int nSona;
+    int nSona;    
+    
     for (nSona = 0, i = 0; i < analyysid.idxLast; i++)
     {
         if (analyysid[i]->lipp & PRMS_MRF)
@@ -170,7 +171,7 @@ ARVUTA_INDEKSID:
             MKLASS* mKlass = mKlassid.Get(&tagIdxArr);
             if (mitmesusKlassKasutu == false && mKlass != NULL)
             {
-                // Tõenäosused leia varemarvutatud mitmesusklassidest.
+                // Tõenäosused varemarvutatud sõnavormiga mitteseotud mitmesusklassist.
                 for (j = 0; j < mKlass->n; j++)
                     sProb.Obj(i, mKlass->tagIdxProb[j].tagIdx) =
                     mKlass->tagIdxProb[j].tagProb;

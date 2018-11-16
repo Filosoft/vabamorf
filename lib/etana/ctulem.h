@@ -19,6 +19,7 @@ class MRF2YH2MRF;
  *     <li> C_TYYP @a C_TYYP on sümbolitüüp @a (FSWCHAR või @a char)
  * </ol>
  */
+
 /*
  * näiteks:
    peeti
@@ -51,9 +52,15 @@ public:
     /** Sõnaliigistring (st alati @a sl[1]==EOS) */
     S_TYYP sl;
 
-    /** Vorm(id) */
+    /** Vorm(id) FS-kuju */
     S_TYYP vormid;
 
+    /** Vorm(id) GT-kuju */
+    S_TYYP vormidGT;
+
+    /** Tulemuse päritolu, kui eKustTulemused==eMRF_PARITUD võta MRFTULEMUSED_TMPL klassist */
+    EMRFKUST eKustTulemused;
+    
     MRFTUL_TMPL(void)
     {
         InitClassVariables();
@@ -102,13 +109,16 @@ public:
      */
     MRFTUL_TMPL(const C_TYYP *_tyvi_, const C_TYYP *_lopp_, const C_TYYP *_kigi_,
                 const C_TYYP *_sl_, const C_TYYP *_vormid_,
-                const C_TYYP *_muuInf_ = NULL, const C_TYYP *_mrg1st_ = NULL,
-                const C_TYYP *_lemma_ = NULL)
+                const C_TYYP *_muuInf_ = NULL, 
+                const C_TYYP *_mrg1st_ = NULL, const C_TYYP *_vormidGT_ = NULL,
+                const C_TYYP *_lemma_ = NULL,
+                const EMRFKUST _eKustTulemused_ = eMRF_PARITUD)
     {
         try
         {
             InitClassVariables();
-            Start(_tyvi_, _lopp_, _kigi_, _sl_, _vormid_, _muuInf_, _mrg1st_, _lemma_);
+            Start(_tyvi_, _lopp_, _kigi_, _sl_, _vormid_, _muuInf_,
+                        _mrg1st_, _vormidGT_, _lemma_, _eKustTulemused_);
         }
         catch (...)
         {
@@ -145,8 +155,10 @@ public:
         Start((const FSWCHAR *) (mrfTul.tyvi),
               (const FSWCHAR *) (mrfTul.lopp), (const FSWCHAR *) (mrfTul.kigi),
               (const FSWCHAR *) (mrfTul.sl), (const FSWCHAR *) (mrfTul.vormid),
-              (const FSWCHAR *) (mrfTul.muuInf), (const FSWCHAR *) (mrfTul.mrg1st),
-              (const FSWCHAR *) (mrfTul.lemma));
+              (const FSWCHAR *) (mrfTul.muuInf), 
+              (const FSWCHAR *) (mrfTul.mrg1st),(const FSWCHAR *) (mrfTul.vormidGT),
+              (const FSWCHAR *) (mrfTul.lemma),
+              mrfTul.eKustTulemused);
     }
 
     /** Initsialiseerib
@@ -158,8 +170,10 @@ public:
         Start((const char *) (mrfTul_utf8.tyvi),
               (const char *) (mrfTul_utf8.lopp), (const char *) (mrfTul_utf8.kigi),
               (const char *) (mrfTul_utf8.sl), (const char *) (mrfTul_utf8.vormid),
-              (const char *) (mrfTul_utf8.muuInf), (const char *) (mrfTul_utf8.mrg1st),
-              (const char *) (mrfTul_utf8.lemma));
+              (const char *) (mrfTul_utf8.muuInf), 
+              (const char *) (mrfTul_utf8.mrg1st), (const char *) (mrfTul_utf8.vormidGT),
+              (const char *) (mrfTul_utf8.lemma),
+              mrfTul_utf8.eKustTulemused);
     }
 
     /** Initsialiseerib UNICODEis algosakestest
@@ -176,8 +190,10 @@ public:
      */
     void Start(const FSWCHAR *_tyvi_, const FSWCHAR *_lopp_,
                const FSWCHAR *_kigi_, const FSWCHAR *_sl_, const FSWCHAR *_vormid_,
-               const FSWCHAR *_muuInf_ = NULL, const FSWCHAR *_mrg1st_ = NULL,
-               const FSWCHAR *_lemma_ = NULL)
+               const FSWCHAR *_muuInf_ = NULL,
+               const FSWCHAR *_mrg1st_ = NULL, const FSWCHAR *_vormidGT_ = NULL,
+               const FSWCHAR *_lemma_ = NULL,
+               const EMRFKUST _eKustTulemused_ = eMRF_PARITUD)
     {
         assert(_tyvi_ != NULL && _lopp_ != NULL &&
                _kigi_ != NULL && _sl_ != NULL && _vormid_ != NULL);
@@ -189,6 +205,10 @@ public:
             mrg1st = _mrg1st_;
         else
             mrg1st.Empty();
+        if(_vormidGT_ != NULL)
+            vormidGT=_vormidGT_;
+        else
+            vormidGT.Empty();
         if (_lemma_ != NULL)
             lemma = _lemma_;
         else
@@ -198,6 +218,7 @@ public:
         kigi = _kigi_;
         sl = _sl_;
         vormid = _vormid_;
+        eKustTulemused = _eKustTulemused_;
         assert(ClassInvariant());
     }
 
@@ -215,8 +236,10 @@ public:
      */
     void Start(const char *_tyvi_, const char *_lopp_,
                const char *_kigi_, const char *_sl_, const char *_vormid_,
-               const char *_muuInf_ = NULL, const char *_mrg1st_ = NULL,
-               const char *_lemma_ = NULL)
+               const char *_muuInf_ = NULL, 
+               const char *_mrg1st_ = NULL, const char *_vormidGT_ = NULL,
+               const char *_lemma_ = NULL,
+               const EMRFKUST _eKustTulemused_ = eMRF_PARITUD)
     {
         assert(_tyvi_ != NULL && _lopp_ != NULL &&
                _kigi_ != NULL && _sl_ != NULL && _vormid_ != NULL);
@@ -229,7 +252,10 @@ public:
             mrg1st = _mrg1st_;
         else
             mrg1st.Empty();
-
+        if(_vormidGT_ != NULL)
+            vormidGT=_vormidGT_;
+        else
+            vormidGT.Empty();
         if (_lemma_ != NULL)
             lemma = _lemma_;
         else
@@ -240,6 +266,7 @@ public:
         kigi = _kigi_;
         sl = _sl_;
         vormid = _vormid_;
+        eKustTulemused = _eKustTulemused_;
         assert(ClassInvariant());
     }
 
@@ -269,7 +296,8 @@ public:
             vormid.GetLength() == 0 &&
             muuInf.GetLength() == 0 &&
             mrg1st.GetLength() == 0 &&
-            lemma.GetLength() == 0;
+            lemma.GetLength() == 0 &&
+            eKustTulemused == eMRF_PARITUD;
     }
 
     bool ClassInvariant(void) const
@@ -296,7 +324,8 @@ public:
             (ret = kigi.Compare(&(rec->kigi))) != 0 ||
             (ret = sl.Compare(&(rec->sl))) != 0 ||
             (ret = vormid.Compare(&(rec->vormid))) != 0 ||
-            (ret = mrg1st.Compare(&(rec->mrg1st))) != 0)
+            (ret = mrg1st.Compare(&(rec->mrg1st))) != 0 /*||
+            (ret = (int (rec->eKustTulemused - eKustTulemused)))!=0*/)
         {
             return ret;
         }
@@ -315,8 +344,8 @@ public:
     void Strng2Strct(const S_TYYP &analStr)
     {
         Stop();
-        //          1     2       3   4
-        // ....tüvi[+lõpp].//_S_[ vorm,[vorm,]].//.
+        //          1     2       3         viimaseKomaPos
+        // ....tüvi[+lõpp].//_S_[ vorm,[vorm,]].//[K].
         int pos1, pos2; // pos3, pos4;
         //C_TYYP sonaLiik[2];
 
@@ -324,30 +353,30 @@ public:
             analStr[1] != (C_TYYP) ' ' ||
             analStr[2] != (C_TYYP) ' ' ||
             analStr[3] != (C_TYYP) ' ')
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vigane analüüsistring (4 tühikut puudu)", (const C_TYYP *)analStr));
-        if(analStr[4] == (C_TYYP) ' ')
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vigane analüüsistring (liiga palju alustavaid tühikuid)", 
-                                                    (const C_TYYP *)analStr));
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vigane analüüsistring (4 tühikut puudu)", (const C_TYYP *) analStr));
+        if (analStr[4] == (C_TYYP) ' ')
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vigane analüüsistring (liiga palju alustavaid tühikuid)",
+                        (const C_TYYP *) analStr));
         if (analStr[4] == (C_TYYP) '#' &&
             analStr[5] == (C_TYYP) '#' &&
             analStr[6] == (C_TYYP) '#' &&
             analStr[7] == (C_TYYP) '#' &&
             analStr[8] == (C_TYYP) '\0')
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vigane analüüsistring (#### pole lubatud)", (const C_TYYP *)analStr));
-        if (analStr[analStr.GetLength()-1] != (C_TYYP) '/' &&
-                                analStr[analStr.GetLength()-2] != (C_TYYP) '/' &&
-                                analStr[analStr.GetLength()-3] != (C_TYYP) ' ' )
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vigane analüüsistring (\" //\" lõpust puudu)", (const C_TYYP *)analStr));
-        
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vigane analüüsistring (#### pole lubatud)", (const C_TYYP *) analStr));
+        if (analStr[analStr.GetLength() - 1] != (C_TYYP) '/' &&
+            analStr[analStr.GetLength() - 2] != (C_TYYP) '/' &&
+            analStr[analStr.GetLength() - 3] != (C_TYYP) ' ')
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vigane analüüsistring (\" //\" lõpust puudu)", (const C_TYYP *) analStr));
+
         if ((pos2 = (int) analStr.Find(EritiSobiViit(C_TYYP, " //_"))) <= 0 ||
-            pos2+8 > analStr.GetLength() || analStr[pos2+5] != (C_TYYP) '_' || 
-                                            analStr[pos2+6] != (C_TYYP) ' ')
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vigane sõnaliigiosa", (const C_TYYP *)analStr));
+            pos2 + 8 > analStr.GetLength() || analStr[pos2 + 5] != (C_TYYP) '_' ||
+            analStr[pos2 + 6] != (C_TYYP) ' ')
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vigane sõnaliigiosa", (const C_TYYP *) analStr));
 
         tyvi = analStr.Mid(4, pos2 - 4);
         lopp.Empty();
@@ -360,18 +389,47 @@ public:
             {
                 kigi = lopp.Right(2);
                 lopp = lopp.Left(lopp.GetLength() - 2);
-            }            
+            }
         }
-        sl = analStr[pos2 + 4];
-        if (analStr[pos2+7] == (C_TYYP) '/' && analStr[pos2 + 8] == (C_TYYP) '/')
+        sl = analStr.Mid(pos2 + 4, 1);
+        if (analStr[pos2 + 7] == (C_TYYP) '/' && analStr[pos2 + 8] == (C_TYYP) '/')
         {
             vormid.Empty();
             return;
         }
-        if(analStr[analStr.GetLength()-4] != (C_TYYP) ',' )
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vormiosa lõpust puudub koma", (const C_TYYP *)analStr));            
-        vormid = analStr.Mid(pos2+7, analStr.GetLength()-9-pos2);
+        int viimaseKomaPos = analStr.GetLength() - 4 -
+                    (analStr[analStr.GetLength() - 1] == (C_TYYP) '/' ? 0 : 1);
+        if (analStr[viimaseKomaPos] != (C_TYYP) ',')
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vormiosa lõpust puudub koma", (const C_TYYP *) analStr));
+        //vormid = analStr.Mid(pos2 + 7, analStr.GetLength() - 9 - pos2);
+        vormid = analStr.Mid(pos2 + 7, viimaseKomaPos - pos2 - 5);
+        
+        // Lõpetav // on positsioonides [pos2 + 7] ja [pos2 + 8]
+        // Päritolu (kui) on positsioonis  [pos2 + 9]
+        if(analStr[analStr.GetLength()-1] != (C_TYYP) '/')
+        {
+            switch(analStr[pos2 + 9])
+            {
+            case (C_TYYP)'P':
+                eKustTulemused=eMRF_P;
+                break;
+            case (C_TYYP)'L':
+                eKustTulemused=eMRF_L;
+                break;
+            case (C_TYYP)'O':
+                eKustTulemused=eMRF_O;
+                break;
+            case (C_TYYP)'S':
+                eKustTulemused=eMRF_S;
+                break;
+            case (C_TYYP)'X':
+            default:
+                eKustTulemused=eMRF_X;
+                break;
+            }
+            
+        }
     }
 
     /** Paneb morf analüüsi klassist väljundstringi kokku.
@@ -432,8 +490,40 @@ public:
         }
         *xstr += EritiSobiViit(C_TYYP, "//_");
         *xstr += sl + EritiSobiViit(C_TYYP, "_ ");
-        *xstr += vormid;
-        *xstr += EritiSobiViit(C_TYYP, "//");
+        if(mrfFlags->ChkB(MF_GTMRG) == true && vormidGT.GetLength() > 0)
+            *xstr += vormidGT;
+        else
+            *xstr += vormid;
+        *xstr += EritiSobiViit(C_TYYP, "//"); 
+        if(mrfFlags->ChkB(MF_KUST) == true)
+        {
+            S_TYYP paritOlu;
+            switch(eKustTulemused)
+            {
+            case eMRF_X:
+                paritOlu = EritiSobiViit(C_TYYP, "X");
+                break;
+            case eMRF_P:
+                paritOlu = EritiSobiViit(C_TYYP, "P");
+                break;
+            case eMRF_L:
+                paritOlu = EritiSobiViit(C_TYYP, "L");
+                break;
+            case eMRF_O:
+                paritOlu = EritiSobiViit(C_TYYP, "O");
+                break;
+            case eMRF_S:
+                paritOlu = EritiSobiViit(C_TYYP, "S");
+                break;
+            case eMRF_PARITUD:
+            case eTAG_XX:
+            default:
+                assert(false);
+                EritiSobiViit(C_TYYP, "X");
+                break;
+            }
+            *xstr += paritOlu;
+        }
     }
 
     /** Lisa analüüsile lemma. */
@@ -551,6 +641,7 @@ private:
         kigi.Empty();
         sl.Empty();
         vormid.Empty();
+        eKustTulemused = eMRF_PARITUD;
     }
 };
 
@@ -590,7 +681,7 @@ public:
      *  */
     bool keeraYmber;
 
-    /** Näitab millisest moodulist tulemus saadi */
+    /** Näitab millisest moodulist tulemus saadi kui konkreetse analüüsi juures pole teisiti öeldud */
     EMRFKUST eKustTulemused;
     
     
@@ -1007,6 +1098,7 @@ public:
         xstr->Empty();
         *xstr += s6na;
 
+        LisaTulemusteleVaikeparitolu();
         if (mrfFlags->ChkB(MF_KOMA_LAHKU) == true)
             StrctKomadLahku();
         if (on_tulem())
@@ -1059,25 +1151,25 @@ public:
         const int eraldajaPikkus = (int) eraldaja.GetLength();
 
         if ((pos1 = (int) xstr->Find((const C_TYYP *) eraldaja)) < 0)
-            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL, 
-            "Vigane analüüsistring (4 tühikut puudu)", (const C_TYYP *)*xstr));
+            throw (VEAD(ERR_X_TYKK, ERR_NOMEM, __FILE__, __LINE__, NULL,
+                        "Vigane analüüsistring (4 tühikut puudu)", (const C_TYYP *) *xstr));
         tagasiTasand = 0;
         mitmeS6naline = 1;
         keeraYmber = false;
         s6na = xstr->Left(pos1);
-        
-        pos3=0;
-        while((pos2=s6na.Find(FSWCHAR(' '),pos3))>pos3)
+
+        pos3 = 0;
+        while ((pos2 = s6na.Find(FSWCHAR(' '), pos3)) > pos3)
         {
             ++mitmeS6naline;
-            pos3=pos2;
+            pos3 = pos2;
         }
         S_TYYP analStr(*xstr), analStr1;
         analStr.TrimLeft();
         analStr += eraldaja;
 
         MRFTUL_TMPL<S_TYYP, C_TYYP> cTul;
-        if(xstr->Mid(pos1) == EritiSobiViit(C_TYYP, "    ####"))
+        if (xstr->Mid(pos1) == EritiSobiViit(C_TYYP, "    ####"))
         {
             // mõistataja oli võimetu, peame ise paugust midagi leiutama
             //  loodame et morfi sõnaliik 'T' annab ühestajamärgendi 'X'
@@ -1086,8 +1178,8 @@ public:
             AddClone(cTul);
             return;
         }
-        while ((pos2 = (int) analStr.Find((const C_TYYP *) eraldaja, 
-                                            pos1 + eraldajaPikkus)) > pos1)
+        while ((pos2 = (int) analStr.Find((const C_TYYP *) eraldaja,
+                                          pos1 + eraldajaPikkus)) > pos1)
         {
             analStr1 = analStr.Mid(pos1, pos2 - pos1);
             analStr1.TrimLeft(EritiSobiViit(C_TYYP, "\n"));
@@ -1096,7 +1188,7 @@ public:
             pos1 = pos2;
         }
     }
-    
+
     /** kriipsudega sõnade analüüsitulemuse "tüve" kokkupanek 
      * 
      * @param esiKomponendid
@@ -1146,7 +1238,7 @@ public:
     }
 
     /** Indeks analüüsivariandi viidaks */
-    MRFTUL_TMPL<S_TYYP, C_TYYP> * operator[] (const int idx) const
+    MRFTUL_TMPL<S_TYYP, C_TYYP> * operator[](const int idx) const
     {
         return (idx >= 0 && idx < TMPLPTRARRAY<MRFTUL_TMPL<S_TYYP, C_TYYP> >::idxLast) ? TMPLPTRARRAY<MRFTUL_TMPL<S_TYYP, C_TYYP> >::rec[idx] : NULL;
     }
@@ -1178,6 +1270,7 @@ public:
                     uusMrfTul->kigi = mrfTul->kigi;
                     uusMrfTul->sl = mrfTul->sl;
                     uusMrfTul->vormid = vormid->Mid(pos2 + 2, pos3 - pos2);
+                    uusMrfTul->eKustTulemused = eKustTulemused;
                 }
                 if ((tykeldasin = pos2 > pos1) == true) // oli midagi tükeldada
                     mrfTul->vormid = vormid->Left(pos1 + 2);
@@ -1187,6 +1280,15 @@ public:
             TMPLPTRARRAYSRT<MRFTUL_TMPL<S_TYYP, C_TYYP> >::Sort();
     }
 
+    void LisaTulemusteleVaikeparitolu(void)
+    {
+        for(int i=0; i < TMPLPTRARRAY<MRFTUL_TMPL<S_TYYP, C_TYYP> >::idxLast; ++i)
+        {
+            if(operator[](i)->eKustTulemused == eMRF_PARITUD)
+                operator[](i)->eKustTulemused = eKustTulemused;
+        }
+    }
+    
 private:
 
     void InitClassVariables(void)
@@ -1195,7 +1297,7 @@ private:
         tagasiTasand = -1;
         mitmeS6naline = -1;
         keeraYmber = false;
-        eKustTulemused = eMRF_XX;
+        eKustTulemused = eMRF_X;
     }
 };
 

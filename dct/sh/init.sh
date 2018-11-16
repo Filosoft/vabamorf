@@ -1,4 +1,9 @@
 #!/bin/bash
+
+echo "______________________________________________________________________"
+echo '[[' $0
+echo ""
+
 # NB jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
@@ -8,7 +13,7 @@
 #	${UFSD_EXE}/dct-init3
 #	${UFSD_EXE}/dct-saurus (juhul, kui tesaurus lisada; vaikimisi ei lisata)
 
-pushd ${UFSD_TMP}
+pushd ${UFSD_TMP} > /dev/null
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
@@ -68,7 +73,7 @@ cat suf.sok \
 # palavrk.tmk.txt  rida 14-1=13 näitab vältemärkide asukohti:  [13]   1 <     4 <   
 # liitpiir.tmk.txt rida  1-1=0  näitab liitsõnapiiri asukohta:  [0]   3 _ 
 
-echo -n "== Lisamärgid tüvedest välja (PALAKUJU): *.ok *.sok *.pok"
+echo -ne "\n== Lisamärgid tüvedest välja (PALAKUJU): *.ok *.sok *.pok"
 ${UFSD_EXE}/dct-palakuju *.ok *.1sok *.1pok || exit 1
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
@@ -121,7 +126,7 @@ cat suf.1sok-p \
 # 249,da 235,na
 # Siin 249 ja 235 on lõpugruppide numbrid (need on samad, mis nii verb.ok kui ka verb.ok-p puhul)
 
-echo -n "== Teeme tüvemuutuste grupid (CONV11X):"
+echo -ne "\n== Teeme tüvemuutuste grupid (CONV11X):"
 echo "*.ok-p *.sok-p --> *.tmm tyvmuut.tmk tyvmuut.tmk.txt"
 ${UFSD_EXE}/dct-conv11x *.ok-p *.sok-p || exit 1
 
@@ -230,20 +235,16 @@ cp aeesti1.dct et.dct || exit 1
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 # kui leksikoni peaks liitma ka tesauruse (vaikimisi ei liideta) 
-if [ x$1 = x"--saurus" ]
+if [ "$FLAG_SAURUS" = "--saurus" ]
 then
-  #echo -e "\n\n** " $0:$LINENO "** Lisame tesauruse ?"; read vastus 
   echo == Lisame tesuruse
   ${UFSD_EXE_TES}/dct-saurus saurus.uc.s6n et.dct || exit 1
 fi
-
-#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 cp et.dct ${UFSD_BINDCT}/et.dct
 
 echo "== Morfi sõnastik failis:" ${UFSD_BINDCT}/et.dct
 
-
-
-popd
+popd > /dev/null
+echo ']]' $0
 

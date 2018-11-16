@@ -1,8 +1,12 @@
 #!/bin/bash
 
+echo "______________________________________________________________________"
+echo '[[' $0
+echo ""
+
 echo "== Kustutame vahefailid kataloogist" ${UFSD_TMP}
 #cd ${UFSD_TMP}
-if [ x = x${UFSD_TMP} ]
+if [ -z "${UFSD_TMP}" ]
 then
 	echo ""
 	echo '============================================================'
@@ -12,4 +16,5 @@ then
 fi
 
 rm -f ${UFSD_TMP}/* > /dev/null
+echo ']]' $0
 

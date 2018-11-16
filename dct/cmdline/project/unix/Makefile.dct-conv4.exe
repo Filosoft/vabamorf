@@ -1,0 +1,14 @@
+OUT=dct-conv4
+LIBS=etana.ar fsc.ar
+
+FILES=$(wildcard ../../$(OUT)/*.cpp)
+CC=g++
+FLAGS=-O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections
+
+all:
+	$(CC) $(FLAGS) -o $(OUT) $(FILES) $(LIBS)
+	strip $(OUT)
+
+clean:
+	-rm $(OUT)
+

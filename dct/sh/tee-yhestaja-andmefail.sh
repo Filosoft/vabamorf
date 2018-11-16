@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "______________________________________________________________________"
+echo '[[' $0
+echo ""
+
+pushd ${UFSD_TMP}  > /dev/null
+
 # NB jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
@@ -39,9 +45,6 @@
 # dct-t3pakitud võtab jooksvast kataloogist dct-t3mesta tehtud 5 väljundfaili ja 
 # teeb neist ühestamismooduli poolt kasutatava leksikonifaili et3.dct.
 
-
-pushd ${UFSD_TMP}
-
 echo "== " Teeme ühestaja andmefailid
 
 # et.dct'i pole vaja, kui ei kasuta eksperimentaalset koodi
@@ -57,5 +60,6 @@ ${UFSD_EXE}/dct-t3pakitud
 #echo "== Ühestaja sõnastik failis:" ${UFSD_BINDCT}/et3.dct
 cp et3.dct ${UFSD_BINDCT}/et3.dct
 
-popd
+popd > /dev/null
+echo ']]' $0
 

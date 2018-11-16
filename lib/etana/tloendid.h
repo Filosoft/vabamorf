@@ -35,15 +35,39 @@
 
 int FSStrCmpW0(const FSWCHAR *s1, const FSWCHAR *s2);
 
+template <class S_TYYP, class C_TYYP>
+void PuhastaMargenditest(S_TYYP& xStr, bool vajaPuhastada=true)
+{
+    if(vajaPuhastada==false || xStr.GetLength()==0)
+        return;
+    int j;
+    for (int i = 0; i < xStr.GetLength(); )
+    {
+        if (xStr[i]=='<') // Märgendi algus
+        { 
+            j=xStr.Find((C_TYYP)'>', i+1); // otsime üles märgendi lõpu
+            if(j<=i) // märgendit lõpetav märk '>' puudu
+                throw(VEAD(ERR_X_TYKK, ERR_MINGIJAMA, __FILE__,__LINE__, "Vigane XML margend"));
+            xStr.Delete(i, j-i+1); // viskame märgendi vahelt välja
+        }
+        else
+            ++i;
+    }
+}
+
 /** Lõikab sisendstringist XML-märgendid välja ja teeb olemid vastavateks 
-    * märkideks
-    *
-    * @param[in,out] CFSWString& @wStr
-    * sisendstring string
-    * @param[in] bool @vajaPuhastada
-    * Vaikimisi vajaPuhastada==true. Kui vajaPuhastada==true kustutame olemid 
-    * ja märgendid, muidu jääb muutmata.
-    */
+ * märkideks
+ *
+ * Malliparameetrid:
+ * <ul><li> S_TYYP -- stringiklassi tüüp
+ *     <li> C_TYYP -- üksiku spmboli tüüp
+ * </ul>
+ * @param[in,out] CFSWString& @wStr
+ * sisendstring string
+ * @param[in] bool @vajaPuhastada
+ * Vaikimisi vajaPuhastada==true. Kui vajaPuhastada==true kustutame olemid 
+ * ja märgendid, muidu jääb muutmata.
+ */
 template <class S_TYYP, class C_TYYP>
 void PuhastaXMList(S_TYYP& xStr, bool vajaPuhastada=true)
 {
@@ -879,7 +903,6 @@ public:
     /// @return
     /// - @a >= Kirje indeks
     /// - @a ==-1 Polnud
-
     int LGetIdx(
                 const KEY key, ///< v�tme viit
                 REC** rec = NULL
@@ -890,8 +913,16 @@ public:
         assert(rec != NULL);
         assert(ClassInvariant());
 
-        if (key == NULL)
-            return NULL;
+        //{{2018-11-01
+        //if (key == NULL)
+        //    return NULL;
+        if(key==NULL)
+        {
+            assert(false)
+            *rec = NULL;
+            return -1;
+        }
+        //}}2018-11-01
         int i;
         for (i = 0; i < len; i++)
         {

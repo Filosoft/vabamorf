@@ -159,7 +159,7 @@ bool ETMRFAS::SyntDetailne(
     valja.s6na += *pGeneKigi;
 
     adHocString=FSxSTR("");
-    valja.eKustTulemused = eMRF_XX; // see peaks tegelt olema pValja tekitamise kohas... HJK aprill 2005
+    valja.eKustTulemused = eMRF_X; // see peaks tegelt olema pValja tekitamise kohas... HJK aprill 2005
                                     // Ei. See ütleb, et vaikimisi me ei tea kust analüüs pärit.
                                     // Seal, kus me tulemuse saime, asendame selle
                                     // konstandiga, kust tulemus tegelikult tuli.
@@ -244,7 +244,7 @@ bool ETMRFAS::SyntDetailne(
         if (valja.idxLast > 0) // õnnestus sünteesida
             return true;
         // ei suutnud sünteesida ...
-        if (morfistLyli.ptr.pMrfAnal->eKustTulemused == eMRF_AP) // tulemus põhisõnastikust
+        if (morfistLyli.ptr.pMrfAnal->eKustTulemused == eMRF_P) // tulemus põhisõnastikust
             { // ilmselt oli sisendsõna mingi tuntud sõna mitte-algvorm
             if (morfistLyli.ptr.pMrfAnal->s6na.Right(3) == FSxSTR("nud") ||
                 morfistLyli.ptr.pMrfAnal->s6na.Right(3) == FSxSTR("tud") ||
@@ -384,7 +384,7 @@ bool ETMRFAS::Gene2Detailne(       // -1==siiber; 0==ok
             return false;
 	if (pValja->idxLast > viimne) // midagi leitigi 
             {
-            pValja->eKustTulemused = eMRF_SP; // tulemused põhisõnastikust
+            pValja->eKustTulemused = eMRF_P; // tulemused põhisõnastikust
             continue; 
             }
         k1 = gene_t1.ReverseFind((FSxCHAR)'_')+1;
@@ -427,7 +427,7 @@ bool ETMRFAS::Gene2Detailne(       // -1==siiber; 0==ok
 		return false;
 	    if (pValja->idxLast > viimne) // midagi leitigi 
                 {
-                pValja->eKustTulemused = eMRF_SP; // tulemused põhisõnastikust
+                pValja->eKustTulemused = eMRF_P; // tulemused põhisõnastikust
 		break; 
                 }
 	    }
@@ -1067,7 +1067,7 @@ bool ETMRFAS::ArvaGene2(       // -1==siiber; 0==ok
            
     if (pValja->idxLast > viimne) // midagi leitigi 
         {
-        pValja->eKustTulemused = eMRF_SO; // tulemused tulid sünteesi-oletajast
+        pValja->eKustTulemused = eMRF_O; // tulemused tulid sünteesi-oletajast
         }
     pValja->SortUniq();
     return true;

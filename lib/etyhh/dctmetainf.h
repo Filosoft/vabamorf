@@ -118,6 +118,7 @@ class DCTMETASTRCT :
          * @param dctFileName -- sõnastikufaili nimi
          */
         DCTMETASTRCT(const CFSFileName& dctFileName)
+        /*{{2018-11-01
         try {
             InitClassVariables();
             Start(dctFileName);
@@ -127,6 +128,18 @@ class DCTMETASTRCT :
             {
             Stop();
             throw;
+            }*/
+            {
+            try {
+                InitClassVariables();
+                Start(dctFileName);
+                assert(ClassInvariant());
+                }
+            catch(...)
+                {
+                Stop();
+                throw;
+                }
             }
 
         /**

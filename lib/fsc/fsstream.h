@@ -242,7 +242,7 @@ public:
 				}
 			}
 		}
-		
+
 		int iExp;
 		ReadSInt(&iExp);
 		*pNumber=ldexp(*pNumber, iExp);

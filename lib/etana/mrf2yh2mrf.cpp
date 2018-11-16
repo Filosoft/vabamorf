@@ -1,5 +1,6 @@
 
 #include "mrf2yh2mrf.h"
+#include "../../lib/etana/mrf2yh2mrf.h"
 
 static  MRF2YH_LOEND mrf2yhPunktuatsioon[] = 
     {
