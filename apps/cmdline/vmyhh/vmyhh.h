@@ -1,5 +1,5 @@
-#if !defined(VMETA_H)
-#define VMETA_H
+#if !defined(VMYHH_H)
+#define VMYHH_H
 
 #include "../../../lib/etana/etmrfana.h"
 #include "../../../lib/etana/viga.h"
@@ -7,8 +7,9 @@
 #include "../../../lib/etana/fs2gt.h"
 #include "../../../lib/etana/loefailist.h"
 
+#include "../../../lib/etyhh/t3common.h"
 
-class VMETA
+class VMYHH
 {
 public:
         void Start(int argc, char **argv, char** envp, const char*);        
@@ -25,10 +26,6 @@ private:
         lipp_hmm,               // -m --hmm markov
     } lipp_ms;
     
-    bool lipp_xml;				// -x --xml
-    bool lipp_haaldus;          // -p --phonetic
-    bool lipp_oleta;            // -q --quess
-
     CFSAString path;            // -p --path
     CFSAString sisendfail;      // vaikimisi - (stdin))
     CFSAString valjundfail;     // vaikimisi - (stdout)
@@ -39,7 +36,7 @@ private:
     VOTAFAILIST sisse;
     PANEFAILI valja;
     
-    void LyliValja(LYLI *pLyli, const MRF_FLAGS& lipud_mrf);
+    void LyliValja(LYLI &lyli, const MRF_FLAGS& lipud_mrf);
 };
 
 

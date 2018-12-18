@@ -2,12 +2,11 @@
 
 void VMETA::Start(int argc, char **argv, char** envp, const char*)
 {
-    lipp_ms=lipp_gt;	// märgendisüsteem: vaikimisi gt
+    lipp_ms=lipp_fs;	// märgendisüsteem: vaikimisi fs
     
-    lipp_xml=false;		// sisendformaat: vaikimisi üksiksõnad
-    lipp_oleta=false;   // leksikonist puuduvad sõned: vaikimisi ei oleta
+    lipp_xml=true;		// sisendformaat: vaikimisi üksiksõnad
+    lipp_oleta=true;   // leksikonist puuduvad sõned: vaikimisi ei oleta
     lipp_haaldus=false; // hääldusmärgid: vaikimisi ei lisa
-    lipp_algv=true;     // vaikimisi paneme algvormi
     PATHSTR pathstr;
     path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
     sisendfail="-";     // vaikimisi stdin
@@ -22,38 +21,33 @@ void VMETA::Start(int argc, char **argv, char** envp, const char*)
 syntaks:           
             fprintf(stderr, 
                     "%s [LIPUD...] [sisendfail väljundfail]\n"
-                    "Täpsemalt vt https://docs.google.com/document/d/11gxekYR3Jj96o0A-vPON_FdTQQuBrm6qsTpfqfsQ26U/edit?usp=sharing\n",
+                    "Täpsemalt vt https://docs.google.com/document/d/1tuS4ETm9ynQBUlDztvyVZN1dTtl_h8gXmbm-tYXGSYY/edit?usp=sharing\n",
                     argv[0]);
             exit(EXIT_FAILURE);
         }        
-        if(strcmp("-x", argv[i])==0 || strcmp("--xml", argv[i])==0)
+        if(strcmp("-t", argv[i])==0 || strcmp("--plaintext", argv[i])==0)
         {
-            lipp_xml=true;
+            lipp_xml=false;
             continue;
         }
-        if(strcmp("-q", argv[i])==0 || strcmp("--quess", argv[i])==0)
+        if(strcmp("-q", argv[i])==0 || strcmp("--dontquess", argv[i])==0)
         {
-            lipp_oleta=true;
+            lipp_oleta=false;
             continue;
         }
-        if(strcmp("-p", argv[i])==0 || strcmp("--phonetic", argv[i])==0)
+        if(strcmp("-f", argv[i])==0 || strcmp("--phonetic", argv[i])==0)
         {
             lipp_haaldus=true;
             continue;
         }
-        if(strcmp("-f", argv[i])==0 || strcmp("--fs", argv[i])==0)
+        if(strcmp("-g", argv[i])==0 || strcmp("--gt", argv[i])==0)
         {
-            lipp_ms=lipp_fs;
+            lipp_ms=lipp_gt;
             continue;
         }
         if(strcmp("-m", argv[i])==0 || strcmp("--hmm", argv[i])==0)
         {
             lipp_ms=lipp_hmm;
-            continue;
-        }
-        if(strcmp("-a", argv[i])==0 || strcmp("--vormityvi", argv[i])==0)
-        {
-            lipp_algv=false;
             continue;
         }
         if(strcmp("-p", argv[i])==0 || strcmp("--path", argv[i])==0)
@@ -86,8 +80,6 @@ void VMETA::Run()
     MRF_FLAGS_BASE_TYPE lipp_oletajaga =  
             				MF_MRF | MF_ALGV | MF_POOLITA | 
 							MF_OLETA | MF_VEEBIAADRESS | MF_YHELE_REALE | MF_KOMA_LAHKU;
-            
-
     MRF_FLAGS lipud_mrf;
     if(lipp_oleta)              // -- oletamiseta
        lipud_mrf.Set(lipp_oletajaga); 
@@ -113,8 +105,7 @@ void VMETA::Run()
     }
     if(lipp_haaldus)
         lipud_mrf.On(MF_KR6NKSA);
-    if(lipp_algv==false)
-        lipud_mrf.Off(MF_ALGV);
+    
     ETMRFA mrf(path, lipud_mrf.Get());
 
     if(sisendfail == "-")
@@ -126,6 +117,7 @@ void VMETA::Run()
         valja.Start(PFSCP_UTF8, path);
     else
         valja.Start(valjundfail, "wb", PFSCP_UTF8, path);
+    
     CFSWString rida;
     LYLI *pLyli;
     while(sisse.Rida(rida)==true)
