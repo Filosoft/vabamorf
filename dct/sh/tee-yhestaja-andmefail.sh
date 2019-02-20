@@ -9,8 +9,8 @@ pushd ${UFSD_TMP}  > /dev/null
 # NB jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
-#	${UFSD_EXE}/dct-t3mesta
-#	${UFSD_EXE}/dct-t3pakitud
+#	${UFSD_EXE}/dct-t3mesta$FLAG_DB
+#	${UFSD_EXE}/dct-t3pakitud$FLAG_DB
 
 # Ainult ühestaja andmefaili tegemiseks:
 # 1. Liikuge terminaliaknas kataloogi dct/cmdline/project/unix ja kompileerige 
@@ -51,9 +51,9 @@ echo "== " Teeme ühestaja andmefailid
 #PATH=${UFSD_BINDCT}:$PATH
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-${UFSD_EXE}/dct-t3mesta ${UFSD_SRC_YHH}/all.cooked
+${UFSD_EXE}/dct-t3mesta$FLAG_DB ${UFSD_SRC_YHH}/all.cooked
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-${UFSD_EXE}/dct-t3pakitud
+${UFSD_EXE}/dct-t3pakitud$FLAG_DB
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 #echo "== "

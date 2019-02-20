@@ -15,9 +15,9 @@ HELPSTRING="tee-s6n-uc.sh [--help] [--dctdir=PATH] [--et.dct] [--et3.dct] [--sau
   --et.dct teeb pakitud morfi leksikoni
   --et3.dct teeb pakitud ühestja leksikoni
   Vaikimisi (kui --et.dct ja --et3.dct lippe pole antud) teeb mõlemad leksikonid
-  Lipud --saurus ja --debug GITHUBi versioonis ei tööta."
+  Lipp --saurus sversioonis ei tööta."
 
-FLAG_DB=off
+FLAG_DB=
 for arg in $*
 do
   if [ "${arg:0:9}" = "--dctdir=" ]
@@ -39,7 +39,7 @@ do
         echo "FLAG_SAURUS="${FLAG_SAURUS}
         ;;
       --debug)
-        export FLAG_DB=on
+        export FLAG_DB='.db'
         ;;
       --help)
         echo "$HELPSTRING"
@@ -52,8 +52,9 @@ do
     esac
   fi
 done
-if [ ! $FLAG_ETDCT ] && [ ! $FLAG_ET3DCT ]
+if [ -z "$FLAG_ETDCT" ] && [ -z "$FLAG_ET3DCT" ]
 then
+  # kui pole õeldud, kas teha morfi või ühestaja sõnastikku, teeme mõlemad
   echo  vaikimisi teeme mõlemad leksikonid
   export FLAG_ETDCT=tee_seda
   export FLAG_ET3DCT=tee_seda
@@ -77,7 +78,16 @@ export UFSD_PRFX=`pwd`
 # ${UFSD_SRC_MRF} -- Sõnastiku lähtefailid
 export UFSD_SRC_MRF=${UFSD_PRFX}/dct/data/mrf
 export UFSD_SRC_YHH=${UFSD_PRFX}/dct/data/yhh
-export UFSD_SRC_TES=${ROOTDIR_4_SVNFS}/private/dct/data/tes
+# tesauruse lähtefailid ja programmid
+if [ "$FLAG_SAURUS" = "--saurus" ]
+then
+	if [ -f ../../../../svnfs/trunk/private/dct/data/tes/saurus.html.s6n ]
+	then
+		echo -e "\n\n== Pole tesauruse tegemiseks vajalikke andmefaile...\n\n"
+	fi
+	export UFSD_SRC_TES=../../../../../svnfs/trunk/private/dct/data/tes
+	export UFSD_EXE_TES=../../../../../svnfs/trunk/private/build/makefiles
+fi
 
 # ${UFSD_SCR} -- Sõnastiku tegemise sh-skriptid
 export UFSD_SCR=${UFSD_PRFX}/dct/sh
@@ -92,35 +102,19 @@ export UFSD_TMP=${UFSD_TMP:-${UFSD_SCR}/tmp}
 export UFSD_BINDCT=${UFSD_BINDCT:-${UFSD_PRFX}/dct/binary}
 [ -d ${UFSD_BINDCT} ] || mkdir -p ${UFSD_BINDCT}
 
-# ${UFSD_EXE} -- EXEd sellest kataloogist
-if [ "$FLAG_DB" = "on" ]
-then
-  if [ -z "${ROOTDIR_4_SVNFS}" ]
-  then
-    echo 'GUTHUBi versioonis pole --debug lipp realiseeritud'
-    popd > /dev/null
-    exit
-  fi
-  echo == Kasutame EXEde DEBUG versioone
-  export UFSD_EXE=${UFSD_PRFX}/../private/build/makefiles/${PLATE}/deb/bin
-  export UFSD_EXE_TES=${UFSD_PRFX}/../private/build/makefiles/${PLATE}/deb/bin
-elif [ -z "${ROOTDIR_4_SVNFS}" ]
-then
-  # Lihtsamate meikfailidega kokkulastud, muud vahet pole
-  echo == Kasutame GITHUBist kokkukompileeritud programme
-  export UFSD_EXE=${UFSD_PRFX}/dct/cmdline/project/unix
-else
-  # sama cpp mis GUTHUBis ainult teistsuguste makefile-idega kokkulastud
-  echo == 'Kasutame EXEde RELEASE versioone'
-  export UFSD_EXE=${UFSD_PRFX}/../private/build/makefiles/${PLATE}/rel/bin
-  export UFSD_EXE_TES=${UFSD_PRFX}/../private/build/makefiles/${PLATE}/rel/bin
-fi
+# ${UFSD_EXE} -- EXEd sellest kataloogist, va tesuruse tegemine
+echo == Kasutame GITHUBist kokkukompileeritud programme
+export UFSD_EXE=${UFSD_PRFX}/dct/cmdline/project/unix
 popd > /dev/null
 
 echo "--------------------------"
 echo Vahetulemused: ${UFSD_TMP}
 echo Lõpptulemused: ${UFSD_BINDCT}
 echo C++programmid: ${UFSD_EXE}
+if [ -n "$FLAG_DB" ]
+then
+  Kasutame programmide .db versioone
+fi 
 echo Sõnastike lähtefailid: ${UFSD_SCR}
 echo Arhitektuur: $PLATE
 

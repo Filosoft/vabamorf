@@ -2,7 +2,7 @@
 
 pushd ../cmdline/project/unix/
 echo == Kompileerime sõnastiku tegemise programmid
-make -s all
+make -j -s all
 
 popd
 

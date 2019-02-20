@@ -7,8 +7,8 @@ echo ""
 # NB jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
-#	${UFSD_EXE}/dct-noom
-#	${UFSD_EXE}/dct-vrb
+#	${UFSD_EXE}/dct-noom$FLAG_DB
+#	${UFSD_EXE}/dct-vrb$FLAG_DB
 
 pushd ${UFSD_TMP} > /dev/null
 
@@ -126,10 +126,10 @@ echo " --> suf"
 #     suf.sok      sufiksid
 #     *.err        vigased sisendread
 echo "== NIM/VRB-ime failid: X lgr --> X.[s]ok lgr"
-${UFSD_EXE}/dct-noom mmm.pala.txt  mmm.ok   mmm.err  || exit 1
-${UFSD_EXE}/dct-noom nomm.pala.txt nomm.ok  nomm.err || exit 1
-${UFSD_EXE}/dct-vrb  verb.pala.txt verb.ok  verb.err || exit 1
-${UFSD_EXE}/dct-noom suf           suf.sok  suf.err  || exit 1
+${UFSD_EXE}/dct-noom$FLAG_DB mmm.pala.txt  mmm.ok   mmm.err  || exit 1
+${UFSD_EXE}/dct-noom$FLAG_DB nomm.pala.txt nomm.ok  nomm.err || exit 1
+${UFSD_EXE}/dct-vrb$FLAG_DB  verb.pala.txt verb.ok  verb.err || exit 1
+${UFSD_EXE}/dct-noom$FLAG_DB suf           suf.sok  suf.err  || exit 1
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 

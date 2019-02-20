@@ -7,11 +7,11 @@ echo ""
 # NB jooksev kataloog peab olema ${UFSD_TMP}
 
 # Kasutab:
-#	${UFSD_EXE}/dct-conv11x
-#	${UFSD_EXE}/dct-conv4
-#	${UFSD_EXE}/dct-palakuju
-#	${UFSD_EXE}/dct-init3
-#	${UFSD_EXE}/dct-saurus (juhul, kui tesaurus lisada; vaikimisi ei lisata)
+#	${UFSD_EXE}/dct-conv11x$FLAG_DB
+#	${UFSD_EXE}/dct-conv4$FLAG_DB
+#	${UFSD_EXE}/dct-palakuju$FLAG_DB
+#	${UFSD_EXE}/dct-init3$FLAG_DB
+#	${UFSD_SRC_TES}/dct-saurus$FLAG_DB (juhul, kui tesaurus lisada; vaikimisi ei lisata)
 
 pushd ${UFSD_TMP} > /dev/null
 
@@ -74,7 +74,7 @@ cat suf.sok \
 # liitpiir.tmk.txt rida  1-1=0  näitab liitsõnapiiri asukohta:  [0]   3 _ 
 
 echo -ne "\n== Lisamärgid tüvedest välja (PALAKUJU): *.ok *.sok *.pok"
-${UFSD_EXE}/dct-palakuju *.ok *.1sok *.1pok || exit 1
+${UFSD_EXE}/dct-palakuju$FLAG_DB *.ok *.1sok *.1pok || exit 1
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
@@ -128,7 +128,7 @@ cat suf.1sok-p \
 
 echo -ne "\n== Teeme tüvemuutuste grupid (CONV11X):"
 echo "*.ok-p *.sok-p --> *.tmm tyvmuut.tmk tyvmuut.tmk.txt"
-${UFSD_EXE}/dct-conv11x *.ok-p *.sok-p || exit 1
+${UFSD_EXE}/dct-conv11x$FLAG_DB *.ok-p *.sok-p || exit 1
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
@@ -208,7 +208,7 @@ cat *.tmm \
 
 echo -n "== Sõnaliigindus (CONV4):"
 # aeesti.ini suf.ini --> aeesti.s6n suf.s6n aeesti.jrk
-${UFSD_EXE}/dct-conv4 -daeesti.ini -psuf.ini -jaeesti.jrk|| exit 1
+${UFSD_EXE}/dct-conv4$FLAG_DB -daeesti.ini -psuf.ini -jaeesti.jrk|| exit 1
 
 echo "----------------------------------------"
 echo "== Paneme pakitud sõnastiku kokku (INIT)"
@@ -228,7 +228,7 @@ echo "== Paneme pakitud sõnastiku kokku (INIT)"
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
-${UFSD_EXE}/dct-init3 || exit 1
+${UFSD_EXE}/dct-init3$FLAG_DB || exit 1
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 cp aeesti1.dct et.dct || exit 1
 
@@ -238,7 +238,7 @@ cp aeesti1.dct et.dct || exit 1
 if [ "$FLAG_SAURUS" = "--saurus" ]
 then
   echo == Lisame tesuruse
-  ${UFSD_EXE_TES}/dct-saurus saurus.uc.s6n et.dct || exit 1
+  ${UFSD_EXE_TES}/dct-saurus$FLAG_DB saurus.uc.s6n et.dct || exit 1
 fi
 
 cp et.dct ${UFSD_BINDCT}/et.dct
