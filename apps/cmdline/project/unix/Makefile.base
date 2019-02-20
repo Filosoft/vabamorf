@@ -1,0 +1,38 @@
+# muutujad (globaalsed)
+CC=g++
+FLAGS=-O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections
+FLAGS_DB=-ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections
+ROOTDIR=../../../..
+
+# funktsioonid
+define compile2ar
+	#echo '==' $1
+	mkdir -p $(1).tmp
+	cd $(1).tmp && $(CC) $(FLAGS) -c $(2)/*.cpp
+	cd $(1).tmp && ar -r ../$(1) *.o
+	-rm -rf $(1).tmp 
+endef	
+
+define compile2dbar
+	#echo '==' $1
+	mkdir -p $(1).tmp
+	cd $(1).tmp && $(CC) $(FLAGS_DB) -c $(2)/*.cpp
+	cd $(1).tmp && ar -r ../$(1) *.o
+	-rm -rf $(1).tmp
+endef	
+
+define compile2bin
+	echo '==' $1
+	mkdir -p $(1).tmp
+	cd $(1).tmp && $(CC) $(FLAGS) -o ../$(1) $(2)/*.cpp $(addprefix ../,$(LIBS))
+	strip $(1)
+	-rm -rf $(1).tmp
+endef	
+
+define compile2dbbin
+	echo '==' $1
+	mkdir -p $(1).tmp
+	cd $(1).tmp && $(CC) $(FLAGS_DB) -o ../$(1) $(2)/*.cpp $(addprefix ../,$(LIBS:.ar=.db.ar))
+	-rm -rf $(1).tmp
+endef	
+
