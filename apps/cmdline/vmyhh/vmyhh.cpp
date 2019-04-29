@@ -157,6 +157,7 @@ void VMYHH::Run()
                         {
                             // ainult märgend(id), niisama välja
                             lyli.Start(rida, PRMS_TAGSTR);
+                            et3.Set1(lyli);
                             continue;
                         }
                     }

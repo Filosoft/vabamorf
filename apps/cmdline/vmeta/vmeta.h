@@ -7,17 +7,152 @@
 #include "../../../lib/etana/fs2gt.h"
 #include "../../../lib/etana/loefailist.h"
 
-
-class VMETA
+class VMETANA
 {
 public:
-        void Start(int argc, char **argv, char** envp, const char*);        
-        void Run(); 
-      
-private:
-                                // -v --version
-                                // -h --help
+    VMETANA(void)
+    {
+        InitClassVariables();
+    }
+
+    VMETANA(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
+    {
+        InitClassVariables();
+        Start(argc, argv, envp, _ext_);
+        assert(ClassInvariant());
+    }
     
+    void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
+    {
+        assert(EmptyClassInvariant() == true);
+        lipp_ms=lipp_fs;	// märgendisüsteem: vaikimisi fs
+
+        lipp_xml=true;		// sisendformaat: vaikimisi üksiksõnad
+        lipp_oleta=true;   // leksikonist puuduvad sõned: vaikimisi ei oleta
+        lipp_haaldus=false; // hääldusmärgid: vaikimisi ei lisa
+        PATHSTR pathstr;
+        path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
+        sisendfail="-";     // vaikimisi stdin
+        valjundfail="-";    // vaikimisi stdout
+
+        int i;
+        //pathi initsialiseerimine keskonnamuutujast
+        for(i=1; i<argc && argv[i][0]=='-' && argv[i][1]!='\0' ; ++i)
+        {
+            if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
+            {
+    syntaks:           
+                fprintf(stderr, 
+                        "%s [LIPUD...] [sisendfail väljundfail]\n"
+                        "Täpsemalt vt https://docs.google.com/document/d/1tuS4ETm9ynQBUlDztvyVZN1dTtl_h8gXmbm-tYXGSYY/edit?usp=sharing\n",
+                        argv[0]);
+                exit(EXIT_FAILURE);
+            }        
+            if(strcmp("-t", argv[i])==0 || strcmp("--plaintext", argv[i])==0)
+            {
+                lipp_xml=false;
+                continue;
+            }
+            if(strcmp("-q", argv[i])==0 || strcmp("--dontquess", argv[i])==0)
+            {
+                lipp_oleta=false;
+                continue;
+            }
+            if(strcmp("-f", argv[i])==0 || strcmp("--phonetic", argv[i])==0)
+            {
+                lipp_haaldus=true;
+                continue;
+            }
+            if(strcmp("-g", argv[i])==0 || strcmp("--gt", argv[i])==0)
+            {
+                lipp_ms=lipp_gt;
+                continue;
+            }
+            if(strcmp("-m", argv[i])==0 || strcmp("--hmm", argv[i])==0)
+            {
+                lipp_ms=lipp_hmm;
+                continue;
+            }
+            if(strcmp("-p", argv[i])==0 || strcmp("--path", argv[i])==0)
+            {
+                if(++i >= argc)
+                    throw VEAD(__FILE__, __LINE__, "Parameetri -p tagant puudub rada");
+                path=argv[i];
+                continue;
+            }  
+            goto syntaks;
+        }
+        if(i==argc)
+            return; // std-sisend std-väljundiks
+        if(i+2==argc)
+        {
+            sisendfail=argv[i++];
+            valjundfail=argv[i];
+            return;
+        }
+        goto syntaks;
+
+    }
+
+    /** Töötleb sisendfailid */
+    void Run(void)
+    {
+        MRF_FLAGS_BASE_TYPE lipp_analyysiks = 
+                                MF_MRF | MF_ALGV | MF_POOLITA | 
+                                MF_PIKADVALED | MF_LYHREZH | MF_VEEBIAADRESS |
+                                MF_YHELE_REALE | MF_KOMA_LAHKU;
+
+        MRF_FLAGS_BASE_TYPE lipp_oletajaga =  
+                                MF_MRF | MF_ALGV | MF_POOLITA | 
+                                MF_OLETA | MF_VEEBIAADRESS | MF_YHELE_REALE | MF_KOMA_LAHKU;
+        if(lipp_oleta)              // -- oletamiseta
+           lipud_mrf.Set(lipp_oletajaga); 
+        else                        // -- oletamisega
+           lipud_mrf.Set(lipp_analyysiks); 
+        if(lipp_xml)// xml
+        {
+            lipud_mrf.On(MF_XML|MF_IGNOREBLK); // need XMList tulenavalt lisaks
+            if(lipp_oleta)              // -- xml oletamisega (üksiksõnad+lausekontekst)
+                // lausekonteksti olemasolust tulenevalt oletame neid lisaks
+                lipud_mrf.On(MF_YHESTA|MF_LISAPNANAL); 
+        }        
+        switch(lipp_ms)
+        {
+            case lipp_gt:
+                lipud_mrf.On(MF_GTMRG);
+                break;
+            case lipp_fs:
+                break;
+            case lipp_hmm:
+                lipud_mrf.On(MF_YHMRG);
+                break;
+        }
+        if(lipp_haaldus)
+            lipud_mrf.On(MF_KR6NKSA);
+
+        mrf.Start(path, lipud_mrf.Get());
+
+        if(sisendfail == "-")
+            sisse.Start(PFSCP_UTF8, path);
+        else
+            sisse.Start(sisendfail, "rb", PFSCP_UTF8, path);
+
+        if(valjundfail == "-")
+            valja.Start(PFSCP_UTF8, path);
+        else
+            valja.Start(valjundfail, "wb", PFSCP_UTF8, path);
+        TeeSedaFailiga(sisse, valja);
+    }
+
+    /** Taastab argumentideta konstruktori järgse seisu */
+
+    void Stop(void)
+    {
+        mrf.Stop();
+        InitClassVariables();
+    }
+
+private:
     enum LIPPMARGENDISYSTEEM    //
     {
         lipp_gt,                // (vaikimisi) gt
@@ -38,8 +173,103 @@ private:
     
     VOTAFAILIST sisse;
     PANEFAILI valja;
-    
-    void LyliValja(LYLI *pLyli, const MRF_FLAGS& lipud_mrf);
+    ETMRFA mrf;
+    MRF_FLAGS lipud_mrf;
+
+    void TeeSedaFailiga(VOTAFAILIST& in, PANEFAILI& out)
+    {
+        bool ret;
+        CFSWString rida;
+        LYLI lyli;
+        // T3MORF lisab vajadusel ise MF_YHMRG lipu
+        while (in.Rida(rida) == true)
+        {
+            rida.Trim();
+            if (rida.GetLength() <= 0)
+                continue; // ignoreeerime "white space"idest koosnevaid ridu
+            if (mrf.ChkFlags(MF_YHESTA) == true && mrf.ChkFlags(MF_XML) == false)
+            {   // teeme ühestale sobiva sisendi, ilma XMLita lause real
+                // paneme ise lausemärgendid ümber
+                mrf.Set1(new LYLI(FSWSTR("<s>"), PRMS_TAGBOS));
+                mrf.Set(rida);
+                ret = mrf.Set1(new LYLI(FSWSTR("</s>"), PRMS_TAGEOS));
+                assert(ret == true);
+            }
+            else
+                ret = mrf.Set(rida);
+            if (ret == true)
+            {
+                while (mrf.Get(lyli) == true)
+                {
+                    //if((lyli.lipp & PRMS_MRF)==PRMS_MRF)
+                    //    lyli.ptr.pMrfAnal->SortUniq();
+                    //out.Pane(&lyli, lipud_mrf.Get());
+                    if((lyli.lipp & PRMS_MRF)!=PRMS_MRF)
+                    {
+                        out.Pane(&lyli, lipud_mrf.Get());
+                        continue;
+                    }
+                    assert((lyli.lipp & PRMS_MRF)==PRMS_MRF);
+                    LYLI_UTF8 lyli_utf8(lyli);
+                    MRFTULEMUSED_UTF8* mt_utf8=lyli_utf8.ptr.pMrfAnal;
+                    if(lipud_mrf.ChkB(MF_GTMRG))
+                        fs_2_gt.LisaGT(mt_utf8->s6na, *mt_utf8);
+                    valja.Pane(&lyli_utf8, lipud_mrf.Get());
+                }
+            }
+        }
+        while (mrf.Flush(lyli) == true)
+        {
+            //if((lyli.lipp & PRMS_MRF)==PRMS_MRF)
+            //    lyli.ptr.pMrfAnal->SortUniq();
+            //out.Pane(&lyli, lipud_mrf.Get());
+            if((lyli.lipp & PRMS_MRF)!=PRMS_MRF)
+            {
+                out.Pane(&lyli, lipud_mrf.Get());
+                continue;
+            }
+            assert((lyli.lipp & PRMS_MRF)==PRMS_MRF);
+            LYLI_UTF8 lyli_utf8(lyli);
+            MRFTULEMUSED_UTF8* mt_utf8=lyli_utf8.ptr.pMrfAnal;
+            if(lipud_mrf.ChkB(MF_GTMRG))
+                fs_2_gt.LisaGT(mt_utf8->s6na, *mt_utf8);
+            valja.Pane(&lyli_utf8, lipud_mrf.Get());
+        }
+    }
+
+    /** Muutujate esialgseks initsialiseerimsieks konstruktoris */
+    void InitClassVariables(void)
+    {
+
+    }
+
+    /** Argumentideta konstruktori abil starditud klassi invariant */
+    bool EmptyClassInvariant(void)
+    {
+        return sisse.EmptyClassInvariant() && valja.EmptyClassInvariant() &&
+                                                    mrf.EmptyClassInvariant();
+    }
+
+    /** Initsialiseeritud klassi invariant */
+
+    bool ClassInvariant(void)
+    {
+        return sisse.ClassInvariant() && valja.ClassInvariant() && 
+                                                    mrf.ClassInvariant();
+    }
+
+    /** Copy-konstruktor on illegaalne */
+    VMETANA(const VMETANA&)
+    {
+        assert(false);
+    }
+
+    /** Omistamisoperaator on illegaalne */
+    VMETANA & operator=(const VMETANA&)
+    {
+        assert(false);
+        return *this;
+    }
 };
 
 
