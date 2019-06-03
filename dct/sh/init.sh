@@ -128,6 +128,7 @@ cat suf.1sok-p \
 
 echo -ne "\n== Teeme tüvemuutuste grupid (CONV11X):"
 echo "*.ok-p *.sok-p --> *.tmm tyvmuut.tmk tyvmuut.tmk.txt"
+#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 ${UFSD_EXE}/dct-conv11x$FLAG_DB *.ok-p *.sok-p || exit 1
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
@@ -225,9 +226,6 @@ echo "== Paneme pakitud sõnastiku kokku (INIT)"
 # Välja:   (1) aeesti1.dct
 #          (2) aeesti.end
 #          (3) aeesti.vor
-
-#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-
 ${UFSD_EXE}/dct-init3$FLAG_DB || exit 1
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 cp aeesti1.dct et.dct || exit 1

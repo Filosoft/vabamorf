@@ -100,9 +100,11 @@ bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2,
             *hhhidx=n;  
         if(*hhhidx!=n)
             {
-            printf("\nXXget2 ...piirinr-id pole võrdsed...\n");
-            assert( false );
-            exit( EXIT_FAILURE );	        
+            printf("\n%s:%d - XXget2 ...piirinr-id pole võrdsed...\n", 
+                                                        __FILE__, __LINE__);
+            //printf("\nXXget2 ...piirinr-id pole võrdsed...\n");
+            //assert( false );
+            //exit( EXIT_FAILURE );	        
             }
         PutPiiriGrupiNr(lg,*lgcnt,n);
 
