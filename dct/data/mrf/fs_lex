@@ -4861,7 +4861,7 @@ lisav:0098|kohaldu[MA!\V\.27!
 lisav:0098|kordista[MA!\V\.27!
 lisav:0098|lamin<eeri[MA lamineeri[B!\V\.28!
 lisav:0098|liberalis<eeri[MA liberaliseeri[B!\V\.28!
-lisav:0098|re_eksp<orti[MA re_ekspordi[B!\V\.28!
+lisav:0098|re_eksp<orti[MA re_eksp?ordi[B!\V\.28!
 lisav:0098|spons<eeri[MA sponseeri[B!\V\.28!
 lisav:0098|struktur<eeri[MA struktureeri[B!\V\.28!
 lisav:0098|tiraž<eeri[MA tiražeeri[B!\V\.28!
@@ -9245,7 +9245,7 @@ vvs:0093|duell<ant duell<anti duell?andi!\S\.22^E^+7!
 vvs:0093|du<et]t du<et]ti du?et]i!\S\.22^E^+7!
 vvs:0093|dumping dumpingu!\S\.2+9!
 vvs:0093|dung<aan dung<aani dung?aani!\S\.22^E^+7!
-vvs:0093|d<uo!\S\.26!
+vvs:0093|d<uo!\S\.16!
 vvs:0093|du<ool du<ooli du?ooli!\S\.22^E^+7!
 vvs:0093|agress<iivsus agress<iivsuse!\S\.11^I^+7!&&!\S\.9+7!
 vvs:0093|d?uplik<aat d?uplik<aati d?uplikaadi!\S\.22^E^+7!
@@ -22325,7 +22325,7 @@ vvs:0093|trafo!\S\.16!
 vvs:0093|tragidus tragiduse!\S\.11^I^+7!
 vvs:0093|tragun traguni!\S\.2+9!%i>e[I%
 vvs:0093|trag<öödia!\S\.1+9!
-vvs:0093|trahh<ea!\S\.26!
+vvs:0093|trahh<ea!\S\.16!
 vvs:0093|trahh<ee!\S\.26+9!%ee>e[I%
 vvs:0093|trahheot<oomia!\S\.1+9!
 vvs:0093|tr<ahter tr<ahteri!\S\.2+9!%i>e[I%
@@ -22426,7 +22426,7 @@ vvs:0093|trilma!\S\.16!
 vvs:0093|tril<oogia!\S\.1+9!
 vvs:0093|trim<ester trim<estri!\S\.2+9!%i>e[I%
 vvs:0093|tr<immer tr<immeri!\S\.2+9!%i>e[I%
-vvs:0093|tr<io!\S\.26!
+vvs:0093|tr<io!\S\.16!
 vvs:0093|tri<ool tri<ooli tri?ooli!\S\.22^E^+7!
 vvs:0093|tripl<et]t tripl<et]ti tripl?et]i!\S\.22^E^+7!
 vvs:0093|tr<ipp tr<ippi tripi!\S\.22^E^!
@@ -25831,10 +25831,10 @@ tesv:0096|ts<us]ki[MA tsus]i[B!\V\.28!
 tesv:0096|t<õuki[MA tõugi[B!\V\.28!
 tesv:0096|<eel_t<el]li[MA <eel_tel]li[B!\V\.28!
 tesv:0096|v<äl]mi[MA väl]mi[B!\V\.28!
-tesv:0096|al<armi[MA alarmi[B!\V\.28!
+tesv:0096|al<armi[MA al?armi[B!\V\.28!
 tesv:0096|l<üümi[MA lüümi[B!\V\.28!
 tesv:0096|dis<aini[MA disaini[B!\V\.28!
-tesv:0096|dem<oppi[MA demopi[B!\V\.28!
+tesv:0096|dem<oppi[MA dem?opi[B!\V\.28!
 tesv:0096|k<äppi[MA käpi[B!\V\.28!
 tesv:0096|vahelt_hari[MA!\V\.27!
 tesv:0096|pro_skrib<eeri[MA pro_skribeeri[B!\V\.28!
@@ -25922,7 +25922,7 @@ tesv:0096|kr<ousi[MA krousi[B!\V\.28!
 tesv:0096|paral<üüsi[MA paralüüsi[B!\V\.28!
 tesv:0096|l<an]ti[MA lan]di[B!\V\.28!
 tesv:0096|tr<oosti[MA troosti[B!\V\.28!
-tesv:0096|boik<otti[MA boikoti[B!\V\.28!
+tesv:0096|boik<otti[MA boik?oti[B!\V\.28!
 tesv:0096|b<uut]i[MA buud]i[B!\V\.28!
 tesv:0096|s<ehvti[MA sehvti[B!\V\.28!
 tesv:0096|s<el]vi[MA sel]vi[B!\V\.28!
@@ -29441,7 +29441,7 @@ vvsv:0093|k<ahmi[MA kahmi[B!\V\.28!
 vvsv:0093|k<ahtle[MA kahel[DA!\V\.30!
 vvsv:0093|kahtlusta[MA!\V\.27!
 vvsv:0093|kahuta[MA!\V\.27!
-vvsv:0093|amp<ul]li[MA ampul]li[B!\V\.28!
+vvsv:0093|amp<ul]li[MA amp?ul]li[B!\V\.28!
 vvsv:0093|kahvata[MA!\V\.27!
 vvsv:0093|kahvatu[MA!\V\.27!
 vvsv:0093|amput<eeri[MA amputeeri[B!\V\.28!
@@ -29533,7 +29533,7 @@ vvsv:0093|karista[MA!\V\.27!
 vvsv:0093|karjahta[MA!\V\.27!
 vvsv:0093|karjata[MA!\V\.27!
 vvsv:0093|karjatu[MA!\V\.27!
-vvsv:0093|ab<orti[MA abordi[B!\V\.28!
+vvsv:0093|ab<orti[MA ab?ordi[B!\V\.28!
 vvsv:0093|k<arju[MA karju[B!\V\.28!
 vvsv:0093|karjuta[MA!\V\.27!
 vvsv:0093|karmine[MA!\V\.27!
@@ -29559,7 +29559,7 @@ vvsv:0093|k<asva[MA kasva[B!\V\.28!
 vvsv:0093|kasvata[MA!\V\.27!
 vvsv:0093|angaž<eeri[MA angažeeri[B!\V\.28!
 vvsv:0093|katal<oogi[MA kataloogi[B!\V\.28!
-vvsv:0093|katap<ul]ti[MA katapul]di[B!\V\.28!
+vvsv:0093|katap<ul]ti[MA katap?ul]di[B!\V\.28!
 vvsv:0093|kategoris<eeri[MA kategoriseeri[B!\V\.28!
 vvsv:0093|k<atke[MA!\V\.27!
 vvsv:0093|katkesta[MA!\V\.27!
@@ -29924,7 +29924,7 @@ vvsv:0093|komplits<eeri[MA komplitseeri[B!\V\.28!
 vvsv:0093|komplits<eeru[MA!\V\.27!
 vvsv:0093|kompon<eeri[MA komponeeri[B!\V\.28!
 vvsv:0093|kompost<eeri[MA komposteeri[B!\V\.28!
-vvsv:0093|komp<os]ti[MA kompos]ti[B!\V\.28!
+vvsv:0093|komp<os]ti[MA komp?os]ti[B!\V\.28!
 vvsv:0093|kompromit<eeri[MA kompromiteeri[B!\V\.28!
 vvsv:0093|k<ompsa[MA kompsa[TA!\V\.29!
 vvsv:0093|kompsata[MA!\V\.27!
@@ -29949,12 +29949,12 @@ vvsv:0093|konksuta[MA!\V\.27!
 vvsv:0093|konkur<eeri[MA konkureeri[B!\V\.28!
 vvsv:0093|konserv<eeri[MA konserveeri[B!\V\.28!
 vvsv:0093|konserv<eeru[MA!\V\.27!
-vvsv:0093|kons<ervi[MA konservi[B!\V\.28!
+vvsv:0093|kons<ervi[MA kons?ervi[B!\V\.28!
 vvsv:0093|kons<ervu[MA!\V\.27!
 vvsv:0093|konsolid<eeri[MA konsolideeri[B!\V\.28!
 vvsv:0093|konsolid<eeru[MA!\V\.27!
 vvsv:0093|konspekt<eeri[MA konspekteeri[B!\V\.28!
-vvsv:0093|konsp<ekti[MA konspekti[B!\V\.28!
+vvsv:0093|konsp<ekti[MA konsp?ekti[B!\V\.28!
 vvsv:0093|konspir<eeri[MA konspireeri[B!\V\.28!
 vvsv:0093|konstat<eeri[MA konstateeri[B!\V\.28!
 vvsv:0093|konstitu<eeri[MA konstitueeri[B!\V\.28!
@@ -29963,8 +29963,8 @@ vvsv:0093|konsult<eeri[MA konsulteeri[B!\V\.28!
 vvsv:0093|kontrah<eeri[MA kontraheeri[B!\V\.28!
 vvsv:0093|kontrah<eeru[MA!\V\.27!
 vvsv:0093|kontrast<eeri[MA kontrasteeri[B!\V\.28!
-vvsv:0093|kontr<as]ti[MA kontras]ti[B!\V\.28!
-vvsv:0093|kontr<ol]li[MA kontrol]li[B!\V\.28!
+vvsv:0093|kontr<as]ti[MA kontr?as]ti[B!\V\.28!
+vvsv:0093|kontr<ol]li[MA kontr?ol]li[B!\V\.28!
 vvsv:0093|kontsentr<eeri[MA kontsentreeri[B!\V\.28!
 vvsv:0093|kontsentr<eeru[MA!\V\.27!
 vvsv:0093|kontsert<eeri[MA kontserteeri[B!\V\.28!
@@ -29992,7 +29992,7 @@ vvsv:0093|kooper<eeru[MA!\V\.27!
 vvsv:0093|koopt<eeri[MA koopteeri[B!\V\.28!
 vvsv:0093|koordin<eeri[MA koordineeri[B!\V\.28!
 vvsv:0093|k<oordu[MA!\V\.27!
-vvsv:0093|ar<es]ti[MA ares]ti[B!\V\.28!
+vvsv:0093|ar<es]ti[MA ar?es]ti[B!\V\.28!
 vvsv:0093|k<oori[MA koori[B!\V\.28!
 vvsv:0093|k<oorma[MA koorma[TA!\V\.29!
 vvsv:0093|areta[MA!\V\.27!
@@ -30105,7 +30105,7 @@ vvsv:0093|kr<il]li[MA kril]li[B!\V\.28!
 vvsv:0093|kr<impsu[MA!\V\.27!
 vvsv:0093|krimpsuta[MA!\V\.27!
 vvsv:0093|kripelda[MA!\V\.27!
-vvsv:0093|krist<al]li[MA kristal]li[B!\V\.28!
+vvsv:0093|krist<al]li[MA krist?al]li[B!\V\.28!
 vvsv:0093|kritikaanitse[MA!\V\.27!
 vvsv:0093|kritis<eeri[MA kritiseeri[B!\V\.28!
 vvsv:0093|kritselda[MA!\V\.27!
@@ -30484,7 +30484,7 @@ vvsv:0093|k<ööpa[MA kööba[TA!\V\.29!
 vvsv:0093|asfalt<eeri[MA asfalteeri[B!\V\.28!
 vvsv:0093|k<ööt]si[MA kööt]si[B!\V\.28!
 vvsv:0093|köötsuta[MA!\V\.27!
-vvsv:0093|<asf<alti[MA <asfaldi[B!\V\.28!
+vvsv:0093|<asf<alti[MA <asf?aldi[B!\V\.28!
 vvsv:0093|kübeta[MA!\V\.27!
 vvsv:0093|küde[MA k<öe[B!\V\.28!
 vvsv:0093|kügele[MA kügel[DA!\V\.31!&&!\V\.27!
@@ -30832,7 +30832,7 @@ vvsv:0093|lodista[MA!\V\.27!
 vvsv:0093|l<oenda[MA!\V\.27!
 vvsv:0093|l<oendu[MA!\V\.27!
 vvsv:0093|l<oetle[MA!\V\.27!
-vvsv:0093|logar<itmi[MA logaritmi[B!\V\.28!
+vvsv:0093|logar<itmi[MA logar?itmi[B!\V\.28!
 vvsv:0093|logele[MA logel[DA!\V\.31!&&!\V\.27!
 vvsv:0093|logise[MA!\V\.27!
 vvsv:0093|logista[MA!\V\.27!
@@ -31233,7 +31233,7 @@ vvsv:0093|m<ekki[MA meki[B!\V\.28!
 vvsv:0093|mekuta[MA!\V\.27!
 vvsv:0093|melanhoolitse[MA!\V\.27!
 vvsv:0093|m<el]di[MA mel]li[B!\V\.28!
-vvsv:0093|ball<as]ti[MA ballas]ti[B!\V\.28!
+vvsv:0093|ball<as]ti[MA ball?as]ti[B!\V\.28!
 vvsv:0093|memmestu[MA!\V\.27!
 vvsv:0093|memor<eeri[MA memoreeri[B!\V\.28!
 vvsv:0093|menetle[MA!\V\.27!
@@ -31767,7 +31767,7 @@ vvsv:0093|<oiga[MA oia[TA!\V\.29!
 vvsv:0093|<oima[MA oima[TA!\V\.29!
 vvsv:0093|oimetu[MA!\V\.27!
 vvsv:0093|oiuta[MA!\V\.27!
-vvsv:0093|brik<et]ti[MA briket]i[B!\V\.28!
+vvsv:0093|brik<et]ti[MA brik?et]i[B!\V\.28!
 vvsv:0093|oksasta[MA!\V\.27!
 vvsv:0093|oksenda[MA!\Vt\.27!
 vvsv:0093|okseta[MA!\Vt\.27!
@@ -31896,7 +31896,7 @@ vvsv:0093|palu[MA!\V\.27!
 lisav:0093|büro_kraadistu[MA!\V\.27!
 vvsv:0093|palveta[MA!\V\.27!
 lisav:0093|büro_kraaditse[MA!\V\.27!
-vvsv:0093|pander<ol]li[MA panderol]li[B!\V\.28!
+vvsv:0093|pander<ol]li[MA pander?ol]li[B!\V\.28!
 vvsv:0093|pane[MA p<an[DUD pan[GU p<ann[A pann[AKSE!\V\.36!
 vvsv:0093|pan<eeli[MA paneeli[B!\V\.28!
 vvsv:0093|pan<eeri[MA paneeri[B!\V\.28!
@@ -31949,7 +31949,7 @@ vvsv:0093|pat<en]ti[MA pat?en]di[B!\V\.28!
 vvsv:0093|paterda[MA!\V\.27!
 vvsv:0093|debüt<eeri[MA debüteeri[B!\V\.28!
 vvsv:0093|p<atra[MA padra[TA!\V\.29!
-vvsv:0093|patr<ul]li[MA patrul]li[B!\V\.28!
+vvsv:0093|patr<ul]li[MA patr?ul]li[B!\V\.28!
 vvsv:0093|p<atsa[MA patsa[TA!\V\.29!
 vvsv:0093|patsata[MA!\V\.27!
 vvsv:0093|pats<eeri[MA patseeri[B!\V\.28!
@@ -32298,7 +32298,7 @@ vvsv:0093|prof<iili[MA profiili[B!\V\.28!
 vvsv:0093|profil<eeri[MA profileeri[B!\V\.28!
 vvsv:0093|progn<oosi[MA prognoosi[B!\V\.28!
 vvsv:0093|programm<eeri[MA programmeeri[B!\V\.28!
-vvsv:0093|progr<ammi[MA programmi[B!\V\.28!
+vvsv:0093|progr<ammi[MA progr?ammi[B!\V\.28!
 vvsv:0093|progress<eeru[MA!\V\.27!
 vvsv:0093|projekt<eeri[MA projekteeri[B!\V\.28!
 vvsv:0093|projits<eeri[MA projitseeri[B!\V\.28!
@@ -32311,10 +32311,10 @@ vvsv:0093|devalv<eeri[MA devalveeri[B!\V\.28!
 vvsv:0093|prostitu<eeri[MA prostitueeri[B!\V\.28!
 vvsv:0093|prot<eesi[MA proteesi[B!\V\.28!
 vvsv:0093|protest<eeri[MA protesteeri[B!\V\.28!
-vvsv:0093|prot<es]ti[MA protes]ti[B!\V\.28!
+vvsv:0093|prot<es]ti[MA prot?es]ti[B!\V\.28!
 vvsv:0093|protež<eeri[MA protežeeri[B!\V\.28!
 vvsv:0093|protok<ol]li[MA protokol]li[B!\V\.28!
-vvsv:0093|prots<es]si[MA protses]si[B!\V\.28!
+vvsv:0093|prots<es]si[MA prots?es]si[B!\V\.28!
 vvsv:0093|provots<eeri[MA provotseeri[B!\V\.28!
 vvsv:0093|prun]dita[MA!\V\.27!
 vvsv:0093|pr<un]ti[MA prun]di[B!\V\.28!
@@ -32442,7 +32442,7 @@ vvsv:0093|diferents<eeru[MA!\V\.27!
 vvsv:0093|puterda[MA!\V\.27!
 vvsv:0093|put]ita[MA!\V\.27!
 vvsv:0093|p<utka[MA putka[TA!\V\.29!
-vvsv:0093|difer<entsi[MA diferentsi[B!\V\.28!
+vvsv:0093|difer<entsi[MA difer?entsi[B!\V\.28!
 vvsv:0093|putkesta[MA!\V\.27!
 vvsv:0093|p<utku[MA!\V\.27!
 vvsv:0093|p<utra[MA pudra[TA!\V\.29!
@@ -32623,7 +32623,7 @@ vvsv:0093|r<andu[MA!\V\.27!
 vvsv:0093|r<an]ti[MA ran]di[B!\V\.28!
 vvsv:0093|r<aple[MA rapel[DA!\V\.30!
 vvsv:0093|raport<eeri[MA raporteeri[B!\V\.28!
-vvsv:0093|rap<orti[MA rapordi[B!\V\.28!
+vvsv:0093|rap<orti[MA rap?ordi[B!\V\.28!
 vvsv:0093|r<appi[MA rapi[B!\V\.28!
 vvsv:0093|r<appu[MA rapu[B!\V\.28!&&!\V\.27!
 vvsv:0093|r<apsa[MA rapsa[TA!\V\.29!
@@ -32706,7 +32706,7 @@ vvsv:0093|relvasta[MA!\V\.27!
 vvsv:0093|relvastu[MA!\V\.27!
 vvsv:0093|relvitusta[MA!\V\.27!
 lisav:0093|re_militaris<eeri[MA re_militariseeri[B!\V\.28!
-vvsv:0093|rem<on]ti[MA remon]di[B!\V\.28!
+vvsv:0093|rem<on]ti[MA rem?on]di[B!\V\.28!
 vvsv:0093|ren]dita[MA!\V\.27!
 vvsv:0093|r<en]ti[MA ren]di[B!\V\.28!
 lisav:0093|re_organis<eeri[MA re_organiseeri[B!\V\.28!
@@ -32738,7 +32738,7 @@ vvsv:0093|retsens<eeri[MA retsenseeri[B!\V\.28!
 vvsv:0093|r<et]si[MA ret]si[B!\V\.28!
 vvsv:0093|retsit<eeri[MA retsiteeri[B!\V\.28!
 vvsv:0093|retuš<eeri[MA retušeeri[B!\V\.28!
-vvsv:0093|ret<ušši[MA retuši[B!\V\.28!
+vvsv:0093|ret<ušši[MA ret?uši[B!\V\.28!
 vvsv:0093|revanš<eeri[MA revanšeeri[B!\V\.28!
 vvsv:0093|revers<eeri[MA reverseeri[B!\V\.28!
 vvsv:0093|revid<eeri[MA revideeri[B!\V\.28!
@@ -32976,7 +32976,7 @@ vvsv:0093|sabise[MA!\V\.27!
 vvsv:0093|sabista[MA!\V\.27!
 vvsv:0093|sabot<eeri[MA saboteeri[B!\V\.28!
 vvsv:0093|sada[MA saja[B!\V\.28!
-vvsv:0093|du<el]li[MA duel]li[B!\V\.28!
+vvsv:0093|du<el]li[MA du?el]li[B!\V\.28!
 vvsv:0093|sadesta[MA!\V\.27!
 vvsv:0093|sadestu[MA!\V\.27!
 vvsv:0093|sadulda[MA!\V\.27!
@@ -33356,7 +33356,7 @@ vvsv:0093|sp<urti[MA spurdi[B!\V\.28!
 vvsv:0093|stabilis<eeri[MA stabiliseeri[B!\V\.28!
 vvsv:0093|stabilis<eeru[MA!\V\.27!
 vvsv:0093|stagn<eeru[MA!\V\.27!
-vvsv:0093|stand<ardi[MA standardi[B!\V\.28!
+vvsv:0093|stand<ardi[MA stand?ardi[B!\V\.28!
 vvsv:0093|standardis<eeri[MA standardiseeri[B!\V\.28!
 vvsv:0093|<ehti[MA ehi[B!\V\.28!
 vvsv:0093|st<an]tsi[MA stan]tsi[B!\V\.28!
@@ -33614,7 +33614,7 @@ vvsv:0093|taaruta[MA!\V\.27!
 vvsv:0093|t<aasta[MA!\V\.27!
 vvsv:0093|t<aastu[MA!\V\.27!
 vvsv:0093|taba[MA!\V\.27!
-vvsv:0093|tabl<et]ti[MA tablet]i[B!\V\.28!
+vvsv:0093|tabl<et]ti[MA tabl?et]i[B!\V\.28!
 vvsv:0093|tabul<eeri[MA tabuleeri[B!\V\.28!
 vvsv:0093|taga[MA!\V\.27!
 vvsv:0093|taganda[MA!\V\.27!
@@ -34502,7 +34502,7 @@ vvsv:0093|v<iiki[MA viigi[B!\V\.28!
 vvsv:0093|viiksata[MA!\V\.27!
 vvsv:0093|v<iiksu[MA viiksu[B!\V\.28!
 vvsv:0093|viiksuta[MA!\V\.27!
-vvsv:0093|esk<orti[MA eskordi[B!\V\.28!
+vvsv:0093|esk<orti[MA esk?ordi[B!\V\.28!
 vvsv:0093|v<iili[MA viili[B!\V\.28!
 vvsv:0093|viilusta[MA!\V\.27!
 vvsv:0093|viimistle[MA!\V\.27!
@@ -34612,7 +34612,7 @@ vvsv:0093|v<ookle[MA voogel[DA!\V\.30!
 vvsv:0093|v<oola[MA voola[TA!\V\.29!
 vvsv:0093|v<ool]i[MA vool]i[B!\V\.28!
 vvsv:0093|v<oori[MA voori[B!\V\.28!
-vvsv:0093|etik<et]ti[MA etiket]i[B!\V\.28!
+vvsv:0093|etik<et]ti[MA etik?et]i[B!\V\.28!
 vvsv:0093|v<opsa[MA vopsa[TA!\V\.29!
 vvsv:0093|vopsata[MA!\V\.27!
 vvsv:0093|v<opsi[MA vopsi[B!\V\.28!
@@ -34961,7 +34961,7 @@ vvsv:0093|gaas]ista[MA!\V\.27!
 vvsv:0093|gaas]istu[MA!\V\.27!
 vvsv:0093|gaas]ita[MA!\V\.27!
 vvsv:0093|galop<eeri[MA galopeeri[B!\V\.28!
-vvsv:0093|gal<oppi[MA galopi[B!\V\.28!
+vvsv:0093|gal<oppi[MA gal?opi[B!\V\.28!
 vvsv:0093|galv<aani[MA galvaani[B!\V\.28!
 vvsv:0093|galvanis<eeri[MA galvaniseeri[B!\V\.28!
 vvsv:0093|<aas]i[MA aas]i[B!\V\.28!
@@ -35088,7 +35088,7 @@ vvsv:0093|h<auta[MA!\V\.27!
 vvsv:0093|h<easta[MA!\V\.27!
 vvsv:0093|aktsept<eeri[MA aktsepteeri[B!\V\.28!
 vvsv:0093|heegelda[MA!\V\.27!
-vvsv:0093|akts<epti[MA aktsepti[B!\V\.28!
+vvsv:0093|akts<epti[MA akts?epti[B!\V\.28!
 vvsv:0093|heiasta[MA!\V\.27!
 vvsv:0093|heiastu[MA!\V\.27!
 vvsv:0093|heiduta[MA!\V\.27!
@@ -35132,7 +35132,7 @@ vvsv:0093|hihita[MA!\V\.27!
 vvsv:0093|h<iilga[MA hiila[TA!\V\.29!
 vvsv:0093|h<iili[MA hiili[B!\V\.28!
 vvsv:0093|hiinasta[MA!\V\.27!
-vvsv:0093|akvar<el]li[MA akvarel]li[B!\V\.28!
+vvsv:0093|akvar<el]li[MA akvar?el]li[B!\V\.28!
 vvsv:0093|h<iiva[MA hiiva[TA!\V\.29!
 vvsv:0093|hilbenda[MA!\V\.27!
 vvsv:0093|hilberda[MA!\V\.27!
@@ -35299,7 +35299,7 @@ vvsv:0093|h<üübi[MA!\V\.27!
 vvsv:0093|idanda[MA!\V\.27!
 vvsv:0093|idane[MA!\V\.27!
 vvsv:0093|idealis<eeri[MA idealiseeri[B!\V\.28!
-vvsv:0093|algor<itmi[MA algoritmi[B!\V\.28!
+vvsv:0093|algor<itmi[MA algor?itmi[B!\V\.28!
 vvsv:0093|identifits<eeri[MA identifitseeri[B!\V\.28!
 vvsv:0093|identifits<eeru[MA!\V\.27!
 vvsv:0093|iduta[MA!\V\.27!
@@ -36653,7 +36653,7 @@ xpv:0002|r<ööp_j<oonda[MA!\V\.27!
 xpv:0002|parem_kl<õpsa[MA parem_klõpsa[TA!\V\.29!
 xpv:0002|parem_ühenda[MA!\V\.27!
 xp:0002|räsi_?algor<itm räsi_?algor<itmi räsi_?algoritmi!\S\.22^E^+7!
-xpv:0002|re_inst<al]li[MA re_instal]li[B!\V\.28!
+xpv:0002|re_inst<al]li[MA re_inst?al]li[B!\V\.28!
 xp:0002|k<erge_fakt<oid k<erge_fakt<oidi k<erge_fakt?oidi!\S\.22^E^+7!
 xp:0002|r<aske_fakt<oid r<aske_fakt<oidi r<aske_fakt?oidi!\S\.22^E^+7!
 xpv:0002|reljeefista[MA!\V\.27!
