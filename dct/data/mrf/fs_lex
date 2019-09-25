@@ -22356,7 +22356,7 @@ lisa:0093|trans_literatsi<oon trans_literatsi<ooni trans_literatsi?ooni!\S\.22^E
 vvs:0093|transmissi<oon transmissi<ooni transmissi?ooni!\S\.22^E^+7!
 vvs:0093|tr?anspar<en]t tr?anspar<en]ti tr?ansparen]di!\S\.22^E^+7!
 lisa:0093|trans_plantatsi<oon trans_plantatsi<ooni trans_plantatsi?ooni!\S\.22^E^+7!
-vvs:0093|transp?orditavus transp?orditavuse!\S\.11^I^+7!&&(!\S\.9+7!)
+vvs:0093|transporditavus transporditavuse!\S\.11^I^+7!&&(!\S\.9+7!)
 vvs:0093|tr<ansp<ort tr<ansp<orti tr<ansp?ordi!\S\.22^E^+7!
 vvs:0093|tr?ansport<öör tr?ansport<ööri tr?ansportööri!\S\.22^E^+7!
 vvs:0093|transpositsi<oon transpositsi<ooni transpositsi?ooni!\S\.22^E^+7!
@@ -33598,7 +33598,7 @@ vvsv:0093|ekspon<eeri[MA eksponeeri[B!\V\.28!
 vvsv:0093|süüdista[MA!\V\.27!
 vvsv:0093|s<üüta[MA süüda[TA!\V\.29!
 vvsv:0093|s<üüvi[MA süüvi[B!\V\.28!
-vvsv:0093|eksp<orti[MA ekspordi[B!\V\.28!
+vvsv:0093|?eksp<orti[MA ekspordi[B!\V\.28!
 vvsv:0093|šantaž<eeri[MA šantažeeri[B!\V\.28!
 vvsv:0093|šarž<eeri[MA šaržeeri[B!\V\.28!
 vvsv:0093|aheta[MA!\V\.27!
@@ -33926,7 +33926,7 @@ lisav:0093|trans_form<eeru[MA!\V\.27!
 vvsv:0093|transl<eeri[MA transleeri[B!\V\.28!
 lisav:0093|trans_liter<eeri[MA trans_litereeri[B!\V\.28!
 vvsv:0093|transpon<eeri[MA transponeeri[B!\V\.28!
-vvsv:0093|transp<orti[MA transpordi[B!\V\.28!
+vvsv:0093|tr?ansp<orti[MA transpordi[B!\V\.28!
 vvsv:0093|traum<eeri[MA traumeeri[B!\V\.28!
 vvsv:0093|tr<eeni[MA treeni[B!\V\.28!
 vvsv:0093|tr<ehva[MA trehva[TA!\V\.29!
@@ -35357,7 +35357,7 @@ vvsv:0093|immitse[MA!\V\.27!
 vvsv:0093|immunis<eeri[MA immuniseeri[B!\V\.28!
 vvsv:0093|immuta[MA!\V\.27!
 vvsv:0093|impon<eeri[MA imponeeri[B!\V\.28!
-vvsv:0093|imp<orti[MA impordi[B!\V\.28!
+vvsv:0093|?imp<orti[MA impordi[B!\V\.28!
 vvsv:0093|impregn<eeri[MA impregneeri[B!\V\.28!
 vvsv:0093|improvis<eeri[MA improviseeri[B!\V\.28!
 vvsv:0093|individuaalitse[MA!\V\.27!
@@ -52075,7 +52075,7 @@ tes:0902|eksekut<eerija!\S\.1+9!
 tes:0902|eksist<eerimine eksist<eerimise eksist<eerimis[T!\S\.12^I^+7!
 tes:0902|eksitaja!\S\.1+9!
 tes:0902|eksootilisus eksootilisuse!\S\.11^I^+7!
-tes:0902|eksp<ortija!\S\.1+9!
+tes:0902|?eksp<ortija!\S\.1+9!
 tes:0902|ekspans<iivsus ekspans<iivsuse!\S\.11^I^+7!&&(!\S\.9+7!)
 tes:0902|eksperiment<eerija!\S\.1+9!
 tes:0902|eksperiment<eerimine eksperiment<eerimise eksperiment<eerimis[T!\S\.12^I^+7!
@@ -58086,7 +58086,7 @@ sage:0905|eksist<eeriv eksist<eeriva!\A\.2+9!
 sage:0905|eksitamine eksitamise eksitamis[T!\S\.12^I^+7!
 sage:0905|eksitav eksitava!\A\.2+9!
 sage:0905|eksootilisem eksootilisema!\C\.2+9!
-sage:0905|eksp<ortimine eksp<ortimise eksp<ortimis[T!\S\.12^I^+7!
+sage:0905|?eksp<ortimine ?eksp<ortimise ?eksp<ortimis[T!\S\.12^I^+7!
 sage:0905|eksperiment<eeriv eksperiment<eeriva!\A\.2+9!
 sage:0905|ekspert?iisi_<akt ekspert?iisi_<akti ekspert?iisi_akti!\S\.22^E^!
 sage:0905|ekspon<eerimine ekspon<eerimise ekspon<eerimis[T!\S\.12^I^+7!
@@ -65411,7 +65411,7 @@ sage:0905|trammi_j<uht trammi_j<uhti trammi_juhi!\S\.22^E^!
 sage:0905|trammi_p<eatus trammi_p<eatuse!\S\.11^I^+7!&&!\S\.9+7!
 sage:0905|trammi_t<ee!\S\.26+9!%ee>e[I%
 sage:0905|transistor_r<aadio!\S\.1+9!
-sage:0905|transp<ortimine transp<ortimise transp<ortimis[T!\S\.12^I^+7!
+sage:0905|tr?ansp<ortimine tr?ansp<ortimise tr?ansp<ortimis[T!\S\.12^I^+7!
 sage:0905|trauma_p<unkt trauma_p<unkti trauma_punkti!\S\.22^E^!
 sage:0905|trauma_proj<ekt trauma_proj<ekti trauma_proj?ekti!\S\.22^E^+7!
 sage:0905|treening_l<aager treening_l<aagri!\S\.2+9!%i>e[I%
