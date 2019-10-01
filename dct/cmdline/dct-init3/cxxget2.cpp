@@ -97,7 +97,8 @@ bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2,
             exit( EXIT_FAILURE );	        
 		    }
         if(*lgcnt==0)
-            *hhhidx=n;  
+            *hhhidx=n;
+        /*      
         if(*hhhidx!=n)
             {
             printf("\n%s:%d - XXget2 ...piirinr-id pole võrdsed...\n", 
@@ -106,6 +107,7 @@ bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2,
             //assert( false );
             //exit( EXIT_FAILURE );	        
             }
+        */
         PutPiiriGrupiNr(lg,*lgcnt,n);
 
         // hüppame järgmise grupi algusse 
