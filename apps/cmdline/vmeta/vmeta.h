@@ -25,11 +25,13 @@ public:
     void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
     {
         assert(EmptyClassInvariant() == true);
-        lipp_ms=lipp_fs;	// märgendisüsteem: vaikimisi fs
-
-        lipp_xml=true;		// sisendformaat: vaikimisi üksiksõnad
-        lipp_oleta=true;   // leksikonist puuduvad sõned: vaikimisi ei oleta
-        lipp_haaldus=false; // hääldusmärgid: vaikimisi ei lisa
+        lipp_xml=true;		// xml sisendformaat 
+        lipp_oleta=true;    // oletame leksikonist puuduvad sõned
+        lipp_oleta_pn=true; // lisa (oleta) lausekonteksti ja suurtähelisuse 
+                            // põhjal pärisnimesid
+        lipp_haaldus=false; // hääldusmärke ei lisa
+        lipp_ms=lipp_fs;	// märgendisüsteem fs
+        
         PATHSTR pathstr;
         path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
         sisendfail="-";     // vaikimisi stdin
@@ -48,19 +50,54 @@ public:
                         argv[0]);
                 exit(EXIT_FAILURE);
             }        
+            //-----------------------------
+            if(strcmp("--xml", argv[i])==0)
+            {
+                lipp_xml=true;
+                continue;
+            }
             if(strcmp("-t", argv[i])==0 || strcmp("--plaintext", argv[i])==0)
             {
                 lipp_xml=false;
                 continue;
             }
-            if(strcmp("-q", argv[i])==0 || strcmp("--dontquess", argv[i])==0)
+            //-----------------------------
+            if(strcmp("--guess", argv[i])==0)
+            {
+                lipp_oleta=true;
+                continue;
+            }
+            if(strcmp("-q", argv[i])==0 || strcmp("--dontguess", argv[i])==0)
             {
                 lipp_oleta=false;
                 continue;
             }
-            if(strcmp("-f", argv[i])==0 || strcmp("--phonetic", argv[i])==0)
+            //-----------------------------
+            if(strcmp("--guesspropnames", argv[i])==0)
+            {
+                lipp_oleta_pn=true;
+                continue;
+            }            
+            if(strcmp("--dontguesspropnames", argv[i])==0)
+            {
+                lipp_oleta_pn=false;
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("--dontaddphonetics", argv[i])==0)
+            {
+                lipp_haaldus=false;
+                continue;
+            }            
+            if(strcmp("-f", argv[i])==0 || strcmp("--addphonetics", argv[i])==0)
             {
                 lipp_haaldus=true;
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("--fs", argv[i])==0)
+            {
+                lipp_ms=lipp_fs;
                 continue;
             }
             if(strcmp("-g", argv[i])==0 || strcmp("--gt", argv[i])==0)
@@ -73,6 +110,7 @@ public:
                 lipp_ms=lipp_hmm;
                 continue;
             }
+            //-----------------------------
             if(strcmp("-p", argv[i])==0 || strcmp("--path", argv[i])==0)
             {
                 if(++i >= argc)
@@ -80,6 +118,9 @@ public:
                 path=argv[i];
                 continue;
             }  
+            if(lipp_oleta_pn==true && lipp_xml==false)
+                throw VEAD(__FILE__, __LINE__, 
+                    "--guesspropname lipp vajab lausemärgendeid sisendtekstis");
             goto syntaks;
         }
         if(i==argc)
@@ -97,29 +138,35 @@ public:
     /** Töötleb sisendfailid */
     void Run(void)
     {
-        MRF_FLAGS_BASE_TYPE lipp_analyysiks = 
+        // üksiksõnade analüüs vaikimisi selliste lippudega
+        MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks = 
                                 MF_MRF | MF_ALGV | MF_POOLITA | 
-                                MF_PIKADVALED | MF_LYHREZH | MF_VEEBIAADRESS |
-                                MF_YHELE_REALE | MF_KOMA_LAHKU;
+                                MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
+                                MF_PIKADVALED | MF_LYHREZH ;
 
-        MRF_FLAGS_BASE_TYPE lipp_oletajaga =  
+        // lausete ühestamiseks vaikimisi selliste lippudega
+        MRF_FLAGS_BASE_TYPE lipud_lausete_yhestamiseks =  
                                 MF_MRF | MF_ALGV | MF_POOLITA | 
-                                MF_OLETA | MF_VEEBIAADRESS | MF_YHELE_REALE | MF_KOMA_LAHKU;
-        if(lipp_oleta)              // -- oletamiseta
-           lipud_mrf.Set(lipp_oletajaga); 
-        else                        // -- oletamisega
-           lipud_mrf.Set(lipp_analyysiks); 
+                                MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
+                                MF_YHESTA | MF_XML | MF_IGNOREBLK |
+                                MF_LISAPNANAL | MF_OLETA ;
+                                
         if(lipp_xml)// xml
         {
-            lipud_mrf.On(MF_XML|MF_IGNOREBLK); // need XMList tulenavalt lisaks
-            if(lipp_oleta)              // -- xml oletamisega (üksiksõnad+lausekontekst)
-                // lausekonteksti olemasolust tulenevalt oletame neid lisaks
-                lipud_mrf.On(MF_YHESTA|MF_LISAPNANAL); 
-        }        
+            lipud_mrf.Set(lipud_lausete_yhestamiseks);
+            lipud_mrf.OnOff(MF_LISAPNANAL, lipp_oleta_pn);  // ainult lausekonteksti korral
+                                                            // saab olla "on"
+        } 
+        else
+        {
+            lipud_mrf.Set(lipud_yksiksonade_analyysiks);
+        }
+        lipud_mrf.OnOff(MF_OLETA,   lipp_oleta); //ühestamise korral pole mõistlik "off"
+        lipud_mrf.OnOff(MF_KR6NKSA, lipp_haaldus);
         switch(lipp_ms)
         {
             case lipp_gt:
-                lipud_mrf.On(MF_GTMRG);
+                lipud_mrf.On(MF_GTMRG); //ei saa ühestada
                 break;
             case lipp_fs:
                 break;
@@ -127,9 +174,6 @@ public:
                 lipud_mrf.On(MF_YHMRG);
                 break;
         }
-        if(lipp_haaldus)
-            lipud_mrf.On(MF_KR6NKSA);
-
         mrf.Start(path, lipud_mrf.Get());
 
         if(sisendfail == "-")
@@ -141,6 +185,7 @@ public:
             valja.Start(PFSCP_UTF8, path);
         else
             valja.Start(valjundfail, "wb", PFSCP_UTF8, path);
+        
         TeeSedaFailiga(sisse, valja);
     }
 
@@ -155,14 +200,15 @@ public:
 private:
     enum LIPPMARGENDISYSTEEM    //
     {
-        lipp_gt,                // (vaikimisi) gt
-        lipp_fs,                // -f --fs
+        lipp_gt,                //    --gt
+        lipp_fs,                // (vaikimisi) -f --fs
         lipp_hmm,               // -m --hmm markov
     } lipp_ms;
     
-    bool lipp_xml;				// -x --xml
-    bool lipp_haaldus;          // -p --phonetic
-    bool lipp_oleta;            // -q --quess
+    bool lipp_oleta_pn;         //    --guesspropnames/--dontguesspropnames
+    bool lipp_xml;				// -x --xml/--plaintext
+    bool lipp_haaldus;          // -p --phonetics/--nophonetics
+    bool lipp_oleta;            // -q --guess/--dontguess
 
     CFSAString path;            // -p --path
     CFSAString sisendfail;      // vaikimisi - (stdin))
@@ -173,6 +219,7 @@ private:
     
     VOTAFAILIST sisse;
     PANEFAILI valja;
+    //ETMRFA mrf;
     ETMRFA mrf;
     MRF_FLAGS lipud_mrf;
 
@@ -182,6 +229,7 @@ private:
         CFSWString rida;
         LYLI lyli;
         // T3MORF lisab vajadusel ise MF_YHMRG lipu
+
         while (in.Rida(rida) == true)
         {
             rida.Trim();
