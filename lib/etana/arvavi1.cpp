@@ -63,6 +63,15 @@ int MORF0::arvavi1(MRFTULEMUSED *tulemus, FSXSTRING *S6na, int S6naPikkus)
             }
         S6na3 = S6na3.Mid(i);
         }
+    if (S6na3 == *S6na ) // polnud vigasid
+        {        // �kki on saand, olnd vms
+        if (S6na3.Mid(S6naPikkus-2) == FSxSTR("nd"))
+            {
+            S6na3 = S6na3.Mid(0, S6naPikkus-2) + FSxSTR("nud");
+            res = chkx( tulemus, &S6na3, S6na3.GetLength(), 100, &tagasitasand );
+            return res;
+            }
+        }
     if (S6na3 != *S6na)
         {
         res = chkwrd(tulemus, &S6na3, S6na3.GetLength(), 100, &tagasitasand, KOIK_LIIGID);

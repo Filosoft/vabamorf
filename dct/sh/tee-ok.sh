@@ -64,7 +64,7 @@ echo "pref.pok"
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 echo "== Genereerime failist fs_lex muutumatud:"
-for X in vvsm tesm sagem lisam
+for X in vvsm tesm sagem lisam nospm
 do 
   cat ${UFSD_SRC_MRF}/fs_lex \
     | grep "^${X}:" \
@@ -77,7 +77,7 @@ echo "  --> mmm.pala.txt"
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 echo "== Genereerime failist fs_lex käänduvad:"
-for X in vvs tes sage lisa lisatule xp voor voorxp
+for X in vvs tes sage lisa lisatule xp voor voorxp nosp
 do
   cat ${UFSD_SRC_MRF}/fs_lex \
     | grep "^${X}:" \
@@ -90,7 +90,7 @@ echo "  --> nomm.pala.txt"
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 echo "== Genereerime failist fs_lex pöörduvad:"
-for X in vvsv tesv lisav xpv sagev
+for X in vvsv tesv lisav xpv sagev nospv
 do
   cat ${UFSD_SRC_MRF}/fs_lex \
     | grep "^${X}:" \

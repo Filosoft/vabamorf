@@ -16,7 +16,7 @@
 #include "../../../dct/lib/dct-nomvrb/noomen.h"
 
 /* erandites esinevad vormid ja nende vasted */
-FSXSTRING vormid(FSxSTR("SG.Nsg n*SG Nsg n*SG.Gsg g*SG.Psg p*PL.Npl n*PL.Gpl g*PL.Ppl p*ADTadt*PL.ILLpl ill*PL.INpl in*PL.ELpl el*PL.ALLpl all*PL.ADpl ad*PL.ABLpl abl*PL.TRpl tr*PL.TERpl ter**"));
+FSXSTRING vormid(FSxSTR("SG.Nsg n*SG Nsg n*SG.Gsg g*SG.Psg p*SG.ELsg el*PL.Npl n*PL.Gpl g*PL.Ppl p*ADTadt*PL.ILLpl ill*PL.INpl in*PL.ELpl el*PL.ALLpl all*PL.ADpl ad*PL.ABLpl abl*PL.TRpl tr*PL.TERpl ter**"));
 
 int  ee;                  /* vormi eemaldamise vajadust näitav lipp */
 
