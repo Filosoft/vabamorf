@@ -68,7 +68,7 @@ static  MRF2YH_LOEND mrf2yhSona[]=
         {FSWSTR("kunagi"),          FSWSTR("RRM")},
         {FSWSTR("kus"),             FSWSTR("RRY")},
         {FSWSTR("maha"),            FSWSTR("RRM")},
-        {FSWSTR("miks"),            FSWSTR("RRY")},
+        //{FSWSTR("miks"),            FSWSTR("RRY")}, hjk okt 2019
         {FSWSTR("millal"),          FSWSTR("RRY")},
         {FSWSTR("nagu"),            FSWSTR("CSRR")},
         {FSWSTR("nii"),             FSWSTR("RRM")},

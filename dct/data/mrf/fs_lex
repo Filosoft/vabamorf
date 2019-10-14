@@ -3828,7 +3828,7 @@ vvs:0093|bajan<ist bajan<isti bajan?isti!\S\.22^E^+7!
 vvs:0093|b?ajon<ett b?ajon<etti b?ajoneti!\S\.22^E^+7!
 lisa:0094|bak<aal_k<aup bak<aal_k<aupa bak<aal_kauba!\S\.22^U^!
 vvs:0093|bakal<aureus bakal<aureuse!\S\.11^I^+7!
-lisa:1019|baka!\S\.16!
+lisa:1019|baka!\Sn\.16!
 vvs:0093|bakel<iit bakel<iiti bakel?iidi!\S\.22^E^+7!
 tes:0096|b?akenb<ard b?akenb<ardi b?akenbardi!\S\.22^E^.PL+7!
 vvs:0093|bakhan<aal bakhan<aali bakhan?aali!\S\.22^E^+7!
@@ -6559,7 +6559,7 @@ vvs:0093|eetik eetiku!\S\.2+9!
 vvs:0093|eetiline eetilise eetilis[T!\A\.12^I^+7!
 tesm:1002|eetiliselt!\D\!
 tes:0902|eetilisus eetilisuse!\S\.11^I^+7!
-lisa:1019|<eetos <eetose!\S\.11^I^+7!&&!\S\.9+7!
+lisa:1019|<eetos <eetose!\Sn\.11^I^+7!&&!\S\.9+7!
 sage:0905|<eetri_<aeg <eetri_<aega <eetri_aja!\S\.22^U^!
 vvsm:0093|<eetsi!\D\!
 vvs:0093|<eetsine <eetsise <eetsis[T!\A\.12^I^+7!&&!\A\.10+7!
@@ -8648,7 +8648,7 @@ vvs:0093|eun<uhh eun<uhhi eun?uhhi!\S\.22^E^+7!
 lisa:0094|eur<aasia!\G\!
 lisa:0094|Eur<aasia!\H\.1.SG+9!
 lisa:0094|Eur_atom Eur_atomi!\H\.2.SG+9!
-nosp:1019|<eur <euri euri!\Sn\.22^E^!
+nosp:1019|<eur <euri euri!\Sm\.22^E^!
 sage:0905|euro_abi (euro_<appi)!\S\.17!
 sage:0905|euro_?ametn<ik euro_?ametn<ikku euro_?ametniku!\S\.25^E^+11!
 sage:0905|euro_integratsi<oon euro_integratsi<ooni euro_integratsi?ooni!\S\.22^E^+7!
@@ -18787,7 +18787,7 @@ vvs:0093|kapatsit<eet kapatsit<eeti kapatsit?eedi!\S\.22^E^+7!
 vvs:0093|k?apead<oor k?apead<oori k?apeadoori!\S\.22^E^+7!
 vvs:0093|kap<el]l kap<el]li kap?el]li!\S\.22^E^+7!
 vvsv:0093|kaperda[MA!\V\.27!
-lisa:1019|kape!\S\.16!
+lisa:1019|kape!\Sm\.16!
 vvs:0093|kap<iitel kap<iitli!\S\.2+9!%i>e[I%
 sage:0905|kapike kapikese kapikes[T!\S\.12^I^+7!
 sage:0905|kapi_k<ül]g kapi_k<ül]ge kapi_kül]je (kapi_kül]i)!\S\.22^I^!
@@ -36490,7 +36490,7 @@ vvs:0093|mod<ernne mod<ernse!\A\.2+9!
 tesm:1002|mod<ernselt!\D\!
 sage:0905|mod<ernsem mod<ernsema!\C\.2+9!
 vvs:0093|mod<ernsus mod<ernsuse!\S\.11^I^+7!&&!\S\.9+7!
-lisa:1019|mode!\S\.16!
+lisa:1019|mode!\Sn\.16!
 vvs:0093|modifikatsi<oon modifikatsi<ooni modifikatsi?ooni!\S\.22^E^+7!
 vvsv:0093|modifits<eeri[MA modifitseeri[B!\V\.28!
 tesv:0096|modifits<eeru[MA!\V\.27!
@@ -36815,7 +36815,7 @@ vvs:0093|m<oskvalanna!\S\.16!
 lisa:0094|M<oskva_m<aa!\H\.26.SG!
 lisa:0094|Moskvitš Moskvitši!\H\.2+9!%i>e[I%
 vvs:0093|m<oslem m<oslemi!\S\.2+9!%i>e[I%
-nosp:1019|mosse!\S\.16!
+nosp:1019|mosse!\Sn\.16!
 vvsm:0093|m<os]si!\D\!
 vvsm:0093|m<os]sis!\DA\!
 tesv:0902|**m<os]sis=ole[MA m<os]sis=<oll[A m<os]sis=ole[B m<os]sis=<ol[DUD m<os]sis=ole[MATA m<os]sis=ole[V m<os]sis=ol[I m<os]sis=ol[GU m<os]sis=ole[ME m<os]sis=oll[AKSE m<os]sis=ol[IN m<os]sis=ol[IME m<os]sis=ol[NUD !\V\.36! $b$m<os]sis=<on $vad$m<os]sis=<on 
@@ -39498,7 +39498,7 @@ lisa:0094|Nikol<ajeva!\H\.1+9!
 lisa:0094|Nikol?ajev Nikol?ajevi!\H\.2.SG+9!
 lisa:0094|Nik<osia!\H\.1.SG+9!
 vvs:0093|n?ikot<iin n?ikot<iini n?ikotiini!\S\.22^E^+7!
-vvs:0093|n<iks n<iksu niksu!\S\.22^E^!
+vvs:0093|n<iks n<iksu niksu!\Sn\.22^E^!
 vvsm:0093|n<iksti!\D\!
 vvsv:0093|n<iksu[MA niksu[B!\V\.28!
 vvsv:0093|niksuta[MA!\V\.27!
@@ -45723,7 +45723,6 @@ vvsm:0093|pl<ätsti!\DI\!
 tesv:0096|pl<ätsu[MA plätsu[B!\V\.28!
 vvsv:0093|plätsuta[MA!\V\.27!
 lisa:0919|plät]u!\S\.16!
-lisa:0919|plätu!\S\.16!
 vvsm:0093|pl<äudi!\DI\!
 tesm:0096|pl<äuh!\I\!
 lisa:1001|plöga!\S\.17!
@@ -50044,7 +50043,7 @@ vvs:0093|rass<ism rass<ismi rass?ismi!\S\.22^E^+7!
 sage:0905|rass<istl<ik rass<istl<ikku rass<istliku!\A\.25^E^+11!
 vvs:0093|rass?ol]nik rass?ol]niku!\S\.2+9!
 vvs:0093|r<as]s r<as]si ras]si!\S\.22^E^!
-lisa:1019|rasta!\S\.16!
+lisa:1019|rasta!\Sn\.16!
 lisav:0919|rasterda[MA!\V\.27!
 vvs:0093|r<aster r<astri!\S\.2+9!%i>e[I%
 vvs:0093|rastr<aal rastr<aali rastr?aali!\S\.22^E^+7!
@@ -55601,7 +55600,7 @@ tesm:0802|sisu_v<aeselt!\D\!
 tes:0802|sisu_v<aesus sisu_v<aesuse!\S\.11^I^+7!&&!\S\.9+7!
 lisa:1019|sita_aadu!\St\.16!
 vvs:0093|sitane sitase sitas[T!\At\.10+9!
-lisa:1019|sitar sitari!\S\.2+9!%i>e[I%
+lisa:1019|sitar sitari!\Sn\.2+9!%i>e[I%
 tes:0802|sita_sit]ikas sita_sit]ika!\S\.2+9!
 vvsm:0093|sitasti!\Dt\!
 tes:0802|sita_vedaja!\St\.1+9!
@@ -70305,8 +70304,7 @@ vvsm:0093|või!\JD\!
 vvsm:0093|v<õikalt!\D\!
 sage:0905|v<õikam v<õikama!\C\.2+9!
 vvs:0093|v<õikjas v<õikja!\A\.2+9!
-lisa:0919|võiku!\S\.16!
-nosp:1019|võiku!\S\.16+9!
+nosp:1019|võiku!\S\.16!
 vvs:0093|v<õikus v<õikuse!\S\.11^I^+7!&&!\S\.9+7!
 vvs:0093|v<õik v<õiku võigu!\SA\.22^E^!
 lisa:1001|v<õi_l<eib v<õi_l<eiba v<õi_leiva!\S\.22^U^!
@@ -72714,7 +72712,6 @@ vvs:0093|ökon<oomne ökon<oomse!\A\.2+9!
 tesm:1002|ökon<oomselt!\D\!
 tes:0902|ökon<oomsus ökon<oomsuse!\S\.11^I^+7!&&(!\S\.9+7!)
 vvs:0093|?ökon<oom ?ökon<oomi ?ökonoomi!\S\.22^E^+7!
-lisa:1019|öko!\S\.16!
 lisa:0094|öko_süst<eem öko_süst<eemi öko_süst?eemi!\S\.22^E^+7!
 lisav:0919|ökota[MA!\V\.27!
 lisa:1019|ökots<iid ökots<iidi ökots?iidi!\S\.22^E^!
