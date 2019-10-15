@@ -692,8 +692,19 @@ void MRF2YH2MRF::FsTags2YmmTags(
 
     // sõnaliik + sõna --> ühestajamärgendiks
     // DXIG -> RR RR II ASG t��tlus
+//    if(*p_sona == FSWSTR("miks") && yhmarg1==FSWSTR("RR")) // väga kole!!!
+    if(*p_sona == FSWSTR("miks") && muut1.Find(p_mTul->sl[0]) >= 0) // väga kole!!!
+        {
+	yhmarg1=FSWSTR("RRY"); //HJK okt 2019 sest miks on ka nimisõna...
+        return;
+        }
     if(muut1.Find(p_mTul->sl[0]) >= 0) // sõnaliik oli 'muut1' loendis
         {
+        if(*p_sona == FSWSTR("miks")) // väga kole!!!
+            {
+	    yhmarg1=FSWSTR("RRY"); //HJK okt 2019 sest miks on ka nimisõna...
+            return;
+            }
         p_rec=rr.Get((FSWCHAR*)(const FSWCHAR*)*p_sona);
         if(p_rec!= NULL)    // 
             {            

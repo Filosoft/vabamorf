@@ -6559,7 +6559,7 @@ vvs:0093|eetik eetiku!\S\.2+9!
 vvs:0093|eetiline eetilise eetilis[T!\A\.12^I^+7!
 tesm:1002|eetiliselt!\D\!
 tes:0902|eetilisus eetilisuse!\S\.11^I^+7!
-lisa:1019|<eetos <eetose!\Sn\.11^I^+7!&&!\S\.9+7!
+lisa:1019|<eetos <eetose!\Sn\.11^I^+7!&&!\Sn\.9+7!
 sage:0905|<eetri_<aeg <eetri_<aega <eetri_aja!\S\.22^U^!
 vvsm:0093|<eetsi!\D\!
 vvs:0093|<eetsine <eetsise <eetsis[T!\A\.12^I^+7!&&!\A\.10+7!
@@ -6795,7 +6795,7 @@ vvs:0093|eks<eem eks<eemi eks?eemi!\S\.22^E^+7!
 vvs:0093|?ekseg<ees ?ekseg<eesi ?eksegeesi!\S\.22^E^+7!
 vvs:0093|?ekseg<eet ?ekseg<eeti ?eksegeedi!\S\.22^E^+7!
 vvs:0093|eksegeetika!\S\.1+9!
-lisa:0919|<eks <eksi eksi!\Sn\.22^E^!
+lisa:0919|<eks <eksi eksi!\Sm\.22^E^!
 tes:0902|eksekut<eerija!\S\.1+9!
 vvsv:0093|eksekut<eeri[MA eksekuteeri[B!\V\.28!
 vvs:0093|eksekut<iivne eksekut<iivse!\A\.2+9!
@@ -23247,8 +23247,8 @@ vvsv:0093|kolleta[MA!\V\.27!
 tesm:1002|kolletanud kolletanu!\A\.2+9!
 vvsv:0093|kolletu[MA!\V\.27!
 vvs:0093|kolletus kolletuse!\S\.11^I^+7!
+lisa:1019|kolli!\S\.16!
 vvs:0093|kollisi<oon kollisi<ooni kollisi?ooni!\S\.22^E^+7!
-lisa:1019|kolli!\Sn\.16!
 lisa:0094|Kollist Kollisti!\H\.2+9!%i>e[I%
 vvsv:0093|kol]lita[MA!\V\.27!
 tesv:0902|**k<ol]li=tege[MA k<ol]li=teh[A k<ol]li=t<ee[B k<ol]li=t<eh[TUD k<ol]li=tege[MATA k<ol]li=tege[V k<ol]li=teg[I k<ol]li=t<eh[KU k<ol]li=tee[ME k<ol]li=teh[AKSE k<ol]li=teg[IN k<ol]li=teg[IME k<ol]li=tei[NUD !\V\.28! 
@@ -30079,7 +30079,7 @@ vvs:0093|leiline leilise leilis[T!\A\.10+9!
 vvsv:0093|leilita[MA!\V\.27!
 vvs:0093|leilitus leilituse!\S\.11^I^+7!
 vvs:0093|l<eil l<eili leili!\S\.22^E^!
-lisa:1019|l<eim l<eimi leimi!\Sn\.22^E^!
+lisa:1019|l<eim l<eimi leimi!\Sm\.22^E^!
 vvs:0093|l<einaja!\S\.1+9!
 vvs:0093|l<einajask<ond l<einajask<onda l<einajaskonna!\S\.22^I^+7!
 tes:0802|leina_k<ell leina_k<ella leina_kella!\S\.22^I^!
@@ -56833,7 +56833,7 @@ vvs:0093|str<es]s str<es]si stres]si!\S\.22^E^!
 lisa:1019|str<etš str<etši stretši!\S\.22^E^!
 lisav:0919|str<iimi[MA striimi[B!\V\.28!
 lisa:0919|str<iim str<iimi striimi!\S\.22^E^!
-sage:0905|str<inger str<ingeri!\S\.2.PL+9!%i>e[I%
+sage:0905|str<inger str<ingeri!\S\.2+9!%i>e[I%
 lisa:0094|str<ing str<ingi stringi!\S\.22^E^!
 lisav:1112|str<ippa[MA stripa[TA!\V\.29!
 lisa:0904|str<ippar str<ippari!\S\.2+9!%i>e[I%
