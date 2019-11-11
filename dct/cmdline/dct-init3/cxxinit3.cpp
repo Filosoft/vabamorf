@@ -61,8 +61,9 @@
 
 
 FSxCHAR *stm_buf;
-int  stm_offset   =      0,
-	 STM_BUF_SIZE = 40000; // kuni 05.09.18 oli 0x7FFF==32762; 2ndtabelis üksteise otsa lükitud tüvede massiiv
+int stm_offset   = 0;
+//int	STM_BUF_SIZE = 40000; // kuni 05.09.18 oli 0x7FFF==32762; 2ndtabelis üksteise otsa lükitud tüvede massiiv
+int	STM_BUF_SIZE = 45000; // alates 2019-11-07; 2ndtabelis üksteise otsa lükitud tüvede massiiv
 
 TABLE_DCT *table;
 int   t_elem     = 0,     // jooksev element table-s
@@ -220,23 +221,28 @@ void PiiriKr6nksudS6nastikku(FILE_INFO &file_info, CPFSFile &pakitudS6nastik)
     printf("ok!\n");
     }
 
-
-/** TeePrefiks ********************************************************/
-
+/** PREFIKSisse info salvestamine
+ * 
+ * @param prefiks -- siia salvestame argumendid
+ * @param tyvi1 -- eelmine tüvi
+ * @param tyvi2 -- järgmine tüvi
+ * @param s -- tüveda kokkulandeva algusosa pikkus
+ * @param e -- teise tüve erineva lõpuosa pikkus
+ * @param i -- sõnaliikude tabeli indeks
+ */
 void TeePrefiks(
     PREFIKS *prefiks,
     CFSbaseSTRING *tyvi1,
     CFSbaseSTRING *tyvi2,
-	int p,
     int s,
 	int e,
 	int i)
 	{
-    if(p & ~0xff)
-		{
-		printf("\nLiiga palju liitsõnaklasse (%d)\n", p);
-		exit(EXIT_FAILURE);
-		}
+    //if(p & ~0xff)
+	//	{
+	//	printf("\nLiiga palju liitsõnaklasse (%d)\n", p);
+	//	exit(EXIT_FAILURE);
+	//	}
 	if(s & ~0xff)
 		{
 		printf("\nLiiga palju kokkulangevaid (%d)\n", s);
@@ -252,7 +258,7 @@ void TeePrefiks(
 		printf("\nLiiga suur index (%d)\n",i);
 		exit(EXIT_FAILURE);
 		}
-    prefiks->p_piir(p);
+    //prefiks->p_piir(p);
     prefiks->p_samasid(s);
     prefiks->p_erinevaid(e);
     prefiks->p_tabidx(i);
@@ -268,6 +274,15 @@ void PrefiksKettale(
     pakitudS6nastik.WriteBuffer(p->PrefiksToBytes(prfx), dSizeOfPrefiks);
 	}
 
+/** Lõpugruppidega seotud inf kettale
+ * <ul><li> 2 baiti -- lg[n].idx.blk_idx (7bitti) ja lg[n].idx.tab_idx (11bitti) kokkupandult 
+ *     <li> 1 bait -- liitsõnapiiride tabeli indeks
+ *     <li> 0-2 baiti -- hääldusmärkide tabeli indeks
+ * </ul>
+ * @param pakitudS6nastik
+ * @param lg
+ * @param lgcnt
+ */
 void L6pugrupidKettale(
     CPFSFile &pakitudS6nastik,
 	TYVE_INF *lg,
@@ -298,6 +313,15 @@ void L6pugrupidKettale(
         c0=(_uint8)((b2>>8)&0xFF);
         pakitudS6nastik.WriteChar((char)c0);
 		
+        if(lg[n].piiriKr6nksud & ~0xFF)
+            {
+            printf("\n liiga suur liitsõnapiiride tabeli indeks\n");
+            assert( false );
+            exit(EXIT_FAILURE);
+            }            
+        c0=(unsigned char)(lg[n].piiriKr6nksud);
+        pakitudS6nastik.WriteChar((char)c0);
+        
         switch(lisaKr6nksud)
             {
             //case 0:
@@ -326,7 +350,7 @@ void BlokiL6puTunnusKettale(
     CFSbaseSTRING *tyvi2)
 	{
     PREFIKS  prefiks;
-    TeePrefiks(&prefiks, tyvi1, tyvi2, 0, 0, 1, NULL_LIIKI);
+    TeePrefiks(&prefiks, tyvi1, tyvi2, 0, 1, NULL_LIIKI);
     PrefiksKettale(pakitudS6nastik, &prefiks);
 
     FSxCHAR c=EofB;
@@ -381,7 +405,8 @@ static void cXXpack1(
         *tyvi2=new CFSbaseSTRING, 
         erinev;
     TYVE_INF lg[SONAL_MAX_PIK];
-    int tabidx, hhhidx, lgcnt;
+    int tabidx, lgcnt;
+    //int hhhidx;
 
     int dbSuurus,  // puhvri suurus
          dbVaba;    // jooksvas puhvris vaba ruumi
@@ -394,20 +419,22 @@ static void cXXpack1(
     dbVaba=file_info.buf_size;
     max_blokis=blokis=0u;
 
-    (*tyvi1)    = FSxSTR("\0");     // ""-tüvi.          
-    Tyve1Pikkus = 0;               // 0-pikkusega tüvi. 
-    cXXput((const FSxCHAR *)(*tyvi1), Tyve1Pikkus);    // 0-pikkusega tüvi 2ndtabelisse.  
-    TeePrefiks(&prefiks, tyvi1, tyvi2, 0, Tyve1Pikkus, 0, NULL_LIIKI);
+    (*tyvi1)    = FSxSTR("\0");                         // ""-tüvi.          
+    Tyve1Pikkus = 0;                                    // 0-pikkusega tüvi. 
+    cXXput((const FSxCHAR *)(*tyvi1), Tyve1Pikkus);     // 0-pikkusega tüvi 2ndtabelisse.  
+    TeePrefiks(&prefiks, tyvi1, tyvi2, Tyve1Pikkus, 0, NULL_LIIKI);
     PrefiksKettale(pakitudS6nastik, &prefiks);
     dbVaba -= dSizeOfPrefiks;
     assert( pakitudS6nastik.Tell() % file_info.buf_size + dbVaba ==  file_info.buf_size  );
-    while(cXXget2(p6hisS6nTxt, tyvi2, &tabidx, &hhhidx, lg, &lgcnt)==true)
+    //while(cXXget2(p6hisS6nTxt, tyvi2, &tabidx, &hhhidx, lg, &lgcnt)==true)
+    while(cXXget2(p6hisS6nTxt, tyvi2, &tabidx, lg, &lgcnt)==true)
         {
         Tyve2Pikkus=tyvi2->GetLength();
         k = find_fd((const FSxCHAR *)*tyvi1,(const FSxCHAR *)*tyvi2,
                                                 min(Tyve1Pikkus,Tyve2Pikkus));
-        erinev = tyvi2->Mid(k);     // Viit eelmisest erinevale t"uveosale.  
-        e = Tyve2Pikkus - k;        // Niimitu baiti erineb eelmisest.  
+        erinev = tyvi2->Mid(k);     // eelmisest erinev tüveosa  
+        e = Tyve2Pikkus - k;        // niimitu baiti erineb eelmisest
+        assert(e==erinev.GetLength());
         dbSuurus=dSizeOfPrefiks+e*dctsizeofFSxCHAR+dSizeOfLg2(lgcnt,lisaKr6nksud);
         if(dbSuurus+dSizeOfEndOfBlk > dbVaba)
             {
@@ -421,7 +448,7 @@ static void cXXpack1(
                 }
             dbVaba=file_info.buf_size;
             cXXput((const FSxCHAR *)(*tyvi2), Tyve2Pikkus);			        // TYVI 2ndtabelisse  
-            TeePrefiks(&prefiks, tyvi1, tyvi2, hhhidx, Tyve2Pikkus, 0, tabidx);	// PREFIKS järgmisesse blokki 
+            TeePrefiks(&prefiks, tyvi1, tyvi2, Tyve2Pikkus, 0, tabidx);	// PREFIKS järgmisesse blokki 
             PrefiksKettale(pakitudS6nastik, &prefiks);                
             L6pugrupidKettale(pakitudS6nastik, lg, lgcnt);
             if(blokis > max_blokis)
@@ -432,7 +459,7 @@ static void cXXpack1(
             }
         else // ----- jooksvas blokis parasjagu vaba ruumi ----- 
             {
-            TeePrefiks(&prefiks, tyvi1, tyvi2, hhhidx, k, e, tabidx);
+            TeePrefiks(&prefiks, tyvi1, tyvi2, k, e, tabidx);
             PrefiksKettale(pakitudS6nastik, &prefiks);
             pakitudS6nastik.WriteString((const FSxCHAR *)erinev, erinev.GetLength()); // erinev tüveosa 
             L6pugrupidKettale(pakitudS6nastik, lg, lgcnt);  // Lõpugrupid blokki 

@@ -4,9 +4,11 @@
 #include "../../../dct/cmdline/dct-init3/init.h"
 //* cXXget2 ***********************************************************
 
+//bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2, 
+//                        int *tabidx, int *hhhidx, TYVE_INF *lg, int *lgcnt)
 bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2, 
-                        int *tabidx, int *hhhidx, TYVE_INF *lg, int *lgcnt)
-	{
+                        int *tabidx, TYVE_INF *lg, int *lgcnt)
+{
     //int Xstr_2_int( // ==0:pole numbrit; >0: niimitmest baidist tehti märgiga täisarv;
 	//    int           *i,	    // saadud märgiga täisarv
 	//    const FSxCHAR *xstr);   // lähtestring
@@ -27,7 +29,7 @@ bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2,
         }
     *tyvi2 = rida.Left(tyhik);
     //
-	// Lõikame tabeli indeksi välja
+	// Lõikame sõnaliikide tabeli indeksi välja
     //
     numbriAlgus=tyhik+1;
     if((numbriPikkus=Xstr_2_int(tabidx, (const FSxCHAR *)rida+numbriAlgus)) <=0)
@@ -42,15 +44,15 @@ bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2,
         assert( false );
         exit( EXIT_FAILURE );	        
         }
-	// Korjame tyveinfi ylesse 
-    //
-	InitLg(lg);
     if((numbriAlgus=rida.Find(FSxSTR("=")[0],tyhik)) <= 0)
         {
-        printf("\nXXget2:Liiga väike sõnaliikide tabeli indeks...\n");
+        printf("\nXXget2:Mingi jama sõnaliikide tabeli indeksiga...\n");
         assert( false );
         exit( EXIT_FAILURE );	        
         }
+	// Korjame tyveinfi ylesse 
+    //
+	InitLg(lg);
     numbriAlgus=numbriAlgus+1;
 	for((*lgcnt) = 0; numbriAlgus > 0; (*lgcnt)++)
 		{
@@ -96,9 +98,9 @@ bool cXXget2(CPFSFile &p6hisS6nTxt, CFSbaseSTRING *tyvi2,
             assert( false );
             exit( EXIT_FAILURE );	        
 		    }
+        /* alates 2019-11-01 ei ole enam kõigi lõpugruppide peale 1 liitsõnapiir   
         if(*lgcnt==0)
             *hhhidx=n;
-        /*      
         if(*hhhidx!=n)
             {
             printf("\n%s:%d - XXget2 ...piirinr-id pole võrdsed...\n", 

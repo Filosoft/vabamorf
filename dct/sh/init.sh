@@ -226,6 +226,8 @@ echo "== Paneme pakitud sõnastiku kokku (INIT)"
 # Välja:   (1) aeesti1.dct
 #          (2) aeesti.end
 #          (3) aeesti.vor
+
+#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 ${UFSD_EXE}/dct-init3$FLAG_DB || exit 1
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 cp aeesti1.dct et.dct || exit 1
