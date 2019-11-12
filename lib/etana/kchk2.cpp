@@ -79,7 +79,9 @@ int MORF0::kchk2(
 	        /* leidsin 1 sobiva sufiksi */
 	        if ( !liide_ok( &vt_tyvi, sfkoht, &sf, taandliik[ sufix[sfnr].tsl ] ) )
 		        continue;     /* tyvi+suf ei sobi ortogr. p�hjustel */
-            ssl = (unsigned char)(sufix[sfnr].ssl);
+            //TV: SUFINFO.ssl int alates 191112
+            //ssl = (unsigned char)(sufix[sfnr].ssl);
+            ssl = sufix[sfnr].ssl;
             /* maha kirjutanud cyybs.cpp pealt HJK 14.01.2002*/
             for(i=0; i < sonaliik[ssl]->GetLength(); i++)
                 {

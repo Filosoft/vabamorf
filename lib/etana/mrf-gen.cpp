@@ -794,7 +794,8 @@ bool ETMRFAS::GeneSTV(
     else
         tmpSuf1 = tmpSuf;
 
-    sonaLiigid = sonaliik[(unsigned char) sufix[sufNr].ssl];
+    //sonaLiigid = sonaliik[(unsigned char) sufix[sufNr].ssl];
+    sonaLiigid = sonaliik[sufix[sufNr].ssl]; //TV: SUFINFO.ssl int alates 191112
     nSonaLiiki = sonaLiigid->GetLength();
 
     for(i=0; i < nSonaLiiki; i++)  // vt sufiksi homonüüme (s.h. lik ja l<ik on homonüümid)
@@ -848,11 +849,13 @@ bool ETMRFAS::GeneSTV(
             tyvi = tmpSuf1.Left(muutumatu) + rec->mkt1c[j].tyMuut;
             utyvi += tyvi;
             tmpsufnr=suffnr((const FSxCHAR *)utyvi);
-            FSXSTRING *jjsonaLiigid = sonaliik[(unsigned char) sufix[tmpsufnr].ssl];
+            //FSXSTRING *jjsonaLiigid = sonaliik[(unsigned char) sufix[tmpsufnr].ssl];
+            FSXSTRING *jjsonaLiigid = sonaliik[sufix[tmpsufnr].ssl]; //TV: SUFINFO.ssl int alates 191112
             jjnSonaLiiki = jjsonaLiigid->GetLength();
             for (jj=0; jj < jjnSonaLiiki; jj++) // vt "tüve" kõiki homonüüme
                 {
-                if ((*sonaliik[(unsigned char) sufix[tmpsufnr].ssl])[jj] != sl1) 
+                //if ((*sonaliik[(unsigned char) sufix[tmpsufnr].ssl])[jj] != sl1) 
+                if ((*sonaliik[sufix[tmpsufnr].ssl])[jj] != sl1) //TV: SUFINFO.ssl int alates 191112
                      continue; // pole sama sõnaliik ...
                 //if (sufix[sufNr].suftyinf[i].idx.tab_idx != sufix[tmpsufnr].suftyinf[jj].idx.tab_idx)
                     //continue; // pole sama paradigma

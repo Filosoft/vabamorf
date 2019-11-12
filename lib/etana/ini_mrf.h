@@ -29,10 +29,10 @@
 #define TYVELP_MAX_PIK 6   /* tyvelõpu stringi max pikkus */
 #define SUF_LGCNT 4        /* sufiksi max lopugruppide arv */
 // TV-2000.07.14-{{
-//#define SONALIIKE   180  // max lubatud sõnaliigi jõrjendite arv
+//#define SONALIIKE   180  // max lubatud sõnaliigi järjendite arv
                            // Seisuga 2000.07.14 oligi neid 179 tükki.
                            // Sõnaliikide tabeli indeksi jaoks ruumi 8bitt, vt cxxbs3.h
-#define SONALIIKE   300    // Peab olema teglik_sõnaliigijõrjendite_arv+1
+#define SONALIIKE   300    // Peab olema teglik_sõnaliigijärjendite_arv+1
                            // NULL_LIIKI - selle paneb 'readeel()' sõnaliikide 
                            // tabelisse juurde, nii on vaja
                            // SONALIIKE-1 == NULL_LIIKI

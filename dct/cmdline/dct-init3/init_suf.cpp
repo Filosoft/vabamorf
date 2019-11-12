@@ -40,10 +40,10 @@ void init_suf( XSTRARR *sufid, XSTRARR *sufiksid, XSTRARR *taandliik, XSTRARR *t
 	        printf("\nliiga palju sufikseid; suurenda max_sufnr estmorf.h-s");
 	        exit(1);
 	        }
-        // algul selline: alune#s+d-0_0 27=0,449 0,449
-        // algul selline: filmi#S+0-0@0 143=1,619,92,0 2,619,355,0
-  
-        // tühikud eraldajateks
+        // algul selline: alune#S+d-0@0 0=0,402,0,0
+        // algul selline: filmi#S+0-0@0 200=1,450,187,0 2,450,876,0
+        // algul selline: aasta#S+0-0@0 199=0,3,1,0
+
         k = xstr->Find(FSxSTR("#"));
         fsxstr = xstr->Left(k);
         sufiksid->AddClone(fsxstr);

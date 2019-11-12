@@ -191,7 +191,8 @@ typedef struct
 	 {
 	 char taandlp;  /** sufiksi taandlõpp */ 
 	 char tsl;      /** sõnaliik, millele suf võib liituda (indeks massiivis) */
-	 char ssl;      /** sufiksi sõnaliigi indeks; sõnaliikide string ise on sonaliik[sufix[i].ssl] */ 
+	 //char ssl;    /** sufiksi sõnaliigi indeks; sõnaliikide string ise on sonaliik[sufix[i].ssl] */ 
+     int ssl;       /** TV: int alates 191112, sufiksi sõnaliigi indeks; sõnaliikide string ise on sonaliik[sufix[i].ssl] */
 	 char tylp;     /** nõutav tyvelõpp (indeks massiivis) */
 	 char mitutht;  /** mitu tähte sufiksi lopust kuulub tegelikult tyvele */ 
     TYVE_INF suftyinf[SUF_LGCNT];  /** HJK 19.12.01 palakro'nksunduse jaoks @n
