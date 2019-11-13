@@ -21,12 +21,24 @@ syntaks:
                     "Täpsemalt vt https://docs.google.com/document/d/1hGbHP59EGxuypkNhzIdCK5c2-AsgsYSEVIuVIVTteHk/edit?usp=sharing\n",
                     argv[0]);
             exit(EXIT_FAILURE);
-        }     
+        }
+        //-----------------------------
         if(strcmp("-g", argv[i])==0 || strcmp("--gt", argv[i])==0)
         {
             lipp_ms=lipp_gt;
             continue;
         }
+        if(strcmp("--fs", argv[i])==0)
+        {
+            lipp_ms=lipp_fs;
+            continue;
+        }
+        if(strcmp("-m", argv[i])==0 || strcmp("--hmm", argv[i])==0)
+        {
+                lipp_ms=lipp_hmm;
+                continue;
+        }
+        //-----------------------------
         if(strcmp("-p", argv[i])==0 || strcmp("--path", argv[i])==0)
         {
             if(++i >= argc)
