@@ -300,7 +300,7 @@ voor:0094|acap?ulco!\G\!
 voor:0094|Acap?ulco!\H\.16.SG!
 voor:0094|Acc<ess Acc<essi Acc?essi!\H\.22^E^.SG!
 voor:0094|<Accra!\H\.1.SG!
-voor:0094|Aconc<agua!\H\.1.SG+9!
+voor:0094|Aconc?agua!\H\.1.SG+9!
 voorxp:0002|<Active_X <Active_<X’i <Active_X’i!\H\.22^E^.SG!
 vvs:0093|adaadžo!\S\.16!
 lisa:0094|Ada!\H\.16!
@@ -1266,7 +1266,7 @@ lisa:0094|Aleks<androva!\H\.1+9!
 lisa:0094|Aleks<androv Aleks<androvi!\H\.2+9!%i>e[I%
 lisa:0094|Aleks<ei!\H\.26!
 lisa:0094|Aleks?ejeva!\H\.1+9!
-lisa:0094|Aleks<ejev Aleks<ejevi!\H\.2+9!%i>e[I%
+lisa:0094|Aleks?ejev Aleks?ejevi!\H\.2+9!%i>e[I%
 vvs:0093|alem<ann alem<anni alem?anni!\S\.22^E^+7!
 vvsv:0093|aleta[MA!\V\.27!
 tesv:0902|alet=põleta[MA!\V\.27! 
@@ -1992,7 +1992,7 @@ lisa:0094|<Andra!\H\.16!
 lisa:0094|<Andreas <Andrease!\H\.11^I^+7!
 lisa:0094|<Andre!\H\.1+9!
 lisa:0094|Andr<ei!\H\.26!
-lisa:0094|Andr<ejeva!\H\.1+9!
+lisa:0094|Andr?ejeva!\H\.1+9!
 lisa:0094|Andres Andrese!\H\.9+9!
 lisa:1001|Andris Andrise!\H\.9+9!
 vvs:0093|?androg<üün ?androg<üüni ?androgüüni!\S\.22^E^+7!
@@ -2220,8 +2220,8 @@ lisa:0093|anto_kl<oor anto_kl<oori anto_kloori!\S\.22^E^!
 vvs:0093|antol<oogia!\S\.1+9!
 vvs:0093|antoloogiline antoloogilise antoloogilis[T!\A\.12^I^+7!
 lisa:0094|<Anton <Antoni!\H\.2+9!%i>e[I%
-lisa:0094|Ant<onio!\H\.1+9!
-lisa:0804|Ant<onius Ant<oniuse!\H\.11^I^+7!&&!\H\.9+9!
+lisa:0094|Ant?onio!\H\.1+9!
+lisa:0804|Ant?onius Ant?oniuse!\H\.11^I^+7!&&!\H\.9+9!
 vvs:0093|?anton<üüm ?anton<üümi ?antonüümi!\S\.22^E^+7!
 vvs:0093|anton<üümia!\S\.1+9!
 tes:0096|anton<üümne anton<üümse!\A\.2+9!
@@ -3949,7 +3949,7 @@ sage:0905|bapt<ist bapt<isti bapt?isti!\S\.22^E^+7!
 vvsm:0093|bapt?is]ti!\G\!
 vvs:0093|bar<akk bar<akki bar?aki!\S\.22^E^+7!
 vvs:0093|bar?anka!\S\.16!
-lisa:0094|Bar<anova!\H\.1+9!
+lisa:0094|Bar?anova!\H\.1+9!
 vvs:0093|barb<aarne barb<aarse!\A\.2+9!
 tesm:1002|barb<aarselt!\D\!
 tes:0902|barb<aarsus barb<aarsuse!\S\.11^I^+7!&&(!\S\.9+7!)
@@ -4073,8 +4073,8 @@ lisa:0094|Belgorod Belgorodi!\H\.19^E^.SG+7!
 lisa:0094|B<elgrad B<elgradi!\H\.19^E^.SG+7!
 lisa:0094|b<elgradi!\G\!
 voor:0094|Bel<ize Bel<ize’i Bel?ize’i!\H\.22^E^.SG!
-lisa:0094|Belj<ajeva!\H\.1+9!
-lisa:0094|Belj<ajev Belj<ajevi!\H\.2+9!%i>e[I%
+lisa:0094|Belj?ajeva!\H\.1+9!
+lisa:0094|Belj?ajev Belj?ajevi!\H\.2+9!%i>e[I%
 vvs:0093|bellad?onna!\S\.16!
 vvs:0093|b<el]l b<el]li bel]li!\S\.22^E^!
 vvs:0093|belletr<ist belletr<isti belletr?isti!\S\.22^E^+7!
@@ -4342,7 +4342,7 @@ vvs:0093|bobrik bobriku!\S\.2+9!
 voor:0094|B<oden B<odeni!\H\.2.SG+9!%i>e[I%
 lisa:0904|bodi!\Sn\.16! **$SG.P$: bodi & bodi[T
 voor:0094|Boeing Boeingu!\H\.2+9!
-lisa:0094|Bogd<anova!\H\.1+9!
+lisa:0094|Bogd?anova!\H\.1+9!
 lisa:0094|Bogot?a!\H\.26.SG!
 voor:1102|Bogot<á!\H\.26.SG!
 vvs:0093|boh<eem boh<eemi boh?eemi!\S\.22^E^+7!
@@ -4406,7 +4406,7 @@ vvs:0093|bord<oo!\S\.26!
 vvs:0093|bord<üür bord<üüri bord?üüri!\S\.22^E^+7!
 vvs:0093|bore<aalne bore<aalse!\A\.2+9!
 vvs:0093|bor<eas bor<ease!\S\.9+9!
-lisa:0094|Boris Borisi!\H\.2+9!
+lisa:0094|Boris Borisi!\H\.2+9!%i>e[I%
 lisa:0094|Bor<iss Bor<issi Bor?issi!\H\.22^E^!
 lisa:0094|B<ornh<olm B<ornh<olmi B<ornh?olmi!\H\.22^E^.SG!
 lisa:0094|bornholmi!\G\!
@@ -4850,7 +4850,7 @@ vvs:0093|dammara!\S\.1+9!
 vvs:0093|dana<iid dana<iidi #dana?iidi[D#!\S\.22^E^+7!
 tes:0096|danaoslane danaoslase danaoslas[T!\S\.12^I^+7!
 lisa:0094|Daniel Danieli!\H\.19^E^+7!
-lisa:0094|Dan<ilova!\H\.1+9!
+lisa:0094|Dan?ilova!\H\.1+9!
 lisa:0094|Dardan?ellid Dardan<elli Dardan?elli!\H\.22^E^.PL!
 lisa:0094|dardan?elli!\G\!
 lisa:0094|Dar<eios Dar<eiose!\H\.9+9!
@@ -5036,7 +5036,7 @@ tesv:0096|dement<eeri[MA dementeeri[B!\V\.28!
 vvs:0093|dem<entne dem<entse!\A\.2+9!
 vvs:0093|dem<entsia!\S\.1+9!
 tes:0902|dem<entsus dem<entsuse!\S\.11^I^+7!&&(!\S\.9+7!)
-lisa:0094|Dem<idova!\H\.1+9!
+lisa:0094|Dem?idova!\H\.1+9!
 tesv:0902|de_militaris<eeri[MA de_militariseeri[B!\V\.28!
 sage:0905|de_min<eerija!\S\.1+9!
 lisa:0099|de_min<eerimine de_min<eerimise de_min<eerimis[T!\S\.12^I^+7!
@@ -5776,7 +5776,7 @@ vvs:0093|d?ublik<aat d?ublik<aati d?ublikaadi!\S\.22^E^+7!
 voor:0094|Dublin Dublini!\H\.2.SG+9!%i>e[I%
 voor:0094|dublini!\G\!
 vvs:0093|dubl<oon dubl<ooni dubl?ooni!\S\.22^E^+7!
-lisa:0094|Dud<ajev Dud<ajevi!\H\.2+9!%i>e[I%
+lisa:0094|Dud?ajev Dud?ajevi!\H\.2+9!%i>e[I%
 vvs:0093|duell<ant duell<anti duell?andi!\S\.22^E^+7!
 vvs:0093|du<el]l du<el]li du?el]li!\S\.22^E^+7!
 tesv:0096|duell<eeri[MA duelleeri[B!\V\.28!
@@ -6935,7 +6935,7 @@ lisa:1019|eksponentsi<aalne eksponentsi<aalse!\A\.2+9!
 vvs:0093|?eksponom<eeter ?eksponom<eetri!\S\.2+9!%i>e[I%
 vvs:0093|<eksp<ort <eksp<orti <ekspordi!\S\.22^E^+7!
 tes:0902|?eksp<ortija!\S\.1+9!
-vvsv:0093|?eksp<orti[MA ekspordi[B!\V\.28!
+vvsv:0093|?eksp<orti[MA ?ekspordi[B!\V\.28!
 sage:0905|?eksp<ortimine ?eksp<ortimise ?eksp<ortimis[T!\S\.12^I^+7!
 vvs:0093|?eksport<öör ?eksport<ööri ?eksportööri!\S\.22^E^+7!
 vvs:0093|ekspositsi<oon ekspositsi<ooni ekspositsi?ooni!\S\.22^E^+7!
@@ -8866,7 +8866,7 @@ tes:0802|faš?ismi_vastane faš?ismi_vastase faš?ismi_vastas[T!\Am\.10+9!
 tes:0802|faš?ismi_vastasus faš?ismi_vastasuse!\S\.11^I^+7!
 tes:0902|faš<ist faš<isti faš?isti!\S\.22^E^+7!
 tes:0902|faš<istl<ik faš<istl<ikku faš<istliku!\A\.25^E^+11!
-voor:1102|Fazer Fazeri!\H\.2+9!
+voor:1102|Fazer Fazeri!\H\.2+9!%i>e[I%
 vvs:0093|fat<aalne fat<aalse!\A\.2+9!
 tes:0902|fat<aalsus fat<aalsuse!\S\.11^I^+7!&&(!\S\.9+7!)
 vvs:0093|fatal<ism fatal<ismi fatal?ismi!\S\.22^E^+7!
@@ -8882,7 +8882,7 @@ vvs:0093|f?avor<iit f?avor<iiti f?avoriidi!\S\.22^E^+7!
 voorxp:0002|F<ax F<axi Faxi!\H\.22^E^.SG!
 voorxp:0002|fcc-tuvastus_f<ail fcc-tuvastus_f<aili fcc-tuvastus_faili!\S\.22^E^!
 vvs:0093|febr<iilne febr<iilse!\A\.2+9!
-lisa:0094|Fed<otova!\H\.1+9!
+lisa:0094|Fed?otova!\H\.1+9!
 vvs:0093|f<eeria[D!\S\.1.PL+9!
 vvs:0093|f<ee!\Sn\.26!
 vvs:0093|f<eetus f<eetuse!\S\.11^I^+7!&&!\S\.9+7!
@@ -9676,7 +9676,7 @@ vvs:0093|g<auss g<aussi gausi!\S\.22^E^!
 lisa:0094|G<auss G<aussi Gaussi!\H\.22^E^.SG!
 vvs:0093|gautšo!\S\.16!
 vvs:0093|gav<ot]t gav<ot]ti gav?ot]i!\S\.22^E^+7!
-lisa:0094|Gavr<ilova!\H\.1+9!
+lisa:0094|Gavr?ilova!\H\.1+9!
 lisa:0094|Gd<ansk Gd<anski!\H\.2.SG+9!
 lisa:0094|g<eel g<eeli geeli!\S\.22^E^!
 lisav:0919|geelista[MA!\V\.27!
@@ -12418,7 +12418,7 @@ lisav:0919|h<uia[MA huia[TA!\Vt\.29!
 vvsv:0093|huigata[MA!\V\.27!
 vvs:0093|huigatus huigatuse!\S\.11^I^+7!
 vvs:0093|huige h<uike!\S\.6+9!
-lisav:0919|huija[MA!\V\.27!
+lisav:0919|h<uija[MA huija[TA!\Vt\.29!
 vvsv:0093|h<uika[MA huiga[TA!\V\.29!
 vvs:0093|h<uik h<uiku huigu!\S\.22^E^!
 vvsv:0093|h<uikle[MA huigel[DA!\V\.30!
@@ -14185,8 +14185,8 @@ vvs:0093|implosi<oon implosi<ooni implosi?ooni!\S\.22^E^+7!
 vvsv:0093|impon<eeri[MA imponeeri[B!\V\.28!
 tesm:1002|impon<eeriv impon<eeriva!\A\.2+9!
 sage:0905|<impordi_m<aks <impordi_m<aksu <impordi_maksu!\S\.22^E^!
-sage:0905|imp<ortija!\S\.1+9!
-vvsv:0093|?imp<orti[MA impordi[B!\V\.28!
+sage:0905|?imp<ortija!\S\.1+9!
+vvsv:0093|?imp<orti[MA ?impordi[B!\V\.28!
 vvs:0093|<imp<ort <imp<orti <impordi!\S\.22^E^+7!
 sage:0905|<imp<ort_k<aup <imp<ort_k<aupa <imp<ort_kauba!\S\.22^U^!
 sage:0905|<imp<ort_m<antel <imp<ort_m<antli!\S\.2+9!%i>e[I%
@@ -15701,9 +15701,9 @@ vvs:0093|j<een] j<een]i jeen]i!\S\.22^E^!
 vvsm:0093|j<eerum!\I\!
 lisam:1019|j<eesus!\I\!
 lisa:0094|J<eesus J<eesuse!\H\.9+9!
-lisa:0094|Jef<imova!\H\.1+9!
+lisa:0094|Jef?imova!\H\.1+9!
 vvs:0093|jefr<eitor jefr<eitori!\S\.2+9!%i>e[I%
-lisa:0094|Jeg<orova!\H\.1+9!
+lisa:0094|Jeg?orova!\H\.1+9!
 lisam:1019|jehh<uu!\I\!
 lisa:0094|Jeh?oova!\H\.16!
 lisa:0094|Jekater?ina!\H\.16!
@@ -16174,10 +16174,10 @@ vvs:0093|julgustus julgustuse!\S\.11^I^+7!
 tes:0802|j<ulgus_t<ükk j<ulgus_t<ükki j<ulgus_tüki!\S\.22^E^!
 lisa:0094|Julia!\H\.1+9!
 lisa:1001|Juli?anus Juli?anuse!\H\.9+9!
-lisa:0094|J<ulie!\H\.1+9!
+lisa:0094|J?ulie!\H\.1+9!
 voor:0094|J?ul<iet J?ul<ieti J?ul?ieti!\H\.22^E^!
 voor:1001|Julio!\H\.1+9!
-lisa:1001|J<ulius J<uliuse!\H\.9+9!
+lisa:1001|J?ulius J?uliuse!\H\.9+9!
 vvs:0093|j<ulk j<ulka julga!\Stn\.22^I^!
 vvs:0093|julla!\S\.16!
 lisa:0094|J<ul]linen J<ul]lineni!\H\.19^E^.SG+7!
@@ -19337,7 +19337,7 @@ vvs:0093|k<as]kne k<as]kse!\A\.2+9!
 lisa:1001|kasko_kindlustus kasko_kindlustuse!\S\.11^I^+7!
 lisa:1001|kasko!\S\.16!
 vvs:0093|k<as]lane #k<as]lase[D# k<as]las[T!\S\.12^I^+7!&&(!\S\.10+7!)
-lisa:0094|Kasp<arov Kasp<arovi!\H\.2+9!%i>e[I%
+lisa:0094|Kasp?arov Kasp?arovi!\H\.2+9!%i>e[I%
 voor:0605|Kasp<ersky!\H\.1.SG+9!
 lisa:0094|k<aspia!\G\!
 lisa:0094|K<aspia!\H\.1.SG!
@@ -21736,7 +21736,7 @@ vvs:0093|k<irn k<irnu kirnu!\S\.22^E^!
 tes:0802|kirnu_p<iim kirnu_p<iima kirnu_piima!\S\.22^U^!
 lisa:0904|kirop<oodia!\S\.1+9!
 lisa:0094|kiro_praktik kiro_praktiku!\S\.2+9!
-lisa:0094|K<irov K<irovi!\H\.2+9!%i>e[I%
+lisa:0094|K?irov K?irovi!\H\.2+9!%i>e[I%
 lisa:0094|Kirov Kirovi!\H\.2.SG+9!
 lisa:0094|K?irovo_gr<ad K?irovo_gr<adi K?irovo_gr?adi!\H\.22^E^.SG!
 lisa:0094|Kirovsk Kirovski!\H\.2.SG+9!
@@ -22234,7 +22234,7 @@ vvs:0093|klimatoloogiline klimatoloogilise klimatoloogilis[T!\A\.12^I^+7!
 vvs:0093|kl?imatol<oog kl?imatol<oogi kl?imatoloogi!\S\.22^E^+7!
 vvsv:0093|klimberda[MA!\V\.27!
 vvs:0093|klimberdus klimberduse!\S\.11^I^+7!
-lisa:0094|Klimov Klimovi!\H\.2+9!
+lisa:0094|Klimov Klimovi!\H\.2+9!%i>e[I%
 vvsm:0093|kl<impi!\D\!
 vvsm:0093|kl<impis!\DA\!
 vvs:0093|kl<imp kl<impi klimbi!\S\.22^E^!
@@ -25172,7 +25172,7 @@ lisa:0094|Kristi!\H\.16!
 lisa:0094|Krist?iina!\H\.16!
 lisa:0094|Kristiine!\H\.16!
 lisa:0094|Krist?ina!\H\.16!
-lisa:0094|Kr<istjan Kr<istjani!\H\.2+9!
+lisa:0094|Kr<istjan Kr<istjani!\H\.2+9!%i>e[I%
 vvs:0093|kr<istlane kr<istlase kr<istlas[T!\S\.12^I^+7!&&(!\S\.10+7!)
 sage:0905|kr<istl<ik-demo_kr<aatl<ik kr<istl<ik-demo_kr<aatl<ikku kr<istl<ik-demo_kr<aatliku!\A\.25^E^+11!
 vvs:0093|kr<istl<ik kr<istl<ikku kr<istliku!\A\.25^E^+11!
@@ -27408,7 +27408,7 @@ vvs:0093|käbijas käbija!\A\.2+9!
 tes:0802|käbi_kuningas käbi_kuninga!\S\.2+9!
 vvs:0093|käbi (k<äppi)!\S\.17!
 tes:0802|käbi_l<ind käbi_l<indu käbi_linnu!\S\.22^E^!
-lisa:0094|Käbin Käbini!\H\.2+9!
+lisa:0094|Käbin Käbini!\H\.2+9!%i>e[I%
 vvs:0093|käblik käbliku!\S\.2+9!
 vvsm:0093|kädinal!\D\!
 vvs:0093|kädin kädina!\S\.2+9!
@@ -28365,7 +28365,6 @@ lisav:0919|külm_kuivata[MA!\V\.27!
 vvs:0093|k<ülm k<ülma külma!\SB\.22^I^!
 vvs:0093|k<ülmla!\S\.1+9!
 lisav:0919|k<ülm_pr<essi[MA k<ülm_pressi[B!\V\.28!
-lisav:0919|kül]m_pr<es]si[MA kül]m_pres]si[B!\V\.28!
 lisa:1019|k<ülm_pr<ess k<ülm_pr<essi k<ülm_pr?essi!\S\.22^E^!
 tes:0802|k<ülm_r<elv k<ülm_r<elva k<ülm_relva!\S\.22^I^+7!
 lisav:0094|k<ülm_suitsuta[MA!\V\.27!
@@ -29018,7 +29017,7 @@ tes:0802|l<ahti_oleku_<aeg l<ahti_oleku_<aega l<ahti_oleku_aja!\S\.22^U^!
 tes:0802|l<ahti_olev l<ahti_oleva!\A\.2+9!
 tesv:0902|**l<ahti=<ost[MA l<ahti=<ost[A l<ahti=osta[B l<ahti=oste[TUD l<ahti=<ost[MATA l<ahti=<ost[EV l<ahti=<os]t[IS l<ahti=<ost[KU l<ahti=osta[ME l<ahti=oste[TAKSE l<ahti=<os]t[SIN l<ahti=<os]t[SIME l<ahti=<ost[NUD !\V\.34! 
 tesv:0902|l<ahti=p<aiska[MA l<ahti=paisa[TA!\V\.29! 
-tesv:0902|l<ahti=p<ääse[MA l<ahti=pääse[B!\V\.28! 
+tesv:0902|l<ahti=p<ääse[MA!\V\.27!
 tesv:0902|**l<ahti=p<ääst[MA l<ahti=p<ääst[A l<ahti=päästa[B l<ahti=pääste[TUD l<ahti=p<ääst[MATA l<ahti=p<ääst[EV l<ahti=p<ääs]t[IS l<ahti=p<ääst[KU l<ahti=päästa[ME l<ahti=pääste[TAKSE l<ahti=p<ääs]t[SIN l<ahti=p<ääs]t[SIME l<ahti=p<ääst[NUD !\V\.34! 
 tesv:0902|l<ahti=riieta[MA!\V\.27! 
 sage:0905|l<ahti_riigistamine l<ahti_riigistamise l<ahti_riigistamis[T!\S\.12^I^+7!
@@ -32018,7 +32017,7 @@ vvs:0093|lora (l<orra)!\S\.17!
 vvsv:0093|lora[MA!\V\.27!
 vvs:0093|lorask loraski!\S\.2+9!%i>e[I%
 vvs:0093|l<ord l<ordi lordi!\S\.22^E^!
-lisa:0094|Lorents Lorentsi!\H\.2+9!
+lisa:0094|Lorents Lorentsi!\H\.2+9!%i>e[I%
 tes:0802|lori_j<utt lori_j<uttu lori_jutu!\S\.22^E^!
 tes:0802|lori_l<aul lori_l<aulu lori_laulu!\S\.22^E^!
 vvs:0093|lori (l<orri)!\S\.17!
@@ -32222,7 +32221,7 @@ vvsv:0093|lukustu[MA!\V\.27!
 vvs:0093|lukustus lukustuse!\S\.11^I^+7!
 vvsv:0093|lukuta[MA!\V\.27!
 vvs:0093|lukuti!\S\.1+9!%i>e[I%
-voor:0094|L<ulea!\H\.1.SG+9!
+voor:0094|L?ulea!\H\.1.SG+9!
 nosp:1019|lul]la!\S\.16!
 tesv:0902|l<ul]li=l<öö[MA l<ul]li=löö[GU l<ul]li=l<üü[A l<ul]li=lüü[AKSE l<ul]li=l<õ[I l<ul]li=lõ[IME!\V\.38! 
 vvsv:0093|lul]lita[MA!\V\.27!
@@ -32359,7 +32358,7 @@ vvsm:0093|luteri!\G\!
 vvs:0093|luterlane luterlase luterlas[T!\S\.12^I^+7!
 vvs:0093|l?uterl<ik l?uterl<ikku l?uterliku!\A\.25^E^+11!
 vvs:0093|luterlus luterluse!\S\.11^I^+7!
-lisa:0094|Luther Lutheri!\H\.2+9!
+lisa:0094|Luther Lutheri!\H\.2+9!%i>e[I%
 vvs:0093|lut]ikas lut]ika!\S\.2+9!
 sage:0905|lut]i_pudel lut]i_pudeli!\S\.2+9!%i>e[I%
 lisa:0094|L<utrin L<utrini!\H\.2+9!%i>e[I%
@@ -32962,7 +32961,7 @@ sage:0905|läbi_proovitud läbi_proovitu!\A\.2+9!
 tes:0802|läbi_proovitus läbi_proovituse!\S\.11^I^+7!
 lisa:0094|läbi_põimitud läbi_põimitu!\A\.2+9!
 lisatule:0097|läbi_põimitus läbi_põimituse!\S\.11^I^+7!
-tesv:0902|läbi=p<ääse[MA läbi=pääse[B!\V\.28! 
+tesv:0902|läbi=p<ääse[MA!\V\.27!
 lisa:1001|läbi_p<ääs läbi_p<ääsu läbi_pääsu!\S\.22^E^!
 lisa:0094|läbi_p<ääsmatu!\A\.1+9!
 lisatule:0097|läbi_p<ääsmatus läbi_p<ääsmatuse!\S\.11^I^+7!
@@ -34278,7 +34277,7 @@ vvs:0093|majutus majutuse!\S\.11^I^+7!
 sage:0905|majutus_teenus majutus_teenuse!\S\.9+9!
 vvs:0093|mak<aak mak<aaki mak?aagi!\S\.22^E^+7!
 vvs:0093|makaron makaroni!\S\.19^E^+7!
-lisa:0094|Mak<arova!\H\.1+9!
+lisa:0094|Mak?arova!\H\.1+9!
 nosp:1019|maka!\S\.16!
 lisa:0094|maked<oonia!\G\!
 lisa:0094|Maked<oonia!\H\.1.SG+9!
@@ -34324,7 +34323,7 @@ vvs:0093|maksimal<ism maksimal<ismi maksimal?ismi!\S\.22^E^+7!
 tes:0902|maksimal<ist maksimal<isti maksimal?isti!\S\.22^E^+7!
 vvsv:0093|maksim<eeri[MA maksimeeri[B!\V\.28!
 lisa:0094|Maks<im Maks<imi Maks?imi!\H\.22^E^!
-lisa:0094|Maks<imova!\H\.1+9!
+lisa:0094|Maks?imova!\H\.1+9!
 sage:0905|maksimum_karistus maksimum_karistuse!\S\.11^I^+7!
 vvs:0093|maksimum maksimumi!\S\.19^E^+7!
 sage:0905|maksimum_progr<amm maksimum_progr<ammi maksimum_progr?ammi!\S\.22^E^+7!
@@ -34632,7 +34631,7 @@ lisav:0919|mardita[MA!\V\.27!
 lisa:0094|Mardo!\H\.16!
 vvs:0093|mardus marduse!\S\.9+9!
 lisa:0094|Mare!\H\.16!
-lisa:0094|Marek Mareki!\H\.2+9!
+lisa:0094|Marek Mareki!\H\.2+9!%i>e[I%
 vvs:0093|mar?engo!\S\.16!
 lisa:0094|Maret Mareti!\H\.2+9!%i>e[I%
 vvs:0093|margaline margalise margalis[T!\S\.12^I^+7!
@@ -34651,7 +34650,7 @@ lisa:0094|margin<aalne margin<aalse!\A\.2+9!
 lisav:0919|marginalis<eeru[MA!\V\.27!
 vvsv:0093|margista[MA!\V\.27!
 vvs:0093|margistus margistuse!\S\.11^I^+7!
-lisa:0094|Margit Margiti!\H\.2+9!
+lisa:0094|Margit Margiti!\H\.2+9!%i>e[I%
 sage:0905|margi_v<ein margi_v<eini margi_veini!\S\.22^E^!
 lisa:1001|M<argna!\H\.1+9!
 voor:0094|Marg<ot’!\H\.26.SG! **$SG.N$: Marg<ot
@@ -35002,7 +35001,7 @@ lisa:0094|Maunu!\H\.16!
 lisa:0094|maurit<aania!\G\!
 lisa:0094|Maurit<aania!\H\.1.SG+9!
 lisa:0094|maur?itiuse!\G\!
-voor:0094|Maur<itius Maur<itiuse!\H\.9.SG+9!
+voor:0094|Maur?itius Maur?itiuse!\H\.9.SG+9!
 vvs:0093|m<aur m<auri mauri!\S\.22^E^!
 vvs:0093|m<auser m<ausri!\S\.2+9!%i>e[I%
 vvs:0093|m?ausol<eum m?ausol<eumi m?ausoleumi!\S\.22^E^+7!
@@ -35466,7 +35465,7 @@ lisa:1001|memuar?istika!\S\.1+9!
 lisa:0094|memuar<ist memuar<isti memuar?isti!\S\.22^E^+7!
 vvs:0093|men<aad men<aadi men?aadi!\S\.22^E^+7!
 vvs:0093|men<aaž men<aaži men?aaži!\S\.22^E^+7!
-lisa:0804|Mendel<ejev Mendel<ejevi!\H\.2+9!%i>e[I%
+lisa:0804|Mendel?ejev Mendel?ejevi!\H\.2+9!%i>e[I%
 vvs:0093|mendel<ism mendel<ismi mendel?ismi!\S\.22^E^+7!
 vvs:0093|menestrel menestreli!\S\.19^E^+7!
 vvsv:0093|menetle[MA!\V\.27!
@@ -35511,7 +35510,7 @@ voor:0094|Merca!\H\.16!
 voor:1001|Merc?edes-B<enz Merc?edes-B<enzi Merc?edes-Benzi!\H\.22^E^!
 voor:0094|Merc?edes Merc?edese!\H\.9+9!
 voor:0094|Merchant Merchanti!\H\.2.SG+9!%i>e[I%
-voor:0804|Merc<urius Merc<uriuse!\H\.11^I^.SG+7!
+voor:0804|Merc?urius Merc?uriuse!\H\.11^I^.SG+7!
 tes:0802|mere_as]jandus mere_as]janduse!\S\.11^I^+7!
 sage:0905|mere_b<aas] mere_b<aas]i mere_baas]i!\S\.22^E^!
 sage:0905|mere_h<aige!\SA\.1+9!
@@ -36639,7 +36638,7 @@ tesm:1002|monot<oonselt!\D\!
 vvs:0093|monot<oonsus monot<oonsuse!\S\.11^I^+7!&&!\S\.9+7!
 vvs:0093|monot<üüpia!\S\.1+9!
 vvs:0093|monpansj<ee!\S\.26+9!%ee>e[I%
-lisa:0094|Monr<ovia!\H\.1.SG+9!
+lisa:0094|Monr?ovia!\H\.1.SG+9!
 vvs:0093|monsenj<öör monsenj<ööri monsenj?ööri!\S\.22^E^+7!
 lisa:0919|m<onstera!\S\.1+9!
 vvs:0093|monstr<ants monstr<antsi monstr?antsi!\S\.22^E^+7!
@@ -36791,7 +36790,7 @@ vvsm:0093|mornilt!\D\!
 vvsv:0093|mornitse[MA!\V\.27!
 vvs:0093|m<orn m<orni morni!\A\.22^E^!
 voor:1102|Moroni!\H\.16.SG!
-lisa:0094|Mor<ozova!\H\.1+9!
+lisa:0094|Mor?ozova!\H\.1+9!
 sage:0905|morse_m<ärk morse_m<ärki morse_märgi!\S\.22^E^!
 vvs:0093|morse!\S\.16!
 sage:0905|morse_t?ähest<ik morse_t?ähest<ikku morse_t?ähestiku!\S\.25^E^+11!
@@ -37566,7 +37565,7 @@ tes:0802|mõju_j<õud mõju_j<õudu mõju_j<õu!\S\.22^E^!
 tesm:1002|mõjukalt!\D\!
 vvs:0093|mõjukas mõjuka!\A\.2+9!
 tes:0902|mõjukus mõjukuse!\S\.11^I^+7!
-tesv:0902|mõjule=p<ääse[MA mõjule=pääse[B!\V\.28! 
+tesv:0902|mõjule=p<ääse[MA!\V\.27!
 vvsm:0093|mõjul!\K\!
 vvsv:0093|mõju[MA!\V\.27!
 tes:0802|mõju_m<ees mõju_mehe mõju_mees[TE!\S\.13^I^! **$PL.P$: mõju_mehi; $ADT$: --
@@ -38550,7 +38549,7 @@ vvsv:0093|nabi[MA!\V\.27!
 vvsm:0093|nabinal!\D\!
 vvs:0093|nabin nabina!\S\.2+9!
 tesv:0096|nabista[MA!\V\.27!
-lisa:1001|Nab<okov Nab<okovi!\H\.2+9!%i>e[I%
+lisa:1001|Nab?okov Nab?okovi!\H\.2+9!%i>e[I%
 vvsm:0093|na!\D\!
 lisa:0094|nada_h<ein nada_h<eina nada_heina nada_hein[TE!\S\.23^U^+7!&&(!\S\.22^U^!)
 lisa:0094|Nad?ežda!\H\.16!
@@ -39335,7 +39334,7 @@ vvs:0093|nibujas nibuja!\A\.2+9!
 tes:0802|nibu_nina nibu_n<inna!\S\.17^U^!
 vvs:0093|nibu (n<ippu)!\S\.17!
 voor:0094|nicar?agua!\G\!
-voor:0094|Nicar<agua!\H\.1.SG+9!
+voor:0094|Nicar?agua!\H\.1.SG+9!
 voor:0094|N<ice N<ice’i N?ice’i!\H\.22^E^.SG!
 voorxp:0002|N?icol<aus N?icol<ausi N?icolausi!\H\.22^E^.SG!
 voor:0094|Nic<ole Nic<ole’i Nic?ole’i!\H\.22^E^.SG!
@@ -39494,9 +39493,9 @@ lisav:0804|n<ikku[MA niku[B!\Vt\.28!
 lisa:0094|N<iklus N<ikluse!\H\.9+9!
 vvs:0093|n<ikn<äk n<ikn<äkki n<ikn?äki!\S\.22^E^+7!
 lisa:0094|Nikolai!\H\.26!
-lisa:0094|Nikol<ajeva!\H\.1+9!
+lisa:0094|Nikol?ajeva!\H\.1+9!
 lisa:0094|Nikol?ajev Nikol?ajevi!\H\.2.SG+9!
-lisa:0094|Nik<osia!\H\.1.SG+9!
+lisa:0094|Nik?osia!\H\.1.SG+9!
 vvs:0093|n?ikot<iin n?ikot<iini n?ikotiini!\S\.22^E^+7!
 vvs:0093|n<iks n<iksu niksu!\Sn\.22^E^!
 vvsm:0093|n<iksti!\D\!
@@ -41749,7 +41748,6 @@ vvs:0093|org<asm org<asmi org?asmi!\S\.22^E^+7!
 vvs:0093|<orgia!\S\.1+9!
 vvs:0093|<org <orgu oru!\S\.22^E^!
 lisav:0919|org<un]ni[MA org?un]ni[B!\V\.28!
-lisav:1019|org<un]ni[MA orgun]ni[B!\V\.28!
 nosp:1019|org<un]n org<un]ni org?un]ni!\S\.22^E^!
 vvs:0093|orhid<ee!\S\.26+9!%ee>e[I%
 vvs:0093|orient<aalne orient<aalse!\A\.2+9!
@@ -42984,7 +42982,7 @@ vvsv:0093|paneta[MA!\V\.27!
 vvsv:0093|panetu[MA!\V\.27!
 tesm:1002|panetunud panetunu!\A\.2+9!
 sage:0905|panev paneva!\A\.2+9!
-lisa:0094|Panf<ilov Panf<ilovi!\H\.2+9!%i>e[I%
+lisa:0094|Panf?ilov Panf?ilovi!\H\.2+9!%i>e[I%
 sage:0905|panga_<aktsia!\S\.1+9!
 sage:0905|panga_arve panga_<arve!\S\.6+9!
 lisa:1019|pang<aasius pang<aasiuse!\S\.11^I^+7!
@@ -43595,7 +43593,7 @@ vvs:0093|paviljon paviljoni!\S\.19^E^+7!
 lisa:0094|Pavlodar Pavlodari!\H\.19^E^.SG+7!
 lisa:0094|P<avlova!\H\.1+9!
 lisa:1019|p<avlova!\S\.1+9!
-lisa:0094|P<avlov P<avlovi!\H\.2+9!
+lisa:0094|P<avlov P<avlovi!\H\.2+9!%i>e[I%
 lisa:0094|P<avlov P<avlovi!\H\.2+9!%i>e[I%
 lisa:0094|p<ea_<aegu!\D\!
 tes:0802|p<ea_aju p<ea_<ajju!\S\.17!
@@ -43896,7 +43894,6 @@ tes:0802|p<eene_t<undeline p<eene_t<undelise p<eene_t<undelis[T!\Am\.12^I^+7!
 tesm:0802|p<eene_t<undeliselt!\D\!
 tes:0802|p<eene_t<undelisus p<eene_t<undelisuse!\S\.11^I^+7!&&(!\S\.9+7!)
 lisav:0919|p<een_häälesta[MA!\V\.27!
-lisav:1019|peen_häälesta[MA!\V\.27!
 vvs:0093|peenikene peenikese peenikes[T!\A\.12^I^+7!
 vvs:0093|peenike peenikese peenikes[T!\A\.12^I^+7!
 tesm:1002|peenikeselt!\D\!
@@ -45239,7 +45236,7 @@ vvsm:0093|piredalt!\D\!
 vvs:0093|piredus pireduse!\S\.11^I^+7!
 vvs:0093|pireke pirekese pirekes[T!\S\.12^I^+7!
 vvs:0093|pire pireda!\A\.2+9!
-lisa:0094|Piret Pireti!\H\.2+9!
+lisa:0094|Piret Pireti!\H\.2+9!%i>e[I%
 vvs:0093|pirin pirina!\S\.2+9!
 lisa:0094|piri_paras piri_paraja!\A\.2+9!
 lisa:0094|piri_p<ardani!\D\!
@@ -45517,7 +45514,7 @@ lisa:0219|pl<as]t_<uks pl<as]t_ukse pl<as]t_<us[T pl<as]t_us[TE (pl<as]t_uksi)!\
 vvs:0093|plat<aan plat<aani plat?aani!\S\.22^E^+7!
 nosp:1019|plate!\Sn\.16!
 vvs:0093|platon<ism platon<ismi platon?ismi!\S\.22^E^+7!
-voor:1102|Pl<aton Pl<atoni!\H\.2+9!
+voor:1102|Pl<aton Pl<atoni!\H\.2+9!%i>e[I%
 vvs:0093|plat<oojas plat<ooja!\A\.2+9!
 vvs:0093|plat<ooline plat<oolise plat<oolis[T!\A\.12^I^+7!&&(!\A\.10+7!)
 vvs:0093|platoonik platooniku!\S\.2+9!
@@ -47869,7 +47866,7 @@ vvsm:0093|p<utku!\D\!
 vvsv:0093|p<utku[MA!\V\.27!
 tesv:0902|p<utku=pane[MA p<utku=p<an[DUD p<utku=pan[GU p<utku=p<ann[A p<utku=pann[AKSE!\V\.36! 
 tesv:0902|**p<utku=p<ist[MA p<utku=p<ist[A p<utku=pista[B p<utku=piste[TUD p<utku=p<ist[MATA p<utku=p<ist[EV p<utku=p<is]t[IS p<utku=p<ist[KU p<utku=pista[ME p<utku=piste[TAKSE p<utku=p<is]t[SIN p<utku=p<is]t[SIME p<utku=p<ist[NUD !\V\.34! 
-tesv:0902|p<utku=p<ääse[MA p<utku=pääse[B!\V\.28! 
+tesv:0902|p<utku=p<ääse[MA!\V\.27!
 vvsm:0093|p<utkus!\D\!
 vvsv:0093|p<utra[MA pudra[TA!\V\.29!
 lisa:1019|p<ut]s p<ut]si put]si!\S\.22^E^!
@@ -48867,7 +48864,7 @@ vvs:0093|p<ät]t p<ät]ti pät]i!\S\.22^E^!
 lisa:0219|p<ät]tus p<ät]tuse!\S\.11^I^+7!&&!\S\.9+7!
 vvs:0093|(pääd]ik) #pääd]iku[D#!\S\.2.PL+9!
 vvsv:0093|p<ääd]i[MA!\V\.27!
-vvsv:0093|p<ääse[MA pääse[B!\V\.28!
+vvsv:0093|p<ääse[MA!\V\.27!
 lisav:0919|p<ääse[MA!\V\.27!
 tes:0902|p<ääsemine p<ääsemise p<ääsemis[T!\S\.12^I^+7!
 lisatule:0097|p<ääsenud p<ääsenu!\A\.2+9!
@@ -51792,7 +51789,7 @@ lisa:1019|romaniseering romaniseeringu!\S\.2+9!
 lisav:1019|romanis<eeru[MA!\V\.27!
 vvs:0093|roman<ism roman<ismi roman?ismi!\S\.22^E^+7!
 vvs:0093|roman?is]tika!\S\.1+9!
-lisa:0094|Rom<anova!\H\.1+9!
+lisa:0094|Rom?anova!\H\.1+9!
 lisa:0094|Rom<an Rom<ani Rom?ani!\H\.22^E^!
 vvs:0093|rom<anss rom<anssi rom?ansi!\S\.22^E^+7!
 vvs:0093|rom?an]tika!\S\.1+9!
@@ -53387,7 +53384,7 @@ lisa:1102|Sampo!\H\.16.SG!
 vvs:0093|s<ampus s<ampuse!\S\.11^I^+7!&&!\S\.9+7!
 lisa:0094|s<amss_k<ing s<amss_k<inga s<amss_kinga!\S\.22^I^!
 tes:0096|s<amss s<amssi samsi!\S\.22^E^!
-lisa:1001|S<amuel S<amueli!\H\.19^E^!
+lisa:1001|S?amuel S?amueli!\H\.19^E^!
 vvs:0093|samune samuse samus[T!\P\.10+9!
 vvs:0093|samur<ai!\S\.26!
 vvsm:0093|samuti!\D\!
@@ -54404,8 +54401,8 @@ lisa:0094|Semipalat<insk Semipalat<inski!\H\.2.SG+9!
 vvs:0093|semit<ism semit<ismi semit?ismi!\S\.22^E^+7!
 vvs:0093|semitol<oogia!\S\.1+9!
 vvs:0093|s?emitol<oog s?emitol<oogi s?emitoloogi!\S\.22^E^+7!
-lisa:0094|Semj<onova!\H\.1+9!
-lisa:0094|Semj<onov Semj<onovi!\H\.2+9!%i>e[I%
+lisa:0094|Semj?onova!\H\.1+9!
+lisa:0094|Semj?onov Semj?onovi!\H\.2+9!%i>e[I%
 vvs:0093|semlak semlaki!\S\.2+9!%i>e[I%
 vvsv:0093|s<emmi[MA semmi[B!\V\.28!
 vvs:0093|s<emstvo!\S\.1+9!
@@ -54532,8 +54529,8 @@ vvs:0093|s<erblane s<erblase s<erblas[T!\S\.12^I^+7!&&(!\S\.10+7!)
 lisa:0094|serblanna!\S\.16!
 vvs:0093|s?eren<aad s?eren<aadi s?erenaadi!\S\.22^E^+7!
 lisa:0094|Serg<ei!\H\.26!
-lisa:0094|Serg<ejeva!\H\.1+9!
-lisa:0094|Serg<ejev Serg<ejevi!\H\.2+9!%i>e[I%
+lisa:0094|Serg?ejeva!\H\.1+9!
+lisa:0094|Serg?ejev Serg?ejevi!\H\.2+9!%i>e[I%
 vvs:0093|seri<aalne seri<aalse!\A\.2+9!
 lisa:0094|seri<aal seri<aali seri?aali!\S\.22^E^+7!
 vvs:0093|seroloogiline seroloogilise seroloogilis[T!\A\.12^I^+7!
@@ -55170,7 +55167,7 @@ voor:0094|Simulator Simulatori!\H\.2.SG+9!%i>e[I%
 vvs:0093|simulatsi<oon simulatsi<ooni simulatsi?ooni!\S\.22^E^+7!
 tes:0902|simul<eerija!\S\.1+9!
 vvsv:0093|simul<eeri[MA simuleeri[B!\V\.28!
-lisa:0804|Sim<ulium Sim<uliumi!\H\.2+9!%i>e[I%
+lisa:0804|Sim?ulium Sim?uliumi!\H\.2+9!%i>e[I%
 vvs:0093|simult<aanne simult<aanse!\A\.2+9!
 vvs:0093|s?imult<aan s?imult<aani s?imultaani!\S\.22^E^+7!
 lisa:0094|Simuna!\H\.1.SG+9!
@@ -56704,7 +56701,7 @@ vvs:0093|stenotüp<ist stenotüp<isti stenotüp?isti!\S\.22^E^+7!
 vvs:0093|stenot<üüpia!\S\.1+9!
 lisav:0919|st<en]ti[MA sten]di[B!\V\.28!
 lisa:0094|Stepanak<ert Stepanak<erti Stepanak?erdi!\H\.22^E^.SG!
-lisa:0094|Step<anova!\H\.1+9!
+lisa:0094|Step?anova!\H\.1+9!
 vvsv:0093|st<eppi[MA stepi[B!\V\.28!
 vvs:0093|st<epp st<eppi stepi!\S\.22^E^!
 vvs:0093|st<epsel st<epsli!\S\.2+9!%i>e[I%
@@ -59256,7 +59253,7 @@ lisa:0904|š<otlanna!\S\.16!
 vvs:0093|šovin<ism šovin<ismi šovin?ismi!\S\.22^E^+7!
 tes:0902|šovin<ist šovin<isti šovin?isti!\S\.22^E^+7!
 vvs:0093|šp<it]s šp<it]si špit]si!\S\.22^E^!
-lisa:0094|Šp<ungin Šp<ungini!\H\.2+9!
+lisa:0094|Šp<ungin Šp<ungini!\H\.2+9!%i>e[I%
 vvs:0093|šrapn<el]l šrapn<el]li šrapn?el]li!\S\.22^E^+7!
 vvs:0093|šr<ift šr<ifti šrifti!\S\.22^E^!
 vvs:0093|šu<aan šu<aani šu?aani!\S\.22^E^+7!
@@ -61619,7 +61616,7 @@ tes:0802|tervitus_sõna (tervitus_s<õnna)!\S\.17^U^!
 vvs:0093|tervitus tervituse!\S\.11^I^+7!
 vvs:0093|t?erül<een t?erül<eeni t?erüleeni!\S\.22^E^+7!
 vvs:0093|tes<aurus tes<auruse!\S\.11^I^+7!&&!\S\.9+7!
-voor:0094|Tess<alia!\H\.1.SG+9!
+voor:0094|Tess?alia!\H\.1.SG+9!
 nosp:1019|tessa!\O\.16!
 vvs:0093|tessatin tessatini!\S\.19^E^+7!
 vvs:0093|t?essit<uur t?essit<uuri t?essituuri!\S\.22^E^+7!
@@ -61889,7 +61886,7 @@ voor:0094|T<imes T<imesi Timesi!\H\.22^E^.SG!
 vvsv:0093|t<immi[MA timmi[B!\V\.28!
 lisa:1019|t<imm t<immi timmi!\Sn\.22^E^!
 lisa:0094|Timmu!\H\.16!
-lisa:0094|Timof<ejev Timof<ejevi!\H\.2+9!%i>e[I%
+lisa:0094|Timof?ejev Timof?ejevi!\H\.2+9!%i>e[I%
 lisa:0094|Timo!\H\.16!
 lisa:0094|Timor Timori!\H\.2.SG+9!
 vvs:0093|t<impan t<impani!\S\.2+9!%i>e[I%
@@ -62261,7 +62258,7 @@ vvsv:0093|tokerda[MA!\V\.27!
 tesm:1002|tokerdanud tokerdanu!\A\.2+9!
 vvsv:0093|tokerdu[MA!\V\.27!
 vvs:0093|tokerjas tokerja!\A\.2+9!
-lisa:0094|T<okio!\H\.1.SG+9!
+lisa:0094|T?okio!\H\.1.SG+9!
 vvs:0093|t<okk t<okki toki!\S\.22^E^!
 vvsv:0093|t<oksa[MA toksa[TA!\V\.29!
 vvsv:0093|toksata[MA!\V\.27!
@@ -63079,8 +63076,8 @@ tes:0902|trivi<aalsus trivi<aalsuse!\S\.11^I^+7!&&(!\S\.9+7!)
 vvs:0093|tri<öör tri<ööri tri?ööri!\S\.22^E^+7!
 vvs:0093|tr?obik<ond tr?obik<onda tr?obikonna!\S\.22^I^+7!
 vvs:0093|trof<ee!\S\.26+9!%ee>e[I%
-lisa:0094|Trof<imova!\H\.1+9!
-lisa:0094|Trof<imov Trof<imovi!\H\.2+9!%i>e[I%
+lisa:0094|Trof?imova!\H\.1+9!
+lisa:0094|Trof?imov Trof?imovi!\H\.2+9!%i>e[I%
 vvs:0093|tr?oglod<üüt tr?oglod<üüti tr?oglodüüdi!\S\.22^E^+7!
 vvs:0093|trohh<eiline trohh<eilise trohh<eilis[T!\A\.12^I^+7!&&(!\A\.10+7!)
 vvs:0093|trohh<eus trohh<euse!\S\.9+9!
@@ -66509,7 +66506,7 @@ lisatule:0097|vabadusetus vabadusetuse!\S\.11^I^+7!
 tes:0802|vabadus_kiri vabadus_k<irja vabadus_kirja!\S\.24^U^!
 sage:0905|vabadus_l<iikumine vabadus_l<iikumise vabadus_l<iikumis[T!\S\.12^I^+7!
 tes:0802|vabadus_p<äike vabadus_p<äikese vabadus_p<äikes[T!\S\.12^I^+7!&&(!\S\.10+7!)
-tesv:0902|vabadusse=p<ääse[MA vabadusse=pääse[B!\V\.28! 
+tesv:0902|vabadusse=p<ääse[MA!\V\.27!
 sage:0905|vabadus_sõdalane vabadus_sõdalase vabadus_sõdalas[T!\S\.12^I^+7!
 tes:0096|vabadus_sõjalane vabadus_sõjalase vabadus_sõjalas[T!\S\.12^I^+7!
 tesv:0902|**vabadust=<and[MA vabadust=<and[A vabadust=anna[B vabadust=<an[TUD vabadust=<and[MATA vabadust=<and[EV vabadust=<an]d[IS vabadust=<and[KU vabadust=anna[ME vabadust=<an[TAKSE vabadust=<an]d[SIN vabadust=<an]d[SIME vabadust=<and[NUD !\V\.34! 
@@ -66611,7 +66608,7 @@ tes:0802|v<aeg_t<oitumus v<aeg_t<oitumuse!\S\.11^I^+7!
 vvs:0093|v<aegus v<aeguse!\S\.11^I^+7!&&!\S\.9+7!
 tes:0802|v<ae_k<auss v<ae_k<aussi v<ae_kausi!\S\.22^E^!
 tes:0802|v<ae_koda v<ae_koja v<ae_k<otta!\S\.18!
-tesv:0096|v<aena[MA!\V\.27!
+tesv:0096|v<aena[MA vaena[TA!\V\.29!
 lisa:0901|v<aene_l<aps v<aes_lapse v<aest_l<as[T v<aes_las[TE (v<aes_lapsi)!\S\.14^I^.SG!
 vvs:0093|v<aene v<aese v<aes[T!\SA\.10+9!
 vvs:0093|v<aenlane v<aenlase v<aenlas[T!\S\.12^I^+7!&&(!\S\.10+7!)
@@ -67402,7 +67399,7 @@ vvs:0093|vallandatav vallandatava!\SA\.2+9!
 vvsv:0093|vallandu[MA!\V\.27!
 vvs:0093|vallandus vallanduse!\S\.11^I^+7!
 tesv:0902|v<alla=p<aisku[MA!\V\.27! 
-tesv:0902|v<alla=p<ääse[MA v<alla=pääse[B!\V\.28! 
+tesv:0902|v<alla=p<ääse[MA!\V\.27!
 tesv:0902|**v<alla=p<ääst[MA v<alla=p<ääst[A v<alla=päästa[B v<alla=pääste[TUD v<alla=p<ääst[MATA v<alla=p<ääst[EV v<alla=p<ääs]t[IS v<alla=p<ääst[KU v<alla=päästa[ME v<alla=pääste[TAKSE v<alla=p<ääs]t[SIN v<alla=p<ääs]t[SIME v<alla=p<ääst[NUD !\V\.34! 
 sage:0905|valla_rahvas valla_r<ahva!\S\.7+9!
 tesm:1002|vallas!\De\!
@@ -67979,7 +67976,7 @@ vvs:0093|varmas v<arma!\A\.7+9!
 vvs:0093|v<armus v<armuse!\S\.11^I^+7!&&!\S\.9+7!
 lisa:0094|V<arnja!\H\.1.SG!
 vvs:0093|v<arn v<arna varna!\S\.22^U^!
-lisa:0098|varrant varranti!\S\.2+9!
+lisa:0098|varrant varranti!\S\.2+9!%i>e[I%
 vvsv:0093|varrasta[MA!\V\.27!
 vvs:0093|varras v<arda!\S\.7+9! **$ADT$: v<arda
 vvs:0093|varrekas varreka!\A\.2+9!
@@ -68647,7 +68644,7 @@ vvsv:0093|venestu[MA!\V\.27!
 vvs:0093|venestus venestuse!\S\.11^I^+7!
 tes:0802|vene_s?õbral<ikkus vene_s?õbral<ikkuse!\S\.11^I^+7!&&!\S\.9+7!
 tes:0802|vene_s?õbral<ik vene_s?õbral<ikku vene_s?õbraliku!\A\.25^E^+11!
-voor:0804|Ven<ezia!\H\.16.SG!
+voor:0804|Ven?ezia!\H\.16.SG!
 voor:0094|Venezu?ela!\H\.16.SG!
 voor:1102|Venetsueela!\H\.16.SG!
 tes:0802|vene_v?aenul<ikkus vene_v?aenul<ikkuse!\S\.11^I^+7!&&!\S\.9+7!
@@ -69521,7 +69518,7 @@ vvs:0093|v<ill v<illa villa!\S\.22^U^!
 vvs:0093|v<il]l v<il]li vil]li!\S\.22^E^!
 lisa:0094|v<ilniuse!\G\!
 lisa:0094|V<ilnius V<ilniuse!\H\.11^I^+7!&&!\H\.9.SG+9!
-lisa:0094|Vil<osius Vil<osiuse!\H\.9+9!
+lisa:0094|Vil?osius Vil?osiuse!\H\.9+9!
 lisa:0094|Vilsandi!\H\.1.SG+9!
 vvsv:0093|v<il]ti[MA vil]di[B!\V\.28!
 vvs:0093|v<il]tjas v<il]tja!\A\.2+9!
@@ -69644,7 +69641,7 @@ vvsv:0093|vinnuta[MA!\V\.27!
 vvs:0093|vinnutus vinnutuse!\S\.11^I^+7!
 vvs:0093|v<inn v<inna vinna!\S\.22^U^!
 vvs:0093|v<in]n v<in]ni vin]ni!\S\.22^E^!
-lisa:0094|Vinogr<adova!\H\.1+9!
+lisa:0094|Vinogr?adova!\H\.1+9!
 lisa:0094|V<inson V<insoni!\H\.2.SG+9!
 lisa:0094|vinta!\D\!
 tesv:0902|**vinta-v<änta=k<äi[MA vinta-v<änta=k<äi[A vinta-v<änta=k<äi[B vinta-v<änta=k<äi[DUD vinta-v<änta=käi[MATA vinta-v<änta=k<äi[V vinta-v<änta=k<äi[S vinta-v<änta=käi[GU vinta-v<änta=käi[ME vinta-v<änta=käi[AKSE vinta-v<änta=käi[SIN vinta-v<änta=käi[SIME vinta-v<änta=käi[NUD !\V\.38! 
@@ -72779,7 +72776,7 @@ tes:0802|<öö_t<un]d <öö_t<un]di <öö_tun]ni!\S\.22^E^!
 tesm:1002|<öö_tunnil!\De\!
 sage:0905|<öö_v<aht <öö_v<ahti <öö_vahi!\S\.22^E^!
 sage:0905|<öö_valve <öö_v<alve!\S\.6+9!
-lisa:0094|<Öövel <Ööveli!\H\.2+9!
+lisa:0094|<Öövel <Ööveli!\H\.2+9!%i>e[I%
 vvs:0093|üdijas üdija!\A\.2+9!
 vvs:0093|üdikas üdika!\A\.2+9!
 vvs:0093|üdine üdise üdis[T!\A\.10+9!
