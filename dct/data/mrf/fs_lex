@@ -4580,7 +4580,7 @@ vvs:0093|budu<aar budu<aari budu?aari!\S\.22^E^+7!
 voor:0094|Buenos=Aires Buenos=Airese!\H\.9.SG+9!
 lisa:1019|buf<ee!\S\.26!
 vvs:0093|b?ufon<aad b?ufon<aadi b?ufonaadi!\S\.22^E^+7!
-lisa:1019|bugi-vugi bugi-vugi!\S\.17!
+lisa:1019|bugi-vugi!\S\.17!
 vvs:0093|bugspr<iit bugspr<iiti bugspr?iidi!\S\.22^E^+7!
 lisa:0094|Bujumb?ura!\H\.16.SG!
 tes:0096|bukanj<eer bukanj<eeri bukanj?eeri!\S\.22^E^+7!
@@ -35829,7 +35829,7 @@ voor:1001|M<ick M<icki Micki!\H\.22^E^!
 voor:1001|M?icrol<ink M?icrol<inki M?icrol?inki!\H\.22^E^!
 voor:0094|M?icros<oft M?icros<ofti M?icros?ofti!\H\.22^E^.SG!
 nospm:1019|midagist!\D\!
-lisa:1019|midi midi!\Sn\.17!
+lisa:1019|midi!\Sn\.17!
 lisa:0094|midri_l<ind midri_l<indu midri_linnu!\S\.22^E^!
 voor:0094|M<id_t<own M<id_t<owni M<id_towni!\H\.22^E^.SG!
 lisa:0094|migr<an]t migr<an]ti migr?an]di!\S\.22^E^+7!
@@ -48865,7 +48865,6 @@ lisa:0219|p<ät]tus p<ät]tuse!\S\.11^I^+7!&&!\S\.9+7!
 vvs:0093|(pääd]ik) #pääd]iku[D#!\S\.2.PL+9!
 vvsv:0093|p<ääd]i[MA!\V\.27!
 vvsv:0093|p<ääse[MA!\V\.27!
-lisav:0919|p<ääse[MA!\V\.27!
 tes:0902|p<ääsemine p<ääsemise p<ääsemis[T!\S\.12^I^+7!
 lisatule:0097|p<ääsenud p<ääsenu!\A\.2+9!
 vvs:0093|p<ääsenu!\S\.1+9!
@@ -58415,8 +58414,7 @@ vvsv:0093|s<ähvi[MA sähvi[B!\V\.28!
 sage:0905|s<ähviv s<ähviva!\A\.2+9!
 vvs:0093|säile s<äilme!\S\.5+9!
 vvs:0093|säilik säiliku!\S\.2+9!
-vvsv:0093|s<äili[MA säili[B!\V\.28!
-lisav:0919|s<äili[MA!\V\.27!
+vvsv:0093|s<äili[MA!\V\.27!
 sage:0905|s<äilimine s<äilimise s<äilimis[T!\S\.12^I^+7!
 tesm:1002|s<äilinud s<äilinu!\A\.2+9!
 vvs:0093|säilis säilise!\S\.9+9!
@@ -62866,7 +62864,7 @@ vvs:0093|transporditavus transporditavuse!\S\.11^I^+7!&&(!\S\.9+7!)
 sage:0905|tr<ansp?ordi_t<ööline tr<ansp?ordi_t<öölise tr<ansp?ordi_t<öölis[T!\S\.12^I^+7!&&(!\S\.10+7!)
 sage:0905|tr<ansp?ordi_t<öötaja!\S\.1+9!
 sage:0905|tr<ansp?ordi_vahend tr<ansp?ordi_vahendi!\S\.2+9!%i>e[I%
-vvsv:0093|tr?ansp<orti[MA transpordi[B!\V\.28!
+vvsv:0093|tr?ansp<orti[MA tr?anspordi[B!\V\.28!
 sage:0905|tr?ansp<ortimine tr?ansp<ortimise tr?ansp<ortimis[T!\S\.12^I^+7!
 vvs:0093|tr<ansp<ort tr<ansp<orti tr<ansp?ordi!\S\.22^E^+7!
 tes:0802|tr<ansp<ort_t<ööline tr<ansp<ort_t<öölise tr<ansp<ort_t<öölis[T!\S\.12^I^+7!&&(!\S\.10+7!)
@@ -73833,4 +73831,3 @@ voorxp:0002|yo-<on yo-<oni yo-oni!\Sn\.22^E^.SG!
 voor:0094|Y<orksh<ire Y<orksh<ire’i Y<orksh?ire’i!\H\.22^E^.SG!
 voor:0094|Y<ork Y<orki Yorki_&_Yorgi!\H\.22^E^.SG!
 voor:0094|Ypres Ypresi!\H\.2.SG+9!%i>e[I%
-nospm:1019|bljaad!\Itn\!
