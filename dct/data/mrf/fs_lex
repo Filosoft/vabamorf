@@ -16011,7 +16011,7 @@ vvsm:0093|jube!\D\!
 vvsm:0093|jubedalt!\D\!
 sage:0905|jubedam jubedama!\C\.2+9!
 tesm:0096|jubedasti!\D\!
-lisa:1019|jubedik jubediku!\S\.2+9!
+lisa:1019|j?ubed<ik j?ubed<ikku j?ubediku!\S\.25^E^+11!
 vvs:0093|jubedus jubeduse!\S\.11^I^+7!
 tes:0802|jubedus_tunne jubedus_t<unde!\S\.6+9!
 vvs:0093|jube jubeda!\A\.2+9!
@@ -16583,7 +16583,7 @@ lisa:0094|Jõksi!\H\.16.SG!
 vvsm:0093|jõle!\D\!
 tesm:1002|jõledalt!\D\!
 tesm:0096|jõledasti!\D\!
-lisa:1019|jõledik jõlediku!\S\.2+9!
+lisa:1019|j?õled<ik j?õled<ikku j?õlediku!\S\.25^E^+11!
 vvs:0093|jõledus jõleduse!\S\.11^I^+7!
 vvs:0093|jõle jõleda!\A\.2+9!
 vvs:0093|jõletis jõletise!\S\.11^I^+7!
@@ -16765,7 +16765,7 @@ vvs:0093|j<äisus j<äisuse!\S\.11^I^+7!&&!\S\.9+7!
 tesm:0096|j<äitsi!\D\!
 vvsm:0093|jäledalt!\D\!
 vvsm:0093|jäledasti!\D\!
-lisa:1019|jäledik jälediku!\S\.2+9!
+lisa:1019|j?äled<ik j?äled<ikku j?älediku!\S\.25^E^+11!
 vvs:0093|jäledus jäleduse!\S\.11^I^+7!
 vvs:0093|jäle jäleda!\A\.2+9!
 vvsv:0093|jälesta[MA!\V\.27!
@@ -16817,7 +16817,7 @@ tes:0802|jämeda_jooneline jämeda_joonelise jämeda_joonelis[T!\Am\.12^I^+7!
 tes:0802|jämeda_k<oeline jämeda_k<oelise jämeda_k<oelis[T!\Am\.12^I^+7!&&(!\Am\.10+7!)
 vvsm:0093|jämedalt!\D\!
 tesv:0902|**jämedamaks=mine[MA jämedamaks=m<inn[A jämedamaks=lähe[B jämedamaks=m<in[DUD jämedamaks=mine[MATA jämedamaks=mine[V jämedamaks=l<äk[S jämedamaks=min[GU jämedamaks=lähe[ME_&_jämedamaks=läh[ME jämedamaks=minn[AKSE jämedamaks=läk[SIN jämedamaks=läk[SIME jämedamaks=läi[NUD !\V\.36! $o$jämedamaks=mine 
-lisa:1019|jämedik jämediku!\S\.2+9!
+lisa:1019|j?ämed<ik j?ämed<ikku j?ämediku!\S\.25^E^+11!
 vvs:0093|jämedune jämeduse jämedus[T!\A\.12^I^+7!
 vvs:0093|jämedus jämeduse!\S\.11^I^+7!
 vvs:0093|jäme jämeda!\A\.2+9!
@@ -25356,7 +25356,7 @@ vvs:0093|kruvits kruvitsa!\S\.2+9!
 tes:0802|kruvi_võt]i kruvi_v<õt]me!\S\.5+9!
 vvsm:0093|krõbedalt!\D\!
 vvsm:0093|krõbedasti!\D\!
-lisa:1019|krõbedik krõbediku!\S\.2+9!
+lisa:1019|kr?õbed<ik kr?õbed<ikku kr?õbediku!\S\.25^E^+11!
 vvs:0093|krõbedus krõbeduse!\S\.11^I^+7!
 vvs:0093|krõbe krõbeda!\A\.2+9!
 tes:0802|krõbe_k<uiv krõbe_k<uiva krõbe_kuiva!\B\.22^I^+7!
@@ -30993,7 +30993,7 @@ lisa:0094|liiva_v<ärvi!\A\!
 lisa:0094|Liivi!\H\.16!
 vvs:0093|liivikas liivika!\S\.2+9!
 vvs:0093|liivik liiviku!\S\.2+9!
-lisa:1019|liivilik liiviliku!\A\.2+9!
+lisa:1019|liivil<ik liivil<ikku liiviliku!\A\.25^E^+11!
 lisa:0094|Liivi_m<aa!\H\.26.SG!
 vvs:0093|l?iivist<ik l?iivist<ikku l?iivistiku!\S\.25^E^+11!
 vvs:0093|l<iivlane l<iivlase l<iivlas[T!\S\.12^I^+7!&&(!\S\.10+7!)
@@ -40346,7 +40346,7 @@ vvsv:0093|nõkuta[MA!\V\.27!
 vvs:0093|nõlvak nõlvaku!\S\.2+9!
 vvs:0093|n<õlv n<õlva nõlva!\S\.22^U^+7!
 vvs:0093|n<õlvus n<õlvuse!\S\.11^I^+7!&&!\S\.9+7!
-lisa:1019|nõmedik nõmediku!\S\.2+9!
+lisa:1019|n?õmed<ik n?õmed<ikku n?õmediku!\S\.25^E^+11!
 vvs:0093|nõmedus nõmeduse!\S\.11^I^+7!
 vvs:0093|nõme nõmeda!\A\.2+9!
 lisav:0919|nõmetse[MA!\V\.27!
@@ -41859,8 +41859,8 @@ vvs:0093|orund orundi!\Sn\.2+9!%i>e[I%
 lisa:1019|orust<ik orust<ikku orust?iku!\S\.25^E^+11!
 vvs:0093|orvand orvandi!\S\.2+9!%i>e[I%
 vvs:0093|<orv <orva orva!\S\.22^I^!
-voor:1019|orwellilik orwelliliku!\A\.2+9!
-voor:1019|orwelllik orwellliku!\A\.2+9!
+voor:1019|?orwellil<ik ?orwellil<ikku ?orwelliliku!\A\.25^E^+11!
+voor:1019|?orwelll<ik ?orwelll<ikku ?orwellliku!\A\.25^E^+11!
 tesm:1002|osadena!\De\!
 vvs:0093|osadus osaduse!\S\.11^I^+7!
 tesm:0902|osa_haaval!\D\!
@@ -48589,7 +48589,7 @@ vvs:0093|p<äevn<ik p<äevn<ikku p<äevniku!\S\.25^E^+11!
 lisa:0094|p<äev-päevalt!\D\!
 vvs:0093|p<äev p<äeva päeva!\S\.22^I^+7!
 tes:0802|p<äev_s<elge!\A\.1+9!
-lisa:1019|pägalik pägaliku!\S\.2+9!
+lisa:1019|p?ägal<ik p?ägal<ikku p?ägaliku!\S\.25^E^+11!
 tesv:0902|**pähe=aja[MA pähe=aja[DA pähe=aja[B pähe=<ae[TUD pähe=aja[MATA pähe=aja[V pähe=aja[S pähe=aja[GU pähe=aja[ME pähe=<ae[TAKSE pähe=aja[SIN pähe=aja[SIME pähe=aja[NUD !\V\.27! 
 tes:0802|pähe_<andmine pähe_<andmise pähe_<andmis[T!\S\.12^I^+7!&&(!\S\.10+7!)
 tesv:0902|pähe=h<akka[MA pähe=haka[TA!\V\.29! 
@@ -52304,7 +52304,7 @@ vvs:0093|rõugutaja!\S\.1+9!
 vvsv:0093|rõuguta[MA!\V\.27!
 vvs:0093|r<õuk r<õuku rõugu!\S\.22^E^!
 vvsm:0093|rõvedalt!\D\!
-lisa:1019|rõvedik rõvediku!\S\.2+9!
+lisa:1019|r?õved<ik r?õved<ikku r?õvediku!\S\.25^E^+11!
 vvs:0093|rõvedus rõveduse!\S\.11^I^+7!
 vvs:0093|rõve rõveda!\A\.2+9!
 tes:0902|rõvetseja!\S\.1+9!
@@ -57943,7 +57943,7 @@ vvsv:0093|s<õelu[MA sõelu[B!\V\.28!
 sage:0905|s<õelumine s<õelumise s<õelumis[T!\S\.12^I^+7!
 vvs:0093|s<õelur s<õeluri!\S\.2+9!%i>e[I%
 vvsm:0093|sõgedalt!\D\!
-lisa:1019|sõgedik sõgediku!\S\.2+9!
+lisa:1019|s?õged<ik s?õged<ikku s?õgediku!\S\.25^E^+11!
 vvs:0093|sõgedus sõgeduse!\S\.11^I^+7!
 vvs:0093|sõgelane sõgelase sõgelas[T!\S\.12^I^+7!
 vvsv:0093|sõgene[MA!\V\.27!
@@ -60324,7 +60324,7 @@ vvs:0093|tarang tarangu!\S\.2+9!
 vvs:0093|t?arant<ass t?arant<assi t?arantassi!\S\.22^E^+7!
 vvs:0093|tarant?ella!\S\.16!
 vvs:0093|tar<antel tar<antli!\S\.2+9!%i>e[I%
-lisa:1019|tarant?inolik tarant?inoliku!\A\.2+9!
+lisa:1019|tarant?inol<ik tarant?inol<ikku tarant?inoliku!\A\.25^E^+11!
 vvsv:0093|tarasta[MA!\V\.27!
 vvs:0093|tarastus tarastuse!\S\.11^I^+7!
 vvs:0093|tara (t<arra)!\S\.17!
@@ -63023,7 +63023,7 @@ tes:0802|trik<oo_riie trik<oo_r<iide!\S\.6+9!
 vvs:0093|trik<oo!\S\.26!
 vvs:0093|tr?ikot<aaž tr?ikot<aaži tr?ikotaaži!\S\.22^E^+7!
 sagem:0905|tr<iksis-tr<aksis!\D\!
-lisa:1019|triksterlik triksterliku!\A\.2+9!
+lisa:1019|tr?iksterl<ik tr?iksterl<ikku tr?iksterliku!\A\.25^E^+11!
 lisa:1019|tr<ikster tr<iksteri!\S\.2+9!%i>e[I%
 lisa:0605|trikuspit<aal_kl<app trikuspit<aal_kl<appi trikuspit<aal_klapi!\S\.22^E^!
 lisa:0094|tr?il]jond<ik tr?il]jond<ikku tr?il]jondiku!\SN\.25^E^+11!
