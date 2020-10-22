@@ -22554,7 +22554,7 @@ tes:0802|kodu_v<äi!\S\.26!
 sage:0905|kodu_värav kodu_värava!\S\.2+9!
 tes:0802|kodu_õpetaja!\S\.1+9!
 sage:0905|kodu_<õu kodu_<õue kodu_õue!\S\.22!
-lisa:0919|koefits<en]t koefits<en]ti koefits?en]di!\S\.22^E^+7!
+nosp:0919|koefits<en]t koefits<en]ti koefits?en]di!\S\.22^E^+7!
 vvs:0093|koefitsi<en]t koefitsi<en]ti koefitsi?en]di!\S\.22^E^+7!
 tes:0802|k<oe_kiri k<oe_k<irja k<oe_kirja!\S\.24^U^!
 lisa:0093|ko_eksist<ents ko_eksist<entsi ko_eksist?entsi!\S\.22^E^+7!
