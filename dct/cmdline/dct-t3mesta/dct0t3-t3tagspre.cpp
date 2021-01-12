@@ -32,7 +32,11 @@ void T3TAGSPRE::TagsFromCooked(
             lopp=(int)(rida.Find((FSWCHAR)' ', algus));
             //assert(lopp > 0);
             if(lopp <= 0)
+            {
+                CFSAString ra=FSStrWtoA(rida, FSCP_UTF8);
+                printf("%s:%d: %s", __FILE__, __LINE__, (const char*)ra);
                 throw VEAD(__FILE__, __LINE__, "Vigane COOKED-fail");
+            }
             margend=(rida.Mid(algus, lopp-algus));
             
             rec=mrgndid.Get(&margend, &idx);

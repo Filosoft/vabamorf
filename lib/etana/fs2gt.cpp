@@ -116,6 +116,10 @@ void FS_2_GT::LisaGT(CFSAString &sona, MRFTULEMUSED_UTF8 &mrftulemused)
 
     if (mrftulemused.on_tulem())
     {
+        //printf("DB %s:%d mrftulemused.idxLast=%d\n",  __FILE__, __LINE__, mrftulemused.idxLast);
+        //MRF_FLAGS mrfFalgs(MF_DFLT_MORFA); PCFSAString dbstr; mrftulemused.Strct2Strng(&dbstr, &mrfFalgs);
+        //printf("DB %s:%d %s\n",  __FILE__, __LINE__, (const char*)dbstr);
+
         mrftulemused.StrctKomadLahku();    // Koma sisaldavad vormid tõstame lahku
         const FS_GT *fs2gt;
         for (int i = 0; i < mrftulemused.idxLast; i++)
@@ -215,7 +219,7 @@ void FS_2_GT::LisaGT(CFSAString &sona, MRFTULEMUSED_UTF8 &mrftulemused)
                 }
                 else
                 {
-
+                    //printf("DB %s:%d\n", __FILE__, __LINE__);
                     mrftul->vormidGT += "#JAMA " + mrftul->vormid; // sellist verbi vormi ei tohiks tegelt olla
                     //assert(false);
                 }
@@ -254,6 +258,7 @@ void FS_2_GT::LisaGT(CFSAString &sona, MRFTULEMUSED_UTF8 &mrftulemused)
                     mrftul->vormidGT = "Pl ";
                 else
                 {
+                    //printf("DB %s:%d|%s|\n", __FILE__, __LINE__, (const char *)arv);
                     mrftul->vormidGT += "#JAMA " + mrftul->vormid; 
                     //assert(false); // etTenTen'is sellist polnud
                 }
@@ -289,6 +294,7 @@ void FS_2_GT::LisaGT(CFSAString &sona, MRFTULEMUSED_UTF8 &mrftulemused)
                     mrftul->vormidGT += "Com, ";
                 else
                 {
+                    //printf("DB %s:%d|%s|\n", __FILE__, __LINE__, (const char*)kaane);
                     mrftul->vormidGT += "#JAMA " + mrftul->vormid;
                     //assert(false); // etTenTen'is sellist polnud
                 }
@@ -418,6 +424,7 @@ void TeisendaFS_2_GT(CPFSFile& in, CPFSFile& out, const MRF_FLAGS_BASE_TYPE lipu
         }
         else
         {
+            //printf("DB:%s:%d sisendrida=|%s|\n", __FILE__, __LINE__, (const char*)rida);
             mrftulemused.Strng2Strct(&rida);
             mrftulemused.StrctKomadLahku();
 
@@ -430,8 +437,10 @@ void TeisendaFS_2_GT(CPFSFile& in, CPFSFile& out, const MRF_FLAGS_BASE_TYPE lipu
             }
             if (mrfFalgs.ChkB(MF_GTMRG) == true)*/
             CFSAString sona(mrftulemused.s6na);
+            //printf("DB:%s:%d sisendrida=|%s|\n", __FILE__, __LINE__, (const char*)rida);
             if(xml == true)
-                PuhastaXMList<CFSAString, char>(sona);          
+                PuhastaXMList<CFSAString, char>(sona);
+            //printf(":%s:%d sisendrida=|%s|\n", __FILE__, __LINE__, (const char*)rida);
             fs2gt.LisaGT(sona, mrftulemused);
         }
 
