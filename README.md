@@ -12,3 +12,7 @@ Java integratsiooninäite juhend failis apps/cmdline/java/readme.html
 Sõnastiku kompileerimisjuhend failis doc/readme.html
 
 Täiendav dokumentatioon doc kaustas
+
+
+
+
