@@ -1,7 +1,7 @@
 ## vmeta <a name="algus"></a>
 Eesti kirjakeele morfoloogilise analüüsi programm. 
 
-Valida saab morfoloogiliste märgendite kahe erineva esitusviisi vahel:
+Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
 * [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
 * GT-kuju
 
@@ -44,9 +44,12 @@ läheb std-väljundisse.
 * XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
   * &lt; ja &gt; esineb ainult märgendite ümber, muidu olemitena: &amp;lt; ja &amp;gt;
   * &amp; esineb ainult olemite (&amp;amp; &amp;lt; &amp;gt;) alguses, muidu olemina &amp;amp;
-  * Morf analüüsitakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** märgendite vahel olevat teksti,
+  * Morf analüüsitakse ainult ;**&lt;s&gt;** ja **&lt;/s&gt** märgendite vahel olevat teksti,
   mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel.
   * Muid märgendeid (sh sõnaga kokkukleepunud märgendeid ignoreeritakse).
+  * Märgendid **&lt;s&gt;**, **&lt;/s&gt;**, **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** ei tohi olla 
+  tekstisõnede ja teiste märgenditega kokkukleepunud.
+
 
 * Ühestamiseks (vmyhh) kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
 
