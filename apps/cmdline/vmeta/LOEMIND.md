@@ -132,3 +132,12 @@ kinni    k<in]ni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
+
+## Vaata lisaks
+* [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf).
+* Eesti keele morfoloogilise ühestaja käsureaprogramm.
+* [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb).
+* [Eesti keele morfoloogilise analüsaatori kasutasjasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
+
+## Autor
+Copyright © 1997-2022 OÜ Filosoft

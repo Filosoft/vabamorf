@@ -8,7 +8,7 @@ Kõigepealt otsitakse etteantud kataloogidest kasutajasõnastikku **et.usr.dct**
 kui seda ei leita siis faili **et.usr.dct.utf8** ja kui seda ka ei leita siis 
 faili **et.usr.dct.uc**. Programm kasutab (ainult) esimest leitud kasutajasõnastikku.
 
-## Kasutajasõnastiku formaat
+## Formaat
 Kasutajasõnastik on tekstifail.
 
 Sümboliga **#** algavaid ridu käsitletakse kommentaarina (ignoreeritakse).
@@ -19,7 +19,7 @@ morfoloogilise on analüsaatori väljund.
 **NB! Vale tühikute, kaldkriipsude, komade jms arvu/paigutuse korral lõpetab 
 morfoloogiline analüsaator töö veateatega.**
 
-## Kasutajasõnastiku kodeering
+## Kodeering
 Kasutajasõnastikus kasutatav kooditabel sõltub kasutajasõnastiku nimest:
 * **et.usr.dct** - Windows Baltic kodeeringus lisasõnastik.
 * **et.usr.dct.utf8** - UTF8 kodeeringus lisasõnastik.
@@ -36,4 +36,7 @@ r66mu    rõõm+0 //_S_ adt,//    rõõm+0 //_S_ sg p, //    rõõm+0 //_S_ sg g
 * [Eesti keele morfloogilise analüsaatori käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf).
 * Eesti keele morfoloogilise ühestaja käsureaprogramm.
-* Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris.
+* [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb).
+
+## Autor
+Copyright © 1997-2022 OÜ Filosoft
