@@ -31,7 +31,7 @@ tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 * **--dontaddphonetics** <br> Vaikimisi ei lisa hääldusmärke.
 * **-f, --addphonetics** <br> Lisab väljundisse hääldusmärgid.
 
-#### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
+### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
 Vaikimisi otsitakse leksikoni **et.dct** keskkonnamuutujas **PATH** loetletud kataloogidest.
 * **-p K1[K2:...], --path K1[K2:...]** <br> Leksikoni otsime kataloogidest **K1, K2, ...**
 
