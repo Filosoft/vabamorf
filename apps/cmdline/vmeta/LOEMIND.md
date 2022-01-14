@@ -1,52 +1,60 @@
-## vmeta
-Eesti kirjakeele morfoloogilise analüüsi programm
+## vmeta <a name="algus"></a>
+Eesti kirjakeele morfoloogilise analüüsi programm. 
 
-## Lippude kirjeldus
+Valida saab morfoloogiliste märgendite kahe erineva esitusviisi vahel:
+* [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
+* GT-kuju
 
-### Sisendiga seotud lipud
-* **--xml** Vaikeväärtus <br> XML-kujul sisend. Täpsemalt vt **Kirjeldus**.
+## Käsurida
+vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
+
+## Lippude kirjeldus <a name="lippude_kirjeldus"></a>
+
+### Sisendiga seotud lipud <a name="lipp_sisend"></a>
+* **--xml** Vaikeväärtus <br> XML-kujul sisend. Täpsemalt vt [Kirjeldus](#kirjeldus).
 * **-t, --textonly** <br> Märgendamata teksti (üksiksõnade) analüüsimine. XML-märgendeid käsitletakse
 tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 
 ### Väljundiga seotud lipud
 
-#### Oletamine
+#### Oletamine <a name="lipp_oletamine"></a>
 * **--guess** Vaikeväärtus. <br> Oletab leksikonist puuduvate sõnade võimalikke analüüse.
 * **-q, --dontguess** <br> Ei oleta leksikonist puuduvaid sõnu. 
 * **--guesspropnames** Vaikeväärtus. <br> Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
 * **--dontguesspropnames** <br>  Ei lisa/oleta lausekontekstist lähtuvalt pärisnimeanalüüse.
 
-#### Märgendisüsteem
+#### Märgendisüsteem <a name="lipp_margendisusteem"></a>
 * **--fs** Vaikimisi <br> Väljundis FS-märgendisüsteem.
 * **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
-#### Hääldusmärgid
+#### Hääldusmärgid <a name="lipp_haaldusmargid"></a>
 * **--dontaddphonetics** <br> Vaikimisi ei lisa hääldusmärke.
 * **-f, --addphonetics** <br> Lisab väljundisse hääldusmärgid.
 
-#### Leksikonide asukohaga seotud lipud
+#### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
 Vaikimisi otsitakse leksikoni **et.dct** keskkonnamuutujas **PATH** loetletud kataloogidest.
 * **-p K1[K2:...], --path K1[K2:...]** <br> Leksikoni otsime kataloogidest **K1, K2, ...**
 
-## Kirjeldus
-* Sisend- ja väljund on utf8 kodeeringus.
-* XMLis sisendi korral (pole **--plaintext** lippu):
+## Kirjeldus <a name="kirjeldus"></a>
+* Sisend ja väljund on utf8 kodeeringus.
+* Kui sisend- ja väljundfaili nime pole antud, loetakse std-sisendit ja tulemus 
+läheb std-väljundisse.
+* Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
+* Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
+* XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
   * &lt; ja &gt; esineb ainult märgendite ümber, muidu olemitena: &amp;lt; ja &amp;gt;
   * &amp; esineb ainult olemite (&amp;amp; &amp;lt; &amp;gt;) alguses, muidu olemina &amp;amp;
   * Morf analüüsitakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** märgendite vahel olevat teksti,
   mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel.
   * Muid märgendeid (sh sõnaga kokkukleepunud märgendeid ignoreeritakse).
-* Kui sisend- ja väljundfaili nime pole antud, loetakse std-sisendit ja tulemus 
-läheb std-väljundisse:
-Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
-* Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
-* Ühestamiseks kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
+
+* Ühestamiseks (vmyhh) kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
 
 ## Kasutus-stsenaariumid
 * **Morfoloogiline analüüs koos ühestamisega.** 
-Teisenda tekst XML-kujule (vt Kirjeldus), lisa teksti lause algus/lõpumärgendid, lase pärisnimede ja tundmatute
+Teisenda tekst XML-kujule ([Kirjeldus](#kirjeldus)), lisa teksti lause algus/lõpumärgendid, lase pärisnimede ja tundmatute
 sõnade oletamisega morfist (vmeta) ja ühestajast (vmyhh) läbi. 
-Soovi korral (**--addphonetics** lipp) lisatakse tulemusse hääldusmärgid. 
+Soovi korral (**[--addphonetics](#lipp_haaldusmargid)** lipp) lisatakse tulemusse hääldusmärgid. 
 XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga morfist läbi lasta, 
 nõnda, et metainfo ei hakkaks morf analüüsimist-ühestamist segama.
 Morfi väljundis peavad olema FS-märgendid, kuna ühestaja eeldab neid. 
