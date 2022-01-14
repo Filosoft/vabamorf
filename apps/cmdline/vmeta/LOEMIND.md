@@ -57,8 +57,7 @@ sõnade oletamisega morfist (vmeta) ja ühestajast (vmyhh) läbi.
 Soovi korral (**[--addphonetics](#lipp_haaldusmargid)** lipp) lisatakse tulemusse hääldusmärgid. 
 XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga morfist läbi lasta, 
 nõnda, et metainfo ei hakkaks morf analüüsimist-ühestamist segama.
-Morfi väljundis peavad olema FS-märgendid, kuna ühestaja eeldab neid. 
-Soovi korral võib ühestaja anda väljundisse GT-märgendid.
+Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-märgendid (**[--gt](#lipp_margendisusteem)**), kuna ühestaja eeldab neid. 
 * **Morfoloogilisest analüüsist ilma ühestamiseta piisab.**
   * **Analüüsime XML-kuju oletamisega/oletamiseta hääldusmärkidega/hääldusmärkideta FS-märgendisüsteemiga/GT-märgendisüsteemiga.**
   XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga (XML-märgenditega) morfist 
