@@ -71,7 +71,7 @@ Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-
 ## Kasutusnäited
 
 ### Lipud vaikeväärtustega
-Väljund sobib ühestaja (vmyhh) sisendiks.
+Väljund sobib ühestaja [vmyhh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md) sisendiks.
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta
 
@@ -138,7 +138,7 @@ kinni    k<in]ni+0 //_D_ //
 
 ## Vaata lisaks
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-* Eesti keele morfoloogilise ühestaja käsureaprogramm.
+* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md).
 * [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
 * [Eesti keele morfoloogilise analüsaatori kasutasjasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
 
