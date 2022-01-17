@@ -35,7 +35,7 @@ r66mu    rõõm+0 //_S_ adt,//    rõõm+0 //_S_ sg p, //    rõõm+0 //_S_ sg g
 ## Vaata lisaks
 * [Eesti keele morfloogilise analüsaatori käsureaprogramm](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf).
-* Eesti keele morfoloogilise ühestaja käsureaprogramm.
+* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md).
 * [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
 
 ## Autor
