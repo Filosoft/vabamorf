@@ -13,7 +13,7 @@ vmyhh \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendf
 ### Väljundiga seotud lipud
 
 #### Märgendisüsteem <a name="lipp_margendisusteem"></a>
-* **--fs** Vaikimisi <br> Väljundis FS-märgendisüsteem.
+* **--fs** <br> Vaikimisi. Väljundis FS-märgendisüsteem.
 * **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
 ### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
