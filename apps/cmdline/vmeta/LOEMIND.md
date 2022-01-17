@@ -51,7 +51,8 @@ läheb std-väljundisse.
   tekstisõnede ja teiste märgenditega kokkukleepunud.
 
 
-* Ühestamiseks (vmyhh) kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
+* Ühestamiseks ([vmyhh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md)) 
+kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
 
 ## Kasutus-stsenaariumid
 * **Morfoloogiline analüüs koos ühestamisega.** 
