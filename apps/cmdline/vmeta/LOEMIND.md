@@ -41,7 +41,7 @@ Vaikimisi otsitakse leksikoni **et.dct** keskkonnamuutujas **PATH** loetletud ka
 läheb std-väljundisse.
 * Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
 * Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
-* XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
+* XMLis sisendi korral (pole **[--textonly](#lipp_sisend)** lippu):
   * &lt; ja &gt; esineb ainult märgendite ümber, muidu olemitena: &amp;lt; ja &amp;gt;
   * &amp; esineb ainult olemite (&amp;amp; &amp;lt; &amp;gt;) alguses, muidu olemina &amp;amp;
   * Morf analüüsitakse ainult ;**&lt;s&gt;** ja **&lt;/s&gt** märgendite vahel olevat teksti,
