@@ -11,24 +11,24 @@ vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendf
 ## Lippude kirjeldus <a name="lippude_kirjeldus"></a>
 
 ### Sisendiga seotud lipud <a name="lipp_sisend"></a>
-* **--xml** Vaikeväärtus <br> XML-kujul sisend. Täpsemalt vt [Kirjeldus](#kirjeldus).
+* **--xml** <br> Vaikimisi. XML-kujul sisend. Täpsemalt vt [Kirjeldus](#kirjeldus).
 * **-t, --textonly** <br> Märgendamata teksti (üksiksõnade) analüüsimine. XML-märgendeid käsitletakse
 tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 
 ### Väljundiga seotud lipud
 
 #### Oletamine <a name="lipp_oletamine"></a>
-* **--guess** Vaikimisi. <br> Oletab leksikonist puuduvate sõnade võimalikke analüüse.
+* **--guess** <br> Vaikimisi. Oletab leksikonist puuduvate sõnade võimalikke analüüse.
 * **-q, --dontguess** <br> Ei oleta leksikonist puuduvaid sõnu. 
-* **--guesspropnames** Vaikeväärtus. <br> Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
+* **--guesspropnames** <br> Vaikimisi. Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
 * **--dontguesspropnames** <br>  Ei lisa/oleta lausekontekstist lähtuvalt pärisnimeanalüüse.
 
 #### Märgendisüsteem <a name="lipp_margendisusteem"></a>
-* **--fs** Vaikimisi <br> Väljundis FS-märgendisüsteem.
+* **--fs** <br> Vaikimisi. Väljundis FS-märgendisüsteem.
 * **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
 #### Hääldusmärgid <a name="lipp_haaldusmargid"></a>
-* **--dontaddphonetics** Vaikimisi. <br> Vaikimisi ei lisa hääldusmärke.
+* **--dontaddphonetics** <br> Vaikimisi. Vaikimisi ei lisa hääldusmärke.
 * **-f, --addphonetics** <br> Lisab väljundisse hääldusmärgid.
 
 ### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
