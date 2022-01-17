@@ -18,7 +18,7 @@ tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 ### Väljundiga seotud lipud
 
 #### Oletamine <a name="lipp_oletamine"></a>
-* **--guess** Vaikeväärtus. <br> Oletab leksikonist puuduvate sõnade võimalikke analüüse.
+* **--guess** Vaikimisi. <br> Oletab leksikonist puuduvate sõnade võimalikke analüüse.
 * **-q, --dontguess** <br> Ei oleta leksikonist puuduvaid sõnu. 
 * **--guesspropnames** Vaikeväärtus. <br> Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
 * **--dontguesspropnames** <br>  Ei lisa/oleta lausekontekstist lähtuvalt pärisnimeanalüüse.
@@ -28,7 +28,7 @@ tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 * **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
 #### Hääldusmärgid <a name="lipp_haaldusmargid"></a>
-* **--dontaddphonetics** <br> Vaikimisi ei lisa hääldusmärke.
+* **--dontaddphonetics** Vaikimisi. <br> Vaikimisi ei lisa hääldusmärke.
 * **-f, --addphonetics** <br> Lisab väljundisse hääldusmärgid.
 
 ### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
