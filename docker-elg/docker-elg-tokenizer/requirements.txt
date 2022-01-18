@@ -1,0 +1,4 @@
+estnltk==1.6.9.1b0
+Flask
+Flask-JSON
+gunicorn
