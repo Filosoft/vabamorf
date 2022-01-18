@@ -11,27 +11,27 @@ vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendf
 ## Lippude kirjeldus <a name="lippude_kirjeldus"></a>
 
 ### Sisendiga seotud lipud <a name="lipp_sisend"></a>
-* **--xml** Vaikeväärtus <br> XML-kujul sisend. Täpsemalt vt [Kirjeldus](#kirjeldus).
+* **--xml** <br> Vaikimisi. XML-kujul sisend. Täpsemalt vt [Kirjeldus](#kirjeldus).
 * **-t, --textonly** <br> Märgendamata teksti (üksiksõnade) analüüsimine. XML-märgendeid käsitletakse
 tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 
 ### Väljundiga seotud lipud
 
 #### Oletamine <a name="lipp_oletamine"></a>
-* **--guess** Vaikeväärtus. <br> Oletab leksikonist puuduvate sõnade võimalikke analüüse.
+* **--guess** <br> Vaikimisi. Oletab leksikonist puuduvate sõnade võimalikke analüüse.
 * **-q, --dontguess** <br> Ei oleta leksikonist puuduvaid sõnu. 
-* **--guesspropnames** Vaikeväärtus. <br> Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
+* **--guesspropnames** <br> Vaikimisi. Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
 * **--dontguesspropnames** <br>  Ei lisa/oleta lausekontekstist lähtuvalt pärisnimeanalüüse.
 
 #### Märgendisüsteem <a name="lipp_margendisusteem"></a>
-* **--fs** Vaikimisi <br> Väljundis FS-märgendisüsteem.
+* **--fs** <br> Vaikimisi. Väljundis FS-märgendisüsteem.
 * **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
 #### Hääldusmärgid <a name="lipp_haaldusmargid"></a>
-* **--dontaddphonetics** <br> Vaikimisi ei lisa hääldusmärke.
+* **--dontaddphonetics** <br> Vaikimisi. Vaikimisi ei lisa hääldusmärke.
 * **-f, --addphonetics** <br> Lisab väljundisse hääldusmärgid.
 
-#### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
+### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
 Vaikimisi otsitakse leksikoni **et.dct** keskkonnamuutujas **PATH** loetletud kataloogidest.
 * **-p K1[K2:...], --path K1[K2:...]** <br> Leksikoni otsime kataloogidest **K1, K2, ...**
 
@@ -41,7 +41,7 @@ Vaikimisi otsitakse leksikoni **et.dct** keskkonnamuutujas **PATH** loetletud ka
 läheb std-väljundisse.
 * Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
 * Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
-* XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
+* XMLis sisendi korral (pole **[--textonly](#lipp_sisend)** lippu):
   * &lt; ja &gt; esineb ainult märgendite ümber, muidu olemitena: &amp;lt; ja &amp;gt;
   * &amp; esineb ainult olemite (&amp;amp; &amp;lt; &amp;gt;) alguses, muidu olemina &amp;amp;
   * Morf analüüsitakse ainult ;**&lt;s&gt;** ja **&lt;/s&gt** märgendite vahel olevat teksti,
@@ -51,7 +51,8 @@ läheb std-väljundisse.
   tekstisõnede ja teiste märgenditega kokkukleepunud.
 
 
-* Ühestamiseks (vmyhh) kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
+* Ühestamiseks ([vmyhh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md)) 
+kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
 
 ## Kasutus-stsenaariumid
 * **Morfoloogiline analüüs koos ühestamisega.** 
@@ -71,7 +72,7 @@ Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-
 ## Kasutusnäited
 
 ### Lipud vaikeväärtustega
-Väljund sobib ühestaja (vmyhh) sisendiks.
+Väljund sobib ühestaja [vmyhh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md) sisendiks.
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta
 
@@ -138,7 +139,7 @@ kinni    k<in]ni+0 //_D_ //
 
 ## Vaata lisaks
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-* Eesti keele morfoloogilise ühestaja käsureaprogramm.
+* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md).
 * [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
 * [Eesti keele morfoloogilise analüsaatori kasutasjasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
 

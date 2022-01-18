@@ -13,7 +13,7 @@ vmyhh \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendf
 ### Väljundiga seotud lipud
 
 #### Märgendisüsteem <a name="lipp_margendisusteem"></a>
-* **--fs** Vaikimisi <br> Väljundis FS-märgendisüsteem.
+* **--fs** <br> Vaikimisi. Väljundis FS-märgendisüsteem.
 * **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
 ### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
@@ -77,7 +77,7 @@ kinni    kinni+0 //_D_ //
 
 ## Vaata lisaks
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-* Eesti keele morfoloogilise ühestaja käsureaprogramm.
+* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md).
 * [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
 * [Eesti keele morfoloogilise analüsaatori kasutasjasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
 
