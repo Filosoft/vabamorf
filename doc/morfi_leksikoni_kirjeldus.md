@@ -235,7 +235,7 @@ esineb alati koos liigiga ```A``` või ```S```
 
 Sõnaliigi väljal võib peale sõnaliigi olla ka mõni järgmine tunnus:
 * ```t``` tabusõna (nt ```perse```)
-* ```s``` ainult spelleris lubatav üksiksõna (nt ```Aires```, ```Janeiro```
+* ```s``` ainult spelleris lubatav üksiksõna (nt ```Aires```, ```Janeiro```)
 * ```e``` ainult tesauruses sellisena omaette sõnana esitatav sõna (nt ```aukudega``` (=```auklik```))
 * ```m``` liitsõna koosseisu mittesobiv sõna&nbsp; (nt ```viieaastane```)
 * ```n``` liitsõna lõppu mittesobiv sõna (nt ```abt```, ```bai```, ```utt```)
