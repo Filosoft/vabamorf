@@ -3,7 +3,7 @@ Eesti kirjakeele morfoloogilise analüüsi programm.
 
 Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
 * [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
-* GT-kuju
+* [GT-kuju](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
 
 ## Käsurida
 vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
