@@ -133,7 +133,7 @@ Aastate lõikes on kirjeid lisatud sõnastikku järgmises ulatuses:
 |2882 |     19     |
 
 
-## Sisu
+### Sisu
 
 Sõnastikukirje ülesehitus ja seal esitatav info järgib suurel määral "Väikest vormisõnastikku"</q>", kuid mitte täiesti. <br />
 Kirje sisaldab järgmisi sisulisi elemente:
@@ -143,7 +143,7 @@ Kirje sisaldab järgmisi sisulisi elemente:
 * Erandid
 
 
-### Tüved
+#### Tüved
 
 Sõna tüvede arv on kirjeti erinev, olles kooskõlas morfoloogilise koodiga, 
 nii et koodi poolt määratavate reeglite rakendamine tüvedele annab tulemuseks 
@@ -183,7 +183,7 @@ vvs:0093|mamel&lt;ukk mamel&lt;ukki #mamel?uki[D#!\S\.22^E^+7! <br />
 vvs:0093|alkoholine alkoholise alkoholis[T!\A\.10+9!&amp;&amp;(!\A\.12^I^+7!)
 ```
 
-### Morfoloogiline kood
+#### Morfoloogiline kood
 
 Morfoloogiline kood on kujul:
 
@@ -271,7 +271,7 @@ Võimalikud on järgmised variandid:
 kui mitmuse moodustamisel lisandub i-ga algav tunnus 
 (nt ``` <code>vvs:0093|arvuti!\S\.1+9!%i&gt;e[I%</code>```)
 
-### Erandid
+#### Erandid
 
 Valdav hulk ehk 6/7 kirjeid ei sisalda erandeid, vaid ainult tüvesid ja morfoloogilist koodi, 
 nt.
