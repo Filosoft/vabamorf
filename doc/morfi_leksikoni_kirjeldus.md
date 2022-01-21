@@ -1,6 +1,6 @@
-#Vabamorfi morfoloogia-leksikon
+# Vabamorfi morfoloogia-leksikon
 
-##Vabamorfi morfoloogia-leksikon
+## Vabamorfi morfoloogia-leksikon
 
 Vabamorfi morfoloogia-leksikon pannakse kokku 12 algfailist.
 Need on:</p>
