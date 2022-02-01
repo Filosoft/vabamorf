@@ -193,7 +193,7 @@ Morfoloogiline kood on kujul:
 
 Kohustuslik element on ainult sõnaliik: muutumatutel sõnadel muuttüüp puudub. nt.  
 ```
-<code>vvsm:0093|kaasas!\D\!</code></p>
+vvsm:0093|kaasas!\D\!
 ```
 
 Sõnaliigi väljal on nii lingvistiliselt sisukas sõnaliik, mida morfoloogilise analüüsi 
