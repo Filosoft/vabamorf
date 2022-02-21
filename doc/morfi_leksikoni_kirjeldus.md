@@ -32,24 +32,24 @@ Tegelik ja lingvistiliselt täpne info sõnaliigi kohta on antud kirje sisu osas
 
 #### Käänduvad (ja mõned muutumatud) sõnad
 
-* ```vvs``` - Ülle Viks. Väike vormisõnastik. Tallinn, 1992.
+* ```vvs``` - *Ülle Viks. Väike vormisõnastik. Tallinn, 1992*.
 * ```tes``` - tesaurus - varem puudunud, kuid tesauruses esinevad sõnad. 
-Need sõnad lisati selleks, et MS Wordis tehtav Filosofti tesaurusepäring tagastaks vasted samas 
+Need sõnad lisati selleks, et *MS Wordis* tehtav *Filosofti* tesaurusepäring tagastaks vasted samas 
 vormis nagu oli esialgsel sõnal ja et nende vormide genereerimine oleks sõnastikupõhine ning 
 kindlasti korrektne.
 * ```sage``` - sagedamad sõnad allikast *Heiki-Jaan Kaalep, Kadri Muischnek. 
 Eesti kirjakeele sagedussõnastik. Tartu, 2002*.
-* ```lisa``` - lisatud jooksvalt töö käigus; sept-okt 2019 lisatud 2600 sõna põhinevad EKIst 
-saadud allikatel: ÕS-2018, uute sõnade andmebaas, ettelugemiseks mõeldud helifailide sõnavara, 
-neologismide loend.
+* ```lisa``` - lisatud jooksvalt töö käigus; sept-okt 2019 lisatud 2600 sõna põhinevad *EKI*st 
+saadud allikatel: *ÕS-2018*, *uute sõnade andmebaas*, ettelugemiseks mõeldud helifailide sõnavara, 
+*neologismide loend*.
 * ```lisatule``` - lisatud produktiivsed tuletised (selleks, et lihtsustada tuletisi sisaldavate 
 liitsõnade analüüsi algoritmi).
 * ```nosp``` - "no speller" ehk sõnad, mida speller ei tohiks ära tunda, 
 nt. *kudas*, *mersu*, *muideks*.
-* ```xp``` - eestindatud Windows XP-ga seotud sõnavara.
+* ```xp``` - eestindatud *Windows XP*-ga seotud sõnavara.
 * ```voor``` - võõrnimed. Nende kirjapildi alusel ei saa teha eesti omasõnadele vastavate 
 reeglite järgi kõnesünteesi.
-* ```voorxp``` - Windows XP-ga seoses sisse võetud võõrnimed ja -sõnad.
+* ```voorxp``` - *Windows XP*-ga seoses sisse võetud võõrnimed ja -sõnad.
 
 
 #### Pöörduvad sõnad
@@ -90,12 +90,12 @@ Eri allikatest pärit kirjeid (kokku 74 000) on arvuliselt järgmiselt:
 
 Käesoleva sõnastiku sõnavara seisukohalt on oluline ka see, et mitte kõik sõnad, 
 mis mingis alliksõnastikus on olemas, ei ole siia võetud. 
-Näiteks Väikesest vormisõnastikust on jäetud üle võtmata tuhandeid sõnu - haruldasi 
+Näiteks *Väikesest vormisõnastikust* on jäetud üle võtmata tuhandeid sõnu - haruldasi 
 lühikesi sõnu (nt. *hila*, *ask*), mis lähevad kergesti segi kirjavigadega ja 
 võimaldavad moodustada formaalselt korrektseid, kuid tegelikult ebatõenäolisi liitsõnu, 
 ning regulaarseid tuletisi. Kui võrrelda leksikonis olevate kirjete arvu, 
-mille allikaks on märgitud ```vvs```, s.t. Väike vormisõnastik, selle arvuga, 
-mille annavad VVS ilmumisandmed, siis on erinevus ca 5500. 
+mille allikaks on märgitud ```vvs```, s.t. *Väike vormisõnastik*, selle arvuga, 
+mille annavad *VVS* ilmumisandmed, siis on erinevus ca 5500. 
 Kuid võib olla kindel, et hiljem on algselt välja jäetud sõnu siiski taas lisatud, 
 nt. sagedussõnastiku põhjal.
 
@@ -133,7 +133,7 @@ Aastate lõikes on kirjeid lisatud sõnastikku järgmises ulatuses:
 
 ### Sisu
 
-Sõnastikukirje ülesehitus ja seal esitatav info järgib suurel määral "Väikest vormisõnastikku"</q>", kuid mitte täiesti. <br />
+Sõnastikukirje ülesehitus ja seal esitatav info järgib suurel määral *Väikest vormisõnastikku*, kuid mitte täiesti. 
 Kirje sisaldab järgmisi sisulisi elemente:
 
 1. Tüved
@@ -195,7 +195,7 @@ Sõnaliigi väljal on nii lingvistiliselt sisukas sõnaliik, mida morfoloogilise
 tulemusena väljastatakse, kui ka eritähendusega tähti, mida programm kasutab algoritmi 
 töös, nt. liitsõna osade sobivuse hindamisel (vt 
 https://github.com/Filosoft/vabamorf/blob/master/lib/etana/sonatk.h. 
-VVS-is on sõnaliigi info osaliselt sama, osaliselt erinev.)
+*VVS*-is on sõnaliigi info osaliselt sama, osaliselt erinev.)
 
 Lingvistiliselt sisukad sõnaliigid leksikonis on järgmised:
 
@@ -235,9 +235,9 @@ Sõnaliigi väljal võib peale sõnaliigi olla ka mõni järgmine tunnus:
 * ```m``` liitsõna koosseisu mittesobiv sõna (nt *viieaastane*)
 * ```n``` liitsõna lõppu mittesobiv sõna (nt *abt*, *bai*, *utt*)
 
-Muuttüüp on sama mis "Väikeses vormisõnastikus": käändsõnadel 1-26 ja pöördsõnadel 27-38.
+Muuttüüp on sama mis *Väikeses vormisõnastikus*: käändsõnadel 1-26 ja pöördsõnadel 27-38.
 
-Põhjaliku ülevaate muuttüüpidest annab "Väikese vormisõnastiku" grammatika-köide ja 
+Põhjaliku ülevaate muuttüüpidest annab *Väikese vormisõnastiku* grammatika-köide ja 
 http://www.eki.ee/teemad/tabel_table.html
 
 Vokaal näitab vokaalmitmuse moodustamise viisi (```e```, ```i``` või ```u```) ning on kasutusel 
@@ -253,7 +253,7 @@ aga kuidas oleks õige seda kirjutada? *ecstaseyd*?
 ```.PL``` tähendab seda, et sõnal on ainult mitmusevormid (nt *kedrid*).
 
 ```vokaaltüveliste_vormide_arv``` määrab ära, milliste semantiliste käänete vokaalmitmuselised vormid 
-moodustatakse. (VVS-is sellist infot ei ole ja pole kindel, et ka ```fs_lex```-is on see info põhjendatud.) 
+moodustatakse. (*VVS*-is sellist infot ei ole ja pole kindel, et ka ```fs_lex```-is on see info põhjendatud.) 
 Võimalikud on järgmised variandid:
 
 * ```+3``` ainult sisekoha käänded
@@ -376,7 +376,7 @@ Näited:
 
 Prefiksid *de* ja *re* on erijuhud: nad võivad liituda ka verbi tüvele, 
 kui see lõppeb *-eeri* või *-eeru*-ga; seega pole nad samasugused verbi 
-sufiksid kui teised ning neile sobivad tüved on tähistatud omaette sõnaliigiga ```Z```. 
+prefiksid kui teised ning neile sobivad tüved on tähistatud omaette sõnaliigiga ```Z```. 
 
 Näited:
 ```
