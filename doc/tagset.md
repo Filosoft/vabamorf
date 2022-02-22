@@ -43,6 +43,8 @@ The system of categories and their abbreviations are based on the lexicon that f
 |sg | ainsus |
 |ter | terminative |
 |tr | translative |
+
+`?` no info about inflectional category, e.g. when a word has been shortened as *munitsipaal-*, or is an accronym like *USA*
   
 ## Verb tags
 
