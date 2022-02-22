@@ -44,7 +44,7 @@ Kategooriate süsteemi ja tähistuste aluseks on leksikon, millele käesolev pro
 |ter | terminatiiv | rajav |
 |tr | translatiiv | saav |
 
-`?` käänamisinfo puudub, nt. lühendatud sõnal *munitsipaal-* või suurtähtlühendil *USA*
+Küsimärk `?` tähendab, et käänamisinfo puudub, nt. lühendatud sõnal *munitsipaal-* või suurtähtlühendil *USA*
   
 ## Verbikategooriate lühendid
 
