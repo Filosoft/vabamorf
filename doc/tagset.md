@@ -1,3 +1,7 @@
+# Morphological categories
+
+The system of categories and their abbreviations are based on the lexicon that forms the core of this program: *Ülle Viks. Väike vormisõnastik. Tallinn, 1992*
+
 ## Word class
 
   * `A` adjective (positive), either declinable or indeclinable, e.g. _kallis_ või _eht_

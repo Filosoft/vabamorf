@@ -1,3 +1,7 @@
+# Morfoloogilised kategooriad 
+
+Kategooriate süsteemi ja tähistuste aluseks on leksikon, millele käesolev programm tugineb: *Ülle Viks. Väike vormisõnastik. Tallinn, 1992*
+
 ## Sõnaliigid
 
   * `A` omadussõna - algvõrre (adjektiiv - positiiv), nii käänduvad kui käändumatud, nt _kallis_ või _eht_
@@ -20,8 +24,8 @@
 
 ## Noomenikategooriate lühendid
 
-|lühend| võõrtermin | eesti|
-|---|---|--- |
+|lühend| võõrtermin | eestikeelne termin|
+|---|---|:--- |
 |ab | abessiiv | ilmaütlev |
 |abl | ablatiiv | alaltütlev |
 |ad | adessiiv | alalütlev |
@@ -160,5 +164,5 @@
   * `<` silp on kolmandas vältes; asetseb vahetult silbi tuuma moodustava täishääliku ees
   * `?` silp on rõhuline; asetseb vahetult silbi tuuma moodustava täishääliku ees (silbi rõhulisust märgitakse ainult sellisel juhul, kui rõhuline silp on midagi muud kui võiks ennustada, ja ennustamine käib järgmiselt: kui sõnas on kolmandas vältes silp, siis rõhk on sellel; muidu, kui sõnas on pika täishääliku või täishäälikuühendiga silp, siis rõhk on sellel; muidu on rõhk esimesel silbil) 
   * `]` eelmine häälik on palataliseeritud
-  * `~` n ja k ühendis hääldatakse n ja k selgelt eraldi, mitte ei sulandu kokku; kasutuses ainult sõnades soonkond ja tosinkond
+  * `~` n ja k ühendis hääldatakse n ja k selgelt eraldi, mitte ei sulandu kokku; kasutuses ainult sõnades *soonkond* ja *tosinkond*
 
