@@ -2,68 +2,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Vabamorfi kompileerimine</title>
 </head>
 <body>
-	<h2>Vabamorfi kompileerimine Windowsil</h2>
-	<div>Vajalik tarkvara</div>
-	<ul>
-		<li>MS Visual Studio 2010
-	</ul>
-	<div>Kompileerimine</div>
-	<ul>
-		<li>Avage apps/cmdline/project/vc2010/cmdline.sln
-		<li>Käivitage kompilaator.
-	</ul>
-
-	<h2>Vabamorfi kompileerimine Unixil</h2>
-	<div>Vajalik tarkvara</div>
-	<ul>
-		<li>g++ 4
-		<li>gmake
-	</ul>
-	<div>Kompileerimine</div>
-	<ul>
-		<li>Navigeerige kausta apps/cmdline/project/unix
-		<li>Käivitage make -f [soovitud Makefile]
-	</ul>
-
-	<h2>Sõnastiku kompileerimine Unixil</h2>
-	<div>Vajalik tarkvara</div>
-	<ul>
-		<li>g++ 4
-		<li>gmake
-		<li>gawk
-	</ul>
-	<div>Kompileerimine</div>
-	<ul>
-		<li>Navigeerige Vabamorfi juurkataloogi ja käivitage seal käsud:
-		<li>JUUR=$(pwd)
-		<li>cd ${JUUR}/dct/sh
-		<li>chmod +x *.sh
-		<li>./nullist-uus-sonastik.sh
-		<li>Analüsaatori ja Ühestaja sõnastikud valmivad kataloogi dct/binary
-	</ul>
-	<div>Sõnastike kohta täpsem info doc kaustas.</div>
-
-	<h2>Vabamorfi kasutamine</h2>
-	<div>Kompileeritud programmi käivitamisel -help parameetriga kuvatakse täpne parameetrite kirjeldus.</div>
-	<div>Programmidele vajaliku sõnastikufaili leiate dct/binary kataloogist.</div>
-	<div>Analüsaatori ja Süntesaatori VC2010 projektikaustades on toodud näite-sisendfailid (test.json)</div>
-
-	<h2>Näited</h2>
-	<div>Mõned näited Vabamorfi kasutamisest</div>
-	<ul>
-		<li>Morfoloogiline analüüs:<br>
-			etana analyze -in test.json -out analyze.json
-		<li>Morfoloogiline analüüs oletaja ja foneetilise märgendusega:<br>
-			etana analyze -phonetic -guess -in test.json -out analyze.json
-		<li>Speller soovitajaga:<br>
-			etana spell -suggest -in test.json -out spell.json
-		<li>Süntees oletajaga:<br>
-			etsyn -guess -in test.json -out syn.json
-		<li>Ühestatud morfoloogiline analüüs:<br>
-			etana analyze -propername -guess -in test.json | etdisamb -out disamb.json
-	</ul>
+<div>Vaata loemind.md</div>
+<div>See readme.md</div>
 </body>
 </html>

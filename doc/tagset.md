@@ -1,160 +1,164 @@
-## Sõnaliigid
-* ```A``` omadussõna - algvõrre (adjektiiv - positiiv), nii käänduvad kui käändumatud, nt ```kallis``` või ```eht```
-* ```C``` omadussõna - keskvõrre (adjektiiv - komparatiiv), nt ```laiem```
-* ```D``` määrsõna (adverb), nt ```kõrvuti```
-* ```G``` genitiivatribuut (käändumatu omadussõna), nt ```balti```
-* ```H``` pärisnimi, nt ```Edgar```
-* ```I``` hüüdsõna (interjektsioon), nt ```tere```
-* ```J``` sidesõna (konjunktsioon), nt ```ja```
-* ```K``` kaassõna (pre/postpositsioon), nt ```kaudu```
-* ```N``` põhiarvsõna (kardinaalnumeraal), nt ```kaks```
-* ```O``` järgarvsõna (ordinaalnumeraal), nt ```teine```
-* ```P``` asesõna (pronoomen), nt ```see```
-* ```S``` nimisõna (substantiiv), nt ```asi```
-* ```U``` omadussõna - ülivõrre (adjektiiv - superlatiiv), nt ```pikim```
-* ```V``` tegusõna (verb), nt ```lugema```
-* ```X``` verbi juurde kuuluv sõna, millel eraldi sõnaliigi tähistus puudub, nt ```plehku```
-* ```Y``` lühend, nt USA
-* ```Z``` lausemärk, nt ```-```, ```/```, ```...```
+## Word class
 
-## Noomenikategooriate lühendid
+  * `A` adjective (positive), either declinable or indeclinable, e.g. _kallis_ või _eht_
+  * `C` adjective (comparative), e.g. _laiem_
+  * `D` adverb, e.g. _kõrvuti_
+  * `G` genitive attribute (indeclinable adjective), e.g. _balti_
+  * `H` proper noun, e.g. _Edgar_
+  * `I` interjection, e.g. _tere_
+  * `J` conjunction, e.g. _ja_
+  * `K` pre/postposition, e.g. _kaudu_
+  * `N` cardinal numeral, e.g. _kaks_
+  * `O` ordinal numeral, e.g. _teine_
+  * `P` pronoun, e.g. _see_
+  * `S` noun, e.g. _asi_
+  * `U` adjective (superlative), e.g. _pikim_
+  * `V` verb, e.g. _lugema_
+  * `X` adverb-like word used solely together with a certain verb, e.g. _plehku_
+  * `Y` abbreviation or accronym, e.g. _USA_
+  * `Z` punctuation mark, e.g. _-_ , _/_ , _..._
 
-|     |          |                                          |
-|-----|----------|------------------------------------------|
-| ```ab``` | abessiiv | ilmaütlev                                |
-| ```abl``` | ablatiiv | alaltütlev                               |
-| ```ad``` | adessiiv | alalütlev                                |
-| ```adt``` | aditiiv  | suunduv (lühike sisseütlev), nt. ```majja``` |
-| ```all``` | allatiiv | alaleütlev                               |
-| ```el``` | elatiiv  | seestütlev                               |
-| ```es``` | essiiv   | olev                                     |
-| ```g``` | genitiiv | omastav                                  |
-| ```ill``` | illatiiv | sisseütlev                               |
-| ```in``` | inessiiv | seesütlev                                |
-| ```kom``` | komitatiiv | kaasaütlev                               |
-| ```n``` | nominatiiv | nimetav                                  |
-| ```p``` | partitiiv | osastav                                  |
-| ```pl``` | pluural  | mitmus                                   |
-| ```sg``` | ainsus   | ainsus                                   
-| ```ter``` | terminatiiv | rajav                                    |
-| ```tr``` | translatiiv | saav                                     |
+## Declinable word tags
 
-## Verbikategooriate lühendid
+|tag| category |
+|---|---|
+|ab | abessive |
+|abl | ablative |
+|ad | adessive |
+|adt | aditive |
+|all | allative |
+|el | elative |
+|es | essive |
+|g | genitive |
+|ill | illative |
+|in | inessive |
+|kom | komitative |
+|n | nominative |
+|p | partitive |
+|pl | pluural |
+|sg | ainsus |
+|ter | terminative |
+|tr | translative |
+  
+## Verb tags
 
-|     |                                                                 |                                         |
-|-----|-----------------------------------------------------------------|-----------------------------------------|
-| ```b``` | 	kindel kõneviis olevik 3. isik ainsus aktiiv jaatav kõne	      | ```loeb``` |
-| ```d``` | 	kindel kõneviis olevik 2. isik ainsus aktiiv jaatav kõne	      | ```loed``` |
-| ```da``` | 	infinitiiv jaatav kõne	                                        | ```lugeda``` |
-| ```des``` | 	gerundium jaatav kõne	                                         | ```lugedes``` |
-| ```ge``` | 	käskiv kõneviis olevik 2. isik mitmus aktiiv jaatav kõne	      | ```lugege``` |
-| ```gem``` | 	käskiv kõneviis olevik 1. isik mitmus aktiiv jaatav kõne	      | ```lugegem``` |
-| ```gu``` | 	käskiv kõneviis olevik 3. isik mitmus aktiiv jaatav kõne	      | ```(nad) lugegu``` |
-| ```gu``` | 	käskiv kõneviis olevik 3. isik ainsus aktiiv jaatav kõne	      | ```(ta) lugegu``` |
-| ```ks``` | 	tingiv kõneviis olevik 1. isik mitmus aktiiv jaatav kõne	      | ```(me) loeks``` |
-| ```ks``` | 	tingiv kõneviis olevik 1. isik ainsus aktiiv jaatav kõne	      | ```(ma) loeks``` |
-| ```ks``` | 	tingiv kõneviis olevik 2. isik mitmus aktiiv jaatav kõne	      | ```(te) loeks``` |
-| ```ks``` | 	tingiv kõneviis olevik 2. isik ainsus aktiiv jaatav kõne	      | ```(sa) loeks``` |
-| ```ks``` | 	tingiv kõneviis olevik 3. isik mitmus aktiiv jaatav kõne	      | ```(nad) loeks``` |
-| ```ks``` | 	tingiv kõneviis olevik 3. isik ainsus aktiiv jaatav kõne	      | ```(ta) loeks``` |
-| ```ksid``` | 	tingiv kõneviis olevik 2. isik ainsus aktiiv jaatav kõne	      | ```(sa) loeksid``` |
-| ```ksid``` | 	tingiv kõneviis olevik 3. isik mitmus aktiiv jaatav kõne	      | ```(nad) loeksid``` |
-| ```ksime``` | 	tingiv kõneviis olevik 1. isik mitmus aktiiv jaatav kõne	      | ```(me) loeksime``` |
-| ```ksin``` | 	tingiv kõneviis olevik 1. isik ainsus aktiiv jaatav kõne	      | ```(ma) loeksin``` |
-| ```ksite``` | 	tingiv kõneviis olevik 2. isik mitmus aktiiv jaatav kõne	      | ```(te) loeksite``` |
-| ```ma``` | 	supiin aktiiv jaatav kõne sisseütlev	                          | ```lugema``` |
-| ```maks``` | 	supiin aktiiv jaatav kõne saav	                                | ```lugemaks``` |
-| ```mas``` | 	supiin aktiiv jaatav kõne seesütlev	                           | ```lugemas``` |
-| ```mast``` | 	supiin aktiiv jaatav kõne seestütlev	                          | ```lugemast``` |
-| ```mata``` | 	supiin aktiiv jaatav kõne ilmaütlev	                           | ```lugemata``` |
-| ```me``` | 	kindel kõneviis olevik 1. isik mitmus aktiiv jaatav kõne	      | ```loeme``` |
-| ```n``` | 	kindel kõneviis olevik 1. isik ainsus aktiiv jaatav kõne	      | ```loen``` |
-| ```neg``` | 	eitav kõne	                                                    | ```ei``` |
-| ```neg ge``` | 	käskiv kõneviis olevik 2. isik mitmus aktiiv eitav kõne	       | ```ärge``` |
-| ```neg gem``` | 	käskiv kõneviis olevik 1. isik mitmus aktiiv eitav kõne	       | ```ärgem``` |
-| ```neg gu``` | 	käskiv kõneviis olevik 3. isik mitmus aktiiv eitav kõne	       | ```(nad) ärgu``` |
-| ```neg gu``` | 	käskiv kõneviis olevik 3. isik ainsus aktiiv eitav kõne	       | ```(ta) ärguv``` |
-| ```neg gu``` | 	käskiv kõneviis olevik passiiv eitav kõne	                     | ```ärgu``` |
-| ```neg ks``` | 	tingiv kõneviis olevik 1. isik mitmus aktiiv eitav kõne	       | ```(me) poleks``` |
-| ```neg ks``` | 	tingiv kõneviis olevik 1. isik ainsus aktiiv eitav kõne	       | ```(ma) poleks``` |
-| ```neg ks``` | 	tingiv kõneviis olevik 2. isik mitmus aktiiv eitav kõne	       | ```(te) poleks``` |
-| ```neg ks``` | 	tingiv kõneviis olevik 2. isik ainsus aktiiv eitav kõne	       | ```(sa) poleks``` |
-| ```neg ks``` | 	tingiv kõneviis olevik 3. isik mitmus aktiiv eitav kõne	       | ```(nad) poleks``` |
-| ```neg ks``` | 	tingiv kõneviis olevik 3. isik ainsus aktiiv eitav kõne	       | ```(ta) poleks``` |
-| ```neg me``` | 	käskiv kõneviis olevik 1. isik mitmus aktiiv eitav kõne	       | ```ärme``` |
-| ```neg nud``` | 	kindel kõneviis lihtminevik 1. isik mitmus aktiiv eitav kõne	  | ```(me) polnud``` |
-| ```neg nud``` | 	kindel kõneviis lihtminevik 1. isik ainsus aktiiv eitav kõne	  | ```(ma) polnud``` |
-| ```neg nud``` | 	kindel kõneviis lihtminevik 2. isik mitmus aktiiv eitav kõne	  | ```(te) polnud``` |
-| ```neg nud``` | 	kindel kõneviis lihtminevik 2. isik ainsus aktiiv eitav kõne	  | ```(sa) polnud``` |
-| ```neg nud``` | 	kindel kõneviis lihtminevik 3. isik mitmus aktiiv eitav kõne	  | ```(nad) polnud``` |
-| ```neg nud``` | 	kindel kõneviis lihtminevik 3. isik ainsus aktiiv eitav kõne	  | ```(ta) polnud``` |
-| ```neg nuks``` | 	tingiv kõneviis minevik 1. isik mitmus aktiiv eitav kõne	      | ```(me) polnuks``` |
-| ```neg nuks``` | 	tingiv kõneviis minevik 1. isik ainsus aktiiv eitav kõne	      | ```(ma) polnuks``` |
-| ```neg nuks``` | 	tingiv kõneviis minevik 2. isik mitmus aktiiv eitav kõne	      | ```(te) polnuks``` |
-| ```neg nuks``` | 	tingiv kõneviis minevik 2. isik ainsus aktiiv eitav kõne	      | ```(sa) polnuks``` |
-| ```neg nuks``` | 	tingiv kõneviis minevik 3. isik mitmus aktiiv eitav kõne	      | ```(nad) polnuks``` |
-| ```neg nuks``` | 	tingiv kõneviis minevik 3. isik ainsus aktiiv eitav kõne	      | ```(ta) polnuks``` |
-| ```neg o``` | 	käskiv kõneviis olevik 2. isik ainsus aktiiv eitav kõne        | ```	ära``` |
-| ```neg o``` | 	kindel kõneviis olevik 1. isik mitmus aktiiv eitav kõne	       | ```(me) pole``` |
-| ```neg o``` | 	kindel kõneviis olevik 1. isik ainsus aktiiv eitav kõne	       | ```(ma) pole``` |
-| ```neg o``` | 	kindel kõneviis olevik 2. isik mitmus aktiiv eitav kõne	       | ```(te) pole``` |
-| ```neg o``` | 	kindel kõneviis olevik 2. isik ainsus aktiiv eitav kõne	       | ```(sa) pole``` |
-| ```neg o``` | 	kindel kõneviis olevik 3. isik mitmus aktiiv eitav kõne	       | ```(nad) pole``` |
-| ```neg o``` | 	kindel kõneviis olevik 3. isik ainsus aktiiv eitav kõne	       | ```(ta) pole``` |
-| ```neg vat``` | 	kaudne kõneviis olevik 1. isik mitmus aktiiv eitav kõne	       | ```(me) polevat``` |
-| ```neg vat``` | 	kaudne kõneviis olevik 1. isik ainsus aktiiv eitav kõne	       | ```(ma) polevat``` |
-| ```neg tud``` | 	kesksõna minevik passiiv eitav kõne	                           | ```poldud``` |
-| ```neg vat``` | 	kaudne kõneviis olevik 2. isik mitmus aktiiv eitav kõne	       | ```(te) polevat``` |
-| ```neg vat``` | 	kaudne kõneviis olevik 2. isik ainsus aktiiv eitav kõne	       | ```(sa) polevat``` |
-| ```neg vat``` | 	kaudne kõneviis olevik 3. isik mitmus aktiiv eitav kõne	       | ```(nad) polevat``` |
-| ```neg vat``` | 	kaudne kõneviis olevik 3. isik ainsus aktiiv eitav kõne	       | ```(ta) polevat``` |
-| ```nud``` | 	kesksõna minevik aktiiv jaatav kõne	                           | ```lugenud``` |
-| ```nuks``` | 	tingiv kõneviis minevik 1. isik mitmus aktiiv jaatav kõne	     | ```(me) lugenuks``` |
-| ```nuks``` | 	tingiv kõneviis minevik 1. isik ainsus aktiiv jaatav kõne	     | ```(ma) lugenuks``` |
-| ```nuks``` | 	tingiv kõneviis minevik 2. isik mitmus aktiiv jaatav kõne	     | ```(te) lugenuks``` |
-| ```nuks``` | 	tingiv kõneviis minevik 2. isik ainsus aktiiv jaatav kõne	     | ```(sa) lugenuks``` |
-| ```nuks``` | 	tingiv kõneviis minevik 3. isik mitmus aktiiv jaatav kõne	     | ```(nad) lugenuks``` |
-| ```nuks``` | 	tingiv kõneviis minevik 3. isik ainsus aktiiv jaatav kõne	     | ```(ta) lugenuks``` |
-| ```nuksid``` | 	tingiv kõneviis minevik 2. isik ainsus aktiiv jaatav kõne	     | ```(sa) lugenuksid``` |
-| ```nuksid``` | 	tingiv kõneviis minevik 3. isik mitmus aktiiv jaatav kõne	     | ```(nad) lugenuksid``` |
-| ```nuksime``` | 	tingiv kõneviis minevik 1. isik mitmus aktiiv jaatav kõne	     | ```lugenuksime``` |
-| ```nuksin``` | 	tingiv kõneviis minevik 1. isik ainsus aktiiv jaatav kõne	     | ```lugenuksin``` |
-| ```nuksite``` | 	tingiv kõneviis minevik 2. isik mitmus aktiiv jaatav kõne	     | ```lugenuksite``` |
-| ```nuvat``` | 	kaudne kõneviis minevik 1. isik mitmus aktiiv jaatav kõne	     | ```(me) lugenuvat``` |
-| ```nuvat``` | 	kaudne kõneviis minevik 1. isik ainsus aktiiv jaatav kõne	     | ```(ma) lugenuvat``` |
-| ```nuvat``` | 	kaudne kõneviis minevik 2. isik mitmus aktiiv jaatav kõne	     | ```(te) lugenuvat``` |
-| ```nuvat``` | 	kaudne kõneviis minevik 2. isik ainsus aktiiv jaatav kõne	     | ```(sa) lugenuvat``` |
-| ```nuvat``` | 	kaudne kõneviis minevik 3. isik mitmus aktiiv jaatav kõne	     | ```(nad) lugenuvat``` |
-| ```nuvat``` | 	kaudne kõneviis minevik 3. isik ainsus aktiiv jaatav kõne	     | ```(ta) lugenuvat``` |
-| ```o``` | 	käskiv kõneviis olevik 2. isik ainsus aktiiv jaatav kõne	      | ```loe``` |
-| ```s``` | 	kindel kõneviis lihtminevik 3. isik ainsus aktiiv jaatav kõne	 | ```luges``` |
-| ```sid``` | 	kindel kõneviis lihtminevik 2. isik ainsus aktiiv jaatav kõne	 | ```(sa) lugesid``` |
-| ```sid``` | 	kindel kõneviis lihtminevik 3. isik mitmus aktiiv jaatav kõne	 | ```(nad) lugesid``` |
-| ```sime``` | 	kindel kõneviis lihtminevik 1. isik mitmus aktiiv jaatav kõne	 | ```lugesime``` |
-| ```sin``` | 	kindel kõneviis lihtminevik 1. isik ainsus aktiiv jaatav kõne	 | ```lugesin``` |
-| ```site``` | 	kindel kõneviis lihtminevik 2. isik mitmus aktiiv jaatav kõne	 | ```lugesite``` |
-| ```ta``` | 	kindel kõneviis olevik passiiv eitav kõne	                     | ```loeta``` |
-| ```tagu``` | 	käskiv kõneviis olevik passiiv jaatav kõne	                    | ```loetagu``` |
-| ```taks``` | 	tingiv kõneviis olevik passiiv jaatav kõne	                    | ```loetaks``` |
-| ```takse``` | 	kindel kõneviis olevik passiiv jaatav kõne	                    | ```loetakse``` |
-| ```tama``` | 	supiin passiiv jaatav kõne	                                    | ```loetama``` |
-| ```tav``` | 	kesksõna olevik passiiv jaatav kõne	                           | ```loetav``` |
-| ```tavat``` | 	kaudne kõneviis olevik passiiv jaatav kõne	                    | ```loetavat``` |
-| ```te``` | 	kindel kõneviis olevik 2. isik mitmus aktiiv jaatav kõne	      | ```loete``` |
-| ```tud``` | 	kesksõna minevik passiiv jaatav kõne	                          | ```loetud``` |
-| ```tuks``` | 	tingiv kõneviis minevik passiiv jaatav kõne	                   | ```loetuks``` |
-| ```tuvat``` | 	kaudne kõneviis minevik passiiv jaatav kõne	                   | ```loetuvat``` |
-| ```v``` | 	kesksõna olevik aktiiv jaatav kõne	 | ```lugev``` |                       
-| ```vad``` | 	kindel kõneviis olevik 3. isik mitmus aktiiv jaatav kõne	      | ```loevad``` |
-| ```vat``` | 	kaudne kõneviis olevik 1. isik mitmus aktiiv jaatav kõne	      | ```(me) lugevat``` |
-| ```vat``` | 	kaudne kõneviis olevik 1. isik ainsus aktiiv jaatav kõne	      | ```(ma) lugevat``` |
-| ```vat``` | 	kaudne kõneviis olevik 2. isik mitmus aktiiv jaatav kõne	      | ```(te) lugevat``` |
-| ```vat``` | 	kaudne kõneviis olevik 2. isik ainsus aktiiv jaatav kõne	      | ```(sa) lugevat``` |
-| ```vat``` | 	kaudne kõneviis olevik 3. isik mitmus aktiiv jaatav kõne	      | ```(nad) lugevat``` |
-| ```vat``` | 	kaudne kõneviis olevik 3. isik ainsus aktiiv jaatav kõne	      | ```(ta) lugevat``` |
+|tag | categories |  example  |
+|---|---|---|
+|b | indicative mood, present, 3rd person singular, personal voice, positive aspect| loeb  |
+|d | indicative mood, present, 2nd person singular, personal voice, positive aspect| loed  |
+|da | infinitive, positive aspect| lugeda  |
+|des | gerund, positive aspect| lugedes  |
+|ge | imperative mood, present, 2nd person plural, personal voice, positive aspect| lugege  |
+|gem | imperative mood, present, 1st person plural, personal voice, positive aspect| lugegem  |
+|gu | imperative mood, present, 3rd person plural, personal voice, positive aspect| (nad) lugegu  |
+|gu | imperative mood, present, 3rd person singular, personal voice, positive aspect| (ta) lugegu  |
+|ks | conditional mood, present, 1st person plural, personal voice, positive aspect| (me) loeks  |
+|ks | conditional mood, present, 1st person singular, personal voice, positive aspect| (ma) loeks  |
+|ks | conditional mood, present, 2nd person plural, personal voice, positive aspect| (te) loeks  |
+|ks | conditional mood, present, 2nd person singular, personal voice, positive aspect| (sa) loeks  |
+|ks | conditional mood, present, 3rd person plural, personal voice, positive aspect| (nad) loeks  |
+|ks | conditional mood, present, 3rd person singular, personal voice, positive aspect| (ta) loeks  |
+|ksid | conditional mood, present, 2nd person singular, personal voice, positive aspect| (sa) loeksid  |
+|ksid | conditional mood, present, 3rd person plural, personal voice, positive aspect| (nad) loeksid  |
+|ksime | conditional mood, present, 1st person plural, personal voice, positive aspect| (me) loeksime  |
+|ksin | conditional mood, present, 1st person singular, personal voice, positive aspect| (ma) loeksin  |
+|ksite | conditional mood, present, 2nd person plural, personal voice, positive aspect| (te) loeksite  |
+|ma | supine, personal voice, positive aspect, illative| lugema  |
+|maks | supine, personal voice, positive aspect, translative| lugemaks  |
+|mas | supine, personal voice, positive aspect, inessive| lugemas  |
+|mast | supine, personal voice, positive aspect, elative| lugemast  |
+|mata | supine, personal voice, positive aspect, abessive| lugemata  |
+|me | indicative mood, present, 1st person plural, personal voice, positive aspect| loeme  |
+|n | indicative mood, present, 1st person singular, personal voice, positive aspect| loen  |
+|neg | negative aspect| ei  |
+|neg ge | imperative mood, present, 2nd person plural, personal voice, negative aspect| ärge  |
+|neg gem | imperative mood, present, 1st person plural, personal voice, negative aspect| ärgem  |
+|neg gu | imperative mood, present, 3rd person plural, personal voice, negative aspect| (nad) ärgu  |
+|neg gu | imperative mood, present, 3rd person singular, personal voice, negative aspect| (ta) ärgu  |
+|neg gu | imperative mood, present, impersonal voice, negative aspect| ärgu  |
+|neg ks | conditional mood, present, 1st person plural, personal voice, negative aspect| (me) poleks  |
+|neg ks | conditional mood, present, 1st person singular, personal voice, negative aspect| (ma) poleks  |
+|neg ks | conditional mood, present, 2nd person plural, personal voice, negative aspect| (te) poleks  |
+|neg ks | conditional mood, present, 2nd person singular, personal voice, negative aspect| (sa) poleks  |
+|neg ks | conditional mood, present, 3rd person plural, personal voice, negative aspect| (nad) poleks  |
+|neg ks | conditional mood, present, 3rd person singular, personal voice, negative aspect| (ta) poleks  |
+|neg me | imperative mood, present, 1st person plural, personal voice, negative aspect| ärme  |
+|neg nud | indicative mood, past, 1st person plural, personal voice, negative aspect| (me) polnud  |
+|neg nud | indicative mood, past, 1st person singular, personal voice, negative aspect| (ma) polnud  |
+|neg nud | indicative mood, past, 2nd person plural, personal voice, negative aspect| (te) polnud  |
+|neg nud | indicative mood, past, 2nd person singular, personal voice, negative aspect| (sa) polnud  |
+|neg nud | indicative mood, past, 3rd person plural, personal voice, negative aspect| (nad) polnud  |
+|neg nud | indicative mood, past, 3rd person singular, personal voice, negative aspect| (ta) polnud  |
+|neg nuks | conditional mood, past, 1st person plural, personal voice, negative aspect| (me) polnuks  |
+|neg nuks | conditional mood, past, 1st person singular, personal voice, negative aspect| (ma) polnuks  |
+|neg nuks | conditional mood, past, 2nd person plural, personal voice, negative aspect| (te) polnuks  |
+|neg nuks | conditional mood, past, 2nd person singular, personal voice, negative aspect| (sa) polnuks  |
+|neg nuks | conditional mood, past, 3rd person plural, personal voice, negative aspect| (nad) polnuks  |
+|neg nuks | conditional mood, past, 3rd person singular, personal voice, negative aspect| (ta) polnuks  |
+|neg o | imperative mood, present, 2nd person singular, personal voice, negative aspect| ära  |
+|neg o | indicative mood, present, 1st person plural, personal voice, negative aspect| (me) pole  |
+|neg o | indicative mood, present, 1st person singular, personal voice, negative aspect| (ma) pole  |
+|neg o | indicative mood, present, 2nd person plural, personal voice, negative aspect| (te) pole  |
+|neg o | indicative mood, present, 2nd person singular, personal voice, negative aspect| (sa) pole  |
+|neg o | indicative mood, present, 3rd person plural, personal voice, negative aspect| (nad) pole  |
+|neg o | indicative mood, present, 3rd person singular, personal voice, negative aspect| (ta) pole  |
+|neg vat | quotative mood, present, 1st person plural, personal voice, negative aspect| (me) polevat  |
+|neg vat | quotative mood, present, 1st person singular, personal voice, negative aspect| (ma) polevat  |
+|neg tud | participle, past, impersonal voice, negative aspect| poldud  |
+|neg vat | quotative mood, present, 2nd person plural, personal voice, negative aspect| (te) polevat  |
+|neg vat | quotative mood, present, 2nd person singular, personal voice, negative aspect| (sa) polevat  |
+|neg vat | quotative mood, present, 3rd person plural, personal voice, negative aspect| (nad) polevat  |
+|neg vat | quotative mood, present, 3rd person singular, personal voice, negative aspect| (ta) polevat  |
+|nud | participle, past, personal voice, positive aspect| lugenud  |
+|nuks | conditional mood, past, 1st person plural, personal voice, positive aspect| (me) lugenuks  |
+|nuks | conditional mood, past, 1st person singular, personal voice, positive aspect| (ma) lugenuks  |
+|nuks | conditional mood, past, 2nd person plural, personal voice, positive aspect| (te) lugenuks  |
+|nuks | conditional mood, past, 2nd person singular, personal voice, positive aspect| (sa) lugenuks  |
+|nuks | conditional mood, past, 3rd person plural, personal voice, positive aspect| (nad) lugenuks  |
+|nuks | conditional mood, past, 3rd person singular, personal voice, positive aspect| (ta) lugenuks  |
+|nuksid | conditional mood, past, 2nd person singular, personal voice, positive aspect| (sa) lugenuksid  |
+|nuksid | conditional mood, past, 3rd person plural, personal voice, positive aspect| (nad) lugenuksid  |
+|nuksime | conditional mood, past, 1st person plural, personal voice, positive aspect| lugenuksime  |
+|nuksin | conditional mood, past, 1st person singular, personal voice, positive aspect| lugenuksin  |
+|nuksite | conditional mood, past, 2nd person plural, personal voice, positive aspect| lugenuksite  |
+|nuvat | quotative mood, past, 1st person plural, personal voice, positive aspect| (me) lugenuvat  |
+|nuvat | quotative mood, past, 1st person singular, personal voice, positive aspect| (ma) lugenuvat  |
+|nuvat | quotative mood, past, 2nd person plural, personal voice, positive aspect| (te) lugenuvat  |
+|nuvat | quotative mood, past, 2nd person singular, personal voice, positive aspect| (sa) lugenuvat  |
+|nuvat | quotative mood, past, 3rd person plural, personal voice, positive aspect| (nad) lugenuvat  |
+|nuvat | quotative mood, past, 3rd person singular, personal voice, positive aspect| (ta) lugenuvat  |
+|o | imperative mood, present, 2nd person singular, personal voice, positive aspect| loe  |
+|s | indicative mood, past, 3rd person singular, personal voice, positive aspect| luges  |
+|sid | indicative mood, past, 2nd person singular, personal voice, positive aspect| (sa) lugesid  |
+|sid | indicative mood, past, 3rd person plural, personal voice, positive aspect| (nad) lugesid  |
+|sime | indicative mood, past, 1st person plural, personal voice, positive aspect|lugesime  |
+|sin | indicative mood, past, 1st person singular, personal voice, positive aspect| lugesin  |
+|site | indicative mood, past, 2nd person plural, personal voice, positive aspect| lugesite  |
+|ta | indicative mood, present, impersonal voice, negative aspect| loeta  |
+|tagu | imperative mood, present, impersonal voice, positive aspect| loetagu  |
+|taks | conditional mood, present, impersonal voice, positive aspect| loetaks  |
+|takse | indicative mood, present, impersonal voice, positive aspect| loetakse  |
+|tama | supine, impersonal voice, positive aspect| loetama  |
+|tav | participle, present, impersonal voice, positive aspect| loetav  |
+|tavat | quotative mood, present, impersonal voice, positive aspect| loetavat  |
+|te | indicative mood, present, 2nd person plural, personal voice, positive aspect| loete  |
+|ti | indicative mood, past, impersonal voice, positive aspect| loeti  |
+|tud | participle, past, impersonal voice, positive aspect| loetud  |
+|tuks | conditional mood, past, impersonal voice, positive aspect| loetuks  |
+|tuvat | quotative mood, past, impersonal voice, positive aspect| loetuvat  |
+|v | participle, present, personal voice, positive aspect| lugev  |
+|vad | indicative mood, present, 3rd person plural, personal voice, positive aspect| loevad  |
+|vat | quotative mood, present, 1st person plural, personal voice, positive aspect| (me) lugevat  |
+|vat | quotative mood, present, 1st person singular, personal voice, positive aspect| (ma) lugevat  |
+|vat | quotative mood, present, 2nd person plural, personal voice, positive aspect| (te) lugevat  |
+|vat | quotative mood, present, 2nd person singular, personal voice, positive aspect| (sa) lugevat  |
+|vat | quotative mood, present, 3rd person plural, personal voice, positive aspect| (nad) lugevat  |
+|vat | quotative mood, present, 3rd person singular, personal voice, positive aspect| (ta) lugevat  |
 
-## Hääldusmärgid
-* ```<``` silp on kolmandas vältes; asetseb vahetult silbi tuuma moodustava täishääliku ees
-* ```?``` silp on rõhuline; asetseb vahetult silbi tuuma moodustava täishääliku ees (silbi rõhulisust märgitakse ainult sellisel juhul, kui rõhuline silp on midagi muud kui võiks ennustada, ja ennustamine käib järgmiselt: kui sõnas on kolmandas vältes silp, siis rõhk on sellel; muidu, kui sõnas on pika täishääliku või täishäälikuühendiga silp, siis rõhk on sellel; muidu on rõhk esimesel silbil)
-* ```]``` eelmine häälik on palataliseeritud
-* ```~``` n ja k ühendis hääldatakse n ja k selgelt eraldi, mitte ei sulandu kokku; kasutuses ainult sõnades soonkond ja tosinkond
+## Pronunciation 
+
+  * `<` 3rd grade syllable; it is situated before the vowel 
+  * `?` stressed syllable; it is situated before the vowel (a stressed syllable is marked only if it is non-predictable; and predicting goes in the following way: if a word has a 3rd grade syllable, then this is the stressed one; otherwise, if a word has a syllable with a long vowel or diphtong, then this is the stressed on; otherwise, the first syllable is the stressed one) 
+  * `]` follows a palatilised consonant
+  * `~` in *nk* cluster between n and k if they are pronounced clearly separatly; happens only in *soonkond* and *tosinkond*
+
