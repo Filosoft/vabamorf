@@ -171,12 +171,12 @@ on see alati mitmuse nimetav
 
 Näiteks:
 ```
-lisa:0094|t?os]in~k<ond t?os]in~k<onda t?os]in~konna!\S\.22^I^+7! <br />
-lisa:0093|polü_kr<oomne polü_kr<oomse!\A\.2+9! <br />
-tesv:0902|üles=luge[MA üles=l<oe[B!\V\.28! <br />
-vvs:0093|mäda (m<ätta)!\SA\.17! <br />
-vvs:0093|(omas) #omakse[D#!\S\.9.PL+9! <br />
-vvs:0093|mamel<ukk mamel<ukki #mamel?uki[D#!\S\.22^E^+7! <br />
+lisa:0094|t?os]in~k<ond t?os]in~k<onda t?os]in~konna!\S\.22^I^+7!
+lisa:0093|polü_kr<oomne polü_kr<oomse!\A\.2+9!
+tesv:0902|üles=luge[MA üles=l<oe[B!\V\.28!
+vvs:0093|mäda (m<ätta)!\SA\.17!
+vvs:0093|(omas) #omakse[D#!\S\.9.PL+9!
+vvs:0093|mamel<ukk mamel<ukki #mamel?uki[D#!\S\.22^E^+7!
 vvs:0093|alkoholine alkoholise alkoholis[T!\A\.10+9!&&(!\A\.12^I^+7!)
 ```
 
@@ -350,7 +350,7 @@ suf:0093|FS+d-i=1@iti!\D\!                                      -- laiuskraadi+d
 Ülivõrde moodustamise reeglid:
 ```
 suf:0093|FA+is-0=0@im FA+is-0=0@ima!\U\.2+9!                 -- hõlpsa+is --> hõlpsa=im
-suf:0093|FA+es-ik=3@ikem FA+es-ik=3@ikema!\U\.2+9!</code>    -- äbarik+es --> äbarike=m
+suf:0093|FA+es-ik=3@ikem FA+es-ik=3@ikema!\U\.2+9!           -- äbarik+es --> äbarike=m
 ```
 ## Prefiksid
 
