@@ -1,54 +1,56 @@
 ## Vabamorfi kompileerimine Windowsil
 
-Vajalik tarkvara
+### Vajalik tarkvara
 
   * MS Visual Studio 2010 
 
-Kompileerimine
+### Kompileerimine
 
   * Avage apps/cmdline/project/vc2010/cmdline.sln 
   * Käivitage kompilaator. 
 
-## Vabamorfi kompileerimine Unixil
+## Morfoloogilise analüüsi- ja sünteesiprogrammide kompileerimine Unixil
 
-Vajalik tarkvara
+#### Vajalik tarkvara
 
-  * g++ 4 
-  * gmake 
+* g++ 4 
+* gmake 
 
-Kompileerimine
+### Kompileerimine
 
-  * Navigeerige kausta apps/cmdline/project/unix 
-  * Käivitage make -f [soovitud Makefile] 
+Kataloogis ```apps/cmdline/project/unix``` käivitage käsk
+```cmdline
+make -s -j all 
+```
 
-## Sõnastiku kompileerimine Unixil
+## Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine Unixil
 
-Vajalik tarkvara
+### Vajalik tarkvara
 
-  * g++ 4 
-  * gmake 
-  * gawk 
+* g++
+* gmake 
+* gawk 
 
-Kompileerimine
+### Programmide kompileerimine ja sõnastike tegemine:
+**Kui Te ei muuda sõnastike lähtefaile pole mingit vajadust sõnastikke ise uuesti teha.**
 
-  * Navigeerige Vabamorfi juurkataloogi ja käivitage seal käsud: 
-  * JUUR=$(pwd) 
-  * cd ${JUUR}/dct/sh 
-  * chmod +x *.sh 
-  * ./nullist-uus-sonastik.sh 
-  * Analüsaatori ja Ühestaja sõnastikud valmivad kataloogi dct/binary 
+Eelnevalt valmistehtud analüsaatori sõnastiku ```et.dct``` ja ühestaja sõnastiku ```et3.dct``` leiate kataloogist ```dct/binary```.
 
-Sõnastike kohta täpsem info doc kaustas.
+Kui on vaja sõnastikud ise uuesti kokkupanna, siis käivitage kataloogis ```dct/sh``` käsud
+```cmdline 
+chmod +x *.sh 
+./nullist-uus-sonastik.sh
+```
 
-## Vabamorfi kasutamine
+Sõnastike kokkupanemise programm kirjutab GitHUBist tulnud versiooni üle.
 
-Kompileeritud programmi käivitamisel -help parameetriga kuvatakse täpne
-parameetrite kirjeldus.
+## Programmide kirjeldused koos kasutusnäidetega
 
-Programmidele vajaliku sõnastikufaili leiate dct/binary kataloogist.
-
-Analüsaatori ja Süntesaatori VC2010 projektikaustades on toodud näite-
-sisendfailid (test.json)
+* [Morfoloogilise analüüsi programm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md)
+* [Morfoloogilise ühestamise programm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md)
+* [Morfoloogilise analüüsi programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/etana/)
+* [Morfoloogilise ühestamise programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/etdisamb)
+* [Morfoloogilise sünteesi programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/)
 
 ## Näited
 
