@@ -113,7 +113,7 @@ class KOMPONENT
 
         KOMPONENT *komp_jargmine;
         KOMPONENT *komp_eelmine;
-        FSXSTRING algsona;          ///< anal-tav sõna
+        FSXSTRING algsona;          ///< analüüsitav sõna
         int nihe;                   ///< komponendi algus sõnas
         FSXSTRING k_algus;          ///< komponendi algus
         int k_pikkus;               ///< komponendi pikkus
