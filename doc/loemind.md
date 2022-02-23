@@ -1,4 +1,4 @@
-## Vabamorfi kompileerimine Windowsil
+## Vabamorfi kompileerimine Windowsis
 
 ### Vajalik tarkvara
 
@@ -9,7 +9,7 @@
   * Avage apps/cmdline/project/vc2010/cmdline.sln 
   * Käivitage kompilaator. 
 
-## Morfoloogilise analüüsi- ja sünteesiprogrammide kompileerimine Unixil
+## Morfoloogilise analüüsi- ja sünteesiprogrammide kompileerimine Linuxis
 
 #### Vajalik tarkvara
 
@@ -23,7 +23,7 @@ Kataloogis ```apps/cmdline/project/unix``` käivitage käsk
 make -s -j all 
 ```
 
-## Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine Unixil
+## Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine Linuxis
 
 ### Vajalik tarkvara
 
