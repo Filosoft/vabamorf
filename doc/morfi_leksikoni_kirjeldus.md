@@ -57,7 +57,7 @@ reeglite järgi kõnesünteesi.
 Kasutatakse sama tähistust nagu käänduvate puhul, aga lõppu on lisatud "v":
 ```vvsv```, ```tesv```, ```lisav```, ```xpv```, ```sagev```, ```nospv```
 
-#### Muutumatud sõnad:
+#### Muutumatud sõnad
 
 Kasutatakse sama tähistust nagu käänduvate puhul, aga lõppu on lisatud "m": 
 ```vvsm```, ```tesm```, ```sagem```, ```lisam```, ```nospm```
@@ -262,8 +262,8 @@ Võimalikud on järgmised variandid:
 * ```+11``` kõik semantilised käänded
 
 ```vana_lõpp>uus_lõpp[I```  näitab vokaallõpulise tüve teisendust, 
-kui mitmuse moodustamisel lisandub i-ga algav tunnus 
-(nt ``` <code>vvs:0093|arvuti!\S\.1+9!%i>e[I%```)
+kui mitmuse moodustamisel lisandub *i*-ga algav tunnus 
+(nt ``` vvs:0093|arvuti!\S\.1+9!%i>e[I%```)
 
 #### Erandid
 
@@ -271,8 +271,8 @@ Valdav hulk ehk 6/7 kirjeid ei sisalda erandeid, vaid ainult tüvesid ja morfolo
 nt.
 
 ``` 
-vvs:0093|apeks apeksi!\S\.2+9!%i>e[I% <br />
-vvs:0093|karastav karastava!\A\.2+9! <br />
+vvs:0093|apeks apeksi!\S\.2+9!%i>e[I% 
+vvs:0093|karastav karastava!\A\.2+9! 
 vvs:0093|kunagine kunagise kunagis[T!\A\.12^I^+7!
 ``` 
 
