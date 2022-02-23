@@ -52,7 +52,7 @@ Sõnastike kokkupanemise programm kirjutab GitHUBist tulnud versiooni üle.
 * [Morfoloogilise ühestamise programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/etdisamb)
 * [Morfoloogilise sünteesi programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/)
 
-## Näited
+## Näited TODO: näited programmide kirjelduste juurde!
 
 Mõned näited Vabamorfi kasutamisest
 
