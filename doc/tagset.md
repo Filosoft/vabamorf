@@ -29,20 +29,22 @@ The system of categories and their abbreviations are based on the lexicon that f
 |ab | abessive |
 |abl | ablative |
 |ad | adessive |
-|adt | aditive |
+|adt | additive |
 |all | allative |
 |el | elative |
 |es | essive |
 |g | genitive |
 |ill | illative |
 |in | inessive |
-|kom | komitative |
+|kom | comitative |
 |n | nominative |
 |p | partitive |
-|pl | pluural |
-|sg | ainsus |
+|pl | plural |
+|sg | singular |
 |ter | terminative |
 |tr | translative |
+
+Tag `?` means there is no info about inflectional category, e.g. when a word has been shortened as *munitsipaal-*, or is an accronym like *USA*
   
 ## Verb tags
 

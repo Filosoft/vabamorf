@@ -43,6 +43,8 @@ Kategooriate süsteemi ja tähistuste aluseks on leksikon, millele käesolev pro
 |sg | singular | ainsus |
 |ter | terminatiiv | rajav |
 |tr | translatiiv | saav |
+
+Küsimärk `?` tähendab, et käänamisinfo puudub, nt. lühendatud sõnal *munitsipaal-* või suurtähtlühendil *USA*
   
 ## Verbikategooriate lühendid
 

@@ -21,11 +21,11 @@ allpool.
 
 Treeningkorpuse põhjal tehakse järgmised failid:
 
-  * taglist.txt - ühestamismärgendite loend. Treeningkorpuses mittesinev ***VAHE*** on vajalik trigrammide tabelis lause alguse/lõpuga seotud märgendijärjendite tõenäosuste arvutamiseks. Fail on kujul: `märgendi-indeks märgend`
-  * margcnt.txt - ühestamismärgendi esinemiste arv. Fail on kujul: `märgend esinemisarv`
-  * 3grammid.txt - trigrammid. Fail on kujul: `märgend märgend märgend tõenäosuse-logaritm`
-  * klassid.txt Sõnest sõltumatult mitmesusklassid. Fail on kujul: `märgendite-arv-klassis märgend[1]=tõenäosuse-logaritm[1] ... märgend[märgendite-arv-klassis]=tõenäosuse-logaritm[märgendite-arv-klassis]`
-  * lex.txt - sõnest sõltuvad mitmesusklassid. Fail on kujul: `sõne [märgendite-arv-klassis] märgend[1]=tõenäosuse-logaritm[1] ... märgend[märgendite-arv-klassis]=tõenäosuse-logaritm[märgendite-arv-klassis]`
+  * taglist.txt - Ühestamismärgendite loend. Treeningkorpuses mittesinev ***VAHE*** on vajalik trigrammide tabelis lause alguse/lõpuga seotud märgendijärjendite tõenäosuste arvutamiseks. Fail on kujul: `märgendi-indeks märgend`
+  * margcnt.txt - Ühestamismärgendi esinemiste arv. Fail on kujul: `märgend esinemisarv`
+  * 3grammid.txt - Trigrammid. Fail on kujul: `märgend märgend märgend tõenäosuse-logaritm`
+  * klassid.txt - Sõnest sõltumatult mitmesusklassid. Fail on kujul: `märgendite-arv-klassis märgend[1]=tõenäosuse-logaritm[1] ... märgend[märgendite-arv-klassis]=tõenäosuse-logaritm[märgendite-arv-klassis]`
+  * lex.txt - Sõnest sõltuvad mitmesusklassid. Fail on kujul: `sõne [märgendite-arv-klassis] märgend[1]=tõenäosuse-logaritm[1] ... märgend[märgendite-arv-klassis]=tõenäosuse-logaritm[märgendite-arv-klassis]`
 
 Trigramme, sõnest sõltuvaid mitmesusklasse ning tõenäosusi arvutatakse
 sarnaselt Ingo Schröder'i Icopost'i tarkvarapaketile (vt *Ingo Schröder. 2001.
