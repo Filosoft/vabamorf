@@ -23,29 +23,34 @@ Vaikimisi otsitakse leksikoni **et3.dct** keskkonnamuutujas **PATH** loetletud k
 ## Kirjeldus <a name="kirjeldus"></a>
 * Sisend- ja väljund on utf8 kodeeringus.
 * Sisend peab olema tehtud käsuga 
-[vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md) ja
-[vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md)
-käsu lippudest võib kasutada ainult **--xml**, **--\[dont\]guesspropnames** 
+[vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md). 
+Käsu [vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md)
+lippudest võib kasutada ainult **--xml**, **--\[dont\]guesspropnames** 
 **--\[dont\]addphonetic** ja **--path** lippe. 
 * Algne morfi sisendfail lausestatud/sõnestatud ja nn **XML-kujul** (vt 
 [vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md) 
 kirjeldust):
-  * &lt; ja &gt; ainult märgendite ümber, muidu olemitena: &amp;lt; ja &amp;gt;
-  * & ainult olemi alguses, muidu olemina &amp;amp;
+  * **<** ja **>** ainult märgendite ümber, muidu olemitena: **&amp;lt;** ja **&amp;gt;**
+  * **&** ainult olemi alguses, muidu olemina **&amp;amp;**
   
-Morf ühestatakse ainult &lt;s&gt; ja &lt;/s&gt; märgendite vahel olevaid analüüse, 
-mis ei ole &lt;ignoreeri&gt; ja &lt;/ignoreeri&gt; märgendite vahel.
-Märgendi alustav &lt; ja lõpetav &gt; peavad olema samal real.
+Morf ühestatakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** märgendite vahel olevaid analüüse, 
+mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel.
+Märgendi alustav **&lt;** ja lõpetav **&gt;** peavad olema samal real.
 
 Kui sisend- ja väljundfaili nime pole antud, loetakse std-sisendit ja tulemus läheb std-väljundisse
+
 Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
+
 Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
+
 Ühestamiseks sobib tundmatute sõnede oletamisega XML sisend
 
 ## Näited
+### Näide 1 (vaikelippudega)
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta | vmyhh
-
+```
+```
 <s>
 Mees    mees+0 //_S_ sg n, //
 <tag>p</tag>eeti    pida+ti //_V_ ti, //
@@ -53,9 +58,11 @@ kinni    kinni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
-
+### Näide 2 (väljundis hääldusmärgid)
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --addphonetics | vmyhh
+```
+```
 <s>
 Mees    m<ees+0 //_S_ sg n, //
 <tag>p</tag>eeti    pida+ti //_V_ ti, //
@@ -63,9 +70,11 @@ kinni    k<in]ni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
-
+### Näide 3 (väljundis GT-kujul märgendid)
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta | vmyhh --gt
+```
+```
 <s>
 Mees    mees+0 //_S_ Sg Nom, //
 <tag>p</tag>eeti    pida+ti //_V_ Impers Prt Ind Aff, //
