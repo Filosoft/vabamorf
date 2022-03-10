@@ -18,7 +18,7 @@ void VMYHH::Start(int argc, char **argv, char** envp, const char*)
 syntaks:           
             fprintf(stderr, 
                     "%s [LIPUD...] [sisendfail väljundfail]\n"
-                    "Täpsemalt vt https://docs.google.com/document/d/1hGbHP59EGxuypkNhzIdCK5c2-AsgsYSEVIuVIVTteHk/edit?usp=sharing\n",
+                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md\n",
                     argv[0]);
             exit(EXIT_FAILURE);
         }

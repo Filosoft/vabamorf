@@ -46,7 +46,7 @@ public:
     syntaks:           
                 fprintf(stderr, 
                         "%s [LIPUD...] [sisendfail väljundfail]\n"
-                        "Täpsemalt vt https://docs.google.com/document/d/1tuS4ETm9ynQBUlDztvyVZN1dTtl_h8gXmbm-tYXGSYY/edit?usp=sharing\n",
+                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md\n",
                         argv[0]);
                 exit(EXIT_FAILURE);
             }        
@@ -200,13 +200,13 @@ public:
 private:
     enum LIPPMARGENDISYSTEEM    //
     {
-        lipp_gt,                //    --gt
+        lipp_gt,                // --gt
         lipp_fs,                // (vaikimisi) -f --fs
         lipp_hmm,               // -m --hmm markov
     } lipp_ms;
     
-    bool lipp_oleta_pn;         //    --guesspropnames/--dontguesspropnames
-    bool lipp_xml;				// -x --xml/--plaintext
+    bool lipp_oleta_pn;         // --guesspropnames/--dontguesspropnames
+    bool lipp_xml;		// -x --xml/--plaintext
     bool lipp_haaldus;          // -p --phonetics/--nophonetics
     bool lipp_oleta;            // -q --guess/--dontguess
 
