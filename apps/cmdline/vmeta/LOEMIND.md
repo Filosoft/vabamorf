@@ -42,14 +42,16 @@ läheb std-väljundisse.
 * Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
 * Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
 * XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
-  * &lt; ja &gt; esineb ainult märgendite ümber, muidu olemitena: &amp;lt; ja &amp;gt;
-  * &amp; esineb ainult olemite (&amp;amp; &amp;lt; &amp;gt;) alguses, muidu olemina &amp;amp;
+  * **&lt;** ja **&gt;** esineb ainult märgendite ümber, muidu olemitena: **&amp;lt;** ja **&amp;gt;**
+  * **&amp;** esineb ainult olemite (**&amp;amp; &amp;lt; &amp;gt;**) alguses, muidu olemina **&amp;amp;**
   * Morf analüüsitakse ainult ;**&lt;s&gt;** ja **&lt;/s&gt** märgendite vahel olevat teksti,
   mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel.
   * Muid märgendeid (sh sõnaga kokkukleepunud märgendeid ignoreeritakse).
   * Märgendid **&lt;s&gt;**, **&lt;/s&gt;**, **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** ei tohi olla 
   tekstisõnede ja teiste märgenditega kokkukleepunud.
-
+* **-t** või **--plaintext** lipu korral analüüsitakse (tühikute/reavahetustega eraldatud) üksiksõnu. Sõnaga 
+kokkukleepunud punktuatsioon (sulud, kirjavahmärgid jms) eemaldakse enne analüüsimist. XML märgenditele antakse
+(oletajaga) morfoloogiline analüüs.
 
 * Ühestamiseks ([vmyhh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md)) 
 kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
@@ -61,7 +63,7 @@ sõnade oletamisega morfist (vmeta) ja ühestajast (vmyhh) läbi.
 Soovi korral (**[--addphonetics](#lipp_haaldusmargid)** lipp) lisatakse tulemusse hääldusmärgid. 
 XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga morfist läbi lasta, 
 nõnda, et metainfo ei hakkaks morf analüüsimist-ühestamist segama.
-Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-märgendid (**[--gt](#lipp_margendisusteem)**), kuna ühestaja eeldab neid. 
+Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-märgendid (**[--fs](#lipp_margendisusteem)**), kuna ühestaja eeldab neid. 
 * **Morfoloogilisest analüüsist ilma ühestamiseta piisab.**
   * **Analüüsime XML-kuju oletamisega/oletamiseta hääldusmärkidega/hääldusmärkideta FS-märgendisüsteemiga/GT-märgendisüsteemiga.**
   XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga (XML-märgenditega) morfist 
