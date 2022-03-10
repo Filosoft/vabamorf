@@ -77,7 +77,8 @@ Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-
 Väljund sobib ühestaja [vmyhh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md) sisendiks.
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta
-
+```
+```
 <s>
 Mees    Mee+s //_H_ sg in, //    Mees+0 //_H_ sg n, //    Mesi+s //_H_ sg in, //    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
 <tag>p</tag>eeti    peet+0 //_S_ adt, //    pida+ti //_V_ ti, //    peet+0 //_S_ sg p, //
@@ -89,7 +90,8 @@ kinni    kinni+0 //_D_ //
 
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --plaintext
-
+```
+```
 <s>    s+0 //_Y_ ?, //
 Mees    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
 <tag>p</tag>eeti    tag>p</tag>eet+0 //_S_ adt, //    tag>p</tag>eet+0 //_S_ sg g, //    tag>p</tag>eet+0 //_S_ sg p, //
@@ -102,7 +104,8 @@ kinni    kinni+0 //_D_ //
 
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --plaintext --dontguess
-
+```
+```
 <s>    s+0 //_Y_ ?, //
 Mees    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
 <tag>p</tag>eeti    ####
@@ -117,7 +120,8 @@ Ei sobi ühestaja sisendiks.
 
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --gt
-
+```
+```
 <s>
 Mees    Mee+s //_H_ Sg Ine, //    Mees+0 //_H_ Sg Nom, //    Mesi+s //_H_ Sg Ine, //    mees+0 //_S_ Sg Nom, //    mesi+s //_S_ Sg Ine, //
 <tag>p</tag>eeti    peet+0 //_S_ Sg Ill, //    pida+ti //_V_ Impers Prt Ind Aff, //    peet+0 //_S_ Sg Par, //
@@ -130,7 +134,8 @@ kinni    kinni+0 //_D_ //
 Väljund sobib ühestaja (vmyhh) sisendiks. See, et väljundis on lisaks hääldusmärgid, ei sega ühestajat.
 ```commandline
 echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --addphonetics
-
+```
+```
 <s>
 Mees    M<ees+0 //_H_ sg n, //    Mee+s //_H_ sg in, //    Mees+0 //_H_ sg n, //    Mes]i+s //_H_ sg in, //    m<ees+0 //_S_ sg n, //    mes]i+s //_S_ sg in, //
 <tag>p</tag>eeti    p<eet]+0 //_S_ adt, //    pida+ti //_V_ ti, //    p<eet]+0 //_S_ sg p, //
