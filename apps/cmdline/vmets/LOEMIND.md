@@ -71,7 +71,7 @@ palk (palku) //\_*\_ pl p, //
 
 siis väljundiks on
 
-_palk (palku) //\_*\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palk+e //\_S\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palk+u //\_S\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palka+sid //\_S\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palki+sid //\_S\_ pl p, //_
+palk+e //\_S\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palk+u //\_S\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palka+sid //\_S\_ pl p, //&nbsp;&nbsp;&nbsp;&nbsp;palki+sid //\_S\_ pl p, //_
 
 sest _palku_ analüüsitakse kui _palk+u_ ja tüvi _palk_ ei võimalda valida, millist paradigmat soovitakse.
 
