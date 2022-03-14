@@ -1,7 +1,7 @@
 ## vmets <a name="algus"></a>
 Eesti kirjakeele morfoloogilise sünteesi programm. 
 
-Sisendis ja väljundis on morfoloogiline info nn [FS-kujul](https://filosoft.ee/html_morf_et/morfoutinfo.html)
+Sisendis ja väljundis kasutatakse morfoloogilise info nn [FS-kujul](https://filosoft.ee/html_morf_et/morfoutinfo.html)
 
 ## Käsurida
 vmets \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
