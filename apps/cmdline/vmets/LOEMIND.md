@@ -30,6 +30,8 @@ läheb std-väljundisse.
 ### Sisendi formaat
 [LEMMA](#LEMMA) //\_[SÕNALIIK](#SÕNALIIK)\_ [VORM](#VORM), //
 
+või
+
 [LEMMA](#LEMMA) \([NÄIDIS](#NÄIDIS)\) //\_[SÕNALIIK](#SÕNALIIK)\_ [VORM](#VORM), //
 
 #### LEMMA <a name="LEMMA"></a>
