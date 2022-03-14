@@ -27,7 +27,7 @@ läheb std-väljundisse.
 * Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
 * Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
 
-### Sisendi formaat
+### Sisend
 [LEMMA](#LEMMA) //\_[SÕNALIIK](#SÕNALIIK)\_ [VORM](#VORM), //
 
 või
@@ -86,6 +86,10 @@ etteantud vormi(d) kõigis võimalikes sõnaliikides.
 Võimalike vormide loend on kirjas dokumendi [Morfoloogilise analüsaatori ESTMORF kasutamine](https://filosoft.ee/html_morf_et/morfoutinfo.html) 
 punktides _3. Noomenikategooriate lühendid_ ja _4. Verbikategooriate lühendid_. Tärn vormi kohal tähistab vastava sõnaliigi kõiki võimalikke vorme.
 
+### Väljund
+Morf sünteesi programmi väljund on sarnane morf analüüsi programmi väljundile 
+(vaata [Morfoloogilise analüsaatori ESTMORF kasutamine](https://filosoft.ee/html_morf_et/morfoutinfo.html) punkt _1. Väljundi kuju_), 
+kuid lemma ja lõpu asemel on _vormitüvi+lõpp_, nii et +-märgi eemaldamisel on tulemuseks küsitud kategooriale vastav sõnavorm.
 
 ## Kasutusnäited
 
@@ -121,6 +125,7 @@ palk //_*_ pl kom, //     p<al]ki+dega //_S_ pl kom, //    p<alka+dega //_S_ pl 
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
 * [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md).
 * [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
+* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md.)
 * [Eesti keele morfoloogilise analüsaatori kasutajasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
 
 ## Autor
