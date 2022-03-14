@@ -6,7 +6,7 @@ include Makefile.base
 
 LIBS=json.ar proof.ar etyhh.ar etana.ar fsc.ar
 LIBS_DB=$(LIBS:.ar=.db.ar)
-EXE=vmeta vmyhh etdisamb etana etsyn stlspeller
+EXE=vmets vmeta vmyhh etdisamb etana etsyn stlspeller
 EXE_DB=$(addsuffix .db,$(EXE))
 
 # sihid
@@ -22,6 +22,8 @@ lib_db: $(LIBS_DB)
 
 
 clean :
+	-rm -rf vmets*
+	-rm -rf vmets.db*
 	-rm -rf vmeta*
 	-rm -rf vmeta.db*
 	-rm -rf vmyhh*
@@ -79,6 +81,13 @@ json.db.ar : $(wildcard $(ROOTDIR)/apps/lib/*.cpp) $(wildcard $(ROOTDIR)/apps/li
 
 
 # programmid
+vmets : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.h)
+	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+vmets.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.h)
+	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+
 vmeta : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.h)
 	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
