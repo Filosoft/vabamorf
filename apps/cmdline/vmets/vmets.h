@@ -94,7 +94,7 @@ public:
     void Run(void)
     {
         // vaikimisi lipud paika
-	lipud_gen.Start(MF_DFLT_GENOLE|MF_YHELE_REALE);
+	lipud_gen.Start(MF_DFLT_GENOLE|MF_YHELE_REALE|MF_KOMA_LAHKU);
 
                                 
 	// lisa käsirealt määratud lipuväärtused
