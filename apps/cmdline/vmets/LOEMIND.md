@@ -65,7 +65,7 @@ siis väljundiks on
 ```
 palk+u //_S_ pl p, //    palka+sid //_S_ pl p, //
 ```
-Programmi andmestruktuuride ülesehituse tõttu ei ole _NÄIDIS_e kasutamine alati intuitiivselt selge. Nt. kui sisendiks oleks 
+Programmi andmestruktuuride ülesehituse tõttu ei ole _NÄIDISe_ kasutamine alati intuitiivselt selge. Nt. kui sisendiks oleks 
 ```
 palk (palku) //_*_ pl p, // 
 ```
