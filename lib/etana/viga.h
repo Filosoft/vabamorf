@@ -145,12 +145,12 @@ public:
     }
 
     /** Veateade throw'ga edastamiseks
-     * 
+     *
      * @param[in] misMoodul Mis moodulis jama tekkis (enum MISVIGA)
      * @param[in] misViga Mis jama tekkis (enum MISVIGA)
      * @param[in] _file_ Lähtekoodi fail (makro __FILE__)
      * @param[in] _line_ Lähtekoodi rida (makro __LINE__)
-     * @param[in] _versioon_ Viit globaalse skoobiga veateate stringile 
+     * @param[in] _versioon_ Viit globaalse skoobiga veateate stringile
      * @param[in] _msg_ Kopeeritakse lokaalsesse puhvrisse (piiratud pikkusega)
      */
     VEAD(const MISTYKIS misMoodul, const MISVIGA misViga, const char* _file_,
@@ -176,22 +176,22 @@ public:
         InitEmtyClassVariables();
         Viga(misMoodul, misViga, _file_, _line_, _versioon_, _msg_, _msgbuf_);
     }
-    
+
     /**  Veateade throw'ga edastamiseks
-     * 
-     * Tulevikus jääb alles ainult selliste parameetritega variant. 
+     *
+     * Tulevikus jääb alles ainult selliste parameetritega variant.
      * @param _file_ -- Lähtekoodi fail (makro __FILE__)
      * @param _line_ -- Lähtekoodi rida (makro __LINE__)
      * @param _constTxt_ -- veateade, globaalse slooboga string
      * @param _nonConstTxt1_ -- veateade, kopeeritakse lokaalsesse puhvrisse
      * @param _nonConstTxt2_ -- veateade, kopeeritakse lokaalsesse puhvrisse
      */
-    VEAD(const char* _file_, const int _line_, const char* _constTxt_, 
+    VEAD(const char* _file_, const int _line_, const char* _constTxt_,
             const char* _nonConstTxt1_=NULL, const char* _nonConstTxt2_=NULL)
     {
         InitEmtyClassVariables();
         Viga(_file_, _line_, _constTxt_, _nonConstTxt1_, _nonConstTxt2_);
-    }    
+    }
 
     VEAD & operator=(const VEAD& viga)
     {
@@ -211,15 +211,15 @@ public:
     }
 
     /**  Veateade throw'ga edastamiseks
-     * 
-     * Tulevikus jääb alles ainult selliste parameetritega variant. 
+     *
+     * Tulevikus jääb alles ainult selliste parameetritega variant.
      * @param _file_ -- Lähtekoodi fail (makro __FILE__)
      * @param _line_ -- Lähtekoodi rida (makro __LINE__)
      * @param _constTxt_ -- veateade, globaalse slooboga string
      * @param _nonConstTxt1_ -- veateade, kopeeritakse lokaalsesse puhvrisse
      * @param _nonConstTxt2_ -- veateade, kopeeritakse lokaalsesse puhvrisse
      */
-    int Viga(const char* _file_, const int _line_, const char* _constTxt_, 
+    int Viga(const char* _file_, const int _line_, const char* _constTxt_,
                         const char* _nonConstTxt1_, const char* _nonConstTxt2_)
     {
         errNo = (int) ERR_X_TYKK | ((int) ERR_MINGIJAMA) << 16;
@@ -227,7 +227,7 @@ public:
         file = _file_;
         versioon = etMrfVersionString;
         msg = _constTxt_;
-        
+
         charMsgBuf = true;
         msgBuf.a[0] = '\0';
 
@@ -248,10 +248,10 @@ public:
         }
         else
             FSStrCpy(msgBuf.a, MSGBUFSIZE + 4, (const char*)msgTmp);
-        return errNo;         
+        return errNo;
     }
-    
-    
+
+
     /**
      *
      * @param[in] misMoodul
@@ -328,12 +328,15 @@ public:
 
     void Print(void) const
     {
+        fprintf(stderr, "%s:%d\n", file, line);
+        /*
         if (errNo != 0)
         {
             fprintf(stderr, "%s:%d [%x] ", file, line, errNo);
         }
         if (versioon)
             fprintf(stderr, "(%s)\n", versioon);
+        */
         if (msg != NULL)
             fprintf(stderr, "%s", msg);
         if (charMsgBuf == true)
@@ -348,7 +351,7 @@ public:
             if (msg != NULL && msgBuf.w[0] != FSWCHAR('\0'))
                 fprintf(stderr, " : ");
             if(msgBuf.w[0] != FSWCHAR('\0'))
-                fprintf(stderr, "%s", 
+                fprintf(stderr, "%s",
                         (const char*)FSStrWtoA(msgBuf.w, FSCP_UTF8));
         }
         fprintf(stderr, "\n");
@@ -374,8 +377,8 @@ public:
             teade += FSStrWtoA(msgBuf.w, FSCP_UTF8);
         }
         return teade;
-    }    
-    
+    }
+
     void Clear(void)
     {
         InitEmtyClassVariables();
@@ -453,5 +456,3 @@ int MainTemplate(int argc, FSTCHAR ** argv, FSTCHAR ** envp, const FSTCHAR * ext
     }
 }
 #endif
-
-

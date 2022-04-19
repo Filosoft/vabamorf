@@ -3,7 +3,7 @@
 void VMYHH::Start(int argc, char **argv, char** envp, const char*)
 {
     lipp_ms=lipp_fs;	// väljundi märgendisüsteem: vaikimisi gt
-    
+
     PATHSTR pathstr;
     path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
     sisendfail="-";     // vaikimisi stdin
@@ -15,8 +15,8 @@ void VMYHH::Start(int argc, char **argv, char** envp, const char*)
     {
         if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
         {
-syntaks:           
-            fprintf(stderr, 
+syntaks:
+            fprintf(stderr,
                     "%s [LIPUD...] [sisendfail väljundfail]\n"
                     "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md\n",
                     argv[0]);
@@ -45,7 +45,11 @@ syntaks:
                 throw VEAD(__FILE__, __LINE__, "Parameetri -p tagant puudub rada");
             path=argv[i];
             continue;
-        }  
+        }
+        if(strcmp("-", argv[i])!=0)
+        {
+            fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
+        }
         goto syntaks;
     }
     if(i==argc)
@@ -56,7 +60,7 @@ syntaks:
         valjundfail=argv[i];
         return;
     }
-    goto syntaks; 
+    goto syntaks;
 }
 
 
@@ -67,11 +71,11 @@ void VMYHH::Run()
     CFSString dctName="et3.dct";
     if (Which(&dctPathName, &path, &dctName) == false)
     {
-        throw (VEAD(ERR_MORFI_PS6N, ERR_OPN, __FILE__, __LINE__, 
+        throw (VEAD(ERR_MORFI_PS6N, ERR_OPN, __FILE__, __LINE__,
                             "Ei saanud põhisõnastiku avamisega hakkama"));
     }
-    
-    MRF_FLAGS lipud(MF_DFLT_MORFY|MF_XML|MF_IGNOREBLK);       
+
+    MRF_FLAGS lipud(MF_DFLT_MORFY|MF_XML|MF_IGNOREBLK);
     switch(lipp_ms)
     {
 		case lipp_gt:
@@ -90,7 +94,7 @@ void VMYHH::Run()
         sisse.Start(PFSCP_UTF8, path);
     else
         sisse.Start(sisendfail, "rb", PFSCP_UTF8, path);
-    
+
     if(valjundfail == "-")
         valja.Start(PFSCP_UTF8, path);
     else
@@ -107,7 +111,7 @@ void VMYHH::Run()
         rida.Trim();
         if (rida.GetLength() <= 0)
             continue; // ignoreeerime "white space"idest koosnevaid ridu
-                         
+
         if(rida==FSWSTR("<ignoreeri>") && lipud.ChkB(MF_IGNOREBLK))
         {
             if (ignoreeriBlokis == true)
@@ -125,7 +129,7 @@ void VMYHH::Run()
                                "Puudub <ignoreeri> märgend");
             ignoreeriBlokis = false;
             lyli.Start(rida, PRMS_TAGSTR); // lõppeb ignoreeritav blokk
-        }                
+        }
         else if (rida == FSWSTR("<s>")) // lause algus, ühestajas sõltumata xml lipust
         {
             if(lauses == true)
@@ -134,7 +138,7 @@ void VMYHH::Run()
                                "Puudub lauselõpumärgend");
             lyli.Start(rida, PRMS_TAGBOS);
             lauses = true;
-        }           
+        }
         else if(rida == FSWSTR("</s>")) // lause lõpp, ühestajas sõltumata xml-lipust
         {
             if(lauses == false)
@@ -143,15 +147,15 @@ void VMYHH::Run()
                                "Puudub lausealgusmärgend");
             lyli.Start((const FSWCHAR*) rida, PRMS_TAGEOS);
             lauses = false;
-        }            
+        }
         else
         {
             if(ignoreeriBlokis == true || lauses == false)
             {
                 // ignoreeri-blokis või väljaspool lauset läheb niisama välja
-                // ühestajas arvestame lause skoopi sõltumata xml-lipust 
-                lyli.Start(rida, PRMS_TAGSTR);               
-            }   
+                // ühestajas arvestame lause skoopi sõltumata xml-lipust
+                lyli.Start(rida, PRMS_TAGSTR);
+            }
             else
             {
                 if(lipud.ChkB(MF_XML))
@@ -178,17 +182,17 @@ void VMYHH::Run()
                 MRFTULEMUSED mrfTul;
                 mrfTul.Strng2Strct(&rida);
                 mrfTag2yhhTag.FsTags2YmmTags(&mrfTul);
-                lyli.Start(mrfTul, PRMS_MRF);  
+                lyli.Start(mrfTul, PRMS_MRF);
             }
         }
         if (et3.Set1(lyli) == true)
         {
             while (et3.Flush(lyli) == true)
                 LyliValja(lyli, lipud);
-        }           
+        }
     }
     while (et3.Flush(lyli) == true)
-        LyliValja(lyli, lipud);    
+        LyliValja(lyli, lipud);
 }
 
 
