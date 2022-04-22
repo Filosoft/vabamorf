@@ -6,7 +6,7 @@ include Makefile.base
 
 LIBS=json.ar proof.ar etyhh.ar etana.ar fsc.ar
 LIBS_DB=$(LIBS:.ar=.db.ar)
-EXE=vmets vmeta vmyhh etdisamb etana etsyn stlspeller
+EXE=vmets vmeta vmety etdisamb etana etsyn stlspeller
 EXE_DB=$(addsuffix .db,$(EXE))
 
 # sihid
@@ -26,8 +26,8 @@ clean :
 	-rm -rf vmets.db*
 	-rm -rf vmeta*
 	-rm -rf vmeta.db*
-	-rm -rf vmyhh*
-	-rm -rf vmyhh.db*
+	-rm -rf vmety*
+	-rm -rf vmety.db*
 	-rm -rf etdisamb*
 	-rm -rf etdisamb.db*
 	-rm -rf etana*
@@ -48,7 +48,7 @@ clean :
 	-rm -rf json.db.ar*
 
 
-# teegid	
+# teegid
 etyhh.ar : $(wildcard $(ROOTDIR)/lib/etyhh/*.cpp) $(wildcard $(ROOTDIR)/lib/etyhh/*.h)
 	$(call compile2ar,$@,../$(ROOTDIR)/lib/$(basename $@))
 
@@ -94,10 +94,10 @@ vmeta : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.cpp) $(wildcard $(ROO
 vmeta.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.h)
 	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
-vmyhh : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmyhh/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmyhh/*.h)
+vmety : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmety/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmety/*.h)
 	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
-vmyhh.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmyhh/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmyhh/*.h)
+vmety.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmety/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmety/*.h)
 	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
 etdisamb : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/etdisamb/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/etdisamb/*.h)
@@ -123,24 +123,3 @@ stlspeller : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/stlspeller/*.cpp) $(wild
 
 stlspeller.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/stlspeller/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/stlspeller/*.h)
 	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

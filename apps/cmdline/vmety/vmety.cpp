@@ -1,4 +1,4 @@
-#include "vmyhh.h"
+#include "vmety.h"
 
 void VMYHH::Start(int argc, char **argv, char** envp, const char*)
 {
@@ -18,7 +18,7 @@ void VMYHH::Start(int argc, char **argv, char** envp, const char*)
 syntaks:
             fprintf(stderr,
                     "%s [LIPUD...] [sisendfail väljundfail]\n"
-                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md\n",
+                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md\n",
                     argv[0]);
             exit(EXIT_FAILURE);
         }
