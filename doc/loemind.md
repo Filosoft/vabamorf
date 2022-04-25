@@ -8,7 +8,7 @@
 
 ### Kompileerimine
 
-* Avage apps/cmdline/project/vc2010/cmdline.sln
+* Avage **_apps/cmdline/project/vc2010/cmdline.sln_**
 * Käivitage kompilaator.
 
 ## Vabamorfi programmide kompileerimine Linuxis
