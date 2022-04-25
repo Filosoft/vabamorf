@@ -71,7 +71,7 @@ Peamiste programmide loend
 Eelnevalt valmistehtud analüsaatori sõnastiku **_et.dct_** ja
 ühestaja sõnastiku **_et3.dct_** leiate kataloogist **_dct/binary_**.
 
-Kui on vaja sõnastikud ise uuesti kokkupanna, siis käivitage
+Sõnasriku tegemiseks vajalike programmide kompileerimiseks ja sõnastike kokkupanemiseks käivitage
 kataloogis **_dct/sh_** käsud:
 
 ```cmdline
