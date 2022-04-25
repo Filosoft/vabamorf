@@ -1,5 +1,11 @@
 # Programmide kompileerimine ja sõnastike tegemine lähtefailidest
 
+## Vabamorfi lähtekoodi allalaadimine
+
+```cmdline
+git clone https://github.com/Filosoft/vabamorf.git
+```
+
 ## Vabamorfi kompileerimine Windowsis
 
 ### Vajalik tarkvara
@@ -10,12 +16,6 @@
 
 * Avage **_apps/cmdline/project/vc2010/cmdline.sln_**
 * Käivitage kompilaator.
-
-## Vabamorfi lähtekoodi allalaadimine
-
-```cmdline
-git clone https://github.com/Filosoft/vabamorf.git
-```
 
 ## Vabamorfi programmide kompileerimine Linuxis
 
