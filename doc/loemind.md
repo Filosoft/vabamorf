@@ -3,7 +3,7 @@
 ## Vabamorfi lähtekoodi allalaadimine
 
 ```cmdline
-git clone https://github.com/Filosoft/vabamorf.git
+git clone https://github.com/Filosoft/vabamorf.git vabamorf
 ```
 
 ## Vabamorfi kompileerimine Windowsis
@@ -14,7 +14,7 @@ git clone https://github.com/Filosoft/vabamorf.git
 
 ### Kompileerimine
 
-* Avage **_apps/cmdline/project/vc2010/cmdline.sln_**
+* Avage **_vabamorf/apps/cmdline/project/vc2010/cmdline.sln_**
 * Käivitage kompilaator.
 
 ## Vabamorfi programmide kompileerimine Linuxis
