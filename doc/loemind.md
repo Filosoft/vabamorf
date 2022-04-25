@@ -11,6 +11,12 @@
 * Avage **_apps/cmdline/project/vc2010/cmdline.sln_**
 * Käivitage kompilaator.
 
+## Vabamorfi lähtekoodi allalaadimine
+
+```cmdline
+git clone https://github.com/Filosoft/vabamorf.git
+```
+
 ## Vabamorfi programmide kompileerimine Linuxis
 
 ### Vajalik tarkvara
@@ -20,13 +26,13 @@
 
 ### Kompileerimine
 
-Kõigi teekide ja programmide kompileerimiseks käivitage kataloogis **_apps/cmdline/project/unix_** käsk
+Kõigi teekide ja programmide kompileerimiseks käivitage kataloogis **_vabamorf/apps/cmdline/project/unix_** käsk
 
 ```cmdline
 make -s -j all
 ```
 
-Ühe programmi kompileerimiseks käivitage kataloogis **_apps/cmdline/project/unix_** käsk
+Ühe programmi kompileerimiseks käivitage kataloogis **_vabamorf/apps/cmdline/project/unix_** käsk
 
 **_make -s PROGRAMMI_NIMI_**
 
@@ -44,7 +50,7 @@ make -s vmety
 make -s vmets
 ```
 
-Kompileeritud programmid luuakse kataloogi **_apps/cmdline/project/unix_**
+Kompileeritud programmid luuakse kataloogi **_vabamorf/apps/cmdline/project/unix_**
 
 Peamiste programmide loend
 | Programi nimi | Kasutusjuhend | Selgitus |
@@ -64,14 +70,14 @@ Peamiste programmide loend
 * gmake
 * gawk
 
-### Programmide kompileerimine ja sõnastike tegemine
+### Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine
 
 **Kui Te ei muuda sõnastike lähtefaile pole mingit vajadust sõnastikke ise uuesti teha.**
 
 Eelnevalt valmistehtud analüsaatori sõnastiku **_et.dct_** ja
 ühestaja sõnastiku **_et3.dct_** leiate kataloogist **_dct/binary_**.
 
-Sõnasriku tegemiseks vajalike programmide kompileerimiseks ja sõnastike kokkupanemiseks käivitage
+Sõnastiku tegemiseks vajalike programmide kompileerimiseks ja sõnastike kokkupanemiseks käivitage
 kataloogis **_dct/sh_** käsud:
 
 ```cmdline
