@@ -1,4 +1,4 @@
-# Programmide kompileerimine ja sõnastike tegemine lähetefailidest
+# Programmide kompileerimine ja sõnastike tegemine lähtefailidest
 
 ## Vabamorfi kompileerimine Windowsis
 
