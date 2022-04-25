@@ -20,13 +20,37 @@
 
 ### Kompileerimine
 
-Kataloogis **_apps/cmdline/project/unix_** käivitage käsk
+Kõigi teekide ja programmide kompileerimiseks käivitage kataloogis **_apps/cmdline/project/unix_** käsk
 
 ```cmdline
 make -s -j all
 ```
 
-## Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine lähetefailidest Linuxis
+Ühe programmi kompileerimiseks käivitage kataloogis **_apps/cmdline/project/unix_** käsk
+
+**_make -s PROGRAMMI_NIMI_**
+
+Näited
+
+```cmdline
+make -s vmeta
+```
+
+```cmdline
+make -s vmety
+```
+
+Peamiste programmide loend
+| Programi nimi | Kasutusjuhend | Selgitus |
+|:--------------|:--------------|:----------|
+|etana|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etana/readme.txt)|Morfoloogilise analüüsi programm, sisend/väljund JSONkujul|
+|etdisamb|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etdisamb/readme.txt)|Morfoloogilise ühestamise programm, sisend/väljund JSONkujul|
+|etsyn|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/readme.txt)|Morfoloogilise sünteesi programm, sisend/väljund JSONkujul|
+|vmeta|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md)|Morfoloogilise analüüsi programm|
+|vmety|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md)|Morfoloogilise ühestamise programm|
+|vmets|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmets/LOEMIND.md)|Morfoloogilise sünteesi programm|
+
+## Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine lähtefailidest Linuxis
 
 ### Vajalik tarkvara
 
