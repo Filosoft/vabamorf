@@ -1,6 +1,6 @@
 # vmety
 
-Morfoloogilise ühestamise programm.
+Eesti kirjakeele morfoloogilise ühestamise programm.
 
 Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
 
