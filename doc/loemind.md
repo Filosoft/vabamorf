@@ -49,9 +49,9 @@ Kompileeritud programmid luuakse kataloogi **_apps/cmdline/project/unix_**
 Peamiste programmide loend
 | Programi nimi | Kasutusjuhend | Selgitus |
 |:--------------|:--------------|:----------|
-|etana|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etana/readme.txt)|Morfoloogilise analüüsi programm, sisend/väljund JSONkujul|
-|etdisamb|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etdisamb/readme.txt)|Morfoloogilise ühestamise programm, sisend/väljund JSONkujul|
-|etsyn|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/readme.txt)|Morfoloogilise sünteesi programm, sisend/väljund JSONkujul|
+|etana|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etana/readme.txt)|Morfoloogilise analüüsi programm, sisend/väljund JSONi kujul|
+|etdisamb|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etdisamb/readme.txt)|Morfoloogilise ühestamise programm, sisend/väljund JSONi kujul|
+|etsyn|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/readme.txt)|Morfoloogilise sünteesi programm, sisend/väljund JSONi kujul|
 |vmeta|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md)|Morfoloogilise analüüsi programm|
 |vmety|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md)|Morfoloogilise ühestamise programm|
 |vmets|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmets/LOEMIND.md)|Morfoloogilise sünteesi programm|
