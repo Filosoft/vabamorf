@@ -40,6 +40,8 @@ make -s vmeta
 make -s vmety
 ```
 
+Kompileeritud programmid luuakse kataloogi **_apps/cmdline/project/unix_**
+
 Peamiste programmide loend
 | Programi nimi | Kasutusjuhend | Selgitus |
 |:--------------|:--------------|:----------|
