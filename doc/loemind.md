@@ -1,6 +1,6 @@
 # Dokumentatsioon
 
-[Programmide kompileerimine ja sõnastike tegemine lähtefailidest](https://github.com/Filosoft/vabamorf/blob/master/doc/programmide_kompileerimine_ja%20s%C3%B5nastike_tegemine.md)
+[Programmide kompileerimine ja sõnastike tegemine lähtefailidest](https://github.com/Filosoft/vabamorf/blob/master/doc/programmid_ja_sonastikud.md)
 
 [Morfoloogia-leksikoni kirjeldus](https://github.com/Filosoft/vabamorf/blob/master/doc/morfi_leksikoni_kirjeldus.md)
 
