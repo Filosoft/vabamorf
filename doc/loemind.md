@@ -7,3 +7,7 @@
 [Ühestaja-leksikoni kirjeldus](https://github.com/Filosoft/vabamorf/blob/master/doc/yhestaja_leksikoni_kirjeldus.md)
 
 [Ülevaade morfoloogilistest kategooriatest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et/)
+
+[Morfolooglised kategooriad (FS-kuju)](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md)
+
+[Morfoloogilised kategooriad (GT-kuju)](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
