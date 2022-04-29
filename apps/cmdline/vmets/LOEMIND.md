@@ -147,6 +147,7 @@ palk //_*_ pl kom, //     p<al]ki+dega //_S_ pl kom, //    p<alka+dega //_S_ pl 
 
 ## Vaata lisaks
 
+* [Programmide kompileerimine ja sõnastike kokkupanemine](https://github.com/Filosoft/vabamorf/blob/master/doc/programmid_ja_sonastikud.md)
 * [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
 * [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md).
 * [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
