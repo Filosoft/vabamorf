@@ -7,6 +7,8 @@ Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
 * [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
 * [GT-kuju](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
 
+Vaata lisaks [Ülevaade erivatest eesti keele morfoloogilite kategooriate süsteemidest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et/)
+
 ## Käsurida
 
 vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
@@ -54,8 +56,9 @@ läheb std-väljundisse.
 * XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
   * **&lt;** ja **&gt;** esineb ainult märgendite ümber, muidu olemitena: **&amp;lt;** ja **&amp;gt;**
   * **&amp;** esineb ainult olemite (**&amp;amp; &amp;lt; &amp;gt;**) alguses, muidu olemina **&amp;amp;**
-  * Morf analüüsitakse ainult ;**&lt;s&gt;** ja **&lt;/s&gt** märgendite vahel olevat teksti,
-  mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel.
+  * Morf analüüsitakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** märgendite vahel olevat teksti,
+  mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel. 
+   Lause algus- ja lõpumärgend ei tohi olla eelneva/järgneva sõnega kokkukleepunud.
   * Muid märgendeid (sh sõnaga kokkukleepunud märgendeid ignoreeritakse).
   * Märgendid **&lt;s&gt;**, **&lt;/s&gt;**, **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** ei tohi olla
   tekstisõnede ja teiste märgenditega kokkukleepunud.
