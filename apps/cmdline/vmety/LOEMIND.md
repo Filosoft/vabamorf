@@ -7,6 +7,8 @@ Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
 * [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
 * [GT-kuju](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
 
+Vaata lisaks [Ülevaade erivatest eesti keele morfoloogilite kategooriate süsteemidest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et/)
+
 ## Käsurida
 
 vmyhh \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
