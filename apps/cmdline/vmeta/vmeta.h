@@ -25,6 +25,7 @@ public:
     void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
     {
         assert(EmptyClassInvariant() == true);
+        lipp_lemma=true;
         lipp_xml=true;		// xml sisendformaat
         lipp_oleta=true;    // oletame leksikonist puuduvad sõned
         lipp_oleta_pn=true; // lisa (oleta) lausekonteksti ja suurtähelisuse
@@ -51,6 +52,16 @@ public:
                 exit(EXIT_FAILURE);
             }
             //-----------------------------
+            if(strcmp("--lemma", argv[i])==0)
+            {
+                lipp_lemma=true;
+                continue;
+            }
+            if(strcmp("-s", argv[i])==0 || strcmp("--stem", argv[i])==0)
+            {
+                lipp_lemma=false;
+                continue;
+            }            //-----------------------------
             if(strcmp("--xml", argv[i])==0)
             {
                 lipp_xml=true;
@@ -173,6 +184,7 @@ public:
         {
             lipud_mrf.Set(lipud_yksiksonade_analyysiks);
         }
+        lipud_mrf.OnOff(MF_ALGV, lipp_lemma);
         lipud_mrf.OnOff(MF_OLETA,   lipp_oleta); //ühestamise korral pole mõistlik "off"
         lipud_mrf.OnOff(MF_KR6NKSA, lipp_haaldus);
         switch(lipp_ms)
@@ -217,6 +229,7 @@ private:
         lipp_hmm,               // -m --hmm markov
     } lipp_ms;
 
+    bool lipp_lemma;
     bool lipp_oleta_pn;         // --guesspropnames/--dontguesspropnames
     bool lipp_xml;		// -x --xml/--plaintext
     bool lipp_haaldus;          // -p --phonetics/--nophonetics

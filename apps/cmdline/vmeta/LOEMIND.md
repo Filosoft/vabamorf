@@ -23,6 +23,11 @@ tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
 
 ### Väljundiga seotud lipud
 
+#### Lemma/tüvi  <a name="lipp_lemma_tüvi"></a>
+
+* **--lemma** <br> Vaikimisi. Väljundisse lemma.
+* **-s, --stem** <br> Väljundisse tüvi.
+
 #### Oletamine <a name="lipp_oletamine"></a>
 
 * **--guess** <br> Vaikimisi. Oletab leksikonist puuduvate sõnade võimalikke analüüse.
