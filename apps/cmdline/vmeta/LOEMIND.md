@@ -2,23 +2,24 @@
 
 ## Käsurida
 
-vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [sisendfail väljundfail]
+vmeta \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
- Kui sisendfaili või väljundfaili nimi on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+ Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
 
 
 ## Tulemus
 Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogiliste tähenduste komplekti. Tulemus on kujul: 
 
-```<tüvi>+<lõpp> //_<sõnaliik>_ <kategooriad>, //```
+*`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //
 
-&lt;tüvi&gt; on algvorm või vormitüvi
 
-&lt;lõpp&gt; on lõpuformatiiv, millele ka partikkel gi/ki on lihtsalt lõppu "kleepunud"; ka juhul, kui sõnal ei saagi lõppu olla (nt. hüüdsõnal), määratakse sõnale lõpp - nn. null-lõpp.
+*`TÜVI`* on algvorm või vormitüvi
+
+*`LÕPP`* on lõpuformatiiv, millele ka partikkel *gi/ki* on lihtsalt lõppu "kleepunud"; ka juhul, kui sõnal ei saagi lõppu olla (nt. hüüdsõnal), määratakse sõnale lõpp - nn. null-lõpp ```0```.
 
 Kui sõna on liitmoodustis, siis eelnevast komponendist eristab tüve alakriips ```_```, lõppu plussmärk ```+``` ja järelliidet võrdusmärk ```=```.
 
-&lt;kategooriad&gt; väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata
+*`KATEGOORIAD`* väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata
 
 Alternatiivsed analüüsivariandid on üksteisest eraldatud nelja tühikuga.
 
