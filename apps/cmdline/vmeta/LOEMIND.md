@@ -1,184 +1,97 @@
 # vmeta <a name="algus"></a>
 
-Eesti kirjakeele morfoloogilise analüüsi programm.
-
-Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
-
-* [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
-* [GT-kuju](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
-
-Vaata lisaks [Ülevaade erinevatest eesti keele morfoloogiliste kategooriate süsteemidest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et/)
-
 ## Käsurida
 
-vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
+vmeta \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [sisendfail väljundfail]
 
-## Lippude kirjeldus <a name="lippude_kirjeldus"></a>
+ Kui sisendfaili või väljundfaili nimi on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
 
-### Sisendiga seotud lipud <a name="lipp_sisend"></a>
 
-* **--xml** <br> Vaikimisi. XML-kujul sisend. Täpsemalt vt [Kirjeldus](#kirjeldus).
-* **-t, --plaintext** <br> Märgendamata teksti (üksiksõnade) analüüsimine. XML-märgendeid käsitletakse
-tavaliste tekstisõnedena ja (enamasti) saavad analüüsi oletamismoodulist.
+## Tulemus
+Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogiliste tähenduste komplekti. Tulemus on kujul: 
 
-### Väljundiga seotud lipud
+```<tüvi>+<lõpp> //_<sõnaliik>_ <kategooriad>, //```
 
-#### Lemma/tüvi  <a name="lipp_lemma_tüvi"></a>
+&lt;tüvi&gt; on algvorm või vormitüvi
 
-* **--lemma** <br> Vaikimisi. Väljundisse lemma.
-* **-s, --stem** <br> Väljundisse tüvi.
+&lt;lõpp&gt; on lõpuformatiiv, millele ka partikkel gi/ki on lihtsalt lõppu "kleepunud"; ka juhul, kui sõnal ei saagi lõppu olla (nt. hüüdsõnal), määratakse sõnale lõpp - nn. null-lõpp.
 
-#### Oletamine <a name="lipp_oletamine"></a>
+Kui sõna on liitmoodustis, siis eelnevast komponendist eristab tüve alakriips ```_```, lõppu plussmärk ```+``` ja järelliidet võrdusmärk ```=```.
 
-* **--guess** <br> Vaikimisi. Oletab leksikonist puuduvate sõnade võimalikke analüüse.
-* **-q, --dontguess** <br> Ei oleta leksikonist puuduvaid sõnu.
-* **--guesspropnames** <br> Vaikimisi. Lisab/oletab lausekontekstist lähtuvalt pärisnimeanalüüse.
-* **--dontguesspropnames** <br>  Ei lisa/oleta lausekontekstist lähtuvalt pärisnimeanalüüse.
+&lt;kategooriad&gt; väljendab morfoloogiliste tähenduste komplekti; '?' tähendab, et arvu ja käänet pole võimalik määrata
 
-#### Märgendisüsteem <a name="lipp_margendisusteem"></a>
+Alternatiivsed analüüsivariandid on üksteisest eraldatud nelja tühikuga.
 
-* **--fs** <br> Vaikimisi. Väljundis FS-märgendisüsteem.
-* **-g, --gt** <br> Väljundis GT-märgendisüsteem.
 
-#### Hääldusmärgid <a name="lipp_haaldusmargid"></a>
+## Lipud <a name="lippude_kirjeldus"></a>
+Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lausestatakse, tehakse morfoloogiline analüüs ja seejärel ühestamine. Vaikimisi lipud eeldavadki, et **vmeta** asub jadas pärast lausestamist ja enne morfoloogilist ühestamist, kusjuures sisend vastab kirjakeele normile ja tähtis on suure algustähega sõnad nimedena ära tunda; tema  väljund sobib ühestaja [vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md) sisendiks. Vaikimisi lipud on <br>
+**--xml** **--guess** **--guesspropnames** **--lemma** **--dontaddphonetics**  **--fs**
 
-* **--dontaddphonetics** <br> Vaikimisi. Vaikimisi ei lisa hääldusmärke.
-* **-f, --addphonetics** <br> Lisab väljundisse hääldusmärgid.
+### Algoritm <a name="lipp_algoritm"></a>
 
-### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
+* **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
+* **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
+* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. [Sisendis](#sisendi_kirjeldus) peab lause olema  &lt;s&gt; ja &lt;/s&gt; vahel.
+* **--dontguesspropnames** <br> Suurtähelisele sõnale ei pakuta lisaks pärisnime analüüsi.
 
-Vaikimisi otsitakse leksikoni **et.dct** keskkonnamuutujas **PATH** loetletud kataloogidest.
+### Väljund
 
-* **-p K1[K2:...], --path K1[K2:...]** <br> Leksikoni otsime kataloogidest **K1, K2, ...**
+* **--lemma** <br> Algvorm e. lemma. Liitsõna puhul on ainult viimane  komponent algvormina.
+* **-s, --stem** <br> Vormitüvi. Seda kasutatakse nt. [häälduse](#lipp_haaldusmargid) või silbitamisega seotud rakenduste puhul.
 
-## Kirjeldus <a name="kirjeldus"></a>
+* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis.
+* **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
 
-* Sisend ja väljund on utf8 kodeeringus.
-* Kui sisend- ja väljundfaili nime pole antud, loetakse std-sisendit ja tulemus
-läheb std-väljundisse.
-* Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
-* Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
-* XMLis sisendi korral (pole **[--plaintext](#lipp_sisend)** lippu):
-  * **&lt;** ja **&gt;** esineb ainult märgendite ümber, muidu olemitena: **&amp;lt;** ja **&amp;gt;**
+* **--dontaddphonetics** <br> Lemmas/tüves ei ole hääldusmärke.
+* **-f, --addphonetics** <br> Lemmas/tüves on hääldusmärgid <a name="lipp_haaldusmargid"></a>: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
+
+### Sisend
+
+* **--xml** <br>
+Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
+  * Morf. analüüsitakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** vahel olevat teksti,
+  mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** vahel. 
+  * **&lt;s&gt;**, **&lt;/s&gt;**, **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** ei tohi olla
+  sõne ega märgendiga kokku kleepunud.
+  * Muid märgendeid (sh sõnaga kokkukleepunuid) ignoreeritakse.
+  * **&lt;** ja **&gt;** esineb ainult märgendite ümber, muidu olemitena **&amp;lt;** ja **&amp;gt;**
   * **&amp;** esineb ainult olemite (**&amp;amp; &amp;lt; &amp;gt;**) alguses, muidu olemina **&amp;amp;**
-  * Morf analüüsitakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** märgendite vahel olevat teksti,
-  mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel. 
-   Lause algus- ja lõpumärgend ei tohi olla eelneva/järgneva sõnega kokkukleepunud.
-  * Muid märgendeid (sh sõnaga kokkukleepunud märgendeid ignoreeritakse).
-  * Märgendid **&lt;s&gt;**, **&lt;/s&gt;**, **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** ei tohi olla
-  tekstisõnede ja teiste märgenditega kokkukleepunud.
-* **-t** või **--plaintext** lipu korral analüüsitakse (tühikute/reavahetustega eraldatud) üksiksõnu. Sõnaga
-kokkukleepunud punktuatsioon (sulud, kirjavahmärgid jms) eemaldakse enne analüüsimist. XML märgenditele antakse
-(oletajaga) morfoloogiline analüüs.
 
-* Ühestamiseks ([vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md))
-kõige sobilikum on tundmatute sõnede oletamisega XML sisend.
+* **-t, --plaintext** <br> Lihttekst. Analüüsitakse mistahes märgijada.
 
-## Kasutus-stsenaariumid
+### Leksikoni asukoht <a name="lipp_leksikonid"></a>
 
-* **Morfoloogiline analüüs koos ühestamisega.**
-Teisenda tekst XML-kujule ([Kirjeldus](#kirjeldus)), lisa teksti lause algus/lõpumärgendid, lase pärisnimede ja tundmatute
-sõnade oletamisega morfist (vmeta) ja ühestajast (vmyhh) läbi.
-Soovi korral (**[--addphonetics](#lipp_haaldusmargid)** lipp) lisatakse tulemusse hääldusmärgid.
-XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga morfist läbi lasta,
-nõnda, et metainfo ei hakkaks morf analüüsimist-ühestamist segama.
-Kui tahate hiljem morfi väljundit ühestada (vmyhh) peavad väljundis olema FS-märgendid (**[--fs](#lipp_margendisusteem)**), kuna ühestaja eeldab neid.
-* **Morfoloogilisest analüüsist ilma ühestamiseta piisab.**
-  * **Analüüsime XML-kuju oletamisega/oletamiseta hääldusmärkidega/hääldusmärkideta FS-märgendisüsteemiga/GT-märgendisüsteemiga.**
-  XML-kuju on ainuvõimalik, kui on vaja tekst koos metainfoga (XML-märgenditega) morfist
-  läbi lasta, nõnda, et metainfo ei hakkaks morf analüüsimist segama.
-  * **Analüüsime teksti-kuju oletamisega/oletamiseta hääldusmärkidega/hääldusmärkideta
-  FS-märgendisüsteemiga/GT-märgendisüsteemiga.** XML-märgendeid käsitletakse tavaliste teksti sõnedena.
+* Leksikon **et.dct** asub keskkonnamuutujas **PATH** loetletud kataloogis.
+
+* **-p K1:[K2:...], --path K1:[K2:...]** <br> Leksikon võib olla kataloogis **K1, K2, ...**
 
 ## Kasutusnäited
 
-### Lipud vaikeväärtustega
-
-Väljund sobib ühestaja [vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md) sisendiks.
-
 ```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta
-```
+echo "<s> Mees peeti kinni . </s>" | vmeta
 
-```text
 <s>
 Mees    Mee+s //_H_ sg in, //    Mees+0 //_H_ sg n, //    Mesi+s //_H_ sg in, //    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
-<tag>p</tag>eeti    peet+0 //_S_ adt, //    pida+ti //_V_ ti, //    peet+0 //_S_ sg p, //
+peeti    peet+0 //_S_ adt, //    pida+ti //_V_ ti, //    peet+0 //_S_ sg p, //
 kinni    kinni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
 
-### Lipud: --plaintext
-
 ```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --plaintext
-```
-
-```
-<s>    s+0 //_Y_ ?, //
-Mees    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
-<tag>p</tag>eeti    tag>p</tag>eet+0 //_S_ adt, //    tag>p</tag>eet+0 //_S_ sg g, //    tag>p</tag>eet+0 //_S_ sg p, //
-kinni    kinni+0 //_D_ //
-.    . //_Z_ //
-</s>    s+0 //_Y_ ?, //
-```
-
-### Lipud: --plaintext, --dontguess
-
-```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --plaintext --dontguess
-```
-
-```text
-<s>    s+0 //_Y_ ?, //
-Mees    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
-<tag>p</tag>eeti    ####
-kinni    kinni+0 //_D_ //
-.    ####
-</s>    s+0 //_Y_ ?, //
-```
-
-### Lipud: --gt
-
-Ei sobi ühestaja sisendiks.
-
-```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --gt
-```
-
-```text
+echo '<s> Mees peeti kinni . </s>' | vmeta --stem --addphonetics --dontguesspropnames
 <s>
-Mees    Mee+s //_H_ Sg Ine, //    Mees+0 //_H_ Sg Nom, //    Mesi+s //_H_ Sg Ine, //    mees+0 //_S_ Sg Nom, //    mesi+s //_S_ Sg Ine, //
-<tag>p</tag>eeti    peet+0 //_S_ Sg Ill, //    pida+ti //_V_ Impers Prt Ind Aff, //    peet+0 //_S_ Sg Par, //
-kinni    kinni+0 //_D_ //
-.    . //_Z_ //
-</s>
-```
-
-### Lipud: --addphonetics
-
-Väljund sobib ühestaja (vmyhh) sisendiks. See, et väljundis on lisaks hääldusmärgid, ei sega ühestajat.
-
-```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --addphonetics
-```
-
-```text
-<s>
-Mees    M<ees+0 //_H_ sg n, //    Mee+s //_H_ sg in, //    Mees+0 //_H_ sg n, //    Mes]i+s //_H_ sg in, //    m<ees+0 //_S_ sg n, //    mes]i+s //_S_ sg in, //
-<tag>p</tag>eeti    p<eet]+0 //_S_ adt, //    pida+ti //_V_ ti, //    p<eet]+0 //_S_ sg p, //
+Mees    m<ee+s //_S_ sg in, //    m<ees+0 //_S_ sg n, //
+peeti    p<ee+ti //_V_ ti, //    p<eet]i+0 //_S_ adt, //    p<eet]i+0 //_S_ sg p, //
 kinni    k<in]ni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
 
 ## Vaata lisaks
-
-* [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md).
-* [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
-* [Eesti keele morfoloogilise analüsaatori kasutajasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
+* Morfoloogiline analüsaator [konteineris](https://gitlab.com/tilluteenused/docker-elg-morf/-/blob/main/LOEMIND.md).
+* Morfoloogilise ühestaja käsureaprogramm [vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md).
+* Morfoloogilise analüsaatori [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
 
 ## Autor
 
