@@ -57,7 +57,7 @@ Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
 * **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
 
 * **--dontaddphonetics** <br> Lemmas/tüves ei ole hääldusmärke.
-* **-f, --addphonetics** <br> Lemmas/tüves on hääldusmärgid <a name="lipp_haaldusmargid"></a>: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
+* **-f, --addphonetics** <a name="lipp_haaldusmargid"></a> <br> Lemmas/tüves on hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
 ### Leksikoni asukoht <a name="lipp_leksikonid"></a>
 
