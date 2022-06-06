@@ -18,7 +18,7 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
 
 Kui sõna on liitmoodustis, siis eelnevast komponendist eristab tüve alakriips ```_```, lõppu plussmärk ```+``` ja järelliidet võrdusmärk ```=```.
 
-&lt;kategooriad&gt; väljendab morfoloogiliste tähenduste komplekti; '?' tähendab, et arvu ja käänet pole võimalik määrata
+&lt;kategooriad&gt; väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata
 
 Alternatiivsed analüüsivariandid on üksteisest eraldatud nelja tühikuga.
 
@@ -27,25 +27,7 @@ Alternatiivsed analüüsivariandid on üksteisest eraldatud nelja tühikuga.
 Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lausestatakse, tehakse morfoloogiline analüüs ja seejärel ühestamine. Vaikimisi lipud eeldavadki, et **vmeta** asub jadas pärast lausestamist ja enne morfoloogilist ühestamist, kusjuures sisend vastab kirjakeele normile ja tähtis on suure algustähega sõnad nimedena ära tunda; tema  väljund sobib ühestaja [vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md) sisendiks. Vaikimisi lipud on <br>
 **--xml** **--guess** **--guesspropnames** **--lemma** **--dontaddphonetics**  **--fs**
 
-### Algoritm <a name="lipp_algoritm"></a>
-
-* **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
-* **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
-* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. [Sisendis](#sisendi_kirjeldus) peab lause olema  &lt;s&gt; ja &lt;/s&gt; vahel.
-* **--dontguesspropnames** <br> Suurtähelisele sõnale ei pakuta lisaks pärisnime analüüsi.
-
-### Väljund
-
-* **--lemma** <br> Algvorm e. lemma. Liitsõna puhul on ainult viimane  komponent algvormina.
-* **-s, --stem** <br> Vormitüvi. Seda kasutatakse nt. [häälduse](#lipp_haaldusmargid) või silbitamisega seotud rakenduste puhul.
-
-* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis.
-* **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
-
-* **--dontaddphonetics** <br> Lemmas/tüves ei ole hääldusmärke.
-* **-f, --addphonetics** <br> Lemmas/tüves on hääldusmärgid <a name="lipp_haaldusmargid"></a>: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
-
-### Sisend
+### Sisend <a name="sisendi_kirjeldus"></a>
 
 * **--xml** <br>
 Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
@@ -58,6 +40,24 @@ Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
   * **&amp;** esineb ainult olemite (**&amp;amp; &amp;lt; &amp;gt;**) alguses, muidu olemina **&amp;amp;**
 
 * **-t, --plaintext** <br> Lihttekst. Analüüsitakse mistahes märgijada.
+
+### Algoritm <a name="lipp_algoritm"></a>
+
+* **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
+* **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
+* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. **NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  &lt;s&gt; ja &lt;/s&gt; vahel.
+* **--dontguesspropnames** <br> Suurtähelisele sõnale ei pakuta lisaks pärisnime analüüsi.
+
+### Väljund
+
+* **--lemma** <br> Algvorm e. lemma. Liitsõna puhul on ainult viimane  komponent algvormina.
+* **-s, --stem** <br> Vormitüvi. Seda kasutatakse nt. [häälduse](#lipp_haaldusmargid) või silbitamisega seotud rakenduste puhul.
+
+* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis.
+* **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
+
+* **--dontaddphonetics** <br> Lemmas/tüves ei ole hääldusmärke.
+* **-f, --addphonetics** <br> Lemmas/tüves on hääldusmärgid <a name="lipp_haaldusmargid"></a>: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
 ### Leksikoni asukoht <a name="lipp_leksikonid"></a>
 
