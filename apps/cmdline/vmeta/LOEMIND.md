@@ -7,7 +7,7 @@ vmeta \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [
  Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
 
 
-## Tulemus
+## Väljundi esitusviis
 Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogiliste tähenduste komplekti. Tulemus on kujul: 
 
 *`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //
@@ -19,7 +19,9 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
 
 Kui sõna on liitmoodustis, siis eelnevast komponendist eristab tüve alakriips ```_```, lõppu plussmärk ```+``` ja järelliidet võrdusmärk ```=```.
 
-*`KATEGOORIAD`* väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata.
+[*`SÕNALIIK`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on  [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html) ja [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis sama.
+
+[*`KATEGOORIAD`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata.
 
 Alternatiivsed analüüsivariandid on üksteisest eraldatud nelja tühikuga.
 
