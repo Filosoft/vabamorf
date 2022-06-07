@@ -19,7 +19,7 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
 
 Kui sõna on liitmoodustis, siis eelnevast komponendist eristab tüve alakriips ```_```, lõppu plussmärk ```+``` ja järelliidet võrdusmärk ```=```.
 
-*`KATEGOORIAD`* väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata
+*`KATEGOORIAD`* väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata.
 
 Alternatiivsed analüüsivariandid on üksteisest eraldatud nelja tühikuga.
 
@@ -69,21 +69,23 @@ Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
 ## Kasutusnäited
 
 ```commandline
-echo "<s> Mees peeti kinni . </s>" | vmeta
+echo "<s> Munamäel peeti mees kinni . </s>" | vmeta
 
 <s>
-Mees    Mee+s //_H_ sg in, //    Mees+0 //_H_ sg n, //    Mesi+s //_H_ sg in, //    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
+Munamäel    Muna_mägi+l //_H_ sg ad, //    Munamäe+l //_H_ sg ad, //    Munamäel+0 //_H_ sg n, //    muna_mägi+l //_S_ sg ad, //
 peeti    peet+0 //_S_ adt, //    pida+ti //_V_ ti, //    peet+0 //_S_ sg p, //
+mees    mees+0 //_S_ sg n, //    mesi+s //_S_ sg in, //
 kinni    kinni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
 
 ```commandline
-echo '<s> Mees peeti kinni . </s>' | vmeta --stem --addphonetics --dontguesspropnames
+echo '<s> Munamäel peeti mees kinni . </s>' | vmeta --stem --addphonetics --dontguesspropnames
 <s>
-Mees    m<ee+s //_S_ sg in, //    m<ees+0 //_S_ sg n, //
+Munamäel    muna_m<äe+l //_S_ sg ad, //
 peeti    p<ee+ti //_V_ ti, //    p<eet]i+0 //_S_ adt, //    p<eet]i+0 //_S_ sg p, //
+mees    m<ee+s //_S_ sg in, //    m<ees+0 //_S_ sg n, //
 kinni    k<in]ni+0 //_D_ //
 .    . //_Z_ //
 </s>
