@@ -34,8 +34,8 @@ Vaikimisi otsitakse leksikoni **et3.dct** keskkonnamuutujas **PATH** loetletud k
 * Sisend peab olema tehtud käsuga
 [vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
 Käsu [vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md)
-lippudest võib kasutada ainult **--xml**, **--\[dont\]guesspropnames**
-**--\[dont\]addphonetic** ja **--path** lippe.
+lippudest _peab_ kasutama lippu **--xml**, _võib_ kasutada lippe **--\[dont\]guesspropnames**
+**--\[dont\]addphonetic**, **--path** ja _ei saa_ kasutada lippu **--plaintext** (sest sisend peab olama lausestatud).
 * Algne morfi sisendfail lausestatud/sõnestatud ja nn **XML-kujul** (vt
 [vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md)
 kirjeldust):
