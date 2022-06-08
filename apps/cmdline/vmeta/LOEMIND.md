@@ -33,12 +33,13 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 ### Sisend <a name="sisendi_kirjeldus"></a>
 
 * **--xml** <br>
-Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
+  * Tekst on lausestatud; laused on **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
   * Morf. analüüsitakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** vahel olevat teksti,
   mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** vahel. 
   * **&lt;s&gt;**, **&lt;/s&gt;**, **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** ei tohi olla
   sõne ega märgendiga kokku kleepunud.
   * Muid märgendeid (sh sõnaga kokkukleepunuid) ignoreeritakse.
+  * Märgendi alustav **&lt;** ja lõpetav **&gt;** peavad olema samal real.
   * **&lt;** ja **&gt;** esineb ainult märgendite ümber, muidu olemitena **&amp;lt;** ja **&amp;gt;**
   * **&amp;** esineb ainult olemite (**&amp;amp; &amp;lt; &amp;gt;**) alguses, muidu olemina **&amp;amp;**
 
