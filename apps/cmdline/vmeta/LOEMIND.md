@@ -49,7 +49,7 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 
 * **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
 * **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
-* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. **NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  &lt;s&gt; ja &lt;/s&gt; vahel.
+* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. **NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
 * **--dontguesspropnames** <br> Suurtähelisele sõnale ei pakuta lisaks pärisnime analüüsi.
 
 ### Väljund
