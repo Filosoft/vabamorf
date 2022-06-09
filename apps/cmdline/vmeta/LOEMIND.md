@@ -47,9 +47,9 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 
 ### Algoritm <a name="lipp_algoritm"></a>
 
-* **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
+* **--guess** <br> Leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
 * **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
-* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. **NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  &lt;s&gt; ja &lt;/s&gt; vahel.
+* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse lisaks pärisnime analüüsi.<br>**NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
 * **--dontguesspropnames** <br> Suurtähelisele sõnale ei pakuta lisaks pärisnime analüüsi.
 
 ### Väljund
