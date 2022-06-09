@@ -1,112 +1,73 @@
-# vmety
-
-Eesti kirjakeele morfoloogilise ühestamise programm.
-
-Valida saab morfoloogiliste märgendite kahe esitusviisi vahel:
-
-* [FS-kuju](https://filosoft.ee/html_morf_et/morfoutinfo.html)
-* [GT-kuju](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
-
-Vaata lisaks [Ülevaade erivatest eesti keele morfoloogilite kategooriate süsteemidest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et/)
+# vmety <a name="algus"></a>
 
 ## Käsurida
 
-vmyhh \[[LIPP](#lippude_kirjeldus) \[[LIPP](#lippude_kirjeldus)…\]\] [{sisendfail|-} {väljundfail|-}](#kirjeldus)
+vmety \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
-## Lippude kirjeldus <a name="lippude_kirjeldus"></a>
+ Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
 
-### Väljundiga seotud lipud
+## Sisendi ja väljundi esitusviis
 
-#### Märgendisüsteem <a name="lipp_margendisusteem"></a>
+Esitusviisilt on käesoleva morf. ühestaja sisend ja väljund samasugused kui morf. analüüsi käsureaprogrammi [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) väljund, lihtsalt ühestamisel osa alternatiivseid analüüse eemaldatakse. 
 
-* **--fs** <br> Vaikimisi. Väljundis FS-märgendisüsteem.
-* **-g, --gt** <br> Väljundis GT-märgendisüsteem.
+*`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //\[&nbsp;&nbsp;&nbsp;&nbsp;*`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //...\]
 
-### Leksikonide asukohaga seotud lipud <a name="lipp_leksikonid"></a>
+**NB!** Et [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) väljund sobiks ühestaja sisendiks, peavad [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) lipud 
+**--xml** **--guess** **--fs** kindlasti olema püsti (vaikimisi nad ongi).
 
-Vaikimisi otsitakse leksikoni **et3.dct** keskkonnamuutujas **PATH** loetletud kataloogidest.
 
-* **-p K1[K2:...], --path K1[K2:...]** <br> Leksikoni otsime kataloogidest **K1, K2, ...**
+## Lipud <a name="lippude_kirjeldus"></a>
 
-## Kirjeldus <a name="kirjeldus"></a>
 
-* Sisend- ja väljund on utf8 kodeeringus.
-* Sisend peab olema tehtud käsuga
-[vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-Käsu [vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md)
-lippudest _peab_ kasutama lippu **--xml**, _võib_ kasutada lippe **--\[dont\]guesspropnames**
-**--\[dont\]addphonetic**, **--path** ja _ei saa_ kasutada lippu **--plaintext** (sest sisend peab olama lausestatud).
-* Algne morfi sisendfail lausestatud/sõnestatud ja nn **XML-kujul** (vt
-[vmeta](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md)
-kirjeldust):
-  * **<** ja **>** ainult märgendite ümber, muidu olemitena: **&amp;lt;** ja **&amp;gt;**
-  * **&** ainult olemi alguses, muidu olemina **&amp;amp;**
+### Väljund
+* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis.
+* **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
 
-Morf ühestatakse ainult **&lt;s&gt;** ja **&lt;/s&gt;** märgendite vahel olevaid analüüse,
-mis ei ole **&lt;ignoreeri&gt;** ja **&lt;/ignoreeri&gt;** märgendite vahel.
-Märgendi alustav **&lt;** ja lõpetav **&gt;** peavad olema samal real.
+### Leksikoni asukoht <a name="lipp_leksikonid"></a>
 
-Kui sisend- ja väljundfaili nime pole antud, loetakse std-sisendit ja tulemus läheb std-väljundisse
+* Leksikon **et.dct** asub keskkonnamuutujas **PATH** loetletud kataloogis.
 
-Sisendfaili nimena võib kasutada miinus märki, see tähistab std-sisendit.
+* **-p K1:[K2:...], --path K1:[K2:...]** <br> Leksikon võib olla kataloogis **K1, K2, ...**
 
-Väljundfaili nimena võib kasutada miinus märki, see tähistab std-väljundit.
 
-Ühestamiseks sobib tundmatute sõnede oletamisega XML sisend
 
-## Näited
+## Kasutusnäited
 
-### Näide 1 (vaikelippudega)
+
 
 ```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta | vmyhh
+echo "<s> Viimaks peeti mees kinni . </s>" | vmeta | vmety
 ```
 
 ```text
 <s>
-Mees    mees+0 //_S_ sg n, //
-<tag>p</tag>eeti    pida+ti //_V_ ti, //
+Viimaks    viimaks+0 //_D_ //
+peeti    pida+ti //_V_ ti, //
+mees    mees+0 //_S_ sg n, //
 kinni    kinni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
 
-### Näide 2 (väljundis hääldusmärgid)
-
 ```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta --addphonetics | vmyhh
+echo "<s> Viimaks <i>peeti</i> mees kinni . </s>" | vmeta --addphonetics -s | vmety --gt
 ```
 
 ```text
 <s>
-Mees    m<ees+0 //_S_ sg n, //
-<tag>p</tag>eeti    pida+ti //_V_ ti, //
+Viimaks    viimaks+0 //_D_ //
+<i>peeti</i>    p<ee+ti //_V_ Impers Prt Ind Aff, //
+mees    m<ees+0 //_S_ Sg Nom, //
 kinni    k<in]ni+0 //_D_ //
 .    . //_Z_ //
 </s>
-```
 
-### Näide 3 (väljundis GT-kujul märgendid)
-
-```commandline
-echo "<s> Mees <tag>p</tag>eeti kinni . </s>" | vmeta | vmyhh --gt
-```
-
-```text
-<s>
-Mees    mees+0 //_S_ Sg Nom, //
-<tag>p</tag>eeti    pida+ti //_V_ Impers Prt Ind Aff, //
-kinni    kinni+0 //_D_ //
-.    . //_Z_ //
-</s>
 ```
 
 ## Vaata lisaks
 
-* [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-* [Eesti keele morfoloogilise analüsaatori käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
-* [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-disamb/-/blob/main/LOEMIND.md).
-* [Eesti keele morfoloogilise analüsaatori kasutasjasõnstik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
+* Morfoloogilise analüsaatori käsureaprogramm [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
+* Morfoloogiline ühestaja [konteineris](https://gitlab.com/tilluteenused/docker-elg-disamb/-/blob/main/LOEMIND.md).
 
 ## Autor
 
