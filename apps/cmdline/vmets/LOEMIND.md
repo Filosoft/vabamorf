@@ -4,7 +4,9 @@
 
 vmets \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
- Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+
+Kooditabeliks on UTF-8.
 
 ## Sisendi esitusviis
 
@@ -17,8 +19,7 @@ või
 
 ### *`ALGVORM`* <a name="ALGVORM"></a>
 
-Morfoloogilist sünteesi kasutatakse tavaliselt
- mingis sõnastikus või loendis oleva sõna või väljendi vormide moodustamiseks. Sünteesi esimene etapp on *`ALGVORM`*-i analüüs.
+Morfoloogilist sünteesi kasutatakse tavaliselt mingis sõnastikus või loendis oleva sõna või väljendi vormide moodustamiseks. Sünteesi esimene etapp on *`ALGVORM`*-i analüüs.
 
 * Sõnastik võib esitada
 märksõnana ka tavapärasest erinevaid morfoloogilisi vorme, eeskätt mitmuse nimetavat, 

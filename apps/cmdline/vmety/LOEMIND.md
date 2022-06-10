@@ -4,7 +4,9 @@
 
 vmety \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
- Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+
+ Kooditabeliks on UTF-8.
 
 ## Sisendi ja väljundi esitusviis
 

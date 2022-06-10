@@ -4,8 +4,9 @@
 
 vmeta \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
- Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
 
+Kooditabeliks on UTF-8.
 
 ## Väljundi esitusviis
 Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogiliste tähenduste komplekti. Tulemus on kujul: 
@@ -47,9 +48,9 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 
 ### Algoritm <a name="lipp_algoritm"></a>
 
-* **--guess** <br> Leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
+* **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
 * **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
-* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse lisaks pärisnime analüüsi.<br>**NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  **&lt;s&gt;** ja **&lt;/s&gt;** vahel.
+* **--guesspropnames** <br> Suurtähelisele sõnale pakutakse ka  pärisnime analüüsi. **NB!** [Sisendi](#sisendi_kirjeldus) lipp peab olema vaikimisi e. **--xml** ja lause peab olema  &lt;s&gt; ja &lt;/s&gt; vahel.
 * **--dontguesspropnames** <br> Suurtähelisele sõnale ei pakuta lisaks pärisnime analüüsi.
 
 ### Väljund
