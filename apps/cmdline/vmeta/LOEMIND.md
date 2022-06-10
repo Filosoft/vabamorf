@@ -64,11 +64,11 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 * **--dontaddphonetics** <br> Lemmas/tüves ei ole hääldusmärke.
 * **-f, --addphonetics** <a name="lipp_haaldusmargid"></a> <br> Lemmas/tüves on hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
-### Leksikoni asukoht <a name="lipp_leksikonid"></a>
+### Leksikonide asukoht <a name="lipp_leksikonid"></a>
 
-* Leksikon **et.dct** asub keskkonnamuutujas **PATH** loetletud kataloogis.
+* Põhileksikon **et.dct** ja [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md) asuvad keskkonnamuutujas **PATH** loetletud kataloogis.
 
-* **-p K1:[K2:...], --path K1:[K2:...]** <br> Leksikon võib olla kataloogis **K1, K2, ...**
+* **-p K1:[K2:...], --path K1:[K2:...]** <br> Leksikonid võivad olla kataloogis **K1, K2, ...**
 
 ## Kasutusnäited
 
@@ -94,7 +94,25 @@ kinni    k<in]ni+0 //_D_ //
 .    . //_Z_ //
 </s>
 ```
+Olgu jooksvas kataloogis kahesõnaline [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md) **et.usr.dct.utf8**:
+```
+l@xid    mine+sid //_V_ sid, //
+r66mu    rõõm+0 //_S_ adt, //    rõõm+0 //_S_ sg p, //    rõõm+0 //_S_ sg g, //
+```
 
+... siis morf. analüüs on:
+```code
+echo '<s> R66mu rullid l@xid koju . </s>' | vmeta -p .:$PATH
+```
+```
+<s>
+R66mu    rõõm+0 //_S_ adt, //    rõõm+0 //_S_ sg g, //    rõõm+0 //_S_ sg p, //
+rullid    rull+d //_S_ pl n, //    rulli+d //_V_ d, //
+l@xid    mine+sid //_V_ sid, //
+koju    kodu+0 //_S_ adt, //
+.    . //_Z_ //
+</s>
+```
 ## Vaata lisaks
 * Morfoloogiline analüsaator [konteineris](https://gitlab.com/tilluteenused/docker-elg-morf/-/blob/main/LOEMIND.md).
 * Morfoloogilise ühestaja käsureaprogramm [vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md).

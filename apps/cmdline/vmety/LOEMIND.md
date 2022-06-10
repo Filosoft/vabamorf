@@ -27,7 +27,7 @@ Esitusviisilt on käesoleva morf. ühestaja sisend ja väljund samasugused kui m
 
 ### Leksikoni asukoht <a name="lipp_leksikonid"></a>
 
-* Leksikon **et.dct** asub keskkonnamuutujas **PATH** loetletud kataloogis.
+* Leksikon **et3.dct** asub keskkonnamuutujas **PATH** loetletud kataloogis.
 
 * **-p K1:[K2:...], --path K1:[K2:...]** <br> Leksikon võib olla kataloogis **K1, K2, ...**
 

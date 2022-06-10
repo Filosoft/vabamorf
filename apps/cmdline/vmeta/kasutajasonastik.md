@@ -1,42 +1,66 @@
-# KASUTAJASÕNASTIK EESTI KEELE MORFOLOOGILISE ANALÜÜSI JA SÜNTEESI PROGRAMMILE
+# KASUTAJASÕNASTIK EESTI KEELE MORFOLOOGILISE ANALÜÜSI  PROGRAMMILE
 
-## Kirjeldus
+## Asukoht
 Kasutajasõnastikku otsitakse käsurealipuga **--path** määratud kataloogide loendist 
 või selle puudumisel keskkonnamuutujas **PATH** loetletud kataloogidest. 
 Katalooge vaadatakse läbi sellises järjekorras nagu nad loendis on. 
 Kõigepealt otsitakse etteantud kataloogidest kasutajasõnastikku **et.usr.dct**, 
-kui seda ei leita siis faili **et.usr.dct.utf8** ja kui seda ka ei leita siis 
+kui seda ei leita, siis faili **et.usr.dct.utf8** ja kui ka seda ei leita, siis 
 faili **et.usr.dct.uc**. Programm kasutab (ainult) esimest leitud kasutajasõnastikku.
 
 ## Formaat
 Kasutajasõnastik on tekstifail.
 
-Sümboliga **#** algavaid ridu käsitletakse kommentaarina (ignoreeritakse).
+Sümboliga ```#``` algavaid ridu käsitletakse kommentaarina (ignoreeritakse).
 
-Ülejäänud kasutajasõnastiku read on analoogilise formaadiga nagu 
-morfoloogilise on analüsaatori väljund.
+Ülejäänud read on sama formaadiga nagu 
+morfoloogilise analüsaatori [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) väljund.
 
-**NB! Vale tühikute, kaldkriipsude, komade jms arvu/paigutuse korral lõpetab 
-morfoloogiline analüsaator töö veateatega.**
+**NB!** Vale tühikute, kaldkriipsude, komade jms arvu/paigutuse korral lõpetab 
+morfoloogiline analüsaator töö veateatega.
 
 ## Kodeering
-Kasutajasõnastikus kasutatav kooditabel sõltub kasutajasõnastiku nimest:
-* **et.usr.dct** - Windows Baltic kodeeringus lisasõnastik.
-* **et.usr.dct.utf8** - UTF8 kodeeringus lisasõnastik.
-* **et.usr.dct.uc** - little endian baidijärjega kahebaidises unicode kodeeringus lisasõnastik.
+Kasutajasõnastikus kasutatav kooditabel sõltub sõnastiku nimest:
+* **et.usr.dct** - Windows Baltic.
+* **et.usr.dct.utf8** - UTF-8.
+* **et.usr.dct.uc** - little endian baidijärjega kahebaidine unicode.
 
 ## Näide
-**NB! Tühikute arv sõnede!**
+Olgu jooksvas kataloogis kahesõnaline sõnastik **et.usr.dct.utf8**:
 ```
 l@xid    mine+sid //_V_ sid, //
-r66mu    rõõm+0 //_S_ adt,//    rõõm+0 //_S_ sg p, //    rõõm+0 //_S_ sg g, //
+r66mu    rõõm+0 //_S_ adt, //    rõõm+0 //_S_ sg p, //    rõõm+0 //_S_ sg g, //
+```
+
+... siis morf. analüsaatori [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) kasutamine annab:
+```code
+echo '<s> R66mu rullid l@xid koju . </s>' | vmeta -p .:$PATH
+```
+```
+<s>
+R66mu    rõõm+0 //_S_ adt, //    rõõm+0 //_S_ sg g, //    rõõm+0 //_S_ sg p, //
+rullid    rull+d //_S_ pl n, //    rulli+d //_V_ d, //
+l@xid    mine+sid //_V_ sid, //
+koju    kodu+0 //_S_ adt, //
+.    . //_Z_ //
+</s>
+```
+... ja morf. analüüs ([vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md)) koos järgneva ühestamisega ([vmety](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md)), nii et väljund on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html) kujul:
+```code
+echo '<s> R66mu rullid l@xid koju . </s>' | vmeta -p .:$PATH | vmety --gt
+```
+```
+<s>
+R66mu    rõõm+0 //_S_ Sg Gen, //
+rullid    rull+d //_S_ Pl Nom, //
+l@xid    mine+sid //_V_ Pers Prt Ind Pl3 Aff, //    mine+sid //_V_ Pers Prt Ind Sg2 Aff, //
+koju    kodu+0 //_S_ Sg Ill, //
+.    . //_Z_ //
+</s>
 ```
 
 ## Vaata lisaks
-* [Eesti keele morfloogilise analüsaatori käsureaprogramm](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
-* [Eesti keele morfoloogiline analüsaator ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf).
-* [Eesti keele morfoloogilise ühestaja käsureaprogramm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmyhh/LOEMIND.md).
-* [Eesti keel morfoloogiline ühestaja ELG nõuetele vastava liidesega konteineris](https://gitlab.com/tarmo.vaino/docker-elg-morf/-/blob/main/LOEMIND.md).
+* Morfloogilise analüsaatori käsureaprogramm [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
 
 ## Autor
 Copyright © 1997-2022 OÜ Filosoft
