@@ -11,7 +11,7 @@ Kooditabeliks on UTF-8.
 ## Väljundi esitusviis
 Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogiliste tähenduste komplekti. Tulemus on kujul: 
 
-*`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //
+*`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //\[&nbsp;&nbsp;&nbsp;&nbsp;*`TÜVI`*\+*`LÕPP`* //\_*`SÕNALIIK`*\_ *`KATEGOORIAD`*, //...\]
 
 
 *`TÜVI`* on algvorm või vormitüvi
