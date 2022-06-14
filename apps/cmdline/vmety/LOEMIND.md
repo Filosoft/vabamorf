@@ -22,7 +22,7 @@ Esitusviisilt on käesoleva morf. ühestaja sisend ja väljund samasugused kui m
 
 
 ### Väljund
-* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis.
+* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md)-süsteemis.
 * **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
 
 ### Leksikoni asukoht <a name="lipp_leksikonid"></a>

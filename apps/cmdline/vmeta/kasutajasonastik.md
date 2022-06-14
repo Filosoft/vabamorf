@@ -1,4 +1,4 @@
-# KASUTAJASÕNASTIK EESTI KEELE MORFOLOOGILISE ANALÜÜSI  PROGRAMMILE
+# Kasutajasõnastik morfoloogilise programmi täienduseks
 
 ## Asukoht
 Kasutajasõnastikku otsitakse käsurealipuga **--path** määratud kataloogide loendist 
@@ -11,7 +11,7 @@ faili **et.usr.dct.uc**. Programm kasutab (ainult) esimest leitud kasutajasõnas
 ## Formaat
 Kasutajasõnastik on tekstifail.
 
-Sümboliga ```#``` algavaid ridu käsitletakse kommentaarina (ignoreeritakse).
+Sümboliga ```#``` algavaid ridu käsitletakse kommentaarina, s.t. ignoreeritakse.
 
 Ülejäänud read on sama formaadiga nagu 
 morfoloogilise analüsaatori [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) väljund.
@@ -19,7 +19,7 @@ morfoloogilise analüsaatori [vmeta](https://github.com/Filosoft/vabamorf/blob/m
 **NB!** Vale tühikute, kaldkriipsude, komade jms arvu/paigutuse korral lõpetab 
 morfoloogiline analüsaator töö veateatega.
 
-## Kodeering
+## Kooditabel
 Kasutajasõnastikus kasutatav kooditabel sõltub sõnastiku nimest:
 * **et.usr.dct** - Windows Baltic.
 * **et.usr.dct.utf8** - UTF-8.

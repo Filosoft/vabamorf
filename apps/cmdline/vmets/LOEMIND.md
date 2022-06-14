@@ -25,7 +25,7 @@ Morfoloogilist sünteesi kasutatakse tavaliselt mingis sõnastikus või loendis 
 märksõnana ka tavapärasest erinevaid morfoloogilisi vorme, eeskätt mitmuse nimetavat, 
 nt. _roomajad_, _lipiidid_, _aimaraad_, kusjuures mõnel sõnal ainsuse vorme polegi (nt. _kihlad_); ka võivad ainuse nimetav ja mitmuse nimetav olla esindatud samas sünohulgas,
 nt. _armee_ e. _relvajõud_.  <br>
-Süntesaator teeb kindlaks, milliseid [morfoloogilisi kategooriaid](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) väljendavat sõnavormi antud juhul algvormiks
+Süntesaator teeb kindlaks, milliseid [morfoloogilisi kategooriaid](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md) väljendavat sõnavormi antud juhul algvormiks
 peetakse: kas tavapäraseid _sg n_ või (verbi puhul) _ma_, või haruldasemaid _sg g_ (nt. _teineteise_) või _pl n_.
 
 * Vormi moodustamise liitsõnast määrab sõna viimane komponent.
@@ -42,7 +42,7 @@ nt. lisades sõna ette _X_ (ja see pärast ära kustutada): _XKOERAD sg g_ on _X
 ### *`NÄIDIS`* <a name="NÄIDIS"></a>
 
 Mõnikord on eri käänamisviisiga sõnadel homograafiline algvorm, nt.  _palga/palgi_ puhul _palk_. *`NÄIDIS`* on sõnavorm, mille vormitüvi esineb ainult selle sõna paradigmas, mille vorme soovitakse.
-Nt. kui sisendiks on
+Nt. kui sisendiks on:
 
 ```
 palk (palga) //_*_ pl p, //
@@ -54,7 +54,7 @@ siis väljundiks on
 palk+u //_S_ pl p, //    palka+sid //_S_ pl p, //
 ```
 
-Programmi andmestruktuuride ülesehituse tõttu ei ole _NÄIDISe_ kasutamine alati intuitiivselt selge. Nt. kui sisendiks oleks
+Programmi andmestruktuuride ülesehituse tõttu ei ole _NÄIDISe_ kasutamine alati intuitiivselt selge. Nt. kui sisendiks oleks:
 
 ```
 palk (palku) //_*_ pl p, //
@@ -70,9 +70,9 @@ sest _palku_ analüüsitakse kui _palk+u_ ja tüvi _palk_ üksinda ei võimalda 
 
 ### *`SÕNALIIK`* <a name="SÕNALIIK"></a>
 
-[*`SÕNALIIK`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html) -süsteemis. Ta piirab võimalike sõnavormide hulka; tärni ```*``` korral piiranguid pole.
+[*`SÕNALIIK`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md)-süsteemis. Ta piirab võimalike sõnavormide hulka; tärni ```*``` korral piiranguid pole.
 
-### *`KATEGOORIAD`* <a name="VORM"></a>
+### *`KATEGOORIAD`* <a name="KATEGOORIAD"></a>
 
 [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis. Tärn ```*``` tähistab vastava sõnaliigi kõiki võimalikke vorme.
 

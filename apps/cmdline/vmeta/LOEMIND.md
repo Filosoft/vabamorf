@@ -1,4 +1,4 @@
-# vmeta <a name="algus"></a>
+# vmeta 
 
 ## Käsurida
 
@@ -20,7 +20,7 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
 
 Kui sõna on liitmoodustis, siis eelnevast komponendist eristab tüve alakriips ```_```, lõppu plussmärk ```+``` ja järelliidet võrdusmärk ```=```.
 
-[*`SÕNALIIK`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on  [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html) ja [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis sama.
+[*`SÕNALIIK`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on  [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md) ja [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis sama.
 
 [*`KATEGOORIAD`*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata.
 
@@ -46,7 +46,7 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 
 * **-t, --plaintext** <br> Lihttekst. Analüüsitakse mistahes märgijada.
 
-### Algoritm <a name="lipp_algoritm"></a>
+### Algoritm 
 
 * **--guess** <br> Ka leksikonist puuduvale sõnale pakutakse võimalikku analüüsi.
 * **-q, --dontguess** <br> Leksikonist puuduvat sõna ei analüüsita.
@@ -58,13 +58,13 @@ Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lau
 * **--lemma** <br> Algvorm e. lemma. Liitsõna puhul on ainult viimane  komponent algvormina.
 * **-s, --stem** <br> Vormitüvi. Seda kasutatakse nt. [häälduse](#lipp_haaldusmargid) või silbitamisega seotud rakenduste puhul.
 
-* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://filosoft.ee/html_morf_et/morfoutinfo.html)-süsteemis.
+* **--fs** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md)-süsteemis.
 * **-g, --gt** <br> [Kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) on [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-süsteemis.
 
 * **--dontaddphonetics** <br> Lemmas/tüves ei ole hääldusmärke.
 * **-f, --addphonetics** <a name="lipp_haaldusmargid"></a> <br> Lemmas/tüves on hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
-### Leksikonide asukoht <a name="lipp_leksikonid"></a>
+### Leksikonide asukoht 
 
 * Põhileksikon **et.dct** ja [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md) asuvad keskkonnamuutujas **PATH** loetletud kataloogis.
 
