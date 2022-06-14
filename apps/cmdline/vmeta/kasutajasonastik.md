@@ -60,7 +60,7 @@ koju    kodu+0 //_S_ Sg Ill, //
 ```
 
 ## Vaata lisaks
-* Morfloogilise analüsaatori käsureaprogramm [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
+* Morfoloogilise analüsaatori käsureaprogramm [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
 
 ## Autor
 Copyright © 1997-2022 OÜ Filosoft
