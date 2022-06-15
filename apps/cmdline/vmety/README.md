@@ -2,9 +2,9 @@
 
 ## Command line
 
-vmeta \[[*`FLAG`*](#flag_desc) \[[*`FLAG`*](#flag_desc)…\]\] [*`INPUT_FILE`* *`OUTPUT_FILE`*] 
+vmety \[[*`FLAGS`*](#flag_desc)\] [*`INPUT_FILE`* *`OUTPUT_FILE`*] 
 
-If *`INPUT_FILE`* or *`OUTPUT_FILE`* is missing or is a minus ```-```, the standard input or output stream is used.
+If *`INPUT_FILE`* or *`OUTPUT_FILE`* is ```-```, standard input or output stream will be used; in the absence of both files, standard input and output streams will be used.
 
 Encoding is UTF-8.
 

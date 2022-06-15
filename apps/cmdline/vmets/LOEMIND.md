@@ -2,9 +2,9 @@
 
 ## Käsurida
 
-vmets \[[*`LIPP`*](#lippude_kirjeldus) \[[*`LIPP`*](#lippude_kirjeldus)…\]\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
+vmets \[[*`LIPUD`*](#lippude_kirjeldus)\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
-Kui *`SISENDFAIL`* või *`VÄLJUNDFAIL`* on puudu või miinusmärk ```-```, kasutatakse standardsisendit või -väljundit.
+*`SISEND-`* või *`VÄLJUNDFAIL`*&shy;i asemel olev miinusmärk ```-``` tähistab standardsisendit või -väljundit; *`SISEND-`* ja *`VÄLJUNDFAIL`*&shy;i puudumisel kasutataksegi standardsisendit ja -väljundit.
 
 Kooditabeliks on UTF-8.
 
