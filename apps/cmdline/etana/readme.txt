@@ -45,3 +45,16 @@ Analüsaatori reiimis:
 	},
 	...
 ]
+
+Kasutusnäited
+-------------
+
+Morf. analüüs:
+etana analyze -in test.json -out analyze.json
+
+Morf. analüüs koos oletamise ja hääldusmärkide lisamisega:
+etana analyze -phonetic -guess -in test.json -out analyze.json
+
+Speller koos soovitustega:
+etana spell -suggest -in test.json -out spell.json
+
