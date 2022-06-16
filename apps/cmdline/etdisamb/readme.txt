@@ -8,3 +8,8 @@ Väljundfail = sana fail vähendatud analüüsidega
 Parimaks tulemuseks soovitame kasutada faili, mis on saadud käivitades
 etana analyze -propername -guess
 parameetritega.
+
+Kasutusnäide
+------------
+
+etana analyze -propername -guess -in test.json | etdisamb -out disamb.json

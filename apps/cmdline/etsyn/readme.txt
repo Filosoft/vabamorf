@@ -24,3 +24,9 @@ Väljundfail
 Kodeering: UTF8, ilma BOM-ita
 Sõnadele (words[*]) lisatakse täiendav informatsioon. 
 "text": [ "string", ... ]
+
+Kasutusnäide
+------------
+
+Süntees oletamisega:
+etsyn -guess -in test.json -out syn.json

@@ -1,12 +1,12 @@
 # Programmide kompileerimine ja sõnastike tegemine lähtefailidest
 
-## Vabamorfi lähtekoodi allalaadimine
+## Lähtekoodi allalaadimine
 
 ```cmdline
 git clone https://github.com/Filosoft/vabamorf.git vabamorf
 ```
 
-## Vabamorfi kompileerimine Windowsis
+## Windows
 
 ### Vajalik tarkvara
 
@@ -17,7 +17,7 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf
 * Avage **_vabamorf/apps/cmdline/project/vc2010/cmdline.sln_**
 * Käivitage kompilaator.
 
-## Vabamorfi programmide kompileerimine Linuxis
+## Linux
 
 ### Vajalik tarkvara
 
@@ -26,15 +26,20 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf
 
 ### Kompileerimine
 
-Kõigi teekide ja programmide kompileerimiseks käivitage kataloogis **_vabamorf/apps/cmdline/project/unix_** käsk
+```cmdline
+cd vabamorf/apps/cmdline/project/unix
+```
+Kõige kompileerimine (v.a. sõnastikud ? ):
 
 ```cmdline
 make -s -j all
 ```
 
-Ühe programmi kompileerimiseks käivitage kataloogis **_vabamorf/apps/cmdline/project/unix_** käsk
+Ühe programmi kompileerimine:
 
-**_make -s PROGRAMMI_NIMI_**
+<pre>
+make -s <i>PROGRAMMI_NIMI</i>
+</pre>
 
 Näited
 
@@ -53,8 +58,8 @@ make -s vmets
 Kompileeritud programmid luuakse kataloogi **_vabamorf/apps/cmdline/project/unix_**
 
 Peamiste programmide loend
-| Programi nimi | Kasutusjuhend | Selgitus |
-|:--------------|:--------------|:----------|
+| Programmi nimi | Kasutusjuhend | Selgitus |
+|:---------------|:--------------|:----------|
 |etana|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etana/readme.txt)|Morfoloogilise analüüsi programm, sisend/väljund JSONi kujul|
 |etdisamb|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etdisamb/readme.txt)|Morfoloogilise ühestamise programm, sisend/väljund JSONi kujul|
 |etsyn|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/readme.txt)|Morfoloogilise sünteesi programm, sisend/väljund JSONi kujul|
@@ -62,7 +67,12 @@ Peamiste programmide loend
 |vmety|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md)|Morfoloogilise ühestamise programm|
 |vmets|[Kasutusjuhend](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmets/LOEMIND.md)|Morfoloogilise sünteesi programm|
 
-## Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine lähtefailidest Linuxis
+## Sõnastike tegemine
+
+**NB!** Kui Te ei muuda sõnastike lähtefaile, pole mingit vajadust sõnastikke ise uuesti teha.
+
+Eelnevalt valmis tehtud analüsaatori sõnastiku **_et.dct_** ja
+ühestaja sõnastiku **_et3.dct_** leiate kataloogist **_vabamorf/dct/binary_**. Sõnastike kokkupanemise programm kirjutab need GitHUBist tulnud versioonid üle.
 
 ### Vajalik tarkvara
 
@@ -70,28 +80,14 @@ Peamiste programmide loend
 * gmake
 * gawk
 
-### Sõnastike tegemiseks vajalike programmide kompileerimine ja sõnastike tegemine
-
-**Kui Te ei muuda sõnastike lähtefaile pole mingit vajadust sõnastikke ise uuesti teha.**
-
-Eelnevalt valmistehtud analüsaatori sõnastiku **_et.dct_** ja
-ühestaja sõnastiku **_et3.dct_** leiate kataloogist **_dct/binary_**.
-
-Sõnastiku tegemiseks vajalike programmide kompileerimiseks ja sõnastike kokkupanemiseks käivitage
-kataloogis **_dct/sh_** käsud:
+### Programmide kompileerimine ja sõnastike tegemine
 
 ```cmdline
+cd vabamorf/dct/sh
 chmod +x *.sh
 ./nullist-uus-sonastik.sh
 ```
 
-Sõnastike kokkupanemise programm kirjutab GitHUBist tulnud versiooni üle.
 
-## Programmide kirjeldused koos kasutusnäidetega
 
-* [Morfoloogilise analüüsi programm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md)
-* [Morfoloogilise ühestamise programm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmety/LOEMIND.md)
-* [Morfoloogilise sünteesi programm](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmets/LOEMIND.md)
-* [Morfoloogilise analüüsi programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/etana/)
-* [Morfoloogilise ühestamise programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/etdisamb)
-* [Morfoloogilise sünteesi programm (json-kujul sisend/väljund)](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/)
+
