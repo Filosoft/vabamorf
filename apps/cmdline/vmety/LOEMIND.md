@@ -4,7 +4,7 @@
 
 vmety \[[*`LIPUD`*](#lippude_kirjeldus)\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
-*`SISEND-`* või *`VÄLJUNDFAIL`*&shy;i asemel olev miinusmärk ```-``` tähistab standardsisendit või -väljundit; *`SISEND-`* ja *`VÄLJUNDFAIL`*&shy;i puudumisel kasutataksegi standardsisendit ja -väljundit.
+*`SISEND-`* või *`VÄLJUNDFAILi`* asemel olev miinusmärk ```-``` tähistab standardsisendit või -väljundit; *`SISEND-`* ja *`VÄLJUNDFAILi`* puudumisel kasutataksegi standardsisendit ja -väljundit.
 
  Kooditabeliks on UTF-8.
 

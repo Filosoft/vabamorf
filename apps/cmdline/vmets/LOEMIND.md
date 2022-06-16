@@ -4,7 +4,7 @@
 
 vmets \[[*`LIPUD`*](#lippude_kirjeldus)\] [*`SISENDFAIL`* *`VÄLJUNDFAIL`*] 
 
-*`SISEND-`* või *`VÄLJUNDFAIL`*&shy;i asemel olev miinusmärk ```-``` tähistab standardsisendit või -väljundit; *`SISEND-`* ja *`VÄLJUNDFAIL`*&shy;i puudumisel kasutataksegi standardsisendit ja -väljundit.
+*`SISEND-`* või *`VÄLJUNDFAILi`* asemel olev miinusmärk ```-``` tähistab standardsisendit või -väljundit; *`SISEND-`* ja *`VÄLJUNDFAILi`* puudumisel kasutataksegi standardsisendit ja -väljundit.
 
 Kooditabeliks on UTF-8.
 
@@ -54,7 +54,7 @@ siis väljundiks on
 palk+u //_S_ pl p, //    palka+sid //_S_ pl p, //
 ```
 
-Programmi andmestruktuuride ülesehituse tõttu ei ole _NÄIDISe_ kasutamine alati intuitiivselt selge. Nt. kui sisendiks oleks:
+Programmi andmestruktuuride ülesehituse tõttu ei ole *`NÄIDISe`* kasutamine alati intuitiivselt selge. Nt. kui sisendiks oleks:
 
 ```
 palk (palku) //_*_ pl p, //
