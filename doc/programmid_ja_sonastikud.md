@@ -29,7 +29,7 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf
 ```cmdline
 cd vabamorf/apps/cmdline/project/unix
 ```
-Kõige kompileerimine (v.a. sõnastikud ? ):
+Kõige kompileerimine:
 
 ```cmdline
 make -s -j all

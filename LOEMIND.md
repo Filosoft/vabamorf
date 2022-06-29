@@ -5,12 +5,12 @@
   * [LibreOffice'i spelleri kompileerimine](https://github.com/Filosoft/vabamorf/blob/master/apps/plugin/libreoffice/readme.txt)
   * [Java integratsiooni näide](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/java/readme.html)
 
-* Sõnastikud
+* Sõnastike kirjeldused
   * [Analüsaatori ja süntesaatori leksikon](https://github.com/Filosoft/vabamorf/blob/master/doc/morfi_leksikoni_kirjeldus.md)
   * [Analüsaatori lisasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md)
   * [Ühestaja leksikon](https://github.com/Filosoft/vabamorf/blob/master/doc/yhestaja_leksikoni_kirjeldus.md)
   
-* [Ülevaade morfoloogilistest kategooriatest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et/)
+* [Ülevaade morfoloogilistest kategooriatest](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et)
   * [FS-kuju](https://github.com/Filosoft/vabamorf/blob/master/doc/kategooriad.md)
   * [GT-kuju](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)
 
