@@ -23,7 +23,7 @@
   * [etsyn](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/readme.txt) - generation, with JSON input/output
 
 ## References
-Heiki-Jaan Kaalep, Tarmo Vaino. *Complete Morphological Analysis in the Linguist’s Toolbox.* Congressus Nonus Internationalis Fenno-Ugristarum Pars V, Tartu (2001): 9-16. [last draft](https://www.cl.ut.ee/yllitised/kogumik2000.pdf)
+Heiki-Jaan Kaalep, Tarmo Vaino. *Complete Morphological Analysis in the Linguist’s Toolbox.* Congressus Nonus Internationalis Fenno-Ugristarum Pars V, Tartu (2001): 9-16. [last draft](https://www.cl.ut.ee/yllitised/smugri_toolbox_2001.pdf)
 
  Kaarel Veskis, Erkki Liba. *Automatic tagger evaluation: NLP course assignment report* (2008).
  [report](https://entu.keeleressursid.ee/public-document/entity-7052)
