@@ -65,7 +65,7 @@ because _palku_ is analysed as _palk+u_ and the stem _palk_ alone does not discr
 
 ### *`FEATURES`* <a name="FEATURES"></a>
 
-[Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) follow [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/tagset.md)-schema. Asterisk ```*``` denotes all the word forms that are possible for the given word class.
+[Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=en) follow [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/tagset.md)-schema. Asterisk ```*``` denotes all the word forms that are possible for the given word class.
 
 ## Output format
 

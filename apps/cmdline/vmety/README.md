@@ -20,8 +20,8 @@ The format of input and output is equivalent to the output format of commandline
 ## Flags <a name="flag_desc"></a>
 
 ### Output
-* **--fs** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) are in [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/tagset.md)-schema.
-* **-g, --gt** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) are in [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-schema.
+* **--fs** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=en) are in [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/tagset.md)-schema.
+* **-g, --gt** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=en) are in [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-schema.
 
 ### Location for lexicon 
 

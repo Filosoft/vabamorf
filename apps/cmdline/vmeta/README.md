@@ -60,8 +60,8 @@ A typical sequence of text processing steps goes from tokenization and sentence 
 * **--lemma** <br> Lemma. If the word is a compound, then only its last component is presented in lemma form.
 * **-s, --stem** <br> Stem of the word form. It is used with e.g.  [pronunciation](#pronunciation_flags) or syllabification-related applications.
 
-* **--fs** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) are in [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/tagset.md)-schema.
-* **-g, --gt** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) are in [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-schema.
+* **--fs** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=en) are in [FS](https://github.com/Filosoft/vabamorf/blob/master/doc/tagset.md)-schema.
+* **-g, --gt** <br> [Features](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=en) are in [GT](https://www.keeleveeb.ee/dict/corpus/shared/categories.html)-schema.
 
 * **--dontaddphonetics** <br> Lemma/stem contains no pronunciation symbols.
 * **-f, --addphonetics** <a name="pronunciation_flags"></a> <br> Lemma/stem may contain ```<``` for third grade, ```?``` for stress, or ```]``` for palatalisation as a pronunciation symbol.
