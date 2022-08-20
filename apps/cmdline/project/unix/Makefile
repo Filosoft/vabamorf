@@ -22,6 +22,8 @@ lib_db: $(LIBS_DB)
 
 
 clean :
+	-rm -rf vmetajson*
+	-rm -rf vmetajson.db*
 	-rm -rf vmets*
 	-rm -rf vmets.db*
 	-rm -rf vmeta*
@@ -81,12 +83,17 @@ json.db.ar : $(wildcard $(ROOTDIR)/apps/lib/*.cpp) $(wildcard $(ROOTDIR)/apps/li
 
 
 # programmid
+vmetajson : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmetajson/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetajson/*.h)
+	$(call compile2binwithjson,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+vmetajson.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmetajson/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetajson/*.h)
+	$(call compile2dbbincompile2binwithjson,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
 vmets : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.h)
 	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
 vmets.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmets/*.h)
 	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
-
 
 vmeta : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmeta/*.h)
 	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))

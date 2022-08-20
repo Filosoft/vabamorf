@@ -36,3 +36,18 @@ define compile2dbbin
 	-rm -rf $(1).tmp
 endef	
 
+define compile2binwithjson
+	echo '==' $1
+	mkdir -p $(1).tmp
+	cd $(1).tmp && $(CC) $(FLAGS) -ljsoncpp -o ../$(1) $(2)/*.cpp $(addprefix ../,$(LIBS))
+	strip $(1)
+	-rm -rf $(1).tmp
+endef	
+
+define compile2dbbincompile2binwithjson
+	echo '==' $1
+	mkdir -p $(1).tmp
+	cd $(1).tmp && $(CC) $(FLAGS_DB) -ljsoncpp -o ../$(1) $(2)/*.cpp $(addprefix ../,$(LIBS:.ar=.db.ar))
+	-rm -rf $(1).tmp
+endef	
+
