@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/tarmo/github_vabamorf_parem_2022_08'
+make: Leaving directory '/home/tarmo/github_vabamorf_parem_2022_08'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
