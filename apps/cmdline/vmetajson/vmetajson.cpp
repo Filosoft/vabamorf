@@ -1,7 +1,8 @@
 #include "vmetajson.h"
+#include <jsoncpp/json/json.h> 
 
+#include <iostream>
 int Tmain(int argc, FSTCHAR** argv, FSTCHAR**envp)
     {
-    //return MainTemplate<VMETA>(argc, argv, envp, NULL);
-    return MainTemplate<VMETANA>(argc, argv, envp, NULL);
+    return MainTemplate<VMETAJSON>(argc, argv, envp, NULL);
     }
