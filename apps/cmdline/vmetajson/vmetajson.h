@@ -32,12 +32,12 @@ public:
     {
         assert(EmptyClassInvariant() == true);
         lipp_lemma=true;
-        lipp_xml=true;		// xml sisendformaat
-        lipp_oleta=true;    // oletame leksikonist puuduvad sõned
-        lipp_oleta_pn=true; // lisa (oleta) lausekonteksti ja suurtähelisuse
-                            // põhjal pärisnimesid
-        lipp_haaldus=false; // hääldusmärke ei lisa
-        lipp_ms=lipp_fs;	// märgendisüsteem fs
+        lipp_lausekaupa=false;   // morfime lausekaupa
+        lipp_oleta=true;        // oletame leksikonist puuduvad sõned
+        lipp_oleta_pn=false;     // lisa (oleta) lausekonteksti ja suurtähelisuse
+                                // põhjal pärisnimesid
+        lipp_haaldus=false;     // hääldusmärke ei lisa
+        lipp_ms=lipp_fs;	    // märgendisüsteem fs
 
         PATHSTR pathstr;
         path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
@@ -65,7 +65,7 @@ public:
                 lipp_lemma=false;
                 continue;
             }            
-            //-----------------------------
+            /*-----------------------------
             if(strcmp("--xml", argv[i])==0)
             {
                 lipp_xml=true;
@@ -76,7 +76,7 @@ public:
                 lipp_xml=false;
                 continue;
             }
-            //-----------------------------
+            -----------------------------*/
             if(strcmp("--guess", argv[i])==0)
             {
                 lipp_oleta=true;
@@ -145,13 +145,14 @@ public:
                 goto syntaks;
             }
             //-----------------------------
-            if(lipp_oleta_pn==true && lipp_xml==false)
+            /*if(lipp_oleta_pn==true && lipp_xml==false)
                 fprintf(stderr,
                     "--guesspropname lippu saab kasutada ainult koos --xml lipuga");
             if(lipp_oleta==true && lipp_xml==false)
                 fprintf(stderr,
                     "--guesspropname lippu saab kasutada ainult koos --guess lipuga");
             goto syntaks;
+            */
         }
         if(i!=argc)
             goto syntaks;
@@ -161,8 +162,6 @@ public:
     /** Korraldame jsoni läbilaskmist */
     void Run(void)
     { 
-
-
         if(json_str_fs.GetLength() > 0)
         {
             Json::Value jsonobj;
@@ -176,7 +175,7 @@ public:
             }
             else
             {
-                fsJsonCpp.Writer(jsonobj, true);
+                TeeSeda(jsonobj);
             }
         }
         else
@@ -207,7 +206,7 @@ private:
 
     bool lipp_lemma;
     bool lipp_oleta_pn;         // --guesspropnames/--dontguesspropnames
-    bool lipp_xml;		        // -x --xml/--plaintext
+    bool lipp_lausekaupa;		// morfime lausekaupa, json'is peavad olema laused märgendatud
     bool lipp_haaldus;          // -p --phonetics/--nophonetics
     bool lipp_oleta;            // -q --guess/--dontguess
 
@@ -235,17 +234,20 @@ private:
         MRF_FLAGS_BASE_TYPE lipud_lausete_yhestamiseks =
                                 MF_MRF | MF_ALGV | MF_POOLITA |
                                 MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
-                                MF_YHESTA | MF_XML | MF_IGNOREBLK |
+                                MF_YHESTA | MF_IGNOREBLK |
                                 MF_LISAPNANAL | MF_OLETA ;
 
-        if(lipp_xml)// xml
+        if(lipp_lausekaupa)// xml
         {
+            // kontrolli, et jsonis oleksid laused märgendatud
+            // kontrolli, et oleks tundmatute oletamine
             lipud_mrf.Set(lipud_lausete_yhestamiseks);
             lipud_mrf.OnOff(MF_LISAPNANAL, lipp_oleta_pn);  // ainult lausekonteksti korral
                                                             // saab olla "on"
         }
         else
         {
+            // kontrolli, et ei oleks pärsinimede oletamist
             lipud_mrf.Set(lipud_yksiksonade_analyysiks);
         }
         lipud_mrf.OnOff(MF_ALGV, lipp_lemma);
@@ -267,13 +269,43 @@ private:
 
     /* Laseme ühe jsoni päringu läbi
     */
-    void TeeSeda1(const char* json_str)
+    void TeeSeda(Json::Value& jsonobj)
     {
         bool ret;
         CFSWString rida;
         LYLI lyli;
         
+        fsJsonCpp.Writer(jsonobj, true);
+        // kui laused pole märgendatud, teeme sõnekaupa
+        TeeSedaSonekaupa(jsonobj);
+        // kui laused on märgendatud, teeme lausekaupa
+    }
 
+    void TeeSedaSonekaupa(Json::Value& jsonobj)
+    {
+        bool ret;
+        const Json::Value& tokens = jsonobj["annotations"]["tokens"];
+        for(int i=0; i<tokens.size(); i++)
+        {
+            LYLI lyli;
+            LYLI_UTF8 lyli_utf8;
+            std::cout << __FILE__<< ":" << __LINE__ << ": " << tokens[i]["features"]["token"] << std::endl;
+            //Json::String jsonStr = tokens[i]["features"]["token"].asString();
+            //std::string stdStr = (const char*)(tokens[i]["features"]["token"].asString().c_str());
+            //const char* cStr = tokens[i]["features"]["token"].asString().c_str();
+            const FSXSTRING fsStr = tokens[i]["features"]["token"].asString().c_str();// tokens[i]["features"]["token"].asString().c_str()
+            ret = mrf.Set1(fsStr);
+            //ret = mrf.Flush(lyli);
+            ret = mrf.Flush(lyli);
+            lyli_utf8 = lyli;
+            std::cout << __FILE__<< ":" << __LINE__ << std::endl;
+        }
+
+
+    }
+
+    void TeeSedaLausekaupa(Json::Value& jsonobj)
+    {
         /*
         while (in.Rida(rida) == true)
         {
