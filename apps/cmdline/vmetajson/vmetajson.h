@@ -275,7 +275,8 @@ private:
         CFSWString rida;
         LYLI lyli;
         
-        fsJsonCpp.Writer(jsonobj, true);
+        //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
+        //fsJsonCpp.Writer(jsonobj, true);
         // kui laused pole märgendatud, teeme sõnekaupa
         TeeSedaSonekaupa(jsonobj);
         // kui laused on märgendatud, teeme lausekaupa
@@ -284,24 +285,70 @@ private:
     void TeeSedaSonekaupa(Json::Value& jsonobj)
     {
         bool ret;
-        const Json::Value& tokens = jsonobj["annotations"]["tokens"];
+        Json::Value& tokens = jsonobj["annotations"]["tokens"];
         for(int i=0; i<tokens.size(); i++)
         {
-            LYLI lyli;
-            LYLI_UTF8 lyli_utf8;
-            std::cout << __FILE__<< ":" << __LINE__ << ": " << tokens[i]["features"]["token"] << std::endl;
-            //Json::String jsonStr = tokens[i]["features"]["token"].asString();
-            //std::string stdStr = (const char*)(tokens[i]["features"]["token"].asString().c_str());
-            //const char* cStr = tokens[i]["features"]["token"].asString().c_str();
-            const FSXSTRING fsStr = tokens[i]["features"]["token"].asString().c_str();// tokens[i]["features"]["token"].asString().c_str()
+
+            Json::Value& features = tokens[i]["features"]; 
+            const FSXSTRING fsStr = features["token"].asString().c_str();
             ret = mrf.Set1(fsStr);
-            //ret = mrf.Flush(lyli);
+            LYLI lyli;
             ret = mrf.Flush(lyli);
-            lyli_utf8 = lyli;
-            std::cout << __FILE__<< ":" << __LINE__ << std::endl;
+            const LYLI_UTF8 lyli_utf8 = lyli;
+            const MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
+            std::string source;
+            int tagasitasand = mrftulemused_utf8.tagasiTasand;
+            switch(mrftulemused_utf8.eKustTulemused)
+            {   
+                case eMRF_P: source = "P"; break;  /** tulemus pärineb põhisõnastikust */
+                case eMRF_L: source = "L"; break;  /** tulemus pärineb lisasõnastikust */
+                case eMRF_O: source = "O"; break;  /** tulemus pärineb sõnapõhisest oletajast */
+                case eMRF_S: source = "S"; break;  /** tulemus pärineb lausepõhisest oletajast */
+                case eTAG_XX: source = "TAG"; break;/** tulemus on XML märgendit sisaldav string (MRFTULEMUSED_TMPL::s6na) */
+                case eMRF_PARITUD: source = "INHeR"; break;
+                default: source = "X"; break;      /** tulemus pärineb määratlemata moodulist */
+            }
+            features["complexity"] = 6;
+            features["source"] = source;
+            for(int i=0; i < mrftulemused_utf8.idxLast; i++)
+            {
+                Json::Value json_mrf;
+  
+                json_mrf["kigi"]     = (const char*)(mrftulemused_utf8[i]->kigi);
+                json_mrf["pos"]      = (const char*)(mrftulemused_utf8[i]->sl);
+                json_mrf["fs"] = (const char*)(mrftulemused_utf8[i]->vormid);
+                json_mrf["stem"]     = (const char*)(mrftulemused_utf8[i]->tyvi);
+                if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
+                    json_mrf["ending"]   = (const char*)(mrftulemused_utf8[i]->lopp);
+                else
+                    json_mrf["ending"]   = "0";
+                if(mrftulemused_utf8[i]->lemma.GetLength() > 0)
+                    json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
+                if(mrftulemused_utf8[i]->vormidGT.GetLength() > 0)
+                    json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
+                if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
+                    json_mrf["t3"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
+                if(mrftulemused_utf8[i]->eKustTulemused != eMRF_X 
+                    && mrftulemused_utf8[i]->eKustTulemused != eMRF_PARITUD)
+                {
+                    switch(mrftulemused_utf8[i]->eKustTulemused)
+                    {  
+                        case eMRF_P: json_mrf["source"] = "P"; break; // põhisõnastikust
+                        case eMRF_L: json_mrf["source"] = "L"; break; // lisasõnastikust
+                        case eMRF_O: json_mrf["source"] = "O"; break; // sõnapõhisest oletajast
+                        case eMRF_S: json_mrf["source"] = "S"; break; // lausepõhisest oletajast
+                        default: json_mrf["source"] = "X"; break;                 // eMRF_X, ise ka ei tea 
+                    }   
+                }
+                features["mrf"].append(json_mrf);
+                //fsJsonCpp.Writer(json_mrf, true);
+                //std::cout << __FILE__<< ":" << __LINE__ << std::endl; 
+            }
+            //fsJsonCpp.Writer(features, true);
+            //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
         }
-
-
+    fsJsonCpp.Writer(jsonobj, true);
+    std::cout << __FILE__<< ":" << __LINE__ << std::endl;
     }
 
     void TeeSedaLausekaupa(Json::Value& jsonobj)
