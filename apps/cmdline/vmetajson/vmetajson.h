@@ -307,10 +307,10 @@ private:
             {
                 Json::Value json_mrf;
   
-                json_mrf["kigi"]     = (const char*)(mrftulemused_utf8[i]->kigi);
-                json_mrf["pos"]      = (const char*)(mrftulemused_utf8[i]->sl);
-                json_mrf["fs"] = (const char*)(mrftulemused_utf8[i]->vormid);
-                json_mrf["stem"]     = (const char*)(mrftulemused_utf8[i]->tyvi);
+                json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
+                json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
+                json_mrf["fs"]   = (const char*)(mrftulemused_utf8[i]->vormid);
+                json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
                 if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
                     json_mrf["ending"]   = (const char*)(mrftulemused_utf8[i]->lopp);
                 else
