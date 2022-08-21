@@ -284,32 +284,25 @@ private:
 
     void TeeSedaSonekaupa(Json::Value& jsonobj)
     {
-        bool ret;
         Json::Value& tokens = jsonobj["annotations"]["tokens"];
         for(int i=0; i<tokens.size(); i++)
         {
-
             Json::Value& features = tokens[i]["features"]; 
             const FSXSTRING fsStr = features["token"].asString().c_str();
-            ret = mrf.Set1(fsStr);
+            mrf.Set1(fsStr);
             LYLI lyli;
-            ret = mrf.Flush(lyli);
+            mrf.Flush(lyli);
             const LYLI_UTF8 lyli_utf8 = lyli;
             const MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
-            std::string source;
-            int tagasitasand = mrftulemused_utf8.tagasiTasand;
             switch(mrftulemused_utf8.eKustTulemused)
             {   
-                case eMRF_P: source = "P"; break;  /** tulemus pärineb põhisõnastikust */
-                case eMRF_L: source = "L"; break;  /** tulemus pärineb lisasõnastikust */
-                case eMRF_O: source = "O"; break;  /** tulemus pärineb sõnapõhisest oletajast */
-                case eMRF_S: source = "S"; break;  /** tulemus pärineb lausepõhisest oletajast */
-                case eTAG_XX: source = "TAG"; break;/** tulemus on XML märgendit sisaldav string (MRFTULEMUSED_TMPL::s6na) */
-                case eMRF_PARITUD: source = "INHeR"; break;
-                default: source = "X"; break;      /** tulemus pärineb määratlemata moodulist */
+                case eMRF_P: features["source"] = "P"; break; // põhisõnastikust
+                case eMRF_L: features["source"] = "L"; break; // lisasõnastikust
+                case eMRF_O: features["source"] = "O"; break; // sõnapõhisest oletajast
+                case eMRF_S: features["source"] = "S"; break; // lausepõhisest oletajast
+                default: features["source"] = "X"; break;     // ei tea ise ka kust
             }
-            features["complexity"] = 6;
-            features["source"] = source;
+            features["complexity"] = mrftulemused_utf8.tagasiTasand;;
             for(int i=0; i < mrftulemused_utf8.idxLast; i++)
             {
                 Json::Value json_mrf;
