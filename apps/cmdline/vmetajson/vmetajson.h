@@ -32,9 +32,9 @@ public:
     {
         assert(EmptyClassInvariant() == true);
         lipp_lemma=true;
-        lipp_lausekaupa=false;   // morfime lausekaupa
+        lipp_lausekaupa=false;  // morfime lausekaupa
         lipp_oleta=true;        // oletame leksikonist puuduvad sõned
-        lipp_oleta_pn=false;     // lisa (oleta) lausekonteksti ja suurtähelisuse
+        lipp_oleta_pn=false;    // lisa (oleta) lausekonteksti ja suurtähelisuse
                                 // põhjal pärisnimesid
         lipp_haaldus=false;     // hääldusmärke ei lisa
         lipp_ms=lipp_fs;	    // märgendisüsteem fs
@@ -50,7 +50,7 @@ public:
     syntaks:
                 fprintf(stderr,
                         "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
-                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md\n",
+                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
                         argv[0]);
                 exit(EXIT_FAILURE);
             }
@@ -65,18 +65,18 @@ public:
                 lipp_lemma=false;
                 continue;
             }            
-            /*-----------------------------
-            if(strcmp("--xml", argv[i])==0)
+            //-----------------------------
+            if(strcmp("--sentences", argv[i])==0)
             {
-                lipp_xml=true;
+                lipp_lausekaupa=true;
                 continue;
             }
-            if(strcmp("-t", argv[i])==0 || strcmp("--plaintext", argv[i])==0)
+            if(strcmp("-t", argv[i])==0 || strcmp("--tokens", argv[i])==0)
             {
-                lipp_xml=false;
+                lipp_lausekaupa=false;
                 continue;
             }
-            -----------------------------*/
+            //-----------------------------
             if(strcmp("--guess", argv[i])==0)
             {
                 lipp_oleta=true;
@@ -163,13 +163,13 @@ public:
     void Run(void)
     { 
         if(json_str_fs.GetLength() > 0)
-        {
+        {   // JSON sisend tuleb käsurea parameetrist
             Json::Value jsonobj;
             std::string message;
             if(fsJsonCpp.Parse((const char*)json_str_fs, message, jsonobj)==false)
             {
                 Json::Value json_errmsg;
-                json_errmsg["type"]="texts";
+                //json_errmsg["type"]="texts";
                 json_errmsg["warnings"].append(message);
                 fsJsonCpp.Writer(json_errmsg);
             }
@@ -179,17 +179,29 @@ public:
             }
         }
         else
-        {
-            std::string s;  
-	        while(std::getline(std::cin,s))
-            { 
-		        std::cout << __FILE__<< ":" << __LINE__ << ": " << s << std::endl; 
+        {   // JSON sisend tuleb std-sisendist
+            std::string line;  
+	        while(std::getline(std::cin,line))
+            {
+                Json::Value jsonobj;
+                std::string message;
+                if(fsJsonCpp.Parse(line, message, jsonobj)==false)
+                {
+                    Json::Value json_errmsg;
+                    //json_errmsg["type"]="texts";
+                    json_errmsg["warnings"].append(message);
+                    fsJsonCpp.Writer(json_errmsg);
+                }
+                else
+                {
+                    TeeSeda(jsonobj);
+                }               
+
 	        } 
         }
     }
 
     /** Taastab argumentideta konstruktori järgse seisu */
-
     void Stop(void)
     {
         mrf.Stop();
@@ -267,8 +279,7 @@ private:
         mrf.Start(path, lipud_mrf.Get());
     }
 
-    /* Laseme ühe jsoni päringu läbi
-    */
+    /** Laseme ühe jsoni päringu läbi */
     void TeeSeda(Json::Value& jsonobj)
     {
         bool ret;
@@ -278,8 +289,14 @@ private:
         //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
         //fsJsonCpp.Writer(jsonobj, true);
         // kui laused pole märgendatud, teeme sõnekaupa
-        TeeSedaSonekaupa(jsonobj);
-        // kui laused on märgendatud, teeme lausekaupa
+        if(lipp_lausekaupa == true)
+        {   // jsonobj["annotations"]["sentences"] on kohustuslik
+            TeeSedaLausekaupa(jsonobj);
+        }
+        else
+        {   // jsonobj["annotations"]["sentences"] ei ole kohustuslik
+            TeeSedaSonekaupa(jsonobj);
+        }
     }
 
     void TeeSedaSonekaupa(Json::Value& jsonobj)
@@ -292,56 +309,13 @@ private:
             mrf.Set1(fsStr);
             LYLI lyli;
             mrf.Flush(lyli);
+            lyli.ptr.pMrfAnal->LeiaLemmad();
             const LYLI_UTF8 lyli_utf8 = lyli;
-            const MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
-            switch(mrftulemused_utf8.eKustTulemused)
-            {   
-                case eMRF_P: features["source"] = "P"; break; // põhisõnastikust
-                case eMRF_L: features["source"] = "L"; break; // lisasõnastikust
-                case eMRF_O: features["source"] = "O"; break; // sõnapõhisest oletajast
-                case eMRF_S: features["source"] = "S"; break; // lausepõhisest oletajast
-                default: features["source"] = "X"; break;     // ei tea ise ka kust
-            }
-            features["complexity"] = mrftulemused_utf8.tagasiTasand;;
-            for(int i=0; i < mrftulemused_utf8.idxLast; i++)
-            {
-                Json::Value json_mrf;
-  
-                json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
-                json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
-                json_mrf["fs"]   = (const char*)(mrftulemused_utf8[i]->vormid);
-                json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-                if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
-                    json_mrf["ending"]   = (const char*)(mrftulemused_utf8[i]->lopp);
-                else
-                    json_mrf["ending"]   = "0";
-                if(mrftulemused_utf8[i]->lemma.GetLength() > 0)
-                    json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
-                if(mrftulemused_utf8[i]->vormidGT.GetLength() > 0)
-                    json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
-                if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
-                    json_mrf["t3"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
-                if(mrftulemused_utf8[i]->eKustTulemused != eMRF_X 
-                    && mrftulemused_utf8[i]->eKustTulemused != eMRF_PARITUD)
-                {
-                    switch(mrftulemused_utf8[i]->eKustTulemused)
-                    {  
-                        case eMRF_P: json_mrf["source"] = "P"; break; // põhisõnastikust
-                        case eMRF_L: json_mrf["source"] = "L"; break; // lisasõnastikust
-                        case eMRF_O: json_mrf["source"] = "O"; break; // sõnapõhisest oletajast
-                        case eMRF_S: json_mrf["source"] = "S"; break; // lausepõhisest oletajast
-                        default: json_mrf["source"] = "X"; break;                 // eMRF_X, ise ka ei tea 
-                    }   
-                }
-                features["mrf"].append(json_mrf);
-                //fsJsonCpp.Writer(json_mrf, true);
-                //std::cout << __FILE__<< ":" << __LINE__ << std::endl; 
-            }
-            //fsJsonCpp.Writer(features, true);
-            //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
+            MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
+            MrfTulemused_2_JSON(features, mrftulemused_utf8);
         }
-    fsJsonCpp.Writer(jsonobj, true);
-    std::cout << __FILE__<< ":" << __LINE__ << std::endl;
+        fsJsonCpp.Writer(jsonobj, true);
+        //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
     }
 
     void TeeSedaLausekaupa(Json::Value& jsonobj)
@@ -401,6 +375,68 @@ private:
             valja.Pane(&lyli_utf8, lipud_mrf.Get());
         }
         */
+    }
+
+    void MrfTulemused_2_JSON(Json::Value& features, MRFTULEMUSED_UTF8& mrftulemused_utf8)
+    {
+        if(lipud_mrf.ChkB(MF_GTMRG))
+            fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
+        switch(mrftulemused_utf8.eKustTulemused)
+        {   
+            case eMRF_P: features["source"] = "P"; break; // põhisõnastikust
+            case eMRF_L: features["source"] = "L"; break; // lisasõnastikust
+            case eMRF_O: features["source"] = "O"; break; // sõnapõhisest oletajast
+            case eMRF_S: features["source"] = "S"; break; // lausepõhisest oletajast
+            default: features["source"] = "X"; break;     // ei tea ise ka kust
+        }
+        features["complexity"] = mrftulemused_utf8.tagasiTasand;;
+        for(int i=0; i < mrftulemused_utf8.idxLast; i++)
+        {
+            Json::Value json_mrf;
+            //if(lipud_mrf.ChkB(MF_LEMMA))
+            //    json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
+            if(lipud_mrf.ChkB(MF_ALGV))
+                json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
+            else
+                json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+            json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
+
+
+            if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
+                json_mrf["ending"]   = (const char*)(mrftulemused_utf8[i]->lopp);
+            else
+                json_mrf["ending"]   = "0";
+                
+            if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
+                json_mrf["t3"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
+            else if(lipud_mrf.ChkB(MF_GTMRG))
+            {
+                json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
+                json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
+            }
+            else
+            {
+                json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
+                json_mrf["fs"]   = (const char*)(mrftulemused_utf8[i]->vormid);
+            }
+            if(mrftulemused_utf8[i]->eKustTulemused != eMRF_X 
+                && mrftulemused_utf8[i]->eKustTulemused != eMRF_PARITUD)
+            {
+                switch(mrftulemused_utf8[i]->eKustTulemused)
+                {  
+                    case eMRF_P: json_mrf["source"] = "P"; break; // põhisõnastikust
+                    case eMRF_L: json_mrf["source"] = "L"; break; // lisasõnastikust
+                    case eMRF_O: json_mrf["source"] = "O"; break; // sõnapõhisest oletajast
+                    case eMRF_S: json_mrf["source"] = "S"; break; // lausepõhisest oletajast
+                    default: json_mrf["source"] = "X"; break;                 // eMRF_X, ise ka ei tea 
+                }   
+            }
+            features["mrf"].append(json_mrf);
+            //fsJsonCpp.Writer(json_mrf, true);
+            //std::cout << __FILE__<< ":" << __LINE__ << std::endl; 
+        }
+        //fsJsonCpp.Writer(features, true);
+        //std::cout << __FILE__<< ":" << __LINE__ << std::endl; 
     }
 
     /** Muutujate esialgseks initsialiseerimsieks konstruktoris */

@@ -19,6 +19,17 @@ class FSJSONCPP
             return true;
         }
 
+        bool Parse(const std::string& str, std::string& message, Json::Value& jsonobj)
+        {
+            message = "";
+            if(jsonreader.parse(str, jsonobj) == false)
+            {
+                message = jsonreader.getFormattedErrorMessages().c_str();
+                return false;
+            }
+            return true;
+        }
+
         void Writer(const Json::Value& jsonobj, bool use_StyledWriter = false)
         {
             if(use_StyledWriter)
