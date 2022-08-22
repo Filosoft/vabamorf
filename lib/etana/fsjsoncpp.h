@@ -46,8 +46,6 @@ class FSJSONCPP
 
     private:
             Json::Reader jsonreader;
-               
-
 };
 
 #endif
