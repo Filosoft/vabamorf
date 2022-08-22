@@ -1,0 +1,119 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/tarmo/github_vabamorf_parem_2022_08/apps/cmdline/project/unix'
+#echo '==' json.ar
+mkdir -p json.ar.tmp
+cd json.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../apps/lib/*.cpp
+cd json.ar.tmp && ar -r ../json.ar *.o
+rm -rf json.ar.tmp 
+#echo '==' proof.ar
+mkdir -p proof.ar.tmp
+cd proof.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/proof/*.cpp
+cd proof.ar.tmp && ar -r ../proof.ar *.o
+rm -rf proof.ar.tmp 
+#echo '==' etyhh.ar
+mkdir -p etyhh.ar.tmp
+cd etyhh.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/etyhh/*.cpp
+cd etyhh.ar.tmp && ar -r ../etyhh.ar *.o
+rm -rf etyhh.ar.tmp 
+#echo '==' etana.ar
+mkdir -p etana.ar.tmp
+cd etana.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/etana/*.cpp
+cd etana.ar.tmp && ar -r ../etana.ar *.o
+rm -rf etana.ar.tmp 
+ 
+#echo '==' fsc.ar
+mkdir -p fsc.ar.tmp
+cd fsc.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/fsc/*.cpp
+cd fsc.ar.tmp && ar -r ../fsc.ar *.o
+rm -rf fsc.ar.tmp 
+#echo '==' json.db.ar
+mkdir -p json.db.ar.tmp
+cd json.db.ar.tmp && g++ -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../apps/lib/*.cpp
+cd json.db.ar.tmp && ar -r ../json.db.ar *.o
+rm -rf json.db.ar.tmp
+#echo '==' proof.db.ar
+mkdir -p proof.db.ar.tmp
+cd proof.db.ar.tmp && g++ -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/proof/*.cpp
+cd proof.db.ar.tmp && ar -r ../proof.db.ar *.o
+rm -rf proof.db.ar.tmp
+#echo '==' etyhh.db.ar
+mkdir -p etyhh.db.ar.tmp
+cd etyhh.db.ar.tmp && g++ -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/etyhh/*.cpp
+cd etyhh.db.ar.tmp && ar -r ../etyhh.db.ar *.o
+rm -rf etyhh.db.ar.tmp
+#echo '==' etana.db.ar
+mkdir -p etana.db.ar.tmp
+cd etana.db.ar.tmp && g++ -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/etana/*.cpp
+cd etana.db.ar.tmp && ar -r ../etana.db.ar *.o
+rm -rf etana.db.ar.tmp
+#echo '==' fsc.db.ar
+mkdir -p fsc.db.ar.tmp
+cd fsc.db.ar.tmp && g++ -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/fsc/*.cpp
+cd fsc.db.ar.tmp && ar -r ../fsc.db.ar *.o
+rm -rf fsc.db.ar.tmp
+echo '==' vmets
+mkdir -p vmets.tmp
+cd vmets.tmp && g++ -o ../vmets ../../../../../apps/cmdline/vmets/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip vmets
+rm -rf vmets.tmp
+echo '==' vmeta
+mkdir -p vmeta.tmp
+cd vmeta.tmp && g++ -o ../vmeta ../../../../../apps/cmdline/vmeta/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip vmeta
+rm -rf vmeta.tmp
+echo '==' vmety
+mkdir -p vmety.tmp
+cd vmety.tmp && g++ -o ../vmety ../../../../../apps/cmdline/vmety/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip vmety
+rm -rf vmety.tmp
+echo '==' etdisamb
+mkdir -p etdisamb.tmp
+cd etdisamb.tmp && g++ -o ../etdisamb ../../../../../apps/cmdline/etdisamb/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip etdisamb
+rm -rf etdisamb.tmp
+echo '==' etana
+mkdir -p etana.tmp
+cd etana.tmp && g++ -o ../etana ../../../../../apps/cmdline/etana/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip etana
+rm -rf etana.tmp
+echo '==' etsyn
+mkdir -p etsyn.tmp
+ 
+cd etsyn.tmp && g++ -o ../etsyn ../../../../../apps/cmdline/etsyn/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip etsyn
+rm -rf etsyn.tmp
+echo '==' stlspeller
+mkdir -p stlspeller.tmp
+cd stlspeller.tmp && g++ -o ../stlspeller ../../../../../apps/cmdline/stlspeller/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+strip stlspeller
+rm -rf stlspeller.tmp
+echo '==' vmets.db
+mkdir -p vmets.db.tmp
+cd vmets.db.tmp && g++ -o ../vmets.db ../../../../../apps/cmdline/vmets/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf vmets.db.tmp
+echo '==' vmeta.db
+mkdir -p vmeta.db.tmp
+cd vmeta.db.tmp && g++ -o ../vmeta.db ../../../../../apps/cmdline/vmeta/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf vmeta.db.tmp
+echo '==' vmety.db
+mkdir -p vmety.db.tmp
+cd vmety.db.tmp && g++ -o ../vmety.db ../../../../../apps/cmdline/vmety/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf vmety.db.tmp
+echo '==' etdisamb.db
+mkdir -p etdisamb.db.tmp
+cd etdisamb.db.tmp && g++ -o ../etdisamb.db ../../../../../apps/cmdline/etdisamb/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf etdisamb.db.tmp
+echo '==' etana.db
+mkdir -p etana.db.tmp
+cd etana.db.tmp && g++ -o ../etana.db ../../../../../apps/cmdline/etana/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf etana.db.tmp
+echo '==' etsyn.db
+mkdir -p etsyn.db.tmp
+cd etsyn.db.tmp && g++ -o ../etsyn.db ../../../../../apps/cmdline/etsyn/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf etsyn.db.tmp
+echo '==' stlspeller.db
+mkdir -p stlspeller.db.tmp
+cd stlspeller.db.tmp && g++ -o ../stlspeller.db ../../../../../apps/cmdline/stlspeller/*.cpp ../json.db.ar ../proof.db.ar ../etyhh.db.ar ../etana.db.ar ../fsc.db.ar -ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp 
+rm -rf stlspeller.db.tmp
+make: Leaving directory '/home/tarmo/github_vabamorf_parem_2022_08/apps/cmdline/project/unix'
+ 
