@@ -14,7 +14,7 @@
 #include "../../../lib/etana/fsjsoncpp.h"
 
 // trim from start (in place)
-static inline void ltrim(std::string &s) {
+static inline void ltrim(std::string &s){
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
         return !std::isspace(ch);
     }));
@@ -372,14 +372,14 @@ private:
         {
             Json::Value json_mrf;
             if(lipud_mrf.ChkB(MF_ALGV))
-                json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
+                json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             else
                 json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
             json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
             if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
-                json_mrf["ending"]   = (const char*)(mrftulemused_utf8[i]->lopp);
+                json_mrf["ending"] = (const char*)(mrftulemused_utf8[i]->lopp);
             else
-                json_mrf["ending"]   = "0";
+                json_mrf["ending"] = "0";
             if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
                 json_mrf["t3"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
             else if(lipud_mrf.ChkB(MF_GTMRG))
