@@ -76,34 +76,34 @@ public:
                 exit(EXIT_FAILURE);
             }
             //-----------------------------
-            if(strcmp("--lemma", argv[i])==0)
-            {
-                lipp_lemma=true;
-                continue;
-            }
-            if(strcmp("-s", argv[i])==0 || strcmp("--stem", argv[i])==0)
-            {
-                lipp_lemma=false;
-                continue;
-            }            
-            //-----------------------------
             if(strcmp("--sentences", argv[i])==0)
             {
                 lipp_lausekaupa=true;
                 continue;
             }
-            if(strcmp("-t", argv[i])==0 || strcmp("--tokens", argv[i])==0)
+            if(strcmp("--tokens", argv[i])==0)
             {
                 lipp_lausekaupa=false;
                 continue;
             }
+            //-----------------------------
+            if(strcmp("--lemma", argv[i])==0)
+            {
+                lipp_lemma=true;
+                continue;
+            }
+            if(strcmp("--stem", argv[i])==0)
+            {
+                lipp_lemma=false;
+                continue;
+            }            
             //-----------------------------
             if(strcmp("--guess", argv[i])==0)
             {
                 lipp_oleta=true;
                 continue;
             }
-            if(strcmp("-q", argv[i])==0 || strcmp("--dontguess", argv[i])==0)
+            if(strcmp("--dontguess", argv[i])==0)
             {
                 lipp_oleta=false;
                 continue;
@@ -125,7 +125,7 @@ public:
                 lipp_haaldus=false;
                 continue;
             }
-            if(strcmp("-f", argv[i])==0 || strcmp("--addphonetics", argv[i])==0)
+            if(strcmp("--addphonetics", argv[i])==0)
             {
                 lipp_haaldus=true;
                 continue;
@@ -136,24 +136,24 @@ public:
                 lipp_ms=lipp_fs;
                 continue;
             }
-            if(strcmp("-g", argv[i])==0 || strcmp("--gt", argv[i])==0)
+            if(strcmp("--gt", argv[i])==0)
             {
                 lipp_ms=lipp_gt;
                 continue;
             }
-            if(strcmp("-m", argv[i])==0 || strcmp("--hmm", argv[i])==0)
+            if(strcmp("--hmm", argv[i])==0)
             {
                 lipp_ms=lipp_hmm;
                 continue;
             }
             //-----------------------------
-            if(strncmp("-j=", argv[i], sizeof("-j=")-1)==0 || strncmp("--json=", argv[i], sizeof("--json=")-1)==0)
+            if(strncmp("--json=", argv[i], sizeof("--json=")-1)==0)
             {
                 json_str_fs = argv[i]+(strchr(argv [i], '=')-argv[i]+1);
                 continue;
             }
             //-----------------------------
-            if(strncmp("-p=", argv[i], sizeof("-j=")-1)==0 || strncmp("--path=", argv[i], sizeof("--json=")-1)==0)
+            if(strncmp("--path=", argv[i], sizeof("--json=")-1)==0)
             {
                 path=argv[i]+(strchr(argv [i], '=')-argv[i]+1);
                 continue;
