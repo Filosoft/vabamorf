@@ -1,15 +1,37 @@
 #if !defined(VMETAJSON_H)
 #define VMETAJSON_H
 
+#include <algorithm> 
+#include <cctype>
 #include <iostream>  
 #include <string> 
-
+#include <assert.h>
 #include "../../../lib/etana/etmrfana.h"
 #include "../../../lib/etana/viga.h"
 #include "../../../lib/etana/mrf2yh2mrf.h"
 #include "../../../lib/etana/fs2gt.h"
 #include "../../../lib/etana/loefailist.h"
 #include "../../../lib/etana/fsjsoncpp.h"
+
+// trim from start (in place)
+static inline void ltrim(std::string &s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
+        return !std::isspace(ch);
+    }));
+}
+
+// trim from end (in place)
+static inline void rtrim(std::string &s) {
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
+        return !std::isspace(ch);
+    }).base(), s.end());
+}
+
+// trim from both ends (in place)
+static inline void trim(std::string &s) {
+    ltrim(s);
+    rtrim(s);
+}
 
 class VMETAJSON
 {
@@ -26,8 +48,7 @@ public:
         assert(ClassInvariant());
     }
 
-    /* Korjame käsurealt lipud kokku & paneme paika
-    */
+    /** Korjame käsurealt lipud kokku & paneme paika */
     void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
     {
         assert(EmptyClassInvariant() == true);
@@ -144,15 +165,6 @@ public:
                 fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
                 goto syntaks;
             }
-            //-----------------------------
-            /*if(lipp_oleta_pn==true && lipp_xml==false)
-                fprintf(stderr,
-                    "--guesspropname lippu saab kasutada ainult koos --xml lipuga");
-            if(lipp_oleta==true && lipp_xml==false)
-                fprintf(stderr,
-                    "--guesspropname lippu saab kasutada ainult koos --guess lipuga");
-            goto syntaks;
-            */
         }
         if(i!=argc)
             goto syntaks;
@@ -183,6 +195,9 @@ public:
             std::string line;  
 	        while(std::getline(std::cin,line))
             {
+                trim(line);
+                if(line.length() <= 0)
+                    continue;
                 Json::Value jsonobj;
                 std::string message;
                 if(fsJsonCpp.Parse(line, message, jsonobj)==false)
@@ -286,17 +301,12 @@ private:
         CFSWString rida;
         LYLI lyli;
         
+        if(lipp_lausekaupa == true) 
+            TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
+        else     
+            TeeSedaSonekaupa(jsonobj); // jsonobj["annotations"]["sentences"] ei ole kohustuslik
+        fsJsonCpp.Writer(jsonobj, true);
         //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
-        //fsJsonCpp.Writer(jsonobj, true);
-        // kui laused pole märgendatud, teeme sõnekaupa
-        if(lipp_lausekaupa == true)
-        {   // jsonobj["annotations"]["sentences"] on kohustuslik
-            TeeSedaLausekaupa(jsonobj);
-        }
-        else
-        {   // jsonobj["annotations"]["sentences"] ei ole kohustuslik
-            TeeSedaSonekaupa(jsonobj);
-        }
     }
 
     void TeeSedaSonekaupa(Json::Value& jsonobj)
@@ -309,76 +319,50 @@ private:
             mrf.Set1(fsStr);
             LYLI lyli;
             mrf.Flush(lyli);
-            lyli.ptr.pMrfAnal->LeiaLemmad();
-            const LYLI_UTF8 lyli_utf8 = lyli;
-            MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
-            MrfTulemused_2_JSON(features, mrftulemused_utf8);
+            MrfTulemused_2_JSON(features, lyli);
         }
-        fsJsonCpp.Writer(jsonobj, true);
-        //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
     }
 
     void TeeSedaLausekaupa(Json::Value& jsonobj)
     {
-        /*
-        while (in.Rida(rida) == true)
+        Json::Value& sentences = jsonobj["annotations"]["sentences"];
+        Json::Value& tokens = jsonobj["annotations"]["tokens"];
+        for(int s=0; s<sentences.size(); s++) // tsükkel üle lausete
         {
-            rida.Trim();
-            if (rida.GetLength() <= 0)
-                continue; // ignoreeerime "white space"idest koosnevaid ridu
-            if (mrf.ChkFlags(MF_YHESTA) == true && mrf.ChkFlags(MF_XML) == false)
-            {   // teeme ühestale sobiva sisendi, ilma XMLita lause real
-                // paneme ise lausemärgendid ümber
-                mrf.Set1(new LYLI(FSWSTR("<s>"), PRMS_TAGBOS));
-                mrf.Set(rida);
-                ret = mrf.Set1(new LYLI(FSWSTR("</s>"), PRMS_TAGEOS));
-                assert(ret == true);
-            }
-            else
-                ret = mrf.Set(rida);
-            if (ret == true)
+            // surume lausejagu sõnesid morfi
+            unsigned start = sentences[s]["features"]["start"].asUInt();
+            unsigned end   = sentences[s]["features"]["end"].asUInt();
+            assert(start <= end);
+            assert(end <= tokens.size());
+            mrf.Set1(new LYLI(FSWSTR("<s>"), PRMS_TAGBOS));
+            for(int t=start; t<end; t++) // tsükkel üle sõnede lauses
             {
-                while (mrf.Get(lyli) == true)
-                {
-                    //if((lyli.lipp & PRMS_MRF)==PRMS_MRF)
-                    //    lyli.ptr.pMrfAnal->SortUniq();
-                    //out.Pane(&lyli, lipud_mrf.Get());
-                    if((lyli.lipp & PRMS_MRF)!=PRMS_MRF)
-                    {
-                        out.Pane(&lyli, lipud_mrf.Get());
-                        continue;
-                    }
-                    assert((lyli.lipp & PRMS_MRF)==PRMS_MRF);
-                    LYLI_UTF8 lyli_utf8(lyli);
-                    MRFTULEMUSED_UTF8* mt_utf8=lyli_utf8.ptr.pMrfAnal;
-                    if(lipud_mrf.ChkB(MF_GTMRG))
-                        fs_2_gt.LisaGT(mt_utf8->s6na, *mt_utf8);
-                    valja.Pane(&lyli_utf8, lipud_mrf.Get());
-                }
+                std::string tmp_db =  tokens[t]["features"]["token"].asString();
+                mrf.Set1(tokens[t]["features"]["token"].asString().c_str());
             }
-        }
-        while (mrf.Flush(lyli) == true)
-        {
-            //if((lyli.lipp & PRMS_MRF)==PRMS_MRF)
-            //    lyli.ptr.pMrfAnal->SortUniq();
-            //out.Pane(&lyli, lipud_mrf.Get());
-            if((lyli.lipp & PRMS_MRF)!=PRMS_MRF)
+            mrf.Set1(new LYLI(FSWSTR("</s>"), PRMS_TAGEOS));
+            
+            // tõmbame lausejagu morfitud sõnesid välja
+            LYLI lyli;
+            bool ret = mrf.Flush(lyli);
+            assert(ret==true && (lyli.lipp & PRMS_TAGBOS)==PRMS_TAGBOS);
+            for(int t=start; t<end; t++) // tsükkel üle sõnede lauses
             {
-                out.Pane(&lyli, lipud_mrf.Get());
-                continue;
+                ret = mrf.Flush(lyli);
+                assert(ret==true && (lyli.lipp & PRMS_MRF)==PRMS_MRF);
+                MrfTulemused_2_JSON(tokens[t]["features"], lyli);
             }
-            assert((lyli.lipp & PRMS_MRF)==PRMS_MRF);
-            LYLI_UTF8 lyli_utf8(lyli);
-            MRFTULEMUSED_UTF8* mt_utf8=lyli_utf8.ptr.pMrfAnal;
-            if(lipud_mrf.ChkB(MF_GTMRG))
-                fs_2_gt.LisaGT(mt_utf8->s6na, *mt_utf8);
-            valja.Pane(&lyli_utf8, lipud_mrf.Get());
+            mrf.Flush(lyli);
+            assert(ret==true && (lyli.lipp & PRMS_TAGEOS)==PRMS_TAGEOS);
         }
-        */
     }
 
-    void MrfTulemused_2_JSON(Json::Value& features, MRFTULEMUSED_UTF8& mrftulemused_utf8)
+    void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
+        lyli.ptr.pMrfAnal->LeiaLemmad();
+        LYLI_UTF8 lyli_utf8 = lyli;
+        MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
+
         if(lipud_mrf.ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
         switch(mrftulemused_utf8.eKustTulemused)
@@ -393,20 +377,15 @@ private:
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
         {
             Json::Value json_mrf;
-            //if(lipud_mrf.ChkB(MF_LEMMA))
-            //    json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
             if(lipud_mrf.ChkB(MF_ALGV))
                 json_mrf["lemma"]    = (const char*)(mrftulemused_utf8[i]->lemma);
             else
                 json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
             json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
-
-
             if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
                 json_mrf["ending"]   = (const char*)(mrftulemused_utf8[i]->lopp);
             else
                 json_mrf["ending"]   = "0";
-                
             if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
                 json_mrf["t3"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
             else if(lipud_mrf.ChkB(MF_GTMRG))
@@ -428,15 +407,11 @@ private:
                     case eMRF_L: json_mrf["source"] = "L"; break; // lisasõnastikust
                     case eMRF_O: json_mrf["source"] = "O"; break; // sõnapõhisest oletajast
                     case eMRF_S: json_mrf["source"] = "S"; break; // lausepõhisest oletajast
-                    default: json_mrf["source"] = "X"; break;                 // eMRF_X, ise ka ei tea 
+                    default: json_mrf["source"] = "X"; break;     // eMRF_X, ise ka ei tea 
                 }   
             }
             features["mrf"].append(json_mrf);
-            //fsJsonCpp.Writer(json_mrf, true);
-            //std::cout << __FILE__<< ":" << __LINE__ << std::endl; 
         }
-        //fsJsonCpp.Writer(features, true);
-        //std::cout << __FILE__<< ":" << __LINE__ << std::endl; 
     }
 
     /** Muutujate esialgseks initsialiseerimsieks konstruktoris */
