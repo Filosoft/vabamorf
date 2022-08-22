@@ -150,14 +150,12 @@ public:
             if(strncmp("-j=", argv[i], sizeof("-j=")-1)==0 || strncmp("--json=", argv[i], sizeof("--json=")-1)==0)
             {
                 json_str_fs = argv[i]+(strchr(argv [i], '=')-argv[i]+1);
-                //printf("%s:%d|%s|\n", __FILE__, __LINE__, (const char*)json_str_fs);
                 continue;
             }
             //-----------------------------
             if(strncmp("-p=", argv[i], sizeof("-j=")-1)==0 || strncmp("--path=", argv[i], sizeof("--json=")-1)==0)
             {
                 path=argv[i]+(strchr(argv [i], '=')-argv[i]+1);
-                //printf("%s:%d|%s|\n", __FILE__, __LINE__, (const char*)path);
                 continue;
             }
             if(strcmp("-", argv[i])!=0)
@@ -203,7 +201,6 @@ public:
                 if(fsJsonCpp.Parse(line, message, jsonobj)==false)
                 {
                     Json::Value json_errmsg;
-                    //json_errmsg["type"]="texts";
                     json_errmsg["warnings"].append(message);
                     fsJsonCpp.Writer(json_errmsg);
                 }
@@ -266,15 +263,12 @@ private:
 
         if(lipp_lausekaupa)// xml
         {
-            // kontrolli, et jsonis oleksid laused märgendatud
-            // kontrolli, et oleks tundmatute oletamine
             lipud_mrf.Set(lipud_lausete_yhestamiseks);
             lipud_mrf.OnOff(MF_LISAPNANAL, lipp_oleta_pn);  // ainult lausekonteksti korral
                                                             // saab olla "on"
         }
         else
         {
-            // kontrolli, et ei oleks pärsinimede oletamist
             lipud_mrf.Set(lipud_yksiksonade_analyysiks);
         }
         lipud_mrf.OnOff(MF_ALGV, lipp_lemma);
@@ -306,7 +300,6 @@ private:
         else     
             TeeSedaSonekaupa(jsonobj); // jsonobj["annotations"]["sentences"] ei ole kohustuslik
         fsJsonCpp.Writer(jsonobj, true);
-        //std::cout << __FILE__<< ":" << __LINE__ << std::endl;
     }
 
     void TeeSedaSonekaupa(Json::Value& jsonobj)
@@ -329,7 +322,7 @@ private:
         Json::Value& tokens = jsonobj["annotations"]["tokens"];
         for(int s=0; s<sentences.size(); s++) // tsükkel üle lausete
         {
-            // surume lausejagu sõnesid morfi
+            // paneme morfi lausejagu sõnesid
             unsigned start = sentences[s]["features"]["start"].asUInt();
             unsigned end   = sentences[s]["features"]["end"].asUInt();
             assert(start <= end);
@@ -342,9 +335,9 @@ private:
             }
             mrf.Set1(new LYLI(FSWSTR("</s>"), PRMS_TAGEOS));
             
-            // tõmbame lausejagu morfitud sõnesid välja
+            // võtame morfist lausejagu morfitud sõnesid
             LYLI lyli;
-            bool ret = mrf.Flush(lyli);
+            bool ret = mrf.Flush(lyli); // <s>
             assert(ret==true && (lyli.lipp & PRMS_TAGBOS)==PRMS_TAGBOS);
             for(int t=start; t<end; t++) // tsükkel üle sõnede lauses
             {
@@ -352,14 +345,15 @@ private:
                 assert(ret==true && (lyli.lipp & PRMS_MRF)==PRMS_MRF);
                 MrfTulemused_2_JSON(tokens[t]["features"], lyli);
             }
-            mrf.Flush(lyli);
+            mrf.Flush(lyli); // </s>
             assert(ret==true && (lyli.lipp & PRMS_TAGEOS)==PRMS_TAGEOS);
         }
     }
 
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
-        lyli.ptr.pMrfAnal->LeiaLemmad();
+        if(lipud_mrf.ChkB(MF_ALGV))
+            lyli.ptr.pMrfAnal->LeiaLemmad();
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
 
