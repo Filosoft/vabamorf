@@ -6,7 +6,7 @@
 # väljund on läbivalt väiketäheline
 # valjundis tähistab liitsõnasisest sõnapiiri _ 
 
-etana -a \
+vmeta --plaintext --dontguess --dontguesspropnames --stem --fs --dontaddphonetics\
 | sed 's/ \([^ ]\)/ \l\1/g' \
 \
 | sed '/####/s/    ####//' \
@@ -44,7 +44,7 @@ etana -a \
 
 exit
 
-kui oleks etana -a +k
+kui oleks --addphonetics
 siis tuleks eemaldada veel need märgid:
 aga enne tuleks teisendada k=kk -> kk
 sest ilmselt on programmis viga...
