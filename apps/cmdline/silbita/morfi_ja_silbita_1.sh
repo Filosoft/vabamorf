@@ -23,4 +23,4 @@ cat $1 \
 \
 | hfst-lookup -q silbitaja.hfst \
 | cut -f 2 \
-| grep -v '^$' \
+| tr -s '\n' \

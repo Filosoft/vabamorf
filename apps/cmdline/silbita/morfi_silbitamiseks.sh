@@ -6,6 +6,36 @@
 # väljund on läbivalt väiketäheline
 # valjundis tähistab liitsõnasisest sõnapiiri _ 
 
+# sed 's/ \([^ ]\)/ \l\1/g'     ## alustav suurtäht väikeseks
+# sed '/####/s/    ####//'      ## oletamist vajavaid (sõnastikust puuduvaid) sõnu ei silbita
+# sed '/    /s/^[^ ]*    / /'   ## 4 tühikut -> 1 tühik
+# sed 's/ \/\/_[^\/]*\/\///g'   ## kustutame esimesest veerust algse sõna
+# sed 's/+0*//g'                ## kustutame 0-lõpu
+# sed 's/\([aeiouõäöü]\)=\(is[tm]\)/\1.\2/g'    # tao=ist -> tao.ist
+# sed 's/=//g'                  ## võrdusmärk tüvest välja
+# sed 's/$/ /'                  ## tühik realõppu
+# sed 's/ \([^ ]*\) .* \1 / \1 /'               ## kustutame korduvad variandid
+# sed '/ ise_enes/s/ iseenes[^ ]* //' \
+# tr -s ' '                     ## kustutame korduvad tühikud
+# sed 's/^ //' | sed 's/ $//'   ## kustutame rea algusest/lõpust tühikud
+
+# sed 's/^\([^ ]*\)_\([^ _]*\) \1\2$/\1\2/'                 ##
+# sed 's/^\([^ ]*\)\([^ _]*\) \1_\2$/\1\2/'                 ##
+
+# sed 's/^\([^ ]*\)se_\([^ ]*\) \1s_e\2$/\1s_e\2/'          ##
+# sed 's/^\([^ ]*\)s_e\([^ ]*\) \1se_\2$/\1s_e\2/'          ##
+
+# sed 's/^\([^ ]*\)\([aeiu]\)_\([^ ]*\) \1_\2\3$/\1\2_\3/'  ##
+# sed 's/^\([^ ]*\)_\([aeiu]\)\([^ ]*\) \1\2_\3$/\1\2_\3/'  ##
+
+# sed 's/^\([^ ]*\)_sal\([^ ]*\) \1s_alu\2$/\1_sal\2/'      ##
+# sed 's/^\([^ ]*\)s_alu\([^ ]*\) \1salu_\2$/\1_sal\2/'     ##
+
+# sed 's/ .*$//'        ##
+# sed 's/./\l&/g'       ##
+
+
+
 vmeta --plaintext --dontguess --dontguesspropnames --stem --fs --dontaddphonetics\
 | sed 's/ \([^ ]\)/ \l\1/g' \
 \
