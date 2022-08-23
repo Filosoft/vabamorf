@@ -1,0 +1,334 @@
+# hfst-xfst skript
+# kompileerimiseks e. muunduri silbitaja.hfst tegemiseks tee nii:
+# echo 'save stack silbitaja.hfst' | hfst-xfst -l silbita.xfscript
+# kasutamine: echo 'leaanika' | hfst-lookup silbitaja.hfst
+# tulemus:    le.aa.ni.ka
+# 
+# diftongide testimiseks
+# echo 'a e i o u õ ä ö ü' | gawk '{for (i=1; i <=NF; i++) {for (j=1; j <=NF; j++) print $i $j}}' | sed 's/^/\.k/' | hfst-lookup -q silbitaja.hfst | grep '.' | sed 's/0,.*$//' | tr -s ' ' | cut  -f 2 | rev | sort | rev | less
+# kõ.ü.poi.uyt.rew.qasdfghgjk.lö
+
+# Silbitusreeglid «Eesti keele käsiraamatust» ja nende modifikatsioonid siin: 
+#
+#  1.üksik kaashäälik täishäälikute vahel kuulub järgmisse silpi: ka-la, lu-ge-mi-ne, e-la-gu;
+#  
+#  2. kui täishäälikute vahel on mitu kaashäälikut kõrvuti, siis kuulub ainult viimane neist järgmisse silpi: tul-la, kur-vad, kind-lam, mars-si-ma, mürts-ti;
+#  --> juhul, kui selle reegli järgimisel oleks silbipiir ebaloomulikus kohas sulghääliku järel, siis kuulub järgmisse silpi klusiiliga algav kaashäälikuühend: eks-tra, vels-kri, vints-kleb
+#
+#  3. (üli)pikk täishäälik või diftong kuulub tavaliselt ühte silpi: pii-lub, suu-bu-ma, lau-lud, toa, lui-tu-nud; kui kahe vokaali vahelt läheb morfeemipiir, siis kuuluvad nad ka eri silpidesse: ava-us – ava on tüvi, us on tuletusliide;
+#  --> (üli)pikk täishäälik või diftong kuulub ALATI ühte silpi - kui kaks kõrvutiolevat täishäälikut ei kuulu ühte silpi, siis nad ei moodustagi diftongi; diftongi mitte moodustavate vokaalijärjendite leidmine on küllalt keeruline, sõltudes nii häälikutest endist kui ka järjendi naabriks olevatest silpidest (ja nende pikkustest, rõhust ja arvust) 
+#
+#  4. kolme täishääliku järjendist kuulub viimane teise silpi: põu-a-ne, luu-ad, lai-ad, rii-u, hoi-us-te;
+#  --> aga kui viimased kaks moodustavad pika täishääliku, siis kuuluvad hoopis viimased kaks teise silpi: li-aan
+#
+#  5. liitsõnades silbitatakse iga koostisosa eraldi: tä-he-tea-dus, va-na-e-ma, las-te-ai-a-laps;
+#
+#  6. võõrsõnu silbitatakse üldiselt nagu eesti omasõnu: dü-na-mo (1. reegel), bar-rel, port-fell (2. reegel), faa-san (3. reegel), muu-se-um (muuse on tüvi, um tuletusliide – 3. reegli erijuhtum), o-aas, mah-hi-nat-si-oon (4. reegel, kuid eri silpi võib kuuluda ka esimene vokaal);
+#  --> muuseum silbitatakse muu-seum
+# 
+#  7. liitvõõrsõnu võib silbitada kahte moodi: kas nagu liitsõnu või nagu lihtsõnu, nt fo-to-graaf ~ fo-tog-raaf, te-le-skoop ~ te-les-koop, de-pres-si-oon ~ dep-res-si-oon; kui võõrsõna järelosa on eesti keeles iseseisva sõnana tarvitusel, on soovitatav liigendada liitsõnana, nt des-in-fekt-si-oon (mitte de-sin-fekt-si-oon), sub-troo-pi-ka (mitte subt-roo-pi-ka), mo-no-gramm (mitte mo-nog-ramm).
+#
+# Võõrnimede poolitamisel on soovitatav mitte lahutada tähejärjendit, mis hääldub ühe häälikuna, nt ck, ch, sch, sh, th, tz, sz: Bro-cken, Man-ches-ter, Rem-scheid, Pemb-roke-shire, Sou-thern, Ko-tze-bue, Báta-szek. Liitvõõrnimesid võib poolitada kas nagu liitsõnu või nagu lihtsõnu: Pet-ro-grad ~ Pet-rog-rad, Neu-stadt ~ Neus-tadt, Gold-smith ~ Golds-mith.
+# --> siin võõrnimede hääldust ei järgita
+#
+
+
+define Letter [a|e|i|o|u|õ|ä|ö|ü|b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|š|z|ž|t|v|w|x|y]; 
+
+define VowNoDots [ i|u|a|e|o ];
+define VowDots  [ õ|ä|ö|ü ];
+define HighVowel [ i|u|ü ];
+define RoundVowel [ u|ü|o|ö ];
+define Vowel [ VowNoDots | VowDots ]  ;
+define Consonant [Letter - Vowel];
+define DoubleVow [ i^2 | u^2 | a^2 | e^2 | o^2 | õ^2 | ä^2 | ö^2 | ü^2 ];
+
+define Stop [g|b|d|k|p|t] ;
+define CNotStop [Consonant - Stop] ;
+
+# (1) --- eesti silbitamise põhireeglid
+! Karttunenilt
+define MarkCVCSyll [ Consonant* Vowel+ Consonant* @-> ... "." || _ Consonant Vowel ];
+
+! kui on rohkem kui 2 vokaali järjest
+define MarkDoubleVowVowel [ [. .] @-> "." \/ DoubleVow _ Vowel] ;    ! kuu.e ; ja et oleks aaaaaa -> aa.aa.aa
+define MarkVowelDoubleVow [ [. .] @-> "." \/ Vowel _ DoubleVow] ;    ! li.aan
+define MarkVowelVowelVowel [ [. .] @-> "." \/ Vowel HighVowel _ Vowel] ;  ! sau.e ; ja et oleks uiuiui -> ui.ui.ui
+# ---
+
+# võõrsõnad:
+# y võib olla vokaal või j
+# w võib olla vokaal või v
+# oleta konteksti järgi, kas on vokaal või konsonant:
+# kui on üksi vokaalide vahel, siis on vist konsonant
+
+define MarkCVCSyllYW [[. .] @-> "." || 
+                                Vowel _ w Vowel ,
+                                Vowel _ y Vowel ] .o.
+                     [[. .] @-> "." ||
+                                Vowel Consonant* _ Consonant y [\Vowel | .#.] ,
+                                    y Consonant* _ Consonant [Vowel | y] ] ;
+
+
+# (2) silbi tuumaks on üks või kaks vokaali.
+# kui need kaks on erinevad, siis mõnikord nad ei moodustagi diftongi, vaid
+# silbipiir jookseb nende vahelt
+
+! topeltvokaalid ja diftongid vokaaliruumis
+! sulud tähendavad, et diftongina ainult esisilbis (e. rõhulises silbis)
+! asu, teras järgi on eesti k 36 diftongi
+! asu puhul tähendab sulg, et asu, teras järgi esineb see diftong ainult võõrsõnades
+! asu puhul tähendab _ et see esineb nii 2. kui 3. välte sõnades; muud esinevad ainult 3 vältes (nt söed)
+! aga: üheksa häälduspärane vorm on 'öeksa'; võimalik on 'taodelda'; '(ei) teotata'; ?tõodanud?; koalitsioon; taodelda
+! välte järgi jagamine tähendab lihtsalt seda, et harvemini esinevad pannakse eraldi, aga sellel pole
+! häälduslikku alust-põhjendust
+! tõeliselt harvad: öa, õa, äo
+
+! kõrge  ii (ie) (iu) (io) (ia)   üü  üi (üe)      (üo) (üa)                             ui (ue) uu (uo) (ua)
+! asu    ii (ie) _iu  (io) (ia)   üü _üi (üe)      (üo) (üa)                            _ui (ue) uu (uo) (ua)
+
+! kesk   ei  ee   eu  (eo) (ea)   öö  öi  öe  (öu)       öa     õõ  õi  õe  õu õo õa     oi  oe  ou  oo   oa
+! asu   _ei  ee  (eu)  eo  _ea    öö _öi  öe             öa     õõ _õi _õe _õu õo õa    _oi _oe _ou  oo   oa
+
+! madal                           ää  äi  äe   äu   äo                                   ai  ae  au  ao   aa
+! asu                             ää _äi _äe  _äu   äo                                  _ai _ae _au  ao   aa
+ 
+!
+! tingimused, millal kahe eri vokaali järjend pole diftong:
+! (1) kõrgele vokaalile ei saa järgneda mitte-kõrge
+! (2) esivokaalile ei saa järgneda ei temaga samal tasemel olevat ega temast tagapool olevat
+!   = esivokaalile saab järgneda ainult temast kõrgemal olev vokaal
+! (3) täpi-vokaal ei saa millelegi järgneda (v.a. iseendale)
+! (4) tagavokaal ei saa järgneda samal kõrgusel olevale eespoolsele vokaalile
+! (5) mitte-taga-ümarvokaalile ei saa järgneda ümarvokaali
+! tingimused võivad kattuda, nt. iä pole diftong, sest kõrgele vokaalile ei saa järgneda mittekõrget,
+! aga ka sellepärast, et täpi-vokaal ei saa olla järgnev osa 
+! ka ülipika silbi järel on i.on, nt pen.si.on; võib-olla peaks seda mingi hilisema reegliga muutma?
+! mitmel juhul on lisatingimuseks, et silp pole sõnas esimene
+! (nt müokardiit puhul müo on diftong); aga sel juhul (imelikult) ka nt müont, mitte mü.ont
+define MarkNonDiphtong [ [. .] -> "." || 
+                        "." Consonant+  HighVowel _ [Vowel - HighVowel] ,      ! (1) i.e, u.a etc
+                        "." Consonant+          e _ [Vowel - HighVowel - e] ,  ! (2) e.o, e.a 
+                        "." Consonant+          i _ [Vowel - i] ,              !     i.o, i.u etc
+                                      [Vowel - õ] _ õ ,                        ! (3)
+                                      [Vowel - ä] _ ä ,                  
+                                      [Vowel - ö] _ ö ,                  
+                                      [Vowel - ü] _ ü ,                  
+                                                ä _ a ,                        ! (4)
+                                                ö _ o ,
+                                                ü _ u ,
+                                "." Consonant+  ö _ [RoundVowel - ö] ];        ! (5) ö.u
+
+! kontrolli: jõeobu
+
+# järgsilbi e.u aga mitte muuse.um ega petroole.um
+# (mida hääldatakse muusjum ja petrooljum)
+# seda seaduspära võiks ju kajastada MarkNonDiphtong,
+# aga tegelikus elus on eu-ga silp sageli rõhuline (terapeut) ja selliste arvestamine 
+# tähendaks suuri erandiloendeid 
+define MarkEU [ [. .] -> "." || "." Consonant+ e _ u (".") [m|s] ] .o.
+                              ["." -> "" ||             m u u (".") s e _ u (".") m ,
+                                            p e t (".") r o o (".") l e _ u (".") m ]     ;
+
+# ülipikk silp võib muuta 
+# 1) eelneva i.o i.a i.u i.e häälduse jo ja ju je-ks, s.t. silbipiir i ja vokaali vahelt kaob
+# 2) järgneva -- ,, --
+define FixIU  ["." -> "" || 
+                    Vowel Vowel "." Consonant+ i _ u [\Vowel | .#.] , 
+               Vowel Consonant+ "." Consonant+ i _ u [\Vowel | .#.] ,
+             Vowel "." Consonant+ Vowel "."  c i _ u (".") s ,             ! leedu nimi
+                                 "." Consonant i _ u (".") n a (".") s ,   ! leedu nimi
+                                 "." Consonant i _ u (".") t e ] ;         ! leedu nimi
+               
+define FixIOC ["." -> "" || "." Consonant+ i _ o Consonant* "." Consonant Vowel Vowel ,  ! sot.sio.loog
+                          t "."          s i _ a Consonant* "." Consonant Vowel Vowel ,  ! i.nit.sia.tiiv
+                            "." Consonant+ i _ a Consonant* "." l i s (".") [t|m] ,      ! sot.sia.list
+                                Consonant  i _ e Consonant* "." Consonant Vowel Vowel ,  ! o.rien.tiir
+                            "." Consonant  i _ e            "." n e ,                    ! pruns.kie.ne
+                            "." Consonant+ i _ o Consonant* "." n i s (".") [t|m] ] .o.  ! sio.nist
+ ["." -> "" ||      Vowel Vowel "." Consonant+ i _ o Consonant* "." Consonant Vowel , 
+               Vowel Consonant+ "." Consonant+ i _ o Consonant* "." Consonant Vowel ] ;          
+
+# sõnad, milles tegelt io hääldatakse jo ka juhul, kui io-le ei järgne silpi
+define FixIOCWord ["." -> "" || a "." k o r "." d i _ o n ,
+                                      b a s "." t i _ o n ,
+                                      j u u "." n i _ o r ,
+                                      l e e "." g i _ o n ,
+                                      m i l "." l i _ o n ,
+                                      p a n "." s i _ o n ,
+                                      p e n "." s i _ o n ,
+                                      r a a "." d i _ o [\Vowel | .#.] ,
+                                    s k o r "." p i _ o n ,
+                                    s t u u "." d i _ o [\Vowel | .#.] ,
+                                    t š e m "." p i _ o n  ] ;
+
+
+# EKI keelnõuanne arvab, et nii ei tohi silbitada,
+# s.t. sioon peab olema si.oon
+# ... ja seda siinolevat ma ei kasutagi; ta on siin lihtsalt selleks, et vajadusel saaks kasutusele võtta
+define FixIOV ["." -> "" ||  t "."          s i _ a a (".") l  ,                            ! spet.siaal
+                   "." Letter+ "." Consonant+ i _ a a (".") l  ,                            ! ad.ver.biaal
+                               "." Consonant+ i _ o o  ];                                    ! rat.sioon
+
+# kolmesilbiline sõna, millel võiks olla rõhk viimasel silbil:
+# viimases silbis võiks olla diftong
+# bartolomeus, amadeus, jubileum, mausoleum; asalea, panatsea
+define DiphtongInFinalSyll ["." -> "" || Vowel "." Consonant+ Vowel "." Consonant e _ u (".") [m|s] ,
+                                         Vowel "." Consonant+ Vowel "." Consonant e _ a ] ;
+
+# täishäälikuga algavad liited nagu -us, -ism, -ist;
+# kusjuures välista ilma sellise liiteta sõnad
+# teismeline, seismine, sesmiline, päismik, suisman
+define MarkDerivBorder [[. .] -> "." ||  Letter [Vowel - i] _ i s (".") m [.#. | i],
+                                                  a "." v a _ u (".") s ] .o.
+                       ["." -> ""    || s e _ i s "." m i ,
+                                            _ i s "." m i (".") k [.#. | u]]      ;
+
+# üksikud sõnad
+# milles silbipiir on erandlikult vokaalide vahel
+
+define NonDiphtongInLoanWords [[. .] -> "." || {kli} _ e n [d|t] ,
+                                               a _ o i d ,
+                                           .#. a _ o r [t|d] ,
+                                             b i _ o p s i a ,
+                                           b r i _ o š ,
+                                         d e m i _ u r g ,
+                                             p a _ e l l ,
+                                               u _ e l l ,      ! du.ell, cru.el.la 
+                                             d u _ e t [t|i] ,
+                                     g a s t r o _ e ,
+                                         k a r a _ u l ,
+                                           s s i _ o p e i a ,
+                                             m e _ a n d (e) r ,
+                                             m i _ a s m ,
+                                             n ü _ a n s ,
+                                           p r e _ a m b u ,
+                                       p r o t o _ a ,
+                                             r e _ a k t o ,
+                                             s e _ a n s ,
+                                             z o _ o i d ,
+                                           t r i _ o ,
+                                       a l t r u _ i s t ,
+                                         a r h a _ i s t ,
+                                       .#. a t e _ i s t ,
+                                         d a d a _ i s t ,
+                                         .#. d e _ i s t ,
+                                           e g o _ i s t , 
+                                         e s s e _ i s t , 
+                                     e u r o p e _ i s t ,
+                                       h e b r a _ i s t ,
+                                       h i n d u _ i s t ,
+                                         k a s u _ i s t ,
+                                           o b o _ i s t ,
+                                   p a n "_" t e _ i s t ,
+                                 p o l ü "_" t e _ i s t ,
+                                       p r o s a _ i s t ] ;
+
+# üksikud sõnad
+# milles vokaalide vahel silbipiiri polegi (ehkki tavaliselt sellistes kohtades on)
+
+define DiphtongInLoanWords ["." -> "" || m a "." r i _ o "." n e (".") t ,
+                                         k o "." r e _ a ,
+                                       p e o "." l e _ o ]  ;
+
+# (3) konsonantühendid
+! võõrliited ja -sõnad, millel on justkui läbinähtav tähendus 
+! ja mis algavad mitme kaashäälikuga 
+! nihuta silbituskoht klusiili järelt tema ette
+! + arvesta üksiksõnadu-erandeid
+# seda siin tegelikult ei kasuta; oleks vajalik poolitamise jaoks, kui 
+# eesmärk oleks sõnu tähenduslikult tükeldada
+
+define ConsClusterLoanComponents [[. .] -> "." || Vowel Consonant* o _ k l a s t ,
+                                                  Vowel Consonant* o _ t s e e n ,
+                                                  v e l s k _ r i ,
+                                                  s a n s k _ r i t , 
+                                                      e k s _ t a a ,
+                                                        a d _ s t r a a [t|d] ,
+                                                 k a t a s t _ r o ,
+                                                       a p o _ s t r o ,
+                                                     b ö f s _ t r o g ,
+                                                     m e t _ s e e n ,
+                                                   d e f i t _ s i i d] .o.
+              [Vowel Consonant* -> ... "." || _ b r a h h ,
+                                              _ d r o o ,
+                                              _ f r e e n ,
+                                              _ g l ü ü f ,
+                                              _ g n o (o) s ,
+                                              _ g r a (a) f , 
+                                              _ g r a d ,
+                                              _ g r a m , 
+                                              _ g l o b , 
+                                              _ h t o o n ,
+                                              _ k l i i n ,
+                                              _ k l i n a a l ,
+                                              _ k r a a [t|d] ,
+                                              _ k r a t i s e e r ,
+                                              _ k r a t i s m ,
+                                              _ k r o o m ,
+                                              _ k r o m a a ,
+                                              _ k r o o n ,
+                                              _ k r o n o ,
+                                              _ k r o n i s ,
+                                              _ p l a a n ,
+                                              _ p l a a s i a ,
+                                              _ p l e e g ,
+                                              _ p l o i d ,
+                                              _ p t ü h h o n ,
+                                              _ s k a a f ,
+                                              _ s k o o [p|b] ,
+                                              _ s k r i p t ,
+                                              _ s k r i b e e r ,
+                                              _ s p e r m ,
+                                              _ s t a a s ,
+                                              _ s t a a t i ,
+                                              _ s t e e n ,
+                                              _ s t r i k a t s ,
+                                              _ t r o o f ,
+                                              _ t r o f e e r ,
+                                              _ t r o o [p|b] ,
+                                              _ t s e e n ,
+                                              _ t s i i d ,
+                                              _ t s ü ü [t|d] ] .o.
+              [[. .] -> "." || Vowel Consonant* s _ k r Consonant* Vowel] .o.
+              [[. .] -> "." || Vowel Consonant* s _ p r Consonant* Vowel] .o.
+              [[. .] -> "." || Vowel Consonant* [g|b|d|k|p|t] s _ t r Consonant* Vowel] ;
+
+# liiga keerulised, s.t. mitte-eestipärased kaashäälikuühendid
+# silbi piir võiks seal olla sulghääliku ees
+# nt. s-kr s-pr k-ps
+# see on häälduspärane alternatiiv ConsClusterLoanComponents-ile
+# probleemid: lik, mine, ne, jas vms liide võiks jääda ikkagi silbi alustajaks,
+# st. ars-tlik oleks halb silbitus
+
+define ComplexConsCluster [[. .] -> "." || Vowel Consonant* [Stop - k] _ k r Consonant* Vowel ,
+                                           Vowel Consonant* [Stop - p] _ p r Consonant* Vowel ,
+                                           Vowel Consonant*      [g|b] _ t r Consonant* Vowel ,
+                                                    Vowel Consonant* s _ k r Consonant* Vowel ,
+                                                    Vowel Consonant* s _ p r Consonant* Vowel ,
+                                                    Vowel Consonant* x _ k r Consonant* Vowel ,
+                                                    Vowel Consonant* x _ p r Consonant* Vowel ,
+                                    Vowel Consonant*       Consonant s _ k [l|m|n] Consonant* Vowel ,
+                                    Vowel Consonant*       Consonant s _ p [l|m|n] Consonant* Vowel ,
+                                    Vowel Consonant* [Consonant - n] s _ t r Consonant* Vowel ,
+                                    Vowel Consonant*       Consonant s _ t s Consonant* Vowel ,
+                                    Vowel Consonant*   [k|p|t|s|f|h|š] _ [g|b|d] CNotStop+ Vowel] ; 
+
+
+define Syllabify [MarkCVCSyllYW .o.
+                  NonDiphtongInLoanWords .o.
+                  ComplexConsCluster .o.
+                  MarkCVCSyll .o. 
+                  MarkDoubleVowVowel .o. 
+                  MarkVowelDoubleVow .o. 
+                  MarkVowelVowelVowel .o. 
+                  MarkNonDiphtong .o. 
+                  FixIU .o.
+                  FixIOC .o.
+                  FixIOCWord .o.
+                  MarkEU .o.
+                  MarkDerivBorder .o.
+                  DiphtongInLoanWords .o.
+                  DiphtongInFinalSyll ] ;
+
+regex Syllabify ;
