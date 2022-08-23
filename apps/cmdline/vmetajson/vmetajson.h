@@ -381,7 +381,7 @@ private:
             else
                 json_mrf["ending"] = "0";
             if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
-                json_mrf["t3"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
+                json_mrf["hmm"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
             else if(lipud_mrf.ChkB(MF_GTMRG))
             {
                 json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
