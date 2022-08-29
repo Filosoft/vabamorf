@@ -7,7 +7,8 @@
 # valjundis tähistab liitsõnasisest sõnapiiri _ 
 
 # sed 's/ \([^ ]\)/ \l\1/g'     ## alustav suurtäht väikeseks
-# sed '/####/s/    ####//'      ## oletamist vajavaid (sõnastikust puuduvaid) sõnu ei silbita
+# sed '/####/s/    ####//'      ## oletamist vajavaid (sõnastikust puuduvaid) sõnad slbitame lihtsõnadena|
+#                               
 # sed '/    /s/^[^ ]*    / /'   ## 4 tühikut -> 1 tühik
 # sed 's/ \/\/_[^\/]*\/\///g'   ## kustutame esimesest veerust algse sõna
 # sed 's/+0*//g'                ## kustutame 0-lõpu
@@ -32,7 +33,7 @@
 # sed 's/^\([^ ]*\)s_alu\([^ ]*\) \1salu_\2$/\1_sal\2/'     ##
 
 # sed 's/ .*$//'        ##
-# sed 's/./\l&/g'       ##
+# sed 's/./\l&/g'       ## läbivalt väiketäheliseks
 
 
 
