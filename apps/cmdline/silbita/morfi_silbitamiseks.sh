@@ -20,19 +20,19 @@
 # tr -s ' '                     ## kustutame korduvad tühikud
 # sed 's/^ //' | sed 's/ $//'   ## kustutame rea algusest/lõpust tühikud
 
-# sed 's/^\([^ ]*\)_\([^ _]*\) \1\2$/\1\2/'                 ##
-# sed 's/^\([^ ]*\)\([^ _]*\) \1_\2$/\1\2/'                 ##
+# sed 's/^\([^ ]*\)_\([^ _]*\) \1\2$/\1\2/'                 ## kui on liitsõna ja lihtsõna-analüüs
+# sed 's/^\([^ ]*\)\([^ _]*\) \1_\2$/\1\2/'                 ## jäta alles ainult lihtsõna analüüs
 
-# sed 's/^\([^ ]*\)se_\([^ ]*\) \1s_e\2$/\1s_e\2/'          ##
-# sed 's/^\([^ ]*\)s_e\([^ ]*\) \1se_\2$/\1s_e\2/'          ##
+# sed 's/^\([^ ]*\)se_\([^ ]*\) \1s_e\2$/\1s_e\2/'          ## mitmest analüüsist ühe valimine, valime ...s_e...
+# sed 's/^\([^ ]*\)s_e\([^ ]*\) \1se_\2$/\1s_e\2/'          ## ei tea, kumb esimene, sellest 2 
 
-# sed 's/^\([^ ]*\)\([aeiu]\)_\([^ ]*\) \1_\2\3$/\1\2_\3/'  ##
-# sed 's/^\([^ ]*\)_\([aeiu]\)\([^ ]*\) \1\2_\3$/\1\2_\3/'  ##
+# sed 's/^\([^ ]*\)\([aeiu]\)_\([^ ]*\) \1_\2\3$/\1\2_\3/'  ## mitmest valimine
+# sed 's/^\([^ ]*\)_\([aeiu]\)\([^ ]*\) \1\2_\3$/\1\2_\3/'  ## mitmest valimine
 
-# sed 's/^\([^ ]*\)_sal\([^ ]*\) \1s_alu\2$/\1_sal\2/'      ## 
-# sed 's/^\([^ ]*\)s_alu\([^ ]*\) \1salu_\2$/\1_sal\2/'     ##
+# sed 's/^\([^ ]*\)_sal\([^ ]*\) \1s_alu\2$/\1_sal\2/'      ## mitmest valimine
+# sed 's/^\([^ ]*\)s_alu\([^ ]*\) \1salu_\2$/\1_sal\2/'     ## mitmest valimine
 
-# sed 's/ .*$//'        ##
+# sed 's/ .*$//'        ## mitmest analüüsist võta esimene
 # sed 's/./\l&/g'       ## läbivalt väiketäheliseks
 
 
