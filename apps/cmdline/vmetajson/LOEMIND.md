@@ -185,7 +185,7 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
   [
     "features":
     {
-      "token": string,  /* sõne */
+      "token": string,  /* sisendsõne */
       "mrf" :           /* sõne analüüsivariantide massiiv */
       [
         {
