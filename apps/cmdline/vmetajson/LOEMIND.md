@@ -8,13 +8,13 @@ vmeta \[[*`LIPUD`*](#lippude_kirjeldus)\]
 
 Tüüpiline tegevuste jada tekstide töötlemisel on: tekst sõnestatakse ja lausestatakse, tehakse morfoloogiline analüüs ja seejärel ühestamine. Vaikimisi lipud eeldavadki, et **vmetajson** asub jadas pärast lausestamist ja enne morfoloogilist ühestamist, kusjuures sisend vastab kirjakeele normile ja tähtis on suure algustähega sõnad nimedena ära tunda; tema  väljund sobib ühestaja [vmetyjson](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetyjson/LOEMIND.md) sisendiks. 
 
-Vaikimisi lipud on: <br>
+### Vaikimisi lipud on: <br>
 * [`--sentences`](#lipp_sentences)
 * [`--guess`](#lipp_guess)
 * [`--dontguesspropnames`](#lipp_dontguesspropnames)
 * [`--lemma`](#lipp_lemma)
 * [`--fs`](#lipp_fs)
-* [`--dontaddphonetics`](#lipp_dontaddphonetics)
+* [`--dontaddphonetics`](#lipp_dontaddphonetics) 
 
 ### **`--json=JSON`** <a name="lipp_json"></a>
 
@@ -22,8 +22,10 @@ Sisend-json. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
 ### **`--sentences`** <a name="lipp_sentences"></a>
 
-Tekst on sõnestatud ja lausestatud. Võimaldab lisada 
-lausekontekstist tulenevaid võimalikke pärisnimeanalüüse (vt lipp [`--guesspropnames`](#lipp_guesspropnames)). 
+**_NB! Sisend-json'is peavad olema laused ja süned märgendatud_**
+
+Võimaldab lisada lausekontekstist tulenevaid võimalikke pärisnimeanalüüse
+(vt lipp [`--guesspropnames`](#lipp_guesspropnames)). 
 
 ### **`--tokens`** <a name="lipp_tokens"></a>
 
@@ -93,9 +95,11 @@ Käsurea lipu [`--tokens`](#lipp_tokens) korral:
   {
     "tokens": /* sõnede massiiv */
     [
-      "features":
       {
-        "token": string, /* tekstisõne */
+        "features":
+        {
+          "token": string, /* tekstisõne */
+        }
       }
     ] 
   }
@@ -112,17 +116,21 @@ Käsurea lipu [`--sentences`](#lipp_sentences) korral:
   {
     "sentences": /* lausete massiiv */
     [
-      "features":
       {
-        "start": number,  /* lause algusindeks tokens'ite massivis */
-        "end": number,    /* lause lõpuindeks tokens'ite massivis */
+        "features":
+        {
+          "start": number,  /* lause algusindeks tokens'ite massivis */
+          "end": number,    /* lause lõpuindeks tokens'ite massivis */
+        }
       }
     ],
     "tokens":   /* sõnede massiiv */
     [
-      "features":
       {
-        "token": string,  /* tekstisõne */
+        "features":
+        {
+          "token": string,  /* tekstisõne */
+        }
       }
     ] 
   }
@@ -138,34 +146,36 @@ spetsiifilist infot json'ga "kaasas kanda".
 ```json
 {
   "content": string,  /* algne tekst */
-  "features":{        /* sisendist, kui see seal oli */ },
-  "annotations":
+  "features":
   {
-    "sentences":        /* lausete massiiv */
-    [
-      "start": number,  /* lause alguspositsioon algses tekstis */
-      "end": number,    /* lause lõpupositsioon algses tekstis */
-      "features":
-      {
-        "start": number, /* lause algusindeks tokens'ite massivis */
-        "end": number,   /* lause lõpuindeks tokens'ite massivis */
-      }
-    ],
-    "tokens":           /* sõnede massiiv */
-    [
-      "start": number,  /* sõne alguspositsioon algses tekstis */
-      "end": number,    /* sõne lõpupositsioon algses tekstis */
-      "features":
-      {
-        "token": string,  /* sõne */
-      }
-    ],
-    "<annotatsioon>": /* sisendist, kui see seal oli */
-    [
-      "start":number,
-      "end":number,
-      "features":{ /* arbitrary JSON */ }
-    ]
+    "annotations":
+    {
+      "sentences":        /* lausete massiiv */
+      [
+        "start": number,  /* lause alguspositsioon algses tekstis */
+        "end": number,    /* lause lõpupositsioon algses tekstis */
+        "features":
+        {
+          "start": number, /* lause algusindeks tokens'ite massivis */
+          "end": number,   /* lause lõpuindeks tokens'ite massivis */
+        }
+      ],
+      "tokens":           /* sõnede massiiv */
+      [
+        "start": number,  /* sõne alguspositsioon algses tekstis */
+        "end": number,    /* sõne lõpupositsioon algses tekstis */
+        "features":
+        {
+          "token": string,  /* sõne */
+        }
+      ],
+      "<annotatsioon>": /* sisendist, kui see seal oli */
+      [
+        "start":number,
+        "end":number,
+        "features":{ /* arbitrary JSON */ }
+      ]
+    }
   }
 }
 ```
@@ -233,7 +243,7 @@ Partikkel.
 ## Kasutusnäited
 
 ```commandline
-echo "<s> Munamäel peeti mees kinni . </s>" | vmeta
+
 ```
 
 ```json

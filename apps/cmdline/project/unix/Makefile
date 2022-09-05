@@ -6,7 +6,7 @@ include Makefile.base
 
 LIBS=json.ar proof.ar etyhh.ar etana.ar fsc.ar
 LIBS_DB=$(LIBS:.ar=.db.ar)
-EXE=vmets vmeta vmety etdisamb etana etsyn stlspeller
+EXE=vmetajson vmets vmeta vmety etdisamb etana etsyn stlspeller
 EXE_DB=$(addsuffix .db,$(EXE))
 
 # sihid

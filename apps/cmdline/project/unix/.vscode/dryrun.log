@@ -20,7 +20,6 @@ mkdir -p etana.ar.tmp
 cd etana.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/etana/*.cpp
 cd etana.ar.tmp && ar -r ../etana.ar *.o
 rm -rf etana.ar.tmp 
- 
 #echo '==' fsc.ar
 mkdir -p fsc.ar.tmp
 cd fsc.ar.tmp && g++ -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp -c ../../../../../lib/fsc/*.cpp
@@ -78,7 +77,6 @@ strip etana
 rm -rf etana.tmp
 echo '==' etsyn
 mkdir -p etsyn.tmp
- 
 cd etsyn.tmp && g++ -o ../etsyn ../../../../../apps/cmdline/etsyn/*.cpp ../json.ar ../proof.ar ../etyhh.ar ../etana.ar ../fsc.ar -O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
 strip etsyn
 rm -rf etsyn.tmp
