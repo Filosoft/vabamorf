@@ -88,18 +88,7 @@ ainult "white space"'ist koosnevaid ridasid ignoreeritakse.
 Käsurea lipu [`--tokens`](#lipp_tokens) korral:
 
 ```json
-{
-  "annotations":
-  {
-    "tokens": /* sõnede massiiv */
-    [
-      "features":
-      {
-        "token": string, /* tekstisõne */
-      }
-    ] 
-  }
-}
+TODO
 ```
 
 ### Minimaalne json lausete kaupa analüüsmiseks
@@ -107,64 +96,53 @@ Käsurea lipu [`--tokens`](#lipp_tokens) korral:
 Käsurea lipu [`--sentences`](#lipp_sentences) korral:
 
 ```json
-{
-  "annotations":
-  {
-    "sentences": /* lausete massiiv */
-    [
-      "features":
-      {
-        "start": number,  /* lause algusindeks tokens'ite massivis */
-        "end": number,    /* lause lõpuindeks tokens'ite massivis */
-      }
-    ],
-    "tokens":   /* sõnede massiiv */
-    [
-      "features":
-      {
-        "token": string,  /* tekstisõne */
-      }
-    ] 
-  }
-}
+TODO
 ```
 
 ### Sisendi kuju üldjuhul
 
-Kõik see info **võib** json-sisendis kirjas olla, nö üleliigset infot **ignoreeritakse**, kasutatakse ainult lipu `--tokens` või `--sentences` jaoks
-vajalikku infot. See annab võimaluse konkreetse rakenduse jaoks vajalikku 
+Kõik see info **võib** json-sisendis kirjas olla, nö üleliigset infot **ignoreeritakse**, 
+kasutatud lippude sisukohalt "üleliigset" infot ognoreeritakse. 
+
+See annab võimaluse konkreetse rakenduse jaoks vajalikku 
 spetsiifilist infot json'ga "kaasas kanda".
 
 ```json
 {
-  "content": string,  /* algne tekst */
-  "features":{        /* sisendist, kui see seal oli */ },
+  "content": string,  /* võib puududa, algne tekst */
+  "features":{        /* võib puududa */ },
   "annotations":
   {
     "sentences":        /* lausete massiiv */
     [
-      "start": number,  /* lause alguspositsioon algses tekstis */
-      "end": number,    /* lause lõpupositsioon algses tekstis */
-      "features":
       {
-        "start": number, /* lause algusindeks tokens'ite massivis */
-        "end": number,   /* lause lõpuindeks tokens'ite massivis */
+        "start": number,  /* võib puududa, lause alguspositsioon algses tekstis */
+        "end": number,    /* võib puududa, lause lõpupositsioon algses tekstis */
+        "features":
+        {
+          "start": number, /* võib puududa üksiksõnede analüüsimisel, lause algusindeks tokens'ite massivis */
+          "end": number,   /* võib puududa üksiksõnede analüüsimisel, lause lõpuindeks tokens'ite massivis */
+        }
       }
     ],
     "tokens":           /* sõnede massiiv */
     [
-      "start": number,  /* sõne alguspositsioon algses tekstis */
-      "end": number,    /* sõne lõpupositsioon algses tekstis */
-      "features":
       {
-        "token": string,  /* sõne */
+        "start": number,  /* võib puududa, sõne alguspositsioon algses tekstis */
+        "end": number,    /* võib puududa, sõne lõpupositsioon algses tekstis */
+        "features":
+        {
+          "token": string,  /* sõne */
+        }
       }
     ],
-    "<annotatsioon>": /* sisendist, kui see seal oli */
+    "<annotatsioon>": /* võib puududa */
     [
-      "start":number,
-      "end":number,
-      "features":{ /* arbitrary JSON */ }
+      {
+        "start":number,
+        "end":number,
+        "features":{ /* arbitrary JSON */ }
+      }
     ]
   }
 }
@@ -186,7 +164,7 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
     "features":
     {
       "token": string,  /* sisendsõne */
-      "mrf" :           /* sõne analüüsivariantide massiiv */
+      "mrf" :           /* sisendsõne analüüsivariantide massiiv */
       [
         {
           "fs" : KATEGOORIAD, /* --fs lipu korral */
@@ -196,12 +174,13 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
           "stem": TÜVI,       /* --stem lipu korral */
           "ending" : LÕPP,    
           "kigi" : KIGI,
-          "source" : string
+          "source" : string   /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
         }
       ],
-      "source" : string,
+      "source" : string,  /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
       "complexity" : number,
     }
+  ]
 }
 ```
 
