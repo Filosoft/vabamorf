@@ -11,4 +11,20 @@ apps/cmdline/project/unix/proof.db.ar
 apps/cmdline/project/unix/vmetajson
 apps/cmdline/project/unix/vmetajson.db
 
+apps/cmdline/project/unix/etana
+apps/cmdline/project/unix/etana.db
+apps/cmdline/project/unix/etdisamb
+apps/cmdline/project/unix/etdisamb.db
+apps/cmdline/project/unix/etsyn
+apps/cmdline/project/unix/etsyn.db
+apps/cmdline/project/unix/proov_plaintext.txt
+apps/cmdline/project/unix/proov_xml.txt
+apps/cmdline/project/unix/stlspeller
+apps/cmdline/project/unix/stlspeller.db
+apps/cmdline/project/unix/vmeta
+apps/cmdline/project/unix/vmeta.db
+apps/cmdline/project/unix/vmets
+apps/cmdline/project/unix/vmets.db
+apps/cmdline/project/unix/vmety
+apps/cmdline/project/unix/vmety.db
 

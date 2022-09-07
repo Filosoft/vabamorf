@@ -1,6 +1,8 @@
 #if !defined(VMETAJSON_H)
 #define VMETAJSON_H
 
+// sudo apt-get install -y libjsoncpp-dev
+
 #include <algorithm> 
 #include <cctype>
 #include <iostream>  
