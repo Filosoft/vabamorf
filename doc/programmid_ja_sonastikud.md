@@ -3,7 +3,7 @@
 ## Lähtekoodi allalaadimine
 
 ```cmdline
-git clone https://github.com/Filosoft/vabamorf.git vabamorf
+git clone --branch 2022_09_09 --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github_2022_09_09
 ```
 
 ## Windows
