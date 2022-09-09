@@ -1,4 +1,4 @@
-# vmeta 
+# vmetajson [versioon 2022.09.09]
 
 ## Käsurida
 
@@ -71,7 +71,7 @@ Lemmas/tüves ei ole hääldusmärke.
 
 Lemmas/tüves on hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
-### **`--path K1:[K2:...]`**  <a name="lipp_path"></a>
+### **`--path=K1:[K2:...]`**  <a name="lipp_path"></a>
 Leksikonid võivad olla kataloogis **K1, K2, ...** <br>
 
 Vaikimisi Põhileksikon **et.dct** ja 
@@ -112,10 +112,10 @@ spetsiifilist infot json'ga "kaasas kanda".
 ```json
 {
   "content": string,  /* võib puududa, algne tekst */
-  "features":{        /* võib puududa */ },
+  "features":{        /* võib üksiksõnede analüüsimisel puududa */ },
   "annotations":
   {
-    "sentences":        /* lausete massiiv */
+    "sentences":        /* võib puududa, lausete massiiv */
     [
       {
         "start": number,  /* võib puududa, lause alguspositsioon algses tekstis */
@@ -134,7 +134,7 @@ spetsiifilist infot json'ga "kaasas kanda".
         "end": number,    /* võib puududa, sõne lõpupositsioon algses tekstis */
         "features":
         {
-          "token": string,  /* sõne */
+          "token": string,  /* kohustuslik alati, sõne */
         }
       }
     ],
