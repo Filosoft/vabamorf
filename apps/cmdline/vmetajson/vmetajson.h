@@ -15,6 +15,52 @@
 #include "../../../lib/etana/loefailist.h"
 #include "../../../lib/etana/fsjsoncpp.h"
 
+
+template <class MAIN>
+int MTemplate(int argc, FSTCHAR ** argv)
+{
+    try
+    {
+        //MAIN m(argc, argv, envp, ext);
+        FSCInit();
+        MAIN m;
+        m.Start(argc, argv);
+        m.Run();
+        FSCTerminate();
+        return EXIT_SUCCESS;
+    }
+    catch (VEAD& viga)
+    {
+        viga.Print();
+        FSCTerminate();
+        return EXIT_FAILURE;
+    }
+    catch (CFSFileException& isCFSFileException)
+    {
+        fprintf(stderr, "FSC [%x]\nFSC : S/V viga\n", isCFSFileException.m_nError);
+        FSCTerminate();
+        return EXIT_FAILURE;
+    }
+    catch (CFSMemoryException&)
+    {
+        fprintf(stderr, "FSC\nLiiga vähe vaba mälu\n");
+        FSCTerminate();
+        return EXIT_FAILURE;
+    }
+    catch (CFSRuntimeException&)
+    {
+        fprintf(stderr, "FSC\nJooksis kokku\n");
+        FSCTerminate();
+        return EXIT_FAILURE;
+    }
+    catch (...)
+    {
+        fprintf(stderr, "Tundmatu throw()\n");
+        FSCTerminate();
+        return EXIT_FAILURE;
+    }
+}
+
 // trim from start (in place)
 static inline void ltrim(std::string &s){
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
@@ -43,132 +89,18 @@ public:
         InitClassVariables();
     }
 
-    VMETAJSON(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
+    VMETAJSON(int argc, FSTCHAR** argv)
     {
         InitClassVariables();
-        Start(argc, argv, envp, _ext_);
+        Start(argc, argv);
         assert(ClassInvariant());
     }
 
     /** Korjame käsurealt lipud kokku & paneme paika */
-    void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
+    void Start(int argc, FSTCHAR** argv)
     {
-        assert(EmptyClassInvariant() == true);
-        lipp_lemma=true;
-        lipp_lausekaupa=false;  // morfime lausekaupa
-        lipp_oleta=true;        // oletame leksikonist puuduvad sõned
-        lipp_oleta_pn=false;    // lisa (oleta) lausekonteksti ja suurtähelisuse
-                                // põhjal pärisnimesid
-        lipp_haaldus=false;     // hääldusmärke ei lisa
-        lipp_ms=lipp_fs;	    // märgendisüsteem fs
 
-        PATHSTR pathstr;
-        path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
-         int i;
-        //pathi initsialiseerimine keskonnamuutujast
-        for(i=1; i<argc && argv[i][0]=='-' && argv[i][1]!='\0' ; ++i)
-        {
-            if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
-            {
-    syntaks:
-                fprintf(stderr,
-                        "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
-                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
-                        argv[0]);
-                exit(EXIT_FAILURE);
-            }
-            //-----------------------------
-            if(strcmp("--sentences", argv[i])==0)
-            {
-                lipp_lausekaupa=true;
-                continue;
-            }
-            if(strcmp("--tokens", argv[i])==0)
-            {
-                lipp_lausekaupa=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--lemma", argv[i])==0)
-            {
-                lipp_lemma=true;
-                continue;
-            }
-            if(strcmp("--stem", argv[i])==0)
-            {
-                lipp_lemma=false;
-                continue;
-            }            
-            //-----------------------------
-            if(strcmp("--guess", argv[i])==0)
-            {
-                lipp_oleta=true;
-                continue;
-            }
-            if(strcmp("--dontguess", argv[i])==0)
-            {
-                lipp_oleta=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--guesspropnames", argv[i])==0)
-            {
-                lipp_oleta_pn=true;
-                continue;
-            }
-            if(strcmp("--dontguesspropnames", argv[i])==0)
-            {
-                lipp_oleta_pn=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--dontaddphonetics", argv[i])==0)
-            {
-                lipp_haaldus=false;
-                continue;
-            }
-            if(strcmp("--addphonetics", argv[i])==0)
-            {
-                lipp_haaldus=true;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--fs", argv[i])==0)
-            {
-                lipp_ms=lipp_fs;
-                continue;
-            }
-            if(strcmp("--gt", argv[i])==0)
-            {
-                lipp_ms=lipp_gt;
-                continue;
-            }
-            if(strcmp("--hmm", argv[i])==0)
-            {
-                lipp_ms=lipp_hmm;
-                continue;
-            }
-            //-----------------------------
-            if(strncmp("--json=", argv[i], sizeof("--json=")-1)==0)
-            {
-                json_str_fs = argv[i]+(strchr(argv [i], '=')-argv[i]+1);
-                continue;
-            }
-            //-----------------------------
-            if(strncmp("--path=", argv[i], sizeof("--json=")-1)==0)
-            {
-                path=argv[i]+(strchr(argv [i], '=')-argv[i]+1);
-                continue;
-            }
-            if(strcmp("-", argv[i])!=0)
-            {
-                fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
-                goto syntaks;
-            }
-        }
-        if(i!=argc)
-            goto syntaks;
-        LipudPaika();
+        LipudPaika(argc, argv);
     }
 
     /** Korraldame jsoni läbilaskmist */
@@ -248,8 +180,126 @@ private:
 
     /* Paneb käsurealt üleskorjatud lipud paika ja kontrollib üle
     */
-    void LipudPaika()
+    void LipudPaika(int argc, FSTCHAR** argv)
     {
+        assert(EmptyClassInvariant() == true);
+        lipp_lemma=true;
+        lipp_lausekaupa=false;  // morfime lausekaupa
+        lipp_oleta=true;        // oletame leksikonist puuduvad sõned
+        lipp_oleta_pn=false;    // lisa (oleta) lausekonteksti ja suurtähelisuse
+                                // põhjal pärisnimesid
+        lipp_haaldus=false;     // hääldusmärke ei lisa
+        lipp_ms=lipp_fs;	    // märgendisüsteem fs
+
+        PATHSTR pathstr;
+        path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
+        int i;
+        //pathi initsialiseerimine keskonnamuutujast
+        for(i=1; i<argc && argv[i][0]=='-' && argv[i][1]!='\0' ; ++i)
+        {
+            //-----------------------------
+            if(strcmp("--sentences", argv[i])==0)
+            {
+                lipp_lausekaupa=true;
+                continue;
+            }
+            if(strcmp("--tokens", argv[i])==0)
+            {
+                lipp_lausekaupa=false;
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("--lemma", argv[i])==0)
+            {
+                lipp_lemma=true;
+                continue;
+            }
+            if(strcmp("--stem", argv[i])==0)
+            {
+                lipp_lemma=false;
+                continue;
+            }            
+            //-----------------------------
+            if(strcmp("--guess", argv[i])==0)
+            {
+                lipp_oleta=true;
+                continue;
+            }
+            if(strcmp("--dontguess", argv[i])==0)
+            {
+                lipp_oleta=false;
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("--guesspropnames", argv[i])==0)
+            {
+                lipp_oleta_pn=true;
+                continue;
+            }
+            if(strcmp("--dontguesspropnames", argv[i])==0)
+            {
+                lipp_oleta_pn=false;
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("--dontaddphonetics", argv[i])==0)
+            {
+                lipp_haaldus=false;
+                continue;
+            }
+            if(strcmp("--addphonetics", argv[i])==0)
+            {
+                lipp_haaldus=true;
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("--fs", argv[i])==0)
+            {
+                lipp_ms=lipp_fs;
+                continue;
+            }
+            if(strcmp("--gt", argv[i])==0)
+            {
+                lipp_ms=lipp_gt;
+                continue;
+            }
+            if(strcmp("--hmm", argv[i])==0)
+            {
+                lipp_ms=lipp_hmm;
+                continue;
+            }
+            //-----------------------------
+            if(strncmp("--path=", argv[i], sizeof("--path=")-1)==0)
+            {
+                path=argv[i]+(strchr(argv [i], '=')-argv[i]+1);
+                continue;
+            }
+            //=============================
+            if(strncmp("--json=", argv[i], sizeof("--json=")-1)==0)
+            {
+                json_str_fs = argv[i]+(strchr(argv [i], '=')-argv[i]+1);
+                continue;
+            }
+            //-----------------------------
+            if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
+            {
+    syntaks:
+                fprintf(stderr,
+                        "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
+                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
+                        argv[0]);
+                exit(EXIT_FAILURE);
+            }
+            //-----------------------------
+            if(strcmp("-", argv[i])!=0)
+            {
+                fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
+                goto syntaks;
+            }
+        }
+        if(i!=argc)
+            goto syntaks;
+
         // üksiksõnade analüüs vaikimisi selliste lippudega
         MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks =
                                 MF_MRF | MF_ALGV | MF_POOLITA |
