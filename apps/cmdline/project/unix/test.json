@@ -1,0 +1,14 @@
+{"type":"text","content":"Mees peeti kinni. Vanaisa t\u00f6\u00f6p\u00fcksid.",
+    "annotations":{"sentences":[{"start":0,"end":17,"features":{"start":0,"end":4}},{"start":18,"end":36,"features":{"start":4,"end":7}}],
+        "tokens":
+        [
+            {"start":0,"end":4,"features":{"token":"Mees"}},
+            {"start":5,"end":10,"features":{"token":"peeti"}},
+            {"start":11,"end":16,"features":{"token":"kinni"}},
+            {"start":16,"end":17,"features":{"token":"."}},
+            {"start":18,"end":25,"features":{"token":"Vanaisa"}},
+            {"start":26,"end":35,"features":{"token":"t\u00f6\u00f6p\u00fcksid"}},
+            {"start":35,"end":36,"features":{"token":"."}}
+        ]
+    }
+}
