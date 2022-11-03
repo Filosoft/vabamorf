@@ -2,7 +2,7 @@
 
 ## Käsurida
 
-vmeta \[[*`LIPUD`*](#lippude_kirjeldus)\]
+vmetajson \[[*`LIPUD`*](#lippude_kirjeldus)\]
 
 ## Lipud <a name="lippude_kirjeldus"></a>
 
@@ -22,7 +22,7 @@ Sisend-json. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
 ### **`--sentences`** <a name="lipp_sentences"></a>
 
-**_NB! Sisend-json'is peavad olema laused ja süned märgendatud_**
+**_NB! Sisend-json'is peavad olema laused ja sõned märgendatud_**
 
 Võimaldab lisada lausekontekstist tulenevaid võimalikke pärisnimeanalüüse
 (vt lipp [`--guesspropnames`](#lipp_guesspropnames)). 
@@ -74,8 +74,8 @@ Lemmas/tüves on hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]```
 ### **`--path=K1:[K2:...]`**  <a name="lipp_path"></a>
 Leksikonid võivad olla kataloogis **K1, K2, ...** <br>
 
-Vaikimisi Põhileksikon **et.dct** ja 
-[kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md) 
+Vaikimisi põhileksikon **et.dct** ja 
+[kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md)
 asuvad keskkonnamuutujas **PATH** loetletud kataloogis.
 
 ## Sisend <a name="sisendi_kirjeldus"></a>
@@ -192,7 +192,7 @@ Vormitüvi Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakrii
 
 ### `LEMMA` <a name="mrf_LEMMA"></a>
 
-Algvorm. Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakriips ```_```ja järelliidet võrdusmärk ```=```.
+Algvorm. Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakriips ```_``` ja järelliidet võrdusmärk ```=```.
 
 ### `LÕPP` <a name="mrf_LÕPP"></a>
 
@@ -230,20 +230,24 @@ TODO:
 ```
 
 Olgu jooksvas kataloogis kahesõnaline [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md) **et.usr.dct.utf8**:
+
 ```
 l@xid    mine+sid //_V_ sid, //
 r66mu    rõõm+0 //_S_ adt, //    rõõm+0 //_S_ sg p, //    rõõm+0 //_S_ sg g, //
 ```
 
 ... siis morf. analüüs on:
+
 ```code
 echo '<s> R66mu rullid l@xid koju . </s>' | vmeta -p .:$PATH
 ```
+
 ```
 <s>
 
 </s>
 ```
+
 ## Vaata lisaks
 !!!Vajab Täiendamist!!!
 * Morfoloogilise analüsaatori [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
