@@ -8,10 +8,10 @@
             "name": "SNT:stdin->stdout",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/tarmo/git/vabamorf_github_2022_09_09/apps/cmdline/project/unix/vmetajson.db",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
             "args": [ "--guesspropnames", "--sentences"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -32,10 +32,10 @@
             "name": "TKN:stdin->stdout",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/tarmo/git/vabamorf_github_2022_09_09/apps/cmdline/project/unix/vmetajson.db",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
             "args": [ "--tokens"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -56,10 +56,10 @@
             "name": "json(vigane)->stdout",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/tarmo/git/vabamorf_github_2022_09_09/apps/cmdline/project/unix/vmetajson.db",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
             "args": [ "--json={\\\"type\\\":}" ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -80,10 +80,10 @@
             "name": "SNTjson(ok)->stdout",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/tarmo/git/vabamorf_github_2022_09_09/apps/cmdline/project/unix/vmetajson.db",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}", 
             "args": [ "--guesspropnames", "--sentences", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni. Sarved&S\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Sarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"S\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -104,10 +104,10 @@
             "name": "TKNjson(ok)->stdout",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/tarmo/git/vabamorf_github_2022_09_09/apps/cmdline/project/unix/vmetajson.db",
-            "args": [ "--tokens", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni. Zarved&Q\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"Q\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--tokens", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni. Sarved&Q\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"Q\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -123,6 +123,30 @@
                     "ignoreFailures": true
                 }
             ]
-        }
+        },
+        {
+            "name": "TKN content->stdout",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--tokens", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },        
     ]
 }

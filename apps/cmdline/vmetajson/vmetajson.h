@@ -8,6 +8,7 @@
 #include <iostream>  
 #include <string> 
 #include <assert.h>
+#include <iterator>
 #include "../../../lib/etana/etmrfana.h"
 #include "../../../lib/etana/viga.h"
 #include "../../../lib/etana/mrf2yh2mrf.h"
@@ -15,13 +16,19 @@
 #include "../../../lib/etana/loefailist.h"
 #include "../../../lib/etana/fsjsoncpp.h"
 
-
+/**
+ * @brief JSONit käsitleva käsureaprogrammi templiit
+ * 
+ * @tparam MAIN VMETAJSON või VMETYJSON (realiseerimata)
+ * @param argc käsurea parameetrite arv
+ * @param argv käsurea parameetrite massiiv
+ * @return int 
+ */
 template <class MAIN>
 int MTemplate(int argc, FSTCHAR ** argv)
 {
     try
     {
-        //MAIN m(argc, argv, envp, ext);
         FSCInit();
         MAIN m;
         m.Start(argc, argv);
@@ -61,21 +68,34 @@ int MTemplate(int argc, FSTCHAR ** argv)
     }
 }
 
-// trim from start (in place)
+
+/**
+ * @brief trim from start (in place)
+ * 
+ * @param s
+ */
 static inline void ltrim(std::string &s){
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
         return !std::isspace(ch);
     }));
 }
 
-// trim from end (in place)
+/**
+ * @brief trim from end (in place)
+ * 
+ * @param s 
+ */
 static inline void rtrim(std::string &s) {
     s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
         return !std::isspace(ch);
     }).base(), s.end());
 }
 
-// trim from both ends (in place)
+/**
+ * @brief trim from both ends (in place)
+ * 
+ * @param s 
+ */
 static inline void trim(std::string &s) {
     ltrim(s);
     rtrim(s);
@@ -96,14 +116,22 @@ public:
         assert(ClassInvariant());
     }
 
-    /** Korjame käsurealt lipud kokku & paneme paika */
+    /**
+     * @brief Käsurealt antud parameetrite käsitlemine
+     * 
+     * @param argc 
+     * @param argv 
+     */
     void Start(int argc, FSTCHAR** argv)
     {
-
-        LipudPaika(argc, argv);
+        LipuStringidKasurealt(argc, argv);
+        mrf.Start(path, LipuBitidPaika());
     }
 
-    /** Korraldame jsoni läbilaskmist */
+    /**
+     * @brief Korraldame käsurealt või std-sisendist tuleva jsoni läbilaskmist
+     * 
+     */
     void Run(void)
     { 
         if(json_str_fs.GetLength() > 0)
@@ -147,7 +175,10 @@ public:
         }
     }
 
-    /** Taastab argumentideta konstruktori järgse seisu */
+    /**
+     * @brief Taastame argumentideta konstruktori järgse seisu
+     * 
+     */
     void Stop(void)
     {
         mrf.Stop();
@@ -155,14 +186,14 @@ public:
     }
 
 private:
-    enum LIPPMARGENDISYSTEEM    //
+    enum LIPPMARGENDISYSTEEM    // kasutav märgendisüsteem
     {
-        lipp_gt,                // --gt
-        lipp_fs,                // (vaikimisi) -f --fs
-        lipp_hmm,               // -m --hmm markov
+        lipp_gt,                // --gt 
+        lipp_fs,                // (vaikimisi) --fs
+        lipp_hmm,               // --hmm markov (ühestaja)
     } lipp_ms;
 
-    bool lipp_lemma;
+    bool lipp_lemma;            // 
     bool lipp_oleta_pn;         // --guesspropnames/--dontguesspropnames
     bool lipp_lausekaupa;		// morfime lausekaupa, json'is peavad olema laused märgendatud
     bool lipp_haaldus;          // -p --phonetics/--nophonetics
@@ -170,135 +201,164 @@ private:
 
     CFSAString path;            // -p=... --path=...
     CFSAString json_str_fs;     // -j=... --json=... lipu tagant
-    FSJSONCPP fsJsonCpp;
+    FSJSONCPP  fsJsonCpp;
 
-    FS_2_GT fs_2_gt;
+    FS_2_GT    fs_2_gt;
     MRF2YH2MRF fs_2_hmm;
 
-    ETMRFA mrf;
+    ETMRFA    mrf;
     MRF_FLAGS lipud_mrf;
 
-    /* Paneb käsurealt üleskorjatud lipud paika ja kontrollib üle
+    /**
+     * @brief Panema paika lippude vaikeväärtused
+     * 
+     */
+    void VaikeLipudPaika(void)
+    {
+        lipp_lemma=true;        // lisame lemmad
+        lipp_lausekaupa=false;  // EI morfi lausekaupa
+        lipp_oleta=true;        // oletame leksikonist puuduvad sõned
+        lipp_oleta_pn=false;    // EI lisa (oleta) lausekonteksti ja suurtähelisuse
+                                // põhjal pärisnimesid
+        lipp_haaldus=false;     // EI lisa hääldusmärke
+        lipp_ms=lipp_fs;	    // märgendisüsteem fs       
+    }
+
+   /**
+    * @brief Kohendame lippude vaikeväärtused käsurealt antutele vastavaks
+    * 
+    * @param argc Lippude massivi pikkus
+    * @param argv Lippude massiiv
     */
-    void LipudPaika(int argc, FSTCHAR** argv)
+    void LipuStringidKasurealt(int argc, FSTCHAR** argv)
     {
         assert(EmptyClassInvariant() == true);
-        lipp_lemma=true;
-        lipp_lausekaupa=false;  // morfime lausekaupa
-        lipp_oleta=true;        // oletame leksikonist puuduvad sõned
-        lipp_oleta_pn=false;    // lisa (oleta) lausekonteksti ja suurtähelisuse
-                                // põhjal pärisnimesid
-        lipp_haaldus=false;     // hääldusmärke ei lisa
-        lipp_ms=lipp_fs;	    // märgendisüsteem fs
+        VaikeLipudPaika();
 
         PATHSTR pathstr;
-        path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
-        int i;
-        //pathi initsialiseerimine keskonnamuutujast
-        for(i=1; i<argc && argv[i][0]=='-' && argv[i][1]!='\0' ; ++i)
+        path=(const char*)pathstr; // Vaikimisi keskkonnamuutujast PATH
+        for(int i=1; i<argc; ++i)
         {
-            //-----------------------------
-            if(strcmp("--sentences", argv[i])==0)
-            {
-                lipp_lausekaupa=true;
-                continue;
-            }
-            if(strcmp("--tokens", argv[i])==0)
-            {
-                lipp_lausekaupa=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--lemma", argv[i])==0)
-            {
-                lipp_lemma=true;
-                continue;
-            }
-            if(strcmp("--stem", argv[i])==0)
-            {
-                lipp_lemma=false;
-                continue;
-            }            
-            //-----------------------------
-            if(strcmp("--guess", argv[i])==0)
-            {
-                lipp_oleta=true;
-                continue;
-            }
-            if(strcmp("--dontguess", argv[i])==0)
-            {
-                lipp_oleta=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--guesspropnames", argv[i])==0)
-            {
-                lipp_oleta_pn=true;
-                continue;
-            }
-            if(strcmp("--dontguesspropnames", argv[i])==0)
-            {
-                lipp_oleta_pn=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--dontaddphonetics", argv[i])==0)
-            {
-                lipp_haaldus=false;
-                continue;
-            }
-            if(strcmp("--addphonetics", argv[i])==0)
-            {
-                lipp_haaldus=true;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--fs", argv[i])==0)
-            {
-                lipp_ms=lipp_fs;
-                continue;
-            }
-            if(strcmp("--gt", argv[i])==0)
-            {
-                lipp_ms=lipp_gt;
-                continue;
-            }
-            if(strcmp("--hmm", argv[i])==0)
-            {
-                lipp_ms=lipp_hmm;
-                continue;
-            }
-            //-----------------------------
-            if(strncmp("--path=", argv[i], sizeof("--path=")-1)==0)
-            {
-                path=argv[i]+(strchr(argv [i], '=')-argv[i]+1);
-                continue;
-            }
-            //=============================
-            if(strncmp("--json=", argv[i], sizeof("--json=")-1)==0)
-            {
-                json_str_fs = argv[i]+(strchr(argv [i], '=')-argv[i]+1);
-                continue;
-            }
-            //-----------------------------
             if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
             {
-    syntaks:
+            syntaks:
                 fprintf(stderr,
-                        "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
-                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
-                        argv[0]);
+                    "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
+                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
+                    argv[0]);
                 exit(EXIT_FAILURE);
             }
-            //-----------------------------
-            if(strcmp("-", argv[i])!=0)
+            if(LipuStringPaika(argv[i])==false)
             {
                 fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
                 goto syntaks;
             }
         }
-        if(i!=argc)
-            goto syntaks;
+    }   
+
+    /**
+     * @brief Üksiku stringina antu parameetri käitlemine
+     * 
+     * @param lipuString 
+     * @return true -- oli lubatud lipp, false -- ei tundnud sellist
+     */
+    bool LipuStringPaika(FSTCHAR* lipuString)
+    {
+        //-----------------------------
+        if(strcmp("--sentences", lipuString)==0)
+        {
+            lipp_lausekaupa=true;
+            return true;
+        }
+        if(strcmp("--tokens", lipuString)==0)
+        {
+            lipp_lausekaupa=false;
+            return true;
+        }
+        //-----------------------------
+        if(strcmp("--lemma",lipuString)==0)
+        {
+            lipp_lemma=true;
+            return true;
+        }
+        if(strcmp("--stem", lipuString)==0)
+        {
+            lipp_lemma=false;
+            return true;
+        }            
+        //-----------------------------
+        if(strcmp("--guess", lipuString)==0)
+        {
+            lipp_oleta=true;
+            return true;
+        }
+        if(strcmp("--dontguess", lipuString)==0)
+        {
+            lipp_oleta=false;
+            return true;
+        }
+        //-----------------------------
+        if(strcmp("--guesspropnames", lipuString)==0)
+        {
+            lipp_oleta_pn=true;
+            return true;
+        }
+        if(strcmp("--dontguesspropnames", lipuString)==0)
+        {
+            lipp_oleta_pn=false;
+            return true;
+        }
+        //-----------------------------
+        if(strcmp("--dontaddphonetics", lipuString)==0)
+        {
+            lipp_haaldus=false;
+            return true;
+        }
+        if(strcmp("--addphonetics", lipuString)==0)
+        {
+            lipp_haaldus=true;
+            return true;
+        }
+        //-----------------------------
+        if(strcmp("--fs", lipuString)==0)
+        {
+            lipp_ms=lipp_fs;
+            return true;
+        }
+        if(strcmp("--gt",lipuString)==0)
+        {
+            lipp_ms=lipp_gt;
+            return true;
+        }
+        if(strcmp("--hmm", lipuString)==0)
+        {
+            lipp_ms=lipp_hmm;
+            return true;
+        }
+        //-----------------------------
+        if(strncmp("--path=", lipuString, sizeof("--path=")-1)==0)
+        {
+            path=lipuString+(strchr(lipuString, '=')-lipuString+1);
+            return true;
+        }
+        //=============================
+        if(strncmp("--json=", lipuString, sizeof("--json=")-1)==0)
+        {
+            json_str_fs = lipuString+(strchr(lipuString, '=')-lipuString+1);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @brief Seame lipustringide järgi lipubitid paika
+     * 
+     * @return MRF_FLAGS_BASE_TYPE 
+     */
+    MRF_FLAGS_BASE_TYPE LipuBitidPaika(void)
+    {
+        MRF_FLAGS lipuBitid;
 
         // üksiksõnade analüüs vaikimisi selliste lippudega
         MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks =
@@ -315,38 +375,42 @@ private:
 
         if(lipp_lausekaupa)// xml
         {
-            lipud_mrf.Set(lipud_lausete_yhestamiseks);
-            lipud_mrf.OnOff(MF_LISAPNANAL, lipp_oleta_pn);  // ainult lausekonteksti korral
+            lipuBitid.Set(lipud_lausete_yhestamiseks);
+            lipuBitid.OnOff(MF_LISAPNANAL, lipp_oleta_pn);  // ainult lausekonteksti korral
                                                             // saab olla "on"
         }
         else
         {
-            lipud_mrf.Set(lipud_yksiksonade_analyysiks);
+            lipuBitid.Set(lipud_yksiksonade_analyysiks);
         }
-        lipud_mrf.OnOff(MF_ALGV, lipp_lemma);
-        lipud_mrf.OnOff(MF_OLETA,   lipp_oleta); //ühestamise korral pole mõistlik "off"
-        lipud_mrf.OnOff(MF_KR6NKSA, lipp_haaldus);
+        lipuBitid.OnOff(MF_ALGV, lipp_lemma);
+        lipuBitid.OnOff(MF_OLETA,   lipp_oleta); //ühestamise korral pole mõistlik "off"
+        lipuBitid.OnOff(MF_KR6NKSA, lipp_haaldus);
         switch(lipp_ms)
         {
             case lipp_gt:
-                lipud_mrf.On(MF_GTMRG); //ei saa ühestada
+                lipuBitid.On(MF_GTMRG); //ei saa ühestada
                 break;
             case lipp_fs:
                 break;
             case lipp_hmm:
-                lipud_mrf.On(MF_YHMRG);
+                lipuBitid.On(MF_YHMRG);
                 break;
         }
-        mrf.Start(path, lipud_mrf.Get());
+        return lipuBitid.Get();
     }
 
-    /** Laseme ühe jsoni päringu läbi */
+    /** 
+     * @brief Laseme ühe jsoni päringu läbi
+     */
     void TeeSeda(Json::Value& jsonobj)
     {
         bool ret;
         CFSWString rida;
         LYLI lyli;
         
+        //TODO: jsonist antud lippude käsitlemine
+
         if(lipp_lausekaupa == true) 
             TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
         else     
@@ -354,20 +418,49 @@ private:
         fsJsonCpp.Writer(jsonobj, true);
     }
 
+    /**
+     * @brief Morfime sõnekaupa
+     * 
+     * @param jsonobj 
+     */
     void TeeSedaSonekaupa(Json::Value& jsonobj)
     {
-        Json::Value& tokens = jsonobj["annotations"]["tokens"];
-        for(int i=0; i<tokens.size(); i++)
+        if(jsonobj.isMember("content")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
         {
-            Json::Value& features = tokens[i]["features"]; 
-            const FSXSTRING fsStr = features["token"].asString().c_str();
-            mrf.Set1(fsStr);
-            LYLI lyli;
-            mrf.Flush(lyli);
-            MrfTulemused_2_JSON(features, lyli);
+            std::stringstream tokens(jsonobj["content"].asString());
+            std::istream_iterator<std::string> begin(tokens);
+            std::istream_iterator<std::string> end;
+            std::vector<std::string> vtokens(begin, end);
+            jsonobj["annotations"]["tokens"] = Json::arrayValue;
+
+            for(std::string token : vtokens)
+            {
+                Json::Value jsonFeatures;
+                jsonFeatures["features"]["token"] = token;
+                jsonobj["annotations"]["tokens"].append(jsonFeatures);
+            }
         }
+        if(jsonobj.isMember("annotations") && jsonobj["annotations"].isMember("tokens"))
+        {
+            Json::Value& tokens = jsonobj["annotations"]["tokens"];
+            for(int i=0; i<tokens.size(); i++)
+            {
+                Json::Value& features = tokens[i]["features"]; 
+                const FSXSTRING fsStr = features["token"].asString().c_str();
+                mrf.Set1(fsStr);
+                LYLI lyli;
+                mrf.Flush(lyli);
+                MrfTulemused_2_JSON(features, lyli);
+            }
+        }
+        // mingi jama...
     }
 
+    /**
+     * @brief Morfime lausekaupa
+     * 
+     * @param jsonobj 
+     */
     void TeeSedaLausekaupa(Json::Value& jsonobj)
     {
         Json::Value& sentences = jsonobj["annotations"]["sentences"];
@@ -402,6 +495,12 @@ private:
         }
     }
 
+    /**
+     * @brief Teisendame FS-kujul morftulemuse JSON-kujule
+     * 
+     * @param features 
+     * @param lyli 
+     */
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
         if(lipud_mrf.ChkB(MF_ALGV))
@@ -460,32 +559,42 @@ private:
         }
     }
 
-    /** Muutujate esialgseks initsialiseerimsieks konstruktoris */
+    /** 
+     * @brief Muutujate esialgseks initsialiseerimsieks konstruktoris
+     */
     void InitClassVariables(void)
     {
 
     }
 
-    /** Argumentideta konstruktori abil starditud klassi invariant */
+    /** 
+     * @brief Argumentideta konstruktori abil starditud klassi invariant
+     */
     bool EmptyClassInvariant(void)
     {
         return true;
     }
 
-    /** Initsialiseeritud klassi invariant */
+    /** 
+     * @brief Initsialiseeritud klassi invariant 
+     */
 
     bool ClassInvariant(void)
     {
         return true;
     }
 
-    /** Copy-konstruktor on illegaalne */
+    /** 
+     * @brief Copy-konstruktor on illegaalne
+     */
     VMETAJSON(const VMETAJSON&)
     {
         assert(false);
     }
 
-    /** Omistamisoperaator on illegaalne */
+    /** 
+     * @brief Omistamisoperaator on illegaalne
+     */
     VMETAJSON & operator=(const VMETAJSON&)
     {
         assert(false);

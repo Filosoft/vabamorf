@@ -103,15 +103,16 @@ TODO
 
 ### Sisendi kuju üldjuhul
 
-Kõik see info **võib** json-sisendis kirjas olla, nö üleliigset infot **ignoreeritakse**, 
-kasutatud lippude sisukohalt "üleliigset" infot ognoreeritakse. 
+Kõik see info **võib** json-sisendis kirjas olla, nö üleliigset infot **ignoreeritakse**,
+kasutatud lippude sisukohalt "üleliigset" infot ognoreeritakse.
 
-See annab võimaluse konkreetse rakenduse jaoks vajalikku 
+See annab võimaluse konkreetse rakenduse jaoks vajalikku
 spetsiifilist infot json'ga "kaasas kanda".
 
 ```json
 {
   "content": string,  /* võib puududa, algne tekst */
+  "params": { "flags": [string, ...]} /* võib puududa */
   "features":{        /* võib üksiksõnede analüüsimisel puududa */ },
   "annotations":
   {
@@ -134,7 +135,7 @@ spetsiifilist infot json'ga "kaasas kanda".
         "end": number,    /* võib puududa, sõne lõpupositsioon algses tekstis */
         "features":
         {
-          "token": string,  /* kohustuslik alati, sõne */
+          "token": string,  /* kohustuslik, morf analüüsitav sõne */
         }
       }
     ],
@@ -161,28 +162,57 @@ Programm leiab sõnavormi moodustavad morfid, algvormi, sõnaliigi ja morfoloogi
 
 ```json
 {
-  "tokens": /* sõnede massiiv */
-  [
-    "features":
-    {
-      "token": string,  /* sisendsõne */
-      "mrf" :           /* sisendsõne analüüsivariantide massiiv */
-      [
+  "content": string,  /* võib puududa, algne tekst */
+  "features": {       /* võib puududa */ },
+  "annotations":      /* võib üksiksõnede analüüsimisel puududa */
+  {
+    "sentences":        /* võib puududa, lausete massiiv */
+    [
+      {
+        "start": number,  /* võib puududa, lause alguspositsioon algses tekstis */
+        "end": number,    /* võib puududa, lause lõpupositsioon algses tekstis */
+        "features":
         {
-          "fs" : KATEGOORIAD, /* --fs lipu korral */
-          "gt": KATEGOORIAD,  /* --gt lipu korral */
-          "pos" : SÕNALIIK,
-          "lemma" : string,   /* --lemma lipu korral */
-          "stem": TÜVI,       /* --stem lipu korral */
-          "ending" : LÕPP,    
-          "kigi" : KIGI,
-          "source" : string   /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
+          "start": number, /* võib puududa üksiksõnede analüüsimisel, lause algusindeks tokens'ite massivis */
+          "end": number,   /* võib puududa üksiksõnede analüüsimisel, lause lõpuindeks tokens'ite massivis */
         }
-      ],
-      "source" : string,  /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
-      "complexity" : number,
-    }
-  ]
+      }
+    ],
+    "tokens":           /* sõnede massiiv */
+    [
+      {
+        "start": number,  /* võib puududa, sõne alguspositsioon algses tekstis */
+        "end": number,    /* võib puududa, sõne lõpupositsioon algses tekstis */
+        "features":
+        {
+          "token": string,  /* kohustuslik, morf analüüsitav sõne */
+          "mrf" :           /* sisendsõne analüüsivariantide massiiv */
+          [
+            {
+              "fs" : KATEGOORIAD, /* --fs lipu korral */
+              "gt": KATEGOORIAD,  /* --gt lipu korral */
+              "pos" : SÕNALIIK,
+              "lemma" : string,   /* --lemma lipu korral */
+              "stem": TÜVI,       /* --stem lipu korral */
+              "ending" : LÕPP,    
+              "kigi" : KIGI,
+              "source" : string   /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
+            }
+          ],
+          "source" : string,  /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
+          "complexity" : number,
+        }
+      }
+    ],
+    "<annotatsioon>": /* võib puududa */
+    [
+      {
+        "start":number,
+        "end":number,
+        "features":{ /* arbitrary JSON */ }
+      }
+    ]
+  }
 }
 ```
 
