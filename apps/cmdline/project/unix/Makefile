@@ -10,6 +10,7 @@ EXE=vmetajson vmets vmeta vmety etdisamb etana etsyn stlspeller
 EXE_DB=$(addsuffix .db,$(EXE))
 
 # sihid
+
 all : lib lib_db exe exe_db
 
 exe : $(EXE)

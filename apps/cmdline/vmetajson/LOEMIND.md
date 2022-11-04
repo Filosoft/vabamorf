@@ -84,7 +84,7 @@ asuvad keskkonnamuutujas **PATH** loetletud kataloogis.
 
 Sisendi etteandmiseks on 2 võomalust:
 * Käsurealt `--json=JSON` lipuga.
-* Standard sisendist, igal real peab olema terviklik json-päring, 
+* Standard sisendist, igal real peab olema terviklik json-päring,
 ainult "white space"'ist koosnevaid ridasid ignoreeritakse.
 
 Käsurea lipu [`--tokens`](#lipp_tokens) korral:
@@ -101,7 +101,9 @@ Käsurea lipu [`--sentences`](#lipp_sentences) korral:
 TODO
 ```
 
-### Sisendi kuju üldjuhul
+### Sisendi kuju
+
+#### Sisendiks on sõnestaja väljundist pärit info
 
 Kõik see info **võib** json-sisendis kirjas olla, nö üleliigset infot **ignoreeritakse**,
 kasutatud lippude sisukohalt "üleliigset" infot ognoreeritakse.
@@ -112,9 +114,9 @@ spetsiifilist infot json'ga "kaasas kanda".
 ```json
 {
   "content": string,  /* võib puududa, algne tekst */
-  "params": { "flags": [string, ...]} /* võib puududa */
-  "features":{        /* võib üksiksõnede analüüsimisel puududa */ },
-  "annotations":
+  "params": { "anal":[string, ...]}, /* võib puududa */
+  "features": { /* võib puududa */ },
+  "annotations": /* võib üksiksõnede analüüsimisel puududa */ 
   {
     "sentences":        /* võib puududa, lausete massiiv */
     [
@@ -148,6 +150,17 @@ spetsiifilist infot json'ga "kaasas kanda".
       }
     ]
   }
+}
+```
+
+#### Tühikuga eraldatud üksiksõnede loendi morfimine
+
+Eeldab lippu ```--tokens```.
+
+```json
+{
+  "params": { "anal": [string, ...]}, /* võib puududa */
+  "content":string /* tühikuga eraldatud sõned */
 }
 ```
 

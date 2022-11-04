@@ -141,7 +141,6 @@ public:
             if(fsJsonCpp.Parse((const char*)json_str_fs, message, jsonobj)==false)
             {
                 Json::Value json_errmsg;
-                //json_errmsg["type"]="texts";
                 json_errmsg["warnings"].append(message);
                 fsJsonCpp.Writer(json_errmsg);
             }
@@ -452,8 +451,9 @@ private:
                 mrf.Flush(lyli);
                 MrfTulemused_2_JSON(features, lyli);
             }
+            return;
         }
-        // mingi jama...
+        jsonobj["warnings"].append("JSON ei sisalda morfimiseks vajalikku infot");
     }
 
     /**
@@ -463,6 +463,11 @@ private:
      */
     void TeeSedaLausekaupa(Json::Value& jsonobj)
     {
+        if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false)
+        {
+            jsonobj["warnings"].append("JSON ei sisalda morfimiseks vajalikku infot");
+            return;
+        }
         Json::Value& sentences = jsonobj["annotations"]["sentences"];
         Json::Value& tokens = jsonobj["annotations"]["tokens"];
         for(int s=0; s<sentences.size(); s++) // tsükkel üle lausete
