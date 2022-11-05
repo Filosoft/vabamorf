@@ -125,7 +125,8 @@
             ]
         },
         {
-            "name": "TKN content->stdout",
+            
+            "name": "TKN content->stdout", /* kommentaar */
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
