@@ -106,7 +106,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--tokens", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni. Sarved&Q\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"Q\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
+            "args": [ "--tokens", "--json={\\\"content\\\": \\\"Mees peeti kinni. Sarved&Q\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"Q\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
@@ -125,8 +125,7 @@
             ]
         },
         {
-            
-            "name": "TKN content->stdout", /* kommentaar */
+            "name": "TKN content->stdout", // tühikutega eraldatyd sõnede morf
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",

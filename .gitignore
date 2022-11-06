@@ -28,3 +28,4 @@ apps/cmdline/project/unix/vmets.db
 apps/cmdline/project/unix/vmety
 apps/cmdline/project/unix/vmety.db
 
+.vscode/dryrun.log

@@ -125,7 +125,8 @@ public:
     void Start(int argc, FSTCHAR** argv)
     {
         LipuStringidKasurealt(argc, argv);
-        mrf.Start(path, LipuBitidPaika());
+        lipud_mrf_cl_dflt.Set(LipuBitidPaika()); // kui jsonist lippe ei tule kasutame sedas
+        mrf.Start(path, lipud_mrf_cl_dflt.Get());
     }
 
     /**
@@ -206,7 +207,8 @@ private:
     MRF2YH2MRF fs_2_hmm;
 
     ETMRFA    mrf;
-    MRF_FLAGS lipud_mrf;
+    //MRF_FLAGS lipud_mrf;         // nende lippudega morfime & kuvame jooksvat päringut
+    MRF_FLAGS lipud_mrf_cl_dflt; // käsureaga määratud lipud
 
     /**
      * @brief Panema paika lippude vaikeväärtused
@@ -249,6 +251,7 @@ private:
             }
             if(LipuStringPaika(argv[i])==false)
             {
+                //TODO: veateade json-kujul
                 fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
                 goto syntaks;
             }
@@ -261,7 +264,7 @@ private:
      * @param lipuString 
      * @return true -- oli lubatud lipp, false -- ei tundnud sellist
      */
-    bool LipuStringPaika(FSTCHAR* lipuString)
+    bool LipuStringPaika(const FSTCHAR* lipuString)
     {
         //-----------------------------
         if(strcmp("--sentences", lipuString)==0)
@@ -407,9 +410,18 @@ private:
         bool ret;
         CFSWString rida;
         LYLI lyli;
-        
-        //TODO: jsonist antud lippude käsitlemine
 
+        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetajson")==true)
+        {
+            // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
+            VaikeLipudPaika();
+            // for(Json::Value::ArrayIndex i = 0; i < jsonobj["params"]["vmetajson"].size(); i++) LipuStringPaika(jsonobj["params"]["vmetajson"][i].asCString());
+            for(Json::Value::const_iterator i=jsonobj["params"]["vmetajson"].begin(); i != jsonobj["params"]["vmetajson"].end(); ++i)
+                LipuStringPaika(i->asCString());
+            mrf.mrfFlags->Set(LipuBitidPaika()); // morfime ja kuvame tulemust jsonist saadusd lippudega
+        }
+        else
+            mrf.mrfFlags->Set(lipud_mrf_cl_dflt.Get()); // kasutame käsurealt saadud lippe morfimiseks ja tulemuse kuvamiseks 
         if(lipp_lausekaupa == true) 
             TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
         else     
@@ -508,12 +520,14 @@ private:
      */
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
-        if(lipud_mrf.ChkB(MF_ALGV))
+        //if(lipud_mrf.ChkB(MF_ALGV))
+        if(mrf.mrfFlags->ChkB(MF_ALGV))
             lyli.ptr.pMrfAnal->LeiaLemmad();
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
 
-        if(lipud_mrf.ChkB(MF_GTMRG))
+        //if(lipud_mrf.ChkB(MF_GTMRG))
+        if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
         switch(mrftulemused_utf8.eKustTulemused)
         {   
@@ -527,7 +541,8 @@ private:
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
         {
             Json::Value json_mrf;
-            if(lipud_mrf.ChkB(MF_ALGV))
+            //if(lipud_mrf.ChkB(MF_ALGV))
+            if(mrf.mrfFlags->ChkB(MF_ALGV))
                 json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             else
                 json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
@@ -538,7 +553,8 @@ private:
                 json_mrf["ending"] = "0";
             if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
                 json_mrf["hmm"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
-            else if(lipud_mrf.ChkB(MF_GTMRG))
+            //else if(lipud_mrf.ChkB(MF_GTMRG))
+            else if(mrf.mrfFlags->ChkB(MF_GTMRG))
             {
                 json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
                 json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
