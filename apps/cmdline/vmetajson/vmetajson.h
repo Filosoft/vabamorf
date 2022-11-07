@@ -25,7 +25,7 @@
  * @return int 
  */
 template <class MAIN>
-int MTemplate(int argc, FSTCHAR ** argv)
+int MTemplateJson(int argc, FSTCHAR ** argv)
 {
     try
     {
@@ -38,31 +38,32 @@ int MTemplate(int argc, FSTCHAR ** argv)
     }
     catch (VEAD& viga)
     {
-        viga.Print();
+        FSJSONCPP().JsonError((const char*)viga.Teade());
         FSCTerminate();
         return EXIT_FAILURE;
     }
     catch (CFSFileException& isCFSFileException)
     {
-        fprintf(stderr, "FSC [%x]\nFSC : S/V viga\n", isCFSFileException.m_nError);
+        //fprintf(stderr, "FSC [%x]\nFSC : S/V viga\n", isCFSFileException.m_nError);
+        FSJSONCPP().JsonError("FSC: S/V viga");
         FSCTerminate();
         return EXIT_FAILURE;
     }
     catch (CFSMemoryException&)
     {
-        fprintf(stderr, "FSC\nLiiga vähe vaba mälu\n");
+        FSJSONCPP().JsonError("FSC: Liiga vähe vaba mälu");
         FSCTerminate();
         return EXIT_FAILURE;
     }
     catch (CFSRuntimeException&)
     {
-        fprintf(stderr, "FSC\nJooksis kokku\n");
+        FSJSONCPP().JsonError("FSC: Jooksis kokku");
         FSCTerminate();
         return EXIT_FAILURE;
     }
     catch (...)
     {
-        fprintf(stderr, "Tundmatu throw()\n");
+        FSJSONCPP().JsonError("Tundmatu throw()");
         FSCTerminate();
         return EXIT_FAILURE;
     }
@@ -139,16 +140,10 @@ public:
         {   // JSON sisend tuleb käsurea parameetrist
             Json::Value jsonobj;
             std::string message;
-            if(fsJsonCpp.Parse((const char*)json_str_fs, message, jsonobj)==false)
-            {
-                Json::Value json_errmsg;
-                json_errmsg["warnings"].append(message);
-                fsJsonCpp.Writer(json_errmsg);
-            }
+            if(fsJsonCpp.JsonParse((const char*)json_str_fs, message, jsonobj)==false)
+                FSJSONCPP().JsonWarning(message.c_str());
             else
-            {
                 TeeSeda(jsonobj);
-            }
         }
         else
         {   // JSON sisend tuleb std-sisendist
@@ -160,17 +155,10 @@ public:
                     continue;
                 Json::Value jsonobj;
                 std::string message;
-                if(fsJsonCpp.Parse(line, message, jsonobj)==false)
-                {
-                    Json::Value json_errmsg;
-                    json_errmsg["warnings"].append(message);
-                    fsJsonCpp.Writer(json_errmsg);
-                }
+                if(fsJsonCpp.JsonParse(line, message, jsonobj)==false)
+                    FSJSONCPP().JsonWarning(message.c_str());
                 else
-                {
                     TeeSeda(jsonobj);
-                }               
-
 	        } 
         }
     }
@@ -238,6 +226,8 @@ private:
 
         PATHSTR pathstr;
         path=(const char*)pathstr; // Vaikimisi keskkonnamuutujast PATH
+        bool lipudOK=true;  
+        Json::Value jsonError;    
         for(int i=1; i<argc; ++i)
         {
             if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
@@ -251,15 +241,21 @@ private:
             }
             if(LipuStringPaika(argv[i])==false)
             {
-                //TODO: veateade json-kujul
-                fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
-                goto syntaks;
-            }
+                lipudOK=false;
+                std::string errString = "Illegaalne lipp: ";
+                errString += argv[i];
+                jsonError["failure"]["errors"].append(errString);
+            }           
+        }
+        if(lipudOK==false)
+        {
+            FSJSONCPP().JsonWriter(jsonError);
+            exit(EXIT_FAILURE);
         }
     }   
 
     /**
-     * @brief Üksiku stringina antu parameetri käitlemine
+     * @brief Üksiku stringina antud parameetri käitlemine
      * 
      * @param lipuString 
      * @return true -- oli lubatud lipp, false -- ei tundnud sellist
@@ -411,13 +407,26 @@ private:
         CFSWString rida;
         LYLI lyli;
 
-        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetajson")==true)
+        if(jsonobj["params"].isMember("vmetajson")==true && jsonobj["params"].isMember("vmetajson")==true)
         {
             // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
             VaikeLipudPaika();
-            // for(Json::Value::ArrayIndex i = 0; i < jsonobj["params"]["vmetajson"].size(); i++) LipuStringPaika(jsonobj["params"]["vmetajson"][i].asCString());
+            bool lipudOK=true;           
             for(Json::Value::const_iterator i=jsonobj["params"]["vmetajson"].begin(); i != jsonobj["params"]["vmetajson"].end(); ++i)
-                LipuStringPaika(i->asCString());
+            {
+
+                if(LipuStringPaika(i->asCString())==false)
+                {
+                    lipudOK=false;
+                    std::string warning = "Illegaalne lipp: " + i->asString();
+                    jsonobj["warnings"].append(warning);
+                }
+            }
+            if(lipudOK==false)
+            {
+                FSJSONCPP().JsonWriter(jsonobj);
+                return;
+            }
             mrf.mrfFlags->Set(LipuBitidPaika()); // morfime ja kuvame tulemust jsonist saadusd lippudega
         }
         else
@@ -426,7 +435,7 @@ private:
             TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
         else     
             TeeSedaSonekaupa(jsonobj); // jsonobj["annotations"]["sentences"] ei ole kohustuslik
-        fsJsonCpp.Writer(jsonobj, true);
+        fsJsonCpp.JsonWriter(jsonobj, true);
     }
 
     /**

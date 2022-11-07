@@ -130,7 +130,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--tokens", "--json={\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
+            "args": [ "--json={\\\"params\\\":{ \\\"vmetajson\\\":[\\\"--sentences\\\"]},\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,

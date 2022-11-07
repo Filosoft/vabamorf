@@ -357,11 +357,15 @@ public:
         fprintf(stderr, "\n");
     }
 
+    /**
+     * @brief Teeme erindiga saadud infost veateatestringi
+     * 
+     * @return CFSAString Veateatestring
+     */
     CFSAString Teade(void) const
     {
-        extern const char *etMrfVersionString;
         CFSAString teade;
-        teade.Format("%s:%s:%d - ", etMrfVersionString, file, line);
+        teade.Format("%s:%d - ", file, line);
         if (msg != NULL)
             teade += msg;
         if (charMsgBuf == true)

@@ -4,5 +4,5 @@
 #include <iostream>
 int Tmain(int argc, FSTCHAR** argv, FSTCHAR**envp)
     {
-    return MTemplate<VMETAJSON>(argc, argv);
+    return MTemplateJson<VMETAJSON>(argc, argv);
     }
