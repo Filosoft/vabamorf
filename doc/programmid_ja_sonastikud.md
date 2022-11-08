@@ -3,7 +3,7 @@
 ## Lähtekoodi allalaadimine
 
 ```cmdline
-git clone https://github.com/Filosoft/vabamorf.git vabamorf
+git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
 ## Windows
@@ -14,7 +14,7 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf
 
 ### Kompileerimine
 
-* Avage **_vabamorf/apps/cmdline/project/vc2010/cmdline.sln_**
+* Avage **_vabamorf_github/apps/cmdline/project/vc2010/cmdline.sln_**
 * Käivitage kompilaator.
 
 ## Linux
@@ -27,7 +27,7 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf
 ### Kompileerimine
 
 ```cmdline
-cd vabamorf/apps/cmdline/project/unix
+cd vabamorf_github/apps/cmdline/project/unix
 ```
 Kõige kompileerimine:
 
@@ -37,9 +37,9 @@ make -s -j all
 
 Ühe programmi kompileerimine:
 
-<pre>
-make -s <i>PROGRAMMI_NIMI</i>
-</pre>
+```cmdline
+make -s PROGRAMMI_NIMI
+```
 
 Näited
 
@@ -55,7 +55,7 @@ make -s vmety
 make -s vmets
 ```
 
-Kompileeritud programmid luuakse kataloogi **_vabamorf/apps/cmdline/project/unix_**
+Kompileeritud programmid luuakse kataloogi **_vabamorf_github/apps/cmdline/project/unix_**
 
 Peamiste programmide loend
 | Programmi nimi | Kasutusjuhend | Selgitus |
@@ -72,7 +72,7 @@ Peamiste programmide loend
 **NB!** Kui Te ei muuda sõnastike lähtefaile, pole mingit vajadust sõnastikke ise uuesti teha.
 
 Eelnevalt valmis tehtud analüsaatori sõnastiku **_et.dct_** ja
-ühestaja sõnastiku **_et3.dct_** leiate kataloogist **_vabamorf/dct/binary_**. Sõnastike kokkupanemise programm kirjutab need GitHUBist tulnud versioonid üle.
+ühestaja sõnastiku **_et3.dct_** leiate kataloogist **_vabamorf_github/dct/binary_**. Sõnastike kokkupanemise programm kirjutab need GitHUBist tulnud versioonid üle.
 
 ### Vajalik tarkvara
 
@@ -83,7 +83,7 @@ Eelnevalt valmis tehtud analüsaatori sõnastiku **_et.dct_** ja
 ### Programmide kompileerimine ja sõnastike tegemine
 
 ```cmdline
-cd vabamorf/dct/sh
+cd vabamorf_github/dct/sh
 chmod +x *.sh
 ./nullist-uus-sonastik.sh
 ```
