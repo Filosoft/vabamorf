@@ -75,10 +75,9 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
  * 
  * @param s
  */
-static inline void ltrim(std::string &s){
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
-        return !std::isspace(ch);
-    }));
+static inline void ltrim(std::string &s)
+{
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) { return !std::isspace(ch); }));
 }
 
 /**
@@ -86,10 +85,9 @@ static inline void ltrim(std::string &s){
  * 
  * @param s 
  */
-static inline void rtrim(std::string &s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
-        return !std::isspace(ch);
-    }).base(), s.end());
+static inline void rtrim(std::string &s)
+{
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !std::isspace(ch); }).base(), s.end());
 }
 
 /**
@@ -97,7 +95,8 @@ static inline void rtrim(std::string &s) {
  * 
  * @param s 
  */
-static inline void trim(std::string &s) {
+static inline void trim(std::string &s)
+{
     ltrim(s);
     rtrim(s);
 }
@@ -140,10 +139,15 @@ public:
         {   // JSON sisend tuleb käsurea parameetrist
             Json::Value jsonobj;
             std::string message;
+            std::cout << __FILE__ <<':'<<__LINE__ << ':' << (const char*)json_str_fs <<'\n';
             if(fsJsonCpp.JsonParse((const char*)json_str_fs, message, jsonobj)==false)
                 FSJSONCPP().JsonWarning(message.c_str());
             else
+            {
+                std::cout << __FILE__ <<':'<<__LINE__ << ':' << (const char*)json_str_fs <<'\n';
+                std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj, true);
                 TeeSeda(jsonobj);
+            }
         }
         else
         {   // JSON sisend tuleb std-sisendist
@@ -406,7 +410,18 @@ private:
         bool ret;
         CFSWString rida;
         LYLI lyli;
+        //DB{{}}
+        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+        if(jsonobj["params"].isMember("vmetajson")==true)
+        {
+            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+            if(jsonobj["params"].isMember("vmetajson")==true)
+                ;
+            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+        }
+        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
 
+        //}}DB
         if(jsonobj["params"].isMember("vmetajson")==true && jsonobj["params"].isMember("vmetajson")==true)
         {
             // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
@@ -433,8 +448,14 @@ private:
             mrf.mrfFlags->Set(lipud_mrf_cl_dflt.Get()); // kasutame käsurealt saadud lippe morfimiseks ja tulemuse kuvamiseks 
         if(lipp_lausekaupa == true) 
             TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
-        else     
+        else   
+        {
+            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);  
             TeeSedaSonekaupa(jsonobj); // jsonobj["annotations"]["sentences"] ei ole kohustuslik
+        }
+
+        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+
         fsJsonCpp.JsonWriter(jsonobj, true);
     }
 
@@ -445,6 +466,9 @@ private:
      */
     void TeeSedaSonekaupa(Json::Value& jsonobj)
     {
+        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+
+        Json::Value& tokens = jsonobj["annotations"]["tokens"];
         if(jsonobj.isMember("content")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
         {
             std::stringstream tokens(jsonobj["content"].asString());
@@ -462,6 +486,8 @@ private:
         }
         if(jsonobj.isMember("annotations") && jsonobj["annotations"].isMember("tokens"))
         {
+            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+
             Json::Value& tokens = jsonobj["annotations"]["tokens"];
             for(int i=0; i<tokens.size(); i++)
             {
@@ -472,6 +498,9 @@ private:
                 mrf.Flush(lyli);
                 MrfTulemused_2_JSON(features, lyli);
             }
+
+            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
+            
             return;
         }
         jsonobj["warnings"].append("JSON ei sisalda morfimiseks vajalikku infot");
