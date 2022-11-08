@@ -139,13 +139,10 @@ public:
         {   // JSON sisend tuleb käsurea parameetrist
             Json::Value jsonobj;
             std::string message;
-            std::cout << __FILE__ <<':'<<__LINE__ << ':' << (const char*)json_str_fs <<'\n';
             if(fsJsonCpp.JsonParse((const char*)json_str_fs, message, jsonobj)==false)
                 FSJSONCPP().JsonWarning(message.c_str());
             else
             {
-                std::cout << __FILE__ <<':'<<__LINE__ << ':' << (const char*)json_str_fs <<'\n';
-                std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj, true);
                 TeeSeda(jsonobj);
             }
         }
@@ -410,19 +407,8 @@ private:
         bool ret;
         CFSWString rida;
         LYLI lyli;
-        //DB{{}}
-        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-        if(jsonobj["params"].isMember("vmetajson")==true)
-        {
-            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-            if(jsonobj["params"].isMember("vmetajson")==true)
-                ;
-            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-        }
-        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
 
-        //}}DB
-        if(jsonobj["params"].isMember("vmetajson")==true && jsonobj["params"].isMember("vmetajson")==true)
+        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetajson")==true)
         {
             // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
             VaikeLipudPaika();
@@ -449,13 +435,9 @@ private:
         if(lipp_lausekaupa == true) 
             TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
         else   
-        {
-            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);  
+        { 
             TeeSedaSonekaupa(jsonobj); // jsonobj["annotations"]["sentences"] ei ole kohustuslik
         }
-
-        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-
         fsJsonCpp.JsonWriter(jsonobj, true);
     }
 
@@ -466,8 +448,6 @@ private:
      */
     void TeeSedaSonekaupa(Json::Value& jsonobj)
     {
-        std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-
         Json::Value& tokens = jsonobj["annotations"]["tokens"];
         if(jsonobj.isMember("content")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
         {
@@ -486,8 +466,6 @@ private:
         }
         if(jsonobj.isMember("annotations") && jsonobj["annotations"].isMember("tokens"))
         {
-            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-
             Json::Value& tokens = jsonobj["annotations"]["tokens"];
             for(int i=0; i<tokens.size(); i++)
             {
@@ -497,10 +475,7 @@ private:
                 LYLI lyli;
                 mrf.Flush(lyli);
                 MrfTulemused_2_JSON(features, lyli);
-            }
-
-            std::cout << __FILE__ <<':'<<__LINE__ <<'\n'; FSJSONCPP().JsonWriter(jsonobj);
-            
+            }            
             return;
         }
         jsonobj["warnings"].append("JSON ei sisalda morfimiseks vajalikku infot");
