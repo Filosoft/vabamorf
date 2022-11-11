@@ -85,15 +85,14 @@ class FSJSONCPP
          * @brief Hoiatus, see päring läks metsa, proovi uut.
          * 
          * JSON:
-         * {"response":{"type":"texts","warnings":[array of status messages]}}
+         * {"warnings":[array of status messages]}
          *
          * @param msg sõnum
          */
         void JsonWarning(const char* msg)
         {
             Json::Value json_warning;
-            json_warning["response"]["type"]="texts";
-            json_warning["response"]["warnings"].append(msg);
+            json_warning["warnings"].append(msg);
             FSJSONCPP().JsonWriter(json_warning);
         }        
 

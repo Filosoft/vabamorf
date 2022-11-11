@@ -101,12 +101,12 @@
             ]
         },
         {
-            "name": "TKNjson(ok)->stdout",
+            "name": "tokens_ülipikk[guess]->stdout",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--tokens", "--json={\\\"content\\\": \\\"Mees peeti kinni. Sarved&Q\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"Q\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
+            "args":  ["--formattedjson","--guess","--json={\\\"annotations\\\":{ \\\"tokens\\\":[ {\\\"features\\\": { \\\"token\\\": \\\"Meesgggdfggdfgdfgdfgdfgdfsgdfgdfgdfgdfgdfgdfgdfgdfgfdgfdgdfgdfgdfgdfgfdgsdfgdfgssgfdgsgdf\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"peeti\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"&\\\" }}, {\\\"features\\\":{\\\"token\\\":\\\"Q\u00f5rad\\\"}}, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }} ] }}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
@@ -125,12 +125,12 @@
             ]
         },
         {
-            "name": "TKN content->stdout", // tühikutega eraldatyd sõnede morf
+            "name": "tokens[guess]->stdout",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--json={\\\"params\\\":{ \\\"vmetajson\\\":[\\\"--sentences\\\"]},\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
+            "args":  ["--formattedjson","--guess","--json={\\\"annotations\\\":{ \\\"tokens\\\":[ {\\\"features\\\": { \\\"token\\\": \\\"Mees\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"peeti\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"&\\\" }}, {\\\"features\\\":{\\\"token\\\":\\\"Q\u00f5rad\\\"}}, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }} ] }}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
@@ -147,6 +147,54 @@
                     "ignoreFailures": true
                 }
             ]
-        },        
+        },
+        {
+            "name": "content[guess]->stdout", // tühikutega eraldatyd sõnede morf
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--json={\\\"params\\\":{ \\\"vmetajson\\\":[\\\"--formattedjson\\\",\\\"--guess\\\"]},\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },  
+        {
+            "name": "content[]->stdout", // tühikutega eraldatyd sõnede morf
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--json={\\\"params\\\":{ \\\"vmetajson\\\":[\\\"--formattedjson\\\"]},\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },       
     ]
 }
