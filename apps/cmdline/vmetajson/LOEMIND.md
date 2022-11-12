@@ -65,7 +65,7 @@ Kirjeldus katab minimaalselt vajaliku info. JSON võib sisaldada lisaks muud, pr
 
 ```json
 {
-  "params": { "vmetajson": [parameeter, ...]}, /* võib puududa, siis kasutakse käsureaga määratud lippe */
+  "params": { {"vmetajson": [parameeter, ...]} }, /* võib puududa, siis kasutakse käsureaga määratud lippe */
   "annotations":
   {
     "sentences":
