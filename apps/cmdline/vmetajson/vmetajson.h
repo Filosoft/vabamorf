@@ -195,8 +195,8 @@ private:
     bool lipp_taanded;          // --formattedjson
 
 
-    CFSAString path;            // -p=... --path=...
-    CFSAString json_str_fs;     // -j=... --json=... lipu tagant
+    CFSAString path;            // --path=...
+    CFSAString json_str_fs;     // --json=... lipu tagant
     FSJSONCPP  fsJsonCpp;
 
     FS_2_GT    fs_2_gt;
@@ -344,7 +344,7 @@ private:
 
         lipuBitid.Set(lipud_yksiksonade_analyysiks);
         if(lipp_lemma==true)
-            lipuBitid.On(MF_ALGV);
+            lipuBitid.On(MF_LEMMA);
         if(lipp_haaldus==true)
             lipuBitid.On(MF_KR6NKSA);
         if(lipp_oleta==true)
@@ -525,17 +525,6 @@ private:
 
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
-        /*if(mrftulemused_utf8.idxLast > 0)
-        {
-            switch(mrftulemused_utf8.eKustTulemused)
-            {   
-                case eMRF_P: features["source"] = "P"; break; // põhisõnastikust
-                case eMRF_L: features["source"] = "L"; break; // lisasõnastikust
-                case eMRF_O: features["source"] = "O"; break; // sõnapõhisest oletajast
-                case eMRF_S: features["source"] = "S"; break; // lausepõhisest oletajast
-                default: features["source"] = "X"; break;     // ei tea ise ka kust
-            }
-        }*/
         features["complexity"] = mrftulemused_utf8.tagasiTasand;;
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
         {
