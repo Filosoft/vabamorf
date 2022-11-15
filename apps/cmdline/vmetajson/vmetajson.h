@@ -521,6 +521,7 @@ private:
      */
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
+        lyli.ptr.pMrfAnal->StrctKomadLahku();
         if(mrf.mrfFlags->ChkB(MF_LEMMA))
             lyli.ptr.pMrfAnal->LeiaLemmad();
         LYLI_UTF8 lyli_utf8 = lyli;
