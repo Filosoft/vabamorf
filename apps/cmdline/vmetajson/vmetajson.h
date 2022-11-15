@@ -188,17 +188,15 @@ public:
 private:
     bool lipp_gt;               // --gt 
     bool lipp_hmm;              // --hmm markov (ühestaja)
-    bool lipp_lemma;            // 
+    bool lipp_lemma;            // --lemma
     bool lipp_oleta;            // --guess
     bool lipp_oleta_pn;         // --guesspropnames
     bool lipp_haaldus;          // --phonetics
     bool lipp_taanded;          // --formattedjson
-
-
     CFSAString path;            // --path=...
     CFSAString json_str_fs;     // --json=... lipu tagant
-    FSJSONCPP  fsJsonCpp;
 
+    FSJSONCPP  fsJsonCpp;
     FS_2_GT    fs_2_gt;
     MRF2YH2MRF fs_2_hmm;
 
@@ -349,9 +347,9 @@ private:
             lipuBitid.On(MF_KR6NKSA);
         if(lipp_oleta==true)
         {
-            lipuBitid.On(MF_OLETA); //ühestamise korral pole mõistlik "off"
+            lipuBitid.On(MF_OLETA);       //ühestamise korral pole mõistlik "off"
             lipuBitid.Off(MF_PIKADVALED); // "ülipikad" sõned saavad Z
-            lipuBitid.Off(MF_LYHREZH); // kõik lühendisarnased sõned lühendiks
+            lipuBitid.Off(MF_LYHREZH);    // kõik lühendisarnased sõned lühendiks
         }
         if(lipp_oleta_pn==true)
             lipuBitid.On(MF_LISAPNANAL);
@@ -518,10 +516,14 @@ private:
      */
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
-        if(mrf.mrfFlags->ChkB(MF_ALGV))
+        if(mrf.mrfFlags->ChkB(MF_LEMMA))
             lyli.ptr.pMrfAnal->LeiaLemmad();
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
+
+        printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->tyvi) , (const char*)(mrftulemused_utf8[1]->tyvi));
+        printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->lemma), (const char*)(mrftulemused_utf8[1]->lemma));
+
 
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
@@ -531,7 +533,7 @@ private:
             Json::Value json_mrf;
             EMRFKUST sealt;
             json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-            if(mrf.mrfFlags->ChkB(MF_ALGV))
+            if(mrf.mrfFlags->ChkB(MF_LEMMA))
                 json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
             if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
