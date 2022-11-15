@@ -342,9 +342,14 @@ private:
 
         lipuBitid.Set(lipud_yksiksonade_analyysiks);
         if(lipp_lemma==true)
-            lipuBitid.On(MF_LEMMA);
+        {
+            //lipuBitid.On(MF_LEMMA);
+            lipuBitid.Off(MF_ALGV);
+        }
         if(lipp_haaldus==true)
+        {
             lipuBitid.On(MF_KR6NKSA);
+        }
         if(lipp_oleta==true)
         {
             lipuBitid.On(MF_OLETA);       //ühestamise korral pole mõistlik "off"
@@ -521,8 +526,8 @@ private:
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
 
-        printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->tyvi) , (const char*)(mrftulemused_utf8[1]->tyvi));
-        printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->lemma), (const char*)(mrftulemused_utf8[1]->lemma));
+        //printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->tyvi) , (const char*)(mrftulemused_utf8[1]->tyvi));
+        //printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->lemma), (const char*)(mrftulemused_utf8[1]->lemma));
 
 
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
@@ -533,7 +538,7 @@ private:
             Json::Value json_mrf;
             EMRFKUST sealt;
             json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-            if(mrf.mrfFlags->ChkB(MF_LEMMA))
+            //if(mrf.mrfFlags->ChkB(MF_LEMMA))
                 json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
             if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
