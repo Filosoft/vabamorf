@@ -188,7 +188,7 @@ public:
 private:
     bool lipp_gt;               // --gt 
     bool lipp_hmm;              // --hmm markov (ühestaja)
-    bool lipp_lemma;            // --lemma
+    bool lipp_stem;             // --tüvi
     bool lipp_oleta;            // --guess
     bool lipp_oleta_pn;         // --guesspropnames
     bool lipp_haaldus;          // --phonetics
@@ -211,7 +211,7 @@ private:
     {
         lipp_gt=false;
         lipp_hmm=false;
-        lipp_lemma=false; 
+        lipp_stem=false; 
         lipp_oleta=false;
         lipp_oleta_pn=false;    // EI lisa (oleta) lausekonteksti ja suurtähelisuse
                                 // põhjal pärisnimesid
@@ -269,9 +269,9 @@ private:
     bool LipuStringPaika(const FSTCHAR* lipuString)
     {
         //-----------------------------
-        if(strcmp("--lemma",lipuString)==0)
+        if(strcmp("--stem", lipuString)==0)
         {
-            lipp_lemma=true;
+            lipp_stem=true;
             return true;
         }
         //-----------------------------
@@ -334,16 +334,16 @@ private:
 
         // üksiksõnade analüüs vaikimisi selliste lippudega
         MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks =
-                                MF_MRF | MF_ALGV | MF_POOLITA | MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
+                                MF_MRF | MF_ALGV | MF_LEMMA | MF_POOLITA | MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
                                 MF_PIKADVALED | MF_LYHREZH ; // liiga pikad ei saa analüüsi, range lühendikäsitlus
 
         // oletamise korral: Off(MF_PIKADVALED), Off(MF_LYHREZH), On(MF_OLETA)
         // pärisnimeanalüüside lisamise korrral peab oletamine sees olema
 
         lipuBitid.Set(lipud_yksiksonade_analyysiks);
-        if(lipp_lemma==true)
+        if(lipp_stem==true)
         {
-            //lipuBitid.On(MF_LEMMA);
+            lipuBitid.Off(MF_LEMMA);
             lipuBitid.Off(MF_ALGV);
         }
         if(lipp_haaldus==true)
@@ -527,10 +527,6 @@ private:
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
 
-        //printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->tyvi) , (const char*)(mrftulemused_utf8[1]->tyvi));
-        //printf("%s:%d %s %s\n", __FILE__, __LINE__, (const char*)(mrftulemused_utf8[0]->lemma), (const char*)(mrftulemused_utf8[1]->lemma));
-
-
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
         features["complexity"] = mrftulemused_utf8.tagasiTasand;;
@@ -539,8 +535,16 @@ private:
             Json::Value json_mrf;
             EMRFKUST sealt;
             json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-            //if(mrf.mrfFlags->ChkB(MF_LEMMA))
-                json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->lemma);
+            if(mrf.mrfFlags->ChkB(MF_ALGV)==true)
+            {
+                json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+                if(mrf.mrfFlags->ChkB(MF_LEMMA))
+                    json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
+            }
+            else
+            {
+                json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+            } 
             json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
             if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
                 json_mrf["ending"] = (const char*)(mrftulemused_utf8[i]->lopp);
