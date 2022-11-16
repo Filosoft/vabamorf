@@ -54,16 +54,10 @@ class FSJSONCPP
          */
         void JsonWriter(const Json::Value& jsonobj, bool use_StyledWriter = false)
         {
-            if(use_StyledWriter)
-            {
-                Json::StyledWriter styled;
-                std::cout << styled.write(jsonobj) << std::endl;
-            }
-            else
-            {
-                Json::FastWriter fast;
-                std::cout << fast.write(jsonobj) << std::endl;
-            }
+            Json::StreamWriterBuilder wbuilder;
+            if(use_StyledWriter==false)
+                wbuilder["indentation"] = "";
+            std::cout << Json::writeString(wbuilder,jsonobj ) << std::endl;
         }
 
         /**

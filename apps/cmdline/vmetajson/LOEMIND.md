@@ -25,7 +25,7 @@ JSON-päringus seda lippu ```params``` kaudu määrata ei saa.
 
 Sisend-json. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
-Lipu ```--json``` ḱorral ootab programm JSON-pärnguid std-sisendist. Sellisel juhul lõpetab programmi töö ```Ctrl+C``` või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
+Lipu ```--json``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist. Sellisel juhul lõpetab programmi töö ```Ctrl+C``` või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
 
 ### **```--formattedjson```** <a name=lipp_formattedjson>
 
@@ -45,9 +45,9 @@ Suurtähelisele sõnale lisatakse (teoreetiliselt) võimalikud pärisnime analü
 * laused peavad olama annoteeritud (märgendatud)
 * peate lisaks kasutama lippu [```--guess```](#"lipp_guess), st leksikonist puuduvatele sõnadele tuleb võimalikud analüüsid oletada
 
-### **```--lemma```**  <a name="lipp_lemma"></a>
+### **```--stem```**  <a name="lipp_stem"></a>
 
-Lisatakse algvorm e. lemma. Liitsõna puhul on ainult viimane  komponent algvormina.
+Algvormi e. lemma asemel kuvatakse vormitüvi. Vaikimisi kuvatakse algvormi, liitsõna puhul on ainult viimane  komponent algvormina.
 
 ### **```--gt```** <a name="lipp_gt"></a>
 
@@ -61,7 +61,11 @@ Tüvekujusse lisatakse hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, `
 
 ### Nõuded sisend-JSONile ```--guesspropnames``` lipu korral
 
-Kirjeldus katab minimaalselt vajaliku info. JSON võib sisaldada lisaks muud, programmi kasutajale vajalikku infot, see ei sega morf analüüsi programmi.
+Kirjeldus katab minimaalselt vajaliku info.
+
+Selle lipu korral peab sisendjson sisaldama sõnede ja lausete annotatsiooni.
+
+JSON võib sisaldada lisaks muud, programmi kasutajale vajalikku infot, see ei sega morf analüüsi programmi.
 
 ```json
 {
@@ -140,17 +144,23 @@ Väljundiks on JSON standard väljundis.
 Kui programmi töö katkes töö jätkamist mittevõimaldava vea tõttu on väljund kujul:
 
 ```json
-{"failure":{"errors":[array of status messages]}}
+{
+  "failure":{"errors":["array of status messages"]}
+  ... /* algne sisendjson, kui vea tekkimise hetkeks oli sisendjson õnnestunult parsitud */
+}
 ```
 
 Kui sisend-jsoni  käsitlemine polnud mingi veasituatsiooni tõttu võimalik, aga programm on valmis järgmisi päringuid käsitlema, on väljundjson kujul:
 
 ```json
-{"warnings":[array of status messages]}
+{
+  "warnings":["array of status messages"],
+  ... /* algne sisendjson, kui vea tekkimise hetkeks oli sisendjson õnnestunult parsitud */
+}
 ```
 
-Väljund-JSONi sõnedele lisatakse morf alanlüüsi info. Muus osas sääb sisen-JSON samaks.
-Kui sõne ei õnnestunud morf analüüsida
+Väljundis JSONi sõnedele lisatakse morf analüüsi info. Muus osas sääb sisen-JSON samaks.
+Kui sõne ei õnnestunud morf analüüsida, siis selle sõne juurde morf infoga seotud väljasid ei lisata.
 
 ```json
 {
@@ -161,14 +171,15 @@ Kui sõne ei õnnestunud morf analüüsida
     "mrf" :           /* sisendsõne analüüsivariantide massiiv */
     [
       {
-        "stem":   TÜVI,
-        "lemma":  LEMMA, /* --lemma lipu korral */
-        "ending": LÕPP,    
-        "kigi":   KIGI,
-        "pos":    SÕNALIIK,
-        "fs":     KATEGOORIAD,
-        "gt":     KATEGOORIAD,  /* --gt lipu korral */
-        "source": ALLIKAS,      /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
+        "stem":     TÜVI,     /* --stem lipu korral */
+        "lemma":    LEMMA,    /* --stem lipu puudumise korral */
+        "lemma_ma": LEMMA_MA, /* --stem lipu puudumise korral, verbilemmale on lisatud ```ma```, muudel juhtudel sama mis LEMMA */
+        "ending":   LÕPP,    
+        "kigi":     KIGI,
+        "pos":      SÕNALIIK,
+        "fs":       KATEGOORIAD,
+        "gt":       KATEGOORIAD,  /* --gt lipu korral */
+        "source":   ALLIKAS,      /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
       }
     ],
   }
@@ -188,7 +199,12 @@ Vormitüvi Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakrii
 
 ### ```LEMMA``` <a name="mrf_LEMMA"></a>
 
-Algvorm. Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakriips ```_``` ja järelliidet võrdusmärk ```=```.
+Algvorm. Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakriips ```_``` ja järelliidet võrdusmärk ```=```. 
+Liitsõna puhul on ainult viimane  komponent algvormina.
+
+###  ```LEMMA_MA``` <a name="mrf_LEMMA"></a>
+
+Verbi lemmadele on lisatud ```ma```, muudel juhtudel ```LEMMA```.
 
 ### ```LÕPP``` <a name="mrf_LÕPP"></a>
 
@@ -206,11 +222,13 @@ Partikkel.
 
 [*```KATEGOORIAD```*](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et) väljendab morfoloogiliste tähenduste komplekti; ```?``` tähendab, et arvu ja käänet pole võimalik määrata.
 
-### ```ALLIKAS``` 
+### ```ALLIKAS```
 
-**_"P"_** - põhisõnastikust, **_"L"_** - lisasõnastikust, **_"O"_** - sõnepõhisest oletajast, **_"S"_** - lausepõhisest oletajast, **_"X"_** - ei tea kust
+**_"P"_** - põhisõnastikust, **_"L"_** - lisasõnastikust, **_"O"_** - sõnepõhisest oletajast, **_"S"_** - lausepõhisest oletajast, **_"X"_** - määratlemata.
 
-### ```KEERUKUS``` 
+TODO!!! lausepõhisest pärisnimede oletajast tulnud analüüsid mis allikaga???
+
+### ```KEERUKUS```
 
 Numbriline hinnand sellele, kui "keeruline" oli sõne analüüsi leida. Suurem number tähistab "keerulisemat" analüüsi. (Näiteks liitsõna analüüs on lihtsõna analüüsist "keerulisem".)
 

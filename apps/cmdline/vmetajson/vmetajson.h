@@ -554,9 +554,11 @@ private:
                 json_mrf["hmm"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
 
             json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
+            mrftulemused_utf8[i]->vormid.TrimRight(" ,");
             json_mrf["fs"]   = (const char*)(mrftulemused_utf8[i]->vormid);
             if(mrf.mrfFlags->ChkB(MF_GTMRG))
             {
+                mrftulemused_utf8[i]->vormidGT.TrimRight(" ,");
                 json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
             }
             sealt=mrftulemused_utf8[i]->eKustTulemused;
