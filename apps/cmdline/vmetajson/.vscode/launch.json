@@ -77,12 +77,36 @@
             ]
         },
         {
+            "name": "SNT xxx->stdout",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}", 
+            "args": [ "--formattedjson", "--guess", "--guesspropnames", "--json={ \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 1} } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Sarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"S\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\{ \\\"start\\\": 18, \\\"end\\\": 31, ": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "SNTjson(ok)->stdout",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}", 
-            "args": [ "--guesspropnames", "--sentences", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni. Sarved&S\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Sarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"S\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
+            "args": [ "--formattedjson", "--guess", "--guesspropnames", "--json={ \\\"type\\\":\\\"text\\\", \\\"content\\\": \\\"Mees peeti kinni. Sarved&S\u00f5rad.\\\", \\\"annotations\\\": { \\\"sentences\\\": [ { \\\"start\\\": 0, \\\"end\\\": 17, \\\"features\\\": { \\\"start\\\": 0, \\\"end\\\": 4 } }, { \\\"start\\\": 18, \\\"end\\\": 31, \\\"features\\\": { \\\"start\\\": 4, \\\"end\\\": 8 } } ], \\\"tokens\\\": [ { \\\"start\\\": 0, \\\"end\\\": 4, \\\"features\\\": { \\\"token\\\": \\\"Mees\\\" } }, { \\\"start\\\": 5, \\\"end\\\": 10, \\\"features\\\": { \\\"token\\\": \\\"peeti\\\" } }, { \\\"start\\\": 11, \\\"end\\\": 16, \\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, { \\\"start\\\": 16, \\\"end\\\": 17, \\\"features\\\": { \\\"token\\\": \\\".\\\" } }, { \\\"start\\\": 18, \\\"end\\\": 24, \\\"features\\\": { \\\"token\\\": \\\"Sarved\\\" } }, { \\\"start\\\": 24, \\\"end\\\": 25, \\\"features\\\": { \\\"token\\\": \\\"&\\\" } }, { \\\"start\\\": 25, \\\"end\\\": 30, \\\"features\\\": { \\\"token\\\": \\\"S\u00f5rad\\\" } }, { \\\"start\\\": 30, \\\"end\\\": 31, \\\"features\\\": { \\\"token\\\": \\\".\\\" } } ] } }" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
@@ -130,7 +154,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args":  ["--formattedjson","--guess","--json={\\\"annotations\\\":{ \\\"tokens\\\":[ {\\\"features\\\": { \\\"token\\\": \\\"Mees\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"peeti\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"&\\\" }}, {\\\"features\\\":{\\\"token\\\":\\\"Q\u00f5rad\\\"}}, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }} ] }}" ],
+            "args":  ["--formattedjson", "--utf8json", "--guesspropnames", "--guess","--json={\\\"annotations\\\":{ \\\"tokens\\\":[ {\\\"features\\\": { \\\"token\\\": \\\"Mees\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"peeti\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"kinni\\\" } }, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"Zarved\\\" }}, {\\\"features\\\": { \\\"token\\\": \\\"&\\\" }}, {\\\"features\\\":{\\\"token\\\":\\\"Q\u00f5rad\\\"}}, {\\\"features\\\": { \\\"token\\\": \\\".\\\" }} ] }}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
@@ -154,7 +178,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--json={\\\"params\\\":{ \\\"vmetajson\\\":[\\\"--formattedjson\\\",\\\"--guess\\\"]},\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
+            "args": [ "--json={\\\"params\\\":{ \\\"vmetajson\\\":[\\\"--utf8json\\\",\\\"--formattedjson\\\",\\\"--guess\\\"]},\\\"content\\\": \\\"Mees peeti kinni . Sarved & S\u00f5rad .\\\"}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,

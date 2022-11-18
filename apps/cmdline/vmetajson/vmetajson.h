@@ -153,9 +153,7 @@ public:
             if(fsJsonCpp.JsonParse((const char*)json_str_fs, message, jsonobj)==false)
                 fsJsonCpp.JsonWarning(message.c_str());
             else
-            {
                 TeeSeda(jsonobj);
-            }
         }
         else
         {   // JSON sisend tuleb std-sisendist
@@ -163,7 +161,7 @@ public:
 	        while(std::getline(std::cin,line))
             {
                 trim(line);
-                if(line.length() <= 0)
+                if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
                     continue;
                 Json::Value jsonobj;
                 std::string message;
@@ -193,6 +191,7 @@ private:
     bool lipp_oleta_pn;         // --guesspropnames
     bool lipp_haaldus;          // --phonetics
     bool lipp_taanded;          // --formattedjson
+    bool lipp_utf8;             // --utf8json
     CFSAString path;            // --path=...
     CFSAString json_str_fs;     // --json=... lipu tagant
 
@@ -216,7 +215,8 @@ private:
         lipp_oleta_pn=false;    // EI lisa (oleta) lausekonteksti ja suurtähelisuse
                                 // põhjal pärisnimesid
         lipp_haaldus=false;     // EI lisa hääldusmärke   
-        lipp_taanded=false;    
+        lipp_taanded=false;     // kogu json ühel real
+        lipp_utf8=false;        // utf8 sümbolid koodidena  
     }
 
    /**
@@ -319,6 +319,11 @@ private:
             lipp_taanded=true;
             return true;
         }
+        if(strncmp("--utf8json", lipuString, sizeof("--utf8json")-1)==0)
+        {
+            lipp_utf8=true;
+            return true;
+        }
         return false;
     }
 
@@ -352,12 +357,15 @@ private:
         }
         if(lipp_oleta==true)
         {
-            lipuBitid.On(MF_OLETA);       //ühestamise korral pole mõistlik "off"
+            lipuBitid.On(MF_OLETA);       // ühestamise korral pole mõistlik "off"
             lipuBitid.Off(MF_PIKADVALED); // "ülipikad" sõned saavad Z
             lipuBitid.Off(MF_LYHREZH);    // kõik lühendisarnased sõned lühendiks
         }
         if(lipp_oleta_pn==true)
+        {
             lipuBitid.On(MF_LISAPNANAL);
+            lipuBitid.On(MF_YHESTA); // Ilma MF_YHESTA liputa ei sattu sellesse harru,kus kontrollitakse MF_LISAPNANAL lippu
+        }
         if(lipp_gt==true)
             lipuBitid.On(MF_GTMRG);
         if(lipp_hmm==true)
@@ -403,7 +411,7 @@ private:
         {
             if(lipp_oleta==false)
             {
-                fsJsonCpp.JsonWarning("Lipu --guesspropnames korral on lipp --oleta kohustuslik");
+                fsJsonCpp.JsonWarning("Lipu --guesspropnames korral on lipp --guess kohustuslik");
                 return;
             }
             if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("sentences")==false)
@@ -414,10 +422,10 @@ private:
             TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
         }
         else   
-        { 
-            TeeSedaSonekaupa(jsonobj); // jsonobj["annotations"]["sentences"] ei ole kohustuslik
+        {                               // jsonobj["annotations"]["tokens"] või jsonobj["content"] on kohustuslik
+            TeeSedaSonekaupa(jsonobj);  // jsonobj["annotations"]["sentences"] ei ole kohustuslik
         }
-        fsJsonCpp.JsonWriter(jsonobj, lipp_taanded);
+        fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
     }
 
     /**
@@ -522,11 +530,12 @@ private:
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
         lyli.ptr.pMrfAnal->StrctKomadLahku();
+        if(mrf.mrfFlags->ChkB(MF_LISAPNANAL)==true)
+            lyli.ptr.pMrfAnal->SortUniq();
         if(mrf.mrfFlags->ChkB(MF_LEMMA))
             lyli.ptr.pMrfAnal->LeiaLemmad();
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
-
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
         features["complexity"] = mrftulemused_utf8.tagasiTasand;;
@@ -534,11 +543,10 @@ private:
         {
             Json::Value json_mrf;
             EMRFKUST sealt;
-            json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
             if(mrf.mrfFlags->ChkB(MF_ALGV)==true)
             {
                 json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-                if(mrf.mrfFlags->ChkB(MF_LEMMA))
+                if(mrf.mrfFlags->ChkB(MF_LEMMA)) // praegu me paneme lippe nii, koos MF_ALGVga käib alati ka MF_LEMMA
                     json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             }
             else

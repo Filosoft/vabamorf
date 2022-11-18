@@ -27,9 +27,13 @@ Sisend-json. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
 Lipu ```--json``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist. Sellisel juhul lõpetab programmi töö ```Ctrl+C``` või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
 
-### **```--formattedjson```** <a name=lipp_formattedjson>
+### **```--formattedjson```** <a name=lipp_formattedjson></a>
 
 Üherealise väljundjsoni asemel taanetega kujundatud json.
+
+### **```--utf8json```** <a name=lipp_utf8json></a>
+
+Väljundisse utf8 kodeeringus sümbolid.
 
 ### **```--guess```** <a name="lipp_guess"></a>
 
@@ -225,8 +229,6 @@ Partikkel.
 ### ```ALLIKAS```
 
 **_"P"_** - põhisõnastikust, **_"L"_** - lisasõnastikust, **_"O"_** - sõnepõhisest oletajast, **_"S"_** - lausepõhisest oletajast, **_"X"_** - määratlemata.
-
-TODO!!! lausepõhisest pärisnimede oletajast tulnud analüüsid mis allikaga???
 
 ### ```KEERUKUS```
 

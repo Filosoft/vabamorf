@@ -52,11 +52,13 @@ class FSJSONCPP
          * @param jsonobj Kuvatav JSON
          * @param use_StyledWriter true -- Kujundatult, false -- Kõik ühel real
          */
-        void JsonWriter(const Json::Value& jsonobj, bool use_StyledWriter = false)
+        void JsonWriter(const Json::Value& jsonobj, const bool use_StyledWriter = false, const bool use_emitUTF8=false)
         {
             Json::StreamWriterBuilder wbuilder;
             if(use_StyledWriter==false)
                 wbuilder["indentation"] = "";
+            //wbuilder.settings_["emitUTF8"] = use_emitUTF8;
+            wbuilder["emitUTF8"] = use_emitUTF8;
             std::cout << Json::writeString(wbuilder,jsonobj ) << std::endl;
         }
 
