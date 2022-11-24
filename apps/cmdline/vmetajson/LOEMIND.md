@@ -27,7 +27,8 @@ vmetajson \[[**LIPUD**](#lippude_kirjeldus)\]
 
 ## Lipud <a name="lippude_kirjeldus"></a>
 
-Kui soovite morf analüüsi tulemusi hiljem ühestada, **peate** lisama [```--guess```](#lipp_guess) lipu.
+Kui soovite morf analüüsi tulemusi hiljem ühestada, **peab** sisendjson sisaldama
+lausete ja sõnede anntotatsioone tuleb kasutada [```--guess```](#lipp_guess) lippu.
 
 Tüüpiliselt morf analüüs asub töövoos peale [sõnestamist/lausestamist](TODO:link) 
 ja enne [morfoloogilist ühestamist](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetyjson/LOEMIND.md).
@@ -62,9 +63,12 @@ Väljundisse utf8 kodeeringus sümbolid.
 
 ### **```--guess```** <a name="lipp_guess"></a>
 
-Leksikonist puuduvale sõnale oletakse võimalikud analüüsid. Lipp [```--guesspropnames```](#lipp_guesspropnames) eeldab lipu [```--guess```](#lipp_guess) kasutamist.
+Leksikonist puuduvale sõnale oletakse võimalikud analüüsid. Lipp
+[```--guesspropnames```](#lipp_guesspropnames) eeldab lipu
+[```--guess```](#lipp_guess) kasutamist.
 
-TODO: ülipikad ja liberaalselt lühendiks määratud sõned peaksid allikaks saama "põhisõnastiku" asemel "oletaja". 
+**_Märkus:_** Ülipikad ja liberaalselt lühendiks määratletavad sõned saavad
+analüüsi oletamise (```--guess``` lipp) käigus, aga allikaks pannakse neile "põhisõnastik".
 
 ### **```--guesspropnames```** <a name="lipp_guesspropnames"></a>
 
@@ -88,7 +92,7 @@ Tüvekujusse lisatakse hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, `
 
 ## Sisend <a name="sisendi_kirjeldus"></a>
 
-### Nõuded sisend-JSONile ```--guesspropnames``` lipu korral
+### Nõuded sisendjsonile ```--guesspropnames``` lipu korral
 
 Kirjeldus katab minimaalselt vajaliku info.
 
