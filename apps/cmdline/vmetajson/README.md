@@ -1,16 +1,3 @@
-# json_test
+# VMETAJSON
 
-## Teegist
-
-### Installimine
-
-sudo apt-get install libjsoncpp-dev
-
-### Kompileerimine
-
-Example program and compiler flag To compile a C++ program that uses JsonCpp library use the compiler flag:
--ljsoncpp
-
-### Kasutusjuhend
-
-[Kasutusjuhend](https://en.wikibooks.org/wiki/JsonCpp)
+Vaata eesitkeelset mustandit failis LOEMIND.md

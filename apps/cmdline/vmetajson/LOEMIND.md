@@ -1,5 +1,26 @@
 # vmetajson [versioon 2022.09.09]
 
+## Motivatsioon veel ühe morfiversiooni tegemiseks
+
+* Senised versioonid olid sellised, kus iga uue lipukombinatsiooni ja sõnepäringu tarvis tuli
+  analüsaator uuesti käivitada ja intsialiseerida (programm ja leksikonid uuesti mällu lugeda).
+  See sobis kenasti (suurte) failide analüüsimiseks, kus programmi ja leksikoni mällu lugemiseks
+  kuluv aeg moodustab väikese osa (suure hulga) sõnade analüüsimiseks kuluvast ajast.
+
+  Kui on olukord, kus korraga on vaja analüüsida väikest hulka sõnu kasutades erinevaid lippe
+  võib iga päringu peale uuesti programmi käivitamine muuta töö liiga aeglaseks.
+
+  See programm võimaldab käivitada programm (laadida programm ja leksikonid mällu) ja siis saata
+  standard-sisendi kaudu erivate lippudega sõnesid analüüsimiseks ning saada morf analüüsi tulemused
+  standard-väljundi kaudu kätte.
+
+* Sisendi esitamine json-kujul võimaldab iga päringuga panna kaasa sellele  päringule kohased morf analüüsi parameetrid.
+
+* Väljundi esitamine json kujul võimaldab (mugavalt) esitada kogu c++ teegi väljundis olevat morf-analüüsi infot.
+  Programmi kasutaja saab ise väljundjsonist filtreerida talle vajaliku info.
+
+
+
 ## Käsurida
 
 vmetajson \[[**LIPUD**](#lippude_kirjeldus)\]
@@ -30,6 +51,10 @@ Lipu ```--json``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist
 ### **```--formattedjson```** <a name=lipp_formattedjson></a>
 
 Üherealise väljundjsoni asemel taanetega kujundatud json.
+
+### **```--classic```** <a name="lipp_classic"></a>
+
+Lisab väljundjsoni "klassikalisel" vmeta kujul analüüsistringi.
 
 ### **```--utf8json```** <a name=lipp_utf8json></a>
 
@@ -171,6 +196,7 @@ Kui sõne ei õnnestunud morf analüüsida, siis selle sõne juurde morf infoga 
   "features":
   {
     "token": SÕNE,  /* algne morf analüüsitav sõne */
+    "classic": str, /* sõne morf analüüsistring vmeta-kujul, ainult --classic lipu korral */
     "complexity": KEERUKUS,
     "mrf" :           /* sisendsõne analüüsivariantide massiiv */
     [
@@ -236,11 +262,393 @@ Numbriline hinnand sellele, kui "keeruline" oli sõne analüüsi leida. Suurem n
 
 ## Kasutusnäited
 
-TODO
+```cmdline
+vmetajson.db --json='{"params":{"vmetajson":["--classic", "--formattedjson", "--guess", "--gt"]}, "content": "Mees peeti kinni . Sarved & Sõrad"}}'
+```
 
-## Vaata lisaks
-!!!Vajab Täiendamist!!!
-* Morfoloogilise analüsaatori [kasutajasõnastik](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md).
+```json
+{
+        "annotations" : 
+        {
+                "tokens" : 
+                [
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "Mees    mees+0 //_S_ Sg Nom, //    mesi+s //_S_ Sg Ine, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "sg n",
+                                                        "gt" : "Sg Nom",
+                                                        "kigi" : "",
+                                                        "lemma" : "mees",
+                                                        "lemma_ma" : "mees",
+                                                        "pos" : "S",
+                                                        "source" : "P"
+                                                },
+                                                {
+                                                        "ending" : "s",
+                                                        "fs" : "sg in",
+                                                        "gt" : "Sg Ine",
+                                                        "kigi" : "",
+                                                        "lemma" : "mesi",
+                                                        "lemma_ma" : "mesi",
+                                                        "pos" : "S",
+                                                        "source" : "P"
+                                                }
+                                        ],
+                                        "token" : "Mees"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "peeti    peet+0 //_S_ Sg Ill, //    pida+ti //_V_ Impers Prt Ind Aff, //    peet+0 //_S_ Sg Par, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "adt",
+                                                        "gt" : "Sg Ill",
+                                                        "kigi" : "",
+                                                        "lemma" : "peet",
+                                                        "lemma_ma" : "peet",
+                                                        "pos" : "S",
+                                                        "source" : "P"
+                                                },
+                                                {
+                                                        "ending" : "ti",
+                                                        "fs" : "ti",
+                                                        "gt" : "Impers Prt Ind Aff",
+                                                        "kigi" : "",
+                                                        "lemma" : "pida",
+                                                        "lemma_ma" : "pidama",
+                                                        "pos" : "V",
+                                                        "source" : "P"
+                                                },
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "sg p",
+                                                        "gt" : "Sg Par",
+                                                        "kigi" : "",
+                                                        "lemma" : "peet",
+                                                        "lemma_ma" : "peet",
+                                                        "pos" : "S",
+                                                        "source" : "P"
+                                                }
+                                        ],
+                                        "token" : "peeti"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "kinni    kinni+0 //_D_ //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "",
+                                                        "gt" : "",
+                                                        "kigi" : "",
+                                                        "lemma" : "kinni",
+                                                        "lemma_ma" : "kinni",
+                                                        "pos" : "D",
+                                                        "source" : "P"
+                                                }
+                                        ],
+                                        "token" : "kinni"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : ".    . //_Z_ //",
+                                        "complexity" : 0,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "",
+                                                        "gt" : "",
+                                                        "kigi" : "",
+                                                        "lemma" : ".",
+                                                        "lemma_ma" : ".",
+                                                        "pos" : "Z",
+                                                        "source" : "O"
+                                                }
+                                        ],
+                                        "token" : "."
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "Sarved    sarv+d //_S_ Pl Nom, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "d",
+                                                        "fs" : "pl n",
+                                                        "gt" : "Pl Nom",
+                                                        "kigi" : "",
+                                                        "lemma" : "sarv",
+                                                        "lemma_ma" : "sarv",
+                                                        "pos" : "S",
+                                                        "source" : "P"
+                                                }
+                                        ],
+                                        "token" : "Sarved"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "&    &+0 //_J_ //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "",
+                                                        "gt" : "",
+                                                        "kigi" : "",
+                                                        "lemma" : "&",
+                                                        "lemma_ma" : "&",
+                                                        "pos" : "J",
+                                                        "source" : "P"
+                                                }
+                                        ],
+                                        "token" : "&"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "S\u00f5rad    s\u00f5rg+d //_S_ Pl Nom, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "d",
+                                                        "fs" : "pl n",
+                                                        "gt" : "Pl Nom",
+                                                        "kigi" : "",
+                                                        "lemma" : "s\u00f5rg",
+                                                        "lemma_ma" : "s\u00f5rg",
+                                                        "pos" : "S",
+                                                        "source" : "P"
+                                                }
+                                        ],
+                                        "token" : "S\u00f5rad"
+                                }
+                        }
+                ]
+        },
+        "content" : "Mees peeti kinni . Sarved & S\u00f5rad",
+        "params" : 
+        {
+                "vmetajson" : 
+                [
+                        "--classic",
+                        "--formattedjson",
+                        "--guess",
+                        "--gt"
+                ]
+        }
+}
+```
+
+```cmdline
+vmetajson.db --json='{"params":{"vmetajson":["--classic", "--formattedjson", "--guess", "--stem", "--guess"]}, "content": "Mees peeti kinni . Sarved & Sõrad"}}'
+```
+
+```json
+{
+        "annotations" : 
+        {
+                "tokens" : 
+                [
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "Mees    mee+s //_S_ sg in, //    mees+0 //_S_ sg n, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "s",
+                                                        "fs" : "sg in",
+                                                        "kigi" : "",
+                                                        "pos" : "S",
+                                                        "source" : "P",
+                                                        "stem" : "mee"
+                                                },
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "sg n",
+                                                        "kigi" : "",
+                                                        "pos" : "S",
+                                                        "source" : "P",
+                                                        "stem" : "mees"
+                                                }
+                                        ],
+                                        "token" : "Mees"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "peeti    pee+ti //_V_ ti, //    peeti+0 //_S_ adt, //    peeti+0 //_S_ sg p, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "ti",
+                                                        "fs" : "ti",
+                                                        "kigi" : "",
+                                                        "pos" : "V",
+                                                        "source" : "P",
+                                                        "stem" : "pee"
+                                                },
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "adt",
+                                                        "kigi" : "",
+                                                        "pos" : "S",
+                                                        "source" : "P",
+                                                        "stem" : "peeti"
+                                                },
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "sg p",
+                                                        "kigi" : "",
+                                                        "pos" : "S",
+                                                        "source" : "P",
+                                                        "stem" : "peeti"
+                                                }
+                                        ],
+                                        "token" : "peeti"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "kinni    kinni+0 //_D_ //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "",
+                                                        "kigi" : "",
+                                                        "pos" : "D",
+                                                        "source" : "P",
+                                                        "stem" : "kinni"
+                                                }
+                                        ],
+                                        "token" : "kinni"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : ".    . //_Z_ //",
+                                        "complexity" : 0,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "",
+                                                        "kigi" : "",
+                                                        "pos" : "Z",
+                                                        "source" : "O",
+                                                        "stem" : "."
+                                                }
+                                        ],
+                                        "token" : "."
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "Sarved    sarve+d //_S_ pl n, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "d",
+                                                        "fs" : "pl n",
+                                                        "kigi" : "",
+                                                        "pos" : "S",
+                                                        "source" : "P",
+                                                        "stem" : "sarve"
+                                                }
+                                        ],
+                                        "token" : "Sarved"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "&    &+0 //_J_ //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "0",
+                                                        "fs" : "",
+                                                        "kigi" : "",
+                                                        "pos" : "J",
+                                                        "source" : "P",
+                                                        "stem" : "&"
+                                                }
+                                        ],
+                                        "token" : "&"
+                                }
+                        },
+                        {
+                                "features" : 
+                                {
+                                        "classic" : "S\u00f5rad    s\u00f5ra+d //_S_ pl n, //",
+                                        "complexity" : 1,
+                                        "mrf" : 
+                                        [
+                                                {
+                                                        "ending" : "d",
+                                                        "fs" : "pl n",
+                                                        "kigi" : "",
+                                                        "pos" : "S",
+                                                        "source" : "P",
+                                                        "stem" : "s\u00f5ra"
+                                                }
+                                        ],
+                                        "token" : "S\u00f5rad"
+                                }
+                        }
+                ]
+        },
+        "content" : "Mees peeti kinni . Sarved & S\u00f5rad",
+        "params" : 
+        {
+                "vmetajson" : 
+                [
+                        "--classic",
+                        "--formattedjson",
+                        "--guess",
+                        "--stem",
+                        "--guess"
+                ]
+        }
+}
+```
+
 
 ## Autor
 

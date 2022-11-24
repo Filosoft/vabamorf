@@ -6,10 +6,10 @@
 Jsoni käitlemiseks käsurealt: jq, gron
 
 Paranda
-{"content":"Mees peeti kinni .", "params":["vmetajson":["--formattedjson"]]}
-{"content":"Mees peeti kinni .", "params":[]}
-{"content":"Mees peeti kinni .", "params":[{"vmetajson":[]}]}
-{"content":"Mees peeti kinni .", "params":[{"vmetajson":["--guess"]}]}
+ok  {"content":"Mees peeti kinni .", "params":["vmetajson":["--formattedjson"]]}
+??  {"content":"Mees peeti kinni .", "params":[]}
+ok  {"content":"Mees peeti kinni .", "params":{"vmetajson":[]}}
+ok  {"content":"Mees peeti kinni .", "params":{"vmetajson":["--guess"]}}
 */
 
 // sudo apt-get install -y libjsoncpp-dev
@@ -184,6 +184,7 @@ public:
     }
 
 private:
+    bool lipp_classic;       // --classic # vmeta stiilis väljundstring
     bool lipp_gt;               // --gt 
     bool lipp_hmm;              // --hmm markov (ühestaja)
     bool lipp_stem;             // --tüvi
@@ -208,6 +209,7 @@ private:
      */
     void VaikeLipudPaika(void)
     {
+        lipp_classic=false;
         lipp_gt=false;
         lipp_hmm=false;
         lipp_stem=false; 
@@ -269,24 +271,24 @@ private:
     bool LipuStringPaika(const FSTCHAR* lipuString)
     {
         //-----------------------------
-        if(strcmp("--stem", lipuString)==0)
+        if(strcmp("--stem", lipuString)==0) // vaikimisi lemma
         {
             lipp_stem=true;
             return true;
         }
         //-----------------------------
-        if(strcmp("--guess", lipuString)==0)
+        if(strcmp("--guess", lipuString)==0) // lisab oletatud analüüsid
         {
             lipp_oleta=true;
             return true;
         }
-        if(strcmp("--guesspropnames", lipuString)==0)
+        if(strcmp("--guesspropnames", lipuString)==0) // lisab lausekonteksti põhjal oletatud pärisnimeanalüüsid
         {
             lipp_oleta_pn=true;
             return true;
         }
         //-----------------------------
-        if(strcmp("--phonetics", lipuString)==0)
+        if(strcmp("--addphonetics", lipuString)==0)
         {
             lipp_haaldus=true;
             return true;
@@ -314,16 +316,22 @@ private:
             json_str_fs = lipuString+(strchr(lipuString, '=')-lipuString+1);
             return true;
         }
-        if(strncmp("--formattedjson", lipuString, sizeof("--formattedjson")-1)==0)
+        if(strcmp("--formattedjson", lipuString)==0)
         {
             lipp_taanded=true;
             return true;
         }
-        if(strncmp("--utf8json", lipuString, sizeof("--utf8json")-1)==0)
+        if(strcmp("--utf8json", lipuString)==0)
         {
             lipp_utf8=true;
             return true;
         }
+        if(strcmp("--classic", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
+        {
+            lipp_classic=true;
+            return true;
+        }
+        //-----------------------------
         return false;
     }
 
@@ -339,8 +347,9 @@ private:
 
         // üksiksõnade analüüs vaikimisi selliste lippudega
         MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks =
-                                MF_MRF | MF_ALGV | MF_LEMMA | MF_POOLITA | MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
-                                MF_PIKADVALED | MF_LYHREZH ; // liiga pikad ei saa analüüsi, range lühendikäsitlus
+                                MF_MRF | MF_ALGV | MF_POOLITA |
+                                MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
+                                MF_PIKADVALED | MF_LYHREZH;
 
         // oletamise korral: Off(MF_PIKADVALED), Off(MF_LYHREZH), On(MF_OLETA)
         // pärisnimeanalüüside lisamise korrral peab oletamine sees olema
@@ -348,8 +357,7 @@ private:
         lipuBitid.Set(lipud_yksiksonade_analyysiks);
         if(lipp_stem==true)
         {
-            lipuBitid.Off(MF_LEMMA);
-            lipuBitid.Off(MF_ALGV);
+            lipuBitid.Off(MF_ALGV); // MF_LEMMA oli vanas programmis selleks et terve analüüsi asemel kuvada ainult lemmad
         }
         if(lipp_haaldus==true)
         {
@@ -382,7 +390,13 @@ private:
         CFSWString rida;
         LYLI lyli;
 
-        //std::cout<<__FILE__<<__LINE__ << '\n'; fsJsonCpp.JsonWriter(jsonobj);
+        /*std::cout<<__FILE__<<__LINE__ << '\n'; //fsJsonCpp.JsonWriter(jsonobj);
+        if(jsonobj.isMember("params")==true)
+            std::cout<<__FILE__<<__LINE__ << '\n'; 
+        if(jsonobj["params"].isMember("vmetajson")==true)
+            std::cout<<__FILE__<<__LINE__ << '\n'; */
+
+
         if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetajson")==true)
         {
             // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
@@ -532,13 +546,23 @@ private:
         lyli.ptr.pMrfAnal->StrctKomadLahku();
         if(mrf.mrfFlags->ChkB(MF_LISAPNANAL)==true)
             lyli.ptr.pMrfAnal->SortUniq();
-        if(mrf.mrfFlags->ChkB(MF_LEMMA))
+        if(mrf.mrfFlags->ChkB(MF_ALGV))
             lyli.ptr.pMrfAnal->LeiaLemmad();
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
+
+        if(lipp_classic)
+        {   // lisame väljundjsonisse klassikalise analüüsistringi
+            PCFSAString classic;
+            mrftulemused_utf8.Strct2Strng(&classic, mrf.mrfFlags);
+            classic.TrimRight("\n");
+            features["classic"]=(const char*)classic;
+        }
         features["complexity"] = mrftulemused_utf8.tagasiTasand;;
+        //features["mrf"] = Json::arrayValue;   // tekitaks tühja massivi, kui anlüüse pole
+                                                // praegu on nii, et kui anaüüse pole, siis "mrf"-i pole
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
         {
             Json::Value json_mrf;
@@ -546,8 +570,7 @@ private:
             if(mrf.mrfFlags->ChkB(MF_ALGV)==true)
             {
                 json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-                if(mrf.mrfFlags->ChkB(MF_LEMMA)) // praegu me paneme lippe nii, koos MF_ALGVga käib alati ka MF_LEMMA
-                    json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
+                json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             }
             else
             {

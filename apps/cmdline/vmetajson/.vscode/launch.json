@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "SNT:stdin->stdout",
+            "name": "ainult params",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--guesspropnames", "--sentences"],
+            "args": [ "--json={\\\"content\\\":\\\"Mees peeti kinni .\\\", \\\"params\\\":{\\\"vmetajson\\\":[\\\"--classic\\\", \\\"--formattedjson\\\"]}}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
