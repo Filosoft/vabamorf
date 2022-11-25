@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flask",
+            "type": "python",
+            "request": "launch",
+            "program": "./docker_elg_estnltk_tokenizer.py",
+            "args": []
+        },       
+        {
+            "name": "cmd_docker_content_only",
+            "type": "python",
+            "request": "launch",
+            "program": "./docker_elg_estnltk_tokenizer.py",
+            "args": ["--indent=4","--json={\"type\":\"text\",\"content\":\"Mees peeti kinni. Sarved&Sõrad\"}"]
+        },
+        {
+            "name": "cmd_docker_annotations",
+            "type": "python",
+            "request": "launch",
+            "program": "./docker_elg_estnltk_tokenizer.py",
+            "args": ["--indent=4","--json={\"type\":\"text\",\"features\":{\"optional\":\"optional\"},\"content\":\"Mees peeti kinni. Sarved&Sõrad\",\"annotations\":{\"bold\":[{\"start\":0,\"end\":4},{\"start\":5,\"end\":10}]}}"]
+        },
+
+
+        {
+            "name": "cmd: stdin->stdout",
+            "type": "python",
+            "request": "launch",
+            "program": "./elg_estnltk_tokenizer.py",
+            "args": ["--indent=4"]
+        },       
+        {
+            "name": "cmd_content_only",
+            "type": "python",
+            "request": "launch",
+            "program": "./elg_estnltk_tokenizer.py",
+            "args": ["--indent=4","--json={\"content\":\"Mees peeti kinni. Vanaisa vanad tööpüksid.\"}"]
+        },
+        {
+            "name": "cmd_annotations",
+            "type": "python",
+            "request": "launch",
+            "program": "./elg_estnltk_tokenizer.py",
+            "args": ["--indent=4", "--json={\"type\":\"text\",\"features\":{\"optional\":\"optional\"},\"content\":\"Mees peeti kinni. Sarved&Sõrad\",\"annotations\":{\"bold\":[{\"start\":0,\"end\":4},{\"start\":5,\"end\":10}]}}"]
+        },
+
+        {
+            "name": "cmd_test",
+            "type": "python",
+            "request": "launch",
+            "program": "./test.py",
+            "args": ["--indent=4", "--port=5000"]
+        },        
+    ]
+}
