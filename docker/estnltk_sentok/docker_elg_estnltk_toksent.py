@@ -33,7 +33,6 @@ class EstNLTK_tokenizer(FlaskService):
 flask_service = EstNLTK_tokenizer("EstNLTK tokenizer")
 app = flask_service.app
 
-
 def run_test(request_str: str) -> Dict:
     '''
     Run as command line script
