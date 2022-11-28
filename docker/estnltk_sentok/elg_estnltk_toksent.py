@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-#from textwrap import indent
 from estnltk import Text
 from estnltk.taggers import SentenceTokenizer
 from typing import Dict, List, Tuple
@@ -31,8 +30,8 @@ def estnltk_lausesta_text4elg(content: str) -> Tuple[List, List]:
 if __name__ == '__main__':
     '''
     Ilma argumentideta loeb JSONit std-sisendist ja kirjutab tulemuse std-väljundisse
-    $ venv/bin/python3 ./estnltk_tokenizer4elg.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
-    $ venv/bin/python3 ./estnltk_tokenizer4elg.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
+    $ venv/bin/python3 ./elg_estnltk_toksent.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
+    $ venv/bin/python3 ./elg_estnltk_toksent.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
     '''
 
     import argparse
