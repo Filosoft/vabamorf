@@ -51,7 +51,6 @@ def run_test(request_str: str) -> Dict:
     response_json = json.loads(response_str)
     return response_json
 
-
 def run_server() -> None:
     '''
     Run as flask webserver
