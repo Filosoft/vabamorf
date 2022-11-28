@@ -5,7 +5,7 @@ interface compliant with [ELG requirements](https://european-language-grid.readt
 
 ## Contains  <a name="Contains"></a>
 
-* [EstNLTK](https://github.com/estnltk/estnltk) tokenizer 
+* [EstNLTK](https://github.com/estnltk/estnltk) tokenizer
 * Container and interface code
 
 ## Preliminaries
@@ -18,7 +18,7 @@ interface compliant with [ELG requirements](https://european-language-grid.readt
 You may dowload a ready-made container from Docker Hub, using the Linux command line (Windows / Mac command lines are similar):
 
 ```commandline
-docker pull tilluteenused/elg_estnltk_tokenizer:2022.09.09
+docker pull tilluteenused/elg_estnltk_toksent:2022.09.09
 ```
 
 Next, continue to the section [Starting the container](#Starting_the_container).
@@ -36,13 +36,13 @@ git clone --branch 2022_09_09 --depth 1 https://github.com/Filosoft/vabamorf.git
 
 ```commandline
 cd ~/git/vabamorf_github_2022_09_09/docker/estnltk_tokenizer
-docker build -t tilluteenused/elg_estnltk_tokenizer:2022.09.09 .
+docker build -t tilluteenused/elg_estnltk_toksent:2022.09.09 .
 ```
 
 ## Starting the container <a name="Starting the container"></a>
 
 ```commandline
-docker run -p 6000:6000 tilluteenused/elg_estnltk_tokenizer:2022.09.09
+docker run -p 6000:6000 tilluteenused/elg_estnltk_toksent:2022.09.09
 ```
 
 One need not be in a specific directory to start the container.
@@ -72,7 +72,7 @@ accented letters etc. are presented as Unicode codes, e.g. õ = \u00f5.
 ## Response json
 
 ```json
-.{
+{
   "response": 
   {
     "type": "texts"
@@ -114,7 +114,7 @@ accented letters etc. are presented as Unicode codes, e.g. õ = \u00f5.
 ## Usage example
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data '{"type":"text", "content":"Mees peeti kinni. Sarved&Sõrad.","features":{"mida":"iganes"},"annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}' localhost:6000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" --data '{"type":"text", "content":"Mees peeti kinni. Sarved&Sõrad.","features":{"mida":"iganes"},"annotations":{"bold":[{"start":0,"end":4},{"start":18,"end":30}]}}' localhost:6000/process | jq
 ```
 
 ```json

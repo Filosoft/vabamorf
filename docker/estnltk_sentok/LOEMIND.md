@@ -20,7 +20,7 @@ Teeb utf-8 vormingus tavateksti sobivaks
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull tilluteenused/elg_estnltk_tokenizer:2022.09.09
+docker pull tilluteenused/elg_estnltk_toksent:2022.09.09
 ```
  Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
 
@@ -36,14 +36,14 @@ git clone --branch 2022_09_09 --depth 1 https://github.com/Filosoft/vabamorf.git
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github_2022_09_09/docker/estnltk_tokenizer
-docker build -t tilluteenused/elg_estnltk_tokenizer:2022.09.09 .
+cd ~/git/vabamorf_github_2022_09_09/docker/estnltk_toksent
+docker build -t tilluteenused/elg_estnltk_toksent:2022.09.09 .
 ```
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 6000:6000 tilluteenused/elg_estnltk_tokenizer:2022.09.09
+docker run -p 6000:6000 tilluteenused/elg_estnltk_toksent:2022.09.09
 ```
 
 Pole oluline, milline on jooksev kataloog terminaliaknas konteineri käivitamise hetkel.
@@ -126,7 +126,7 @@ täpitähed jms esitatakse Unicode'i koodidena, nt. õ = \u00f5.
 ## Kasutusnäide
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data '{"type":"text", "content":"Mees peeti kinni. Sarved&Sõrad.","features":{"mida":"iganes"},"annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}' localhost:6000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" --data '{"type":"text", "content":"Mees peeti kinni. Sarved&Sõrad.","features":{"mida":"iganes"},"annotations":{"bold":[{"start":0,"end":4},{"start":18,"end":30}]}}' localhost:6000/process | jq
 ```
 
 ```json

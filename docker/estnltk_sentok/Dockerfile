@@ -31,7 +31,7 @@ RUN venv/bin/pip --no-cache-dir install -r requirements.txt
 #                     -c "DistilBertTokenizer.from_pretrained('bert-base-uncased')"
 RUN /elg/venv/bin/python -m nltk.downloader punkt
 
-COPY --chown=elg:elg docker-entrypoint.sh docker_elg_estnltk_tokenizer.py elg_estnltk_tokenizer.py /elg/
+COPY --chown=elg:elg docker-entrypoint.sh docker_elg_estnltk_toksent.py elg_estnltk_toksent.py /elg/
 
 ENV WORKERS=1
 ENV TIMEOUT=30
