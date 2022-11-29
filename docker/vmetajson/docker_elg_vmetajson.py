@@ -44,9 +44,10 @@ class FiloSoft_morph(FlaskService):
         in_json = {}
         if request.params is not None:
             in_json["param"]=request.param
-        if request.features is not None:
-            in_json["features"]=request.features
-        in_json["tokens"] = request.annotations["tokens"]
+        if "sentences" in request.annotations.keys():
+            bla = request.annotations["sentences"]
+            in_json["annotations"]["sentences"] = request.annotations["sentences"]
+        in_json["annotations"]["tokens"] = request.annotations["tokens"]
 
         in_jsonstr = json.dumps(in_json)
         pass
