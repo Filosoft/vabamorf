@@ -8,6 +8,7 @@ import subprocess
 
 from elg import FlaskService
 from elg.model import TextsResponse, TextRequest
+import re
 
 # from inspect import currentframe, getframeinfo
 # print(getframeinfo(currentframe()).filename, getframeinfo(currentframe()).lineno)
@@ -44,24 +45,24 @@ class FiloSoft_morph(FlaskService):
         """
         in_json = {}
         if request.params is not None:
-            in_json["param"]=request.param
-        if request.features is not None:
-            in_json["features"]=request.features
+            in_json["params"]=request.params
         if request.content is not None:
             in_json["content"] = request.content
-        if request.annotations is None:
-            request.annotations = {}
         else:
-            if "tokens" in request.annotations.keys():
-                in_json["annotations"] = {"tokens": request.annotations["tokens"]}      
-            if "sentences" in request.annotations.keys():
-                in_json["annotations"]["sentences"] = request.annotations["sentences"]
+            assert(False) # TODO veateade
+
+        tokens = []
+        for ele in re.finditer(r'\S+', request.content):
+            token ={"start":ele.start(), "end":ele.end(), "features":{"token":request.content[ele.start():ele.end()]}}
+            tokens.append(token)
+        in_json["annotations"] ={"tokens":tokens}   
 
         in_jsonstr = json.dumps(in_json)
         proc.stdin.write(f'{in_jsonstr}\n')
         proc.stdin.flush()
         out_jsonstr=proc.stdout.readline()
         out_json =json.loads(out_jsonstr)
+        request.annotations = {}
         request.annotations["tokens"] = out_json["annotations"]["tokens"]
 
         return TextsResponse(texts=[{"content":request.content, "features":request.features, "annotations":request.annotations}])
