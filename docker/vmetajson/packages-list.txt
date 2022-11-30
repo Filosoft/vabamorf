@@ -1,5 +1,5 @@
 astroid==2.12.13
-asttokens==2.1.0
+asttokens==2.2.0
 backcall==0.2.0
 beautifulsoup4==4.11.1
 bs4==0.0.1
@@ -52,7 +52,7 @@ pure-eval==0.2.2
 pyahocorasick==1.4.4
 pydantic==1.10.2
 Pygments==2.13.0
-pylint==2.15.6
+pylint==2.15.7
 pyparsing==3.0.9
 python-crfsuite==0.9.8
 python-dateutil==2.8.2
