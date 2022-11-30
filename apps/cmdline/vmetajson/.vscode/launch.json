@@ -202,7 +202,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": ["--json={\\\"content\\\": \\\"Mees\\\"}" ],
+            "args": ["--json={\\\"content\\\": \\\"Õun lõi\\\"}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,

@@ -390,13 +390,6 @@ private:
         CFSWString rida;
         LYLI lyli;
 
-        /*std::cout<<__FILE__<<__LINE__ << '\n'; //fsJsonCpp.JsonWriter(jsonobj);
-        if(jsonobj.isMember("params")==true)
-            std::cout<<__FILE__<<__LINE__ << '\n'; 
-        if(jsonobj["params"].isMember("vmetajson")==true)
-            std::cout<<__FILE__<<__LINE__ << '\n'; */
-
-
         if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetajson")==true)
         {
             // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
@@ -451,6 +444,7 @@ private:
     {
         if(jsonobj.isMember("content")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
         {
+            
             // "content" on olemas, aga annoteeritud sõnesid pole, tekitame need
             std::stringstream tokens(jsonobj["content"].asString());
             std::istream_iterator<std::string> begin(tokens);
