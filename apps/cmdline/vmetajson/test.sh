@@ -7,7 +7,7 @@ curl --silent --request POST --header "Content-Type: application/json" \
 \
 | gron      `# teisendame JSONi grepi ja sediga paremini töödeldavale kujule` \
 \
-`# kustutame morfi sisendiks sobimatud/mittevajalikudgitt osad` \
+`# kustutame morfi sisendiks sobimatud/mittevajalikud osad` \
 | sed 's/.response.texts\[0\]//g' \
 | grep --invert-match response \
 | tail --lines=+3 \
