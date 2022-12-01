@@ -136,6 +136,7 @@ public:
     void Start(int argc, FSTCHAR** argv)
     {
         LipuStringidKasurealt(argc, argv);
+        mrf.SetMaxTasand(lipp_maxcomplexity);
         lipud_mrf_cl_dflt.Set(LipuBitidPaika()); // kui jsonist lippe ei tule kasutame sedas
         mrf.Start(path, lipud_mrf_cl_dflt.Get());
     }
@@ -184,7 +185,8 @@ public:
     }
 
 private:
-    bool lipp_classic;       // --classic # vmeta stiilis väljundstring
+    int lipp_maxcomplexity;     // --depth=MAXTASAND
+    bool lipp_classic;          // --classic # vmeta stiilis väljundstring
     bool lipp_gt;               // --gt 
     bool lipp_hmm;              // --hmm markov (ühestaja)
     bool lipp_stem;             // --tüvi
@@ -209,6 +211,7 @@ private:
      */
     void VaikeLipudPaika(void)
     {
+        lipp_maxcomplexity=100; // vaikimisi 100
         lipp_classic=false;
         lipp_gt=false;
         lipp_hmm=false;
@@ -311,6 +314,12 @@ private:
             return true;
         }
         //=============================
+        if(strncmp("--maxcomplexity=", lipuString, sizeof("--maxcomplexity=")-1)==0)
+        {
+            lipp_maxcomplexity=atoi(lipuString+(strchr(lipuString, '=')-lipuString+1));
+            return true;
+        }
+        //=============================
         if(strncmp("--json=", lipuString, sizeof("--json=")-1)==0)
         {
             json_str_fs = lipuString+(strchr(lipuString, '=')-lipuString+1);
@@ -410,6 +419,7 @@ private:
                 fsJsonCpp.JsonWriter(jsonobj);
                 return;
             }
+            mrf.SetMaxTasand(lipp_maxcomplexity);
             mrf.mrfFlags->Set(LipuBitidPaika()); // morfimine ja kuvamine hakkab toimuma jsonist saadud lippudega
         }
         else
@@ -554,7 +564,7 @@ private:
             classic.TrimRight("\n");
             features["classic"]=(const char*)classic;
         }
-        features["complexity"] = mrftulemused_utf8.tagasiTasand;;
+        features["complexity"] = mrftulemused_utf8.tagasiTasand;
         //features["mrf"] = Json::arrayValue;   // tekitaks tühja massivi, kui anlüüse pole
                                                 // praegu on nii, et kui anaüüse pole, siis "mrf"-i pole
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)

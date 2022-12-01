@@ -74,6 +74,10 @@ analüüsi oletamise (```--guess``` lipp) käigus, aga allikaks pannakse neile "
 
 Suurtähelisele sõnale lisatakse (teoreetiliselt) võimalikud pärisnime analüüsid.
 
+### **```--maxcpmlexity=KEERUKUS```** <a name="lipp_maxcpmlexity"></a>
+
+**KEERUKUS** täisarvuline parameeter, mis määrab ära selle kui keerulisi variante proovitakse.
+
 [Sisendis](#sisendi_kirjeldus):
 * laused peavad olama annoteeritud (märgendatud)
 * peate lisaks kasutama lippu [```--guess```](#"lipp_guess), st leksikonist puuduvatele sõnadele tuleb võimalikud analüüsid oletada

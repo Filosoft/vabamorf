@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ainult params",
+            "name": "depth=3",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/../project/unix/vmetajson.db",
             "cwd": "${workspaceFolder}",
-            "args": [ "--json={\\\"content\\\":\\\"Mees peeti kinni .\\\", \\\"params\\\":{\\\"vmetajson\\\":[\\\"--classic\\\", \\\"--formattedjson\\\"]}}" ],
+            "args": [ "--json={\\\"content\\\":\\\"kellraadio\\\", \\\"params\\\":{\\\"vmetajson\\\":[\\\"--depth=3\\\", \\\"--classic\\\", \\\"--formattedjson\\\"]}}" ],
             "stopAtEntry": false,
             "environment": [],
             "externalConsole": false,
