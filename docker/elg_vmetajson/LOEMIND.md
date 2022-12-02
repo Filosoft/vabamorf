@@ -1,4 +1,4 @@
-# Eesti keele morfoloogilise analüsaatori konteiner
+# POOLELI: Eesti keele morfoloogilise analüsaatori konteiner
 
 [Filosofti eesti keele morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md) sisaldav tarkvara-konteiner (docker),
 mille liides vastab [ELG nõuetele](https://european-language-grid.readthedocs.io/en/release1.0.0/all/LTInternalAPI.html#).
