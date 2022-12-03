@@ -23,13 +23,15 @@ RUN python3 -m venv ./venv
 RUN ./venv/bin/python3 -m pip install --upgrade pip
 RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt 
 
+# copy current task related skripts
 COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_vmetajson.py vmetajson et.dct ./
-
 RUN chmod +x docker-entrypoint.sh flask_vmetajson.py vmetajson
 
+# parameters for gunicorn
 ENV WORKERS=1
 ENV TIMEOUT=30
 ENV WORKER_CLASS=sync
 ENV LOGURU_LEVEL=INFO
 
+# start web server
 ENTRYPOINT ["./docker-entrypoint.sh"]
