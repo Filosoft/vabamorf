@@ -2,21 +2,27 @@
 
 ## Motivatsioon veel ühe morfiversiooni tegemiseks
 
-* Senised versioonid olid (suuremal või vähemal määral) sellised, kus iga uue lipukombinatsiooni ja sõnepäringu tarvis tuli
-  analüsaator uuesti käivitada ja intsialiseerida (programm ja leksikonid uuesti mällu lugeda).
-  See sobis kenasti (suurte) failide analüüsimiseks, kus programmi ja leksikoni mällu lugemiseks
-  kuluv aeg moodustab väikese osa (suure hulga) sõnade analüüsimiseks kuluvast ajast.
+* Senised versioonid olid (suuremal või vähemal määral) sellised,
+  kus iga uue lipukombinatsiooni ja sõnepäringu tarvis tuli
+  analüsaator uuesti käivitada ja intsialiseerida (programm ja leksikonid
+  uuesti mällu lugeda). See sobis kenasti (suurte) failide analüüsimiseks,
+  kus programmi ja leksikoni mällu lugemiseks  kuluv aeg moodustab väikese
+  osa (suure hulga) sõnade analüüsimiseks kuluvast ajast.
 
-  Kui on olukord, kus korraga on vaja analüüsida väikest hulka sõnu kasutades erinevaid lippe
-  võib iga päringu peale uuesti programmi käivitamine muuta programmi töö liiga aeglaseks.
+  Kui on olukord, kus korraga on vaja analüüsida väikest hulka sõnu kasutades
+  erinevaid lippe võib iga päringu peale uuesti programmi käivitamine muuta
+  programmi töö liiga aeglaseks.
 
-  ```vmetajson``` võimaldab käivitada programm (laadida programm ja leksikonid mällu) ja saata
-  standard-sisendi kaudu sõnesid analüüsimiseks erinevate morf analüsaatori lippudega ning saada morf analüüsi tulemused
-  standard-väljundi kaudu kätte.
+  ```vmetajson``` võimaldab käivitada programm (laadida programm ja leksikonid
+  mällu) ja saata standard-sisendi kaudu sõnesid analüüsimiseks erinevate morf
+  analüsaatori lippudega ning saada morf analüüsi tulemused standard-väljundi
+  kaudu kätte.
 
-* Sisendi esitamine json-kujul võimaldab iga päringuga panna kaasa sellele  päringule kohased morf analüüsi parameetrid.
+* Sisendi esitamine json-kujul võimaldab iga päringuga panna kaasa sellele
+  päringule kohased morf analüüsi parameetrid.
 
-* Väljundi esitamine json kujul võimaldab (mugavalt) esitada kogu c++ teegi väljundis olevat morf-analüüsi infot.
+* Väljundi esitamine json kujul võimaldab (mugavalt) esitada kogu c++ teegi
+  väljundis olevat morf-analüüsi infot.
   Programmi kasutaja saab ise väljundjsonist filtreerida talle vajaliku info.
 
 
@@ -25,10 +31,27 @@
 
 vmetajson \[[**LIPUD**](#lippude_kirjeldus)\]
 
+* Vaikimisi kuvatakse analüüsi tulemuses sisendsõne lemmat (algvormi).
+  Tüve saamiseks kasutage ```--stem``` lippu.
+  Ei ole võimalik saada väljundisse **korraga** tüve ja lemmat (ainult üks kahest).
+
+* Vaikimisi ei oletata leksikonist puuduvate sõnade võimalikke analüüse.
+  Selleks tuleb kasutada ```--guess``` parameetrit.
+
+* Vaikimisi kasutatakse FS-süsteemi kategooriaid.
+
+* Vaikimisi ei oletata lausekonteksti põhjal täiendavaid võimalikke pärisnimeanalüüse.
+
+* Vaikimisi ei lisata tüvesse/lemmasse hääldusmärke.
+
+* Vaikimisi on kogu väljundjson ühel real ja täpitähed json-standardi kohaselt
+  esitatud vastavate koodidena.
+
+
 ## Lipud <a name="lippude_kirjeldus"></a>
 
 Kui soovite morf analüüsi tulemusi hiljem ühestada, **peab** sisendjson sisaldama
-lausete ja sõnede anntotatsioone tuleb kasutada [```--guess```](#lipp_guess) lippu.
+lausete ja sõnede anntotatsioone ning tuleb kasutada [```--guess```](#lipp_guess) lippu.
 
 Tüüpiliselt morf analüüs asub töövoos peale [sõnestamist/lausestamist](TODO:link) 
 ja enne [morfoloogilist ühestamist](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetyjson/LOEMIND.md).
@@ -39,7 +62,7 @@ Leksikonid võivad olla kataloogis **K1, K2, ...**
 
 Vaikimisi põhileksikoni **et.dct** ja
 [kasutajasõnastikku](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md)
-otsitakse keskkonnamuutujas **PATH** loetletud kataloogedest.
+otsitakse keskkonnamuutujas **PATH** loetletud kataloogidest.
 
 JSON-päringus seda lippu ```params``` kaudu määrata ei saa.
 
@@ -73,14 +96,13 @@ analüüsi oletamise (```--guess``` lipp) käigus, aga allikaks pannakse neile "
 ### **```--guesspropnames```** <a name="lipp_guesspropnames"></a>
 
 Suurtähelisele sõnale lisatakse (teoreetiliselt) võimalikud pärisnime analüüsid.
+**NB!** Seda lippu saab kasutada ainult siis kui sisendjsonis on annoteeritud
+sõned ja laused ning on kasutatud ```--guess``` lippu leksikonist puuduvate
+sõnede analüüsi oletamiseks.
 
 ### **```--maxcpmlexity=KEERUKUS```** <a name="lipp_maxcpmlexity"></a>
 
 **KEERUKUS** täisarvuline parameeter, mis määrab ära selle kui keerulisi variante proovitakse.
-
-[Sisendis](#sisendi_kirjeldus):
-* laused peavad olama annoteeritud (märgendatud)
-* peate lisaks kasutama lippu [```--guess```](#"lipp_guess), st leksikonist puuduvatele sõnadele tuleb võimalikud analüüsid oletada
 
 ### **```--stem```**  <a name="lipp_stem"></a>
 
@@ -161,7 +183,6 @@ ESTNLTK sõnestaja annab välja rohkem infot aga morf analüsaator kasutab selle
 ### Minimaalne json  tühikutega eraldatud sõnede analüüsimisks
 
 Kirjeldus katab minimaalselt vajaliku info. JSON võib sisaldada lisaks muud, programmi kasutajale vajalikku infot, see ei sega morf analüüsi programmi.
-**_NB! ```--guesspropnames``` lipu kasutamiseks peavad olema ka laused annoteeritud_**
 
 **_NB! Ei võimalda ```--guesspropnames``` lipu kasutamist._**
 
