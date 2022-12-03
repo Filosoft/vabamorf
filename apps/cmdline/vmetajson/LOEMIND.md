@@ -2,16 +2,16 @@
 
 ## Motivatsioon veel ühe morfiversiooni tegemiseks
 
-* Senised versioonid olid sellised, kus iga uue lipukombinatsiooni ja sõnepäringu tarvis tuli
+* Senised versioonid olid (suuremal või vähemal määral) sellised, kus iga uue lipukombinatsiooni ja sõnepäringu tarvis tuli
   analüsaator uuesti käivitada ja intsialiseerida (programm ja leksikonid uuesti mällu lugeda).
   See sobis kenasti (suurte) failide analüüsimiseks, kus programmi ja leksikoni mällu lugemiseks
   kuluv aeg moodustab väikese osa (suure hulga) sõnade analüüsimiseks kuluvast ajast.
 
   Kui on olukord, kus korraga on vaja analüüsida väikest hulka sõnu kasutades erinevaid lippe
-  võib iga päringu peale uuesti programmi käivitamine muuta töö liiga aeglaseks.
+  võib iga päringu peale uuesti programmi käivitamine muuta programmi töö liiga aeglaseks.
 
-  See programm võimaldab käivitada programm (laadida programm ja leksikonid mällu) ja siis saata
-  standard-sisendi kaudu erivate lippudega sõnesid analüüsimiseks ning saada morf analüüsi tulemused
+  ```vmetajson``` võimaldab käivitada programm (laadida programm ja leksikonid mällu) ja saata
+  standard-sisendi kaudu sõnesid analüüsimiseks erinevate morf analüsaatori lippudega ning saada morf analüüsi tulemused
   standard-väljundi kaudu kätte.
 
 * Sisendi esitamine json-kujul võimaldab iga päringuga panna kaasa sellele  päringule kohased morf analüüsi parameetrid.
