@@ -1,3 +1,8 @@
+docker/elg_vmetajson/venv/
+docker/elg_vmetajson/__pycache__/
+docker/flask_vmetajson/venv/
+docker/flask_vmetajson/__pycache__/
+
 apps/cmdline/project/unix/etana.ar
 apps/cmdline/project/unix/etana.db.ar
 apps/cmdline/project/unix/etyhh.ar
