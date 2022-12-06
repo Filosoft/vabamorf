@@ -1,4 +1,4 @@
 gunicorn
-elg[flask]
-nltk
+Flask
+#nltk
 estnltk

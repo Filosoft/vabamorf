@@ -1,22 +1,26 @@
-FROM python:3.8-slim-bullseye
+FROM ubuntu
 
-# Install tini and create an unprivileged user
-ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /sbin/tini
-RUN addgroup --gid 1001 "elg" && adduser --disabled-password --gecos "ELG User,,," --home /elg --ingroup elg --uid 1001 elg && chmod +x /sbin/tini
+# install C++ json-library for vmetajson and other stuff
+RUN apt-get update && apt-get install -y \
+    tini \
+    python3 \
+    python3-pip \
+    python3.10-venv \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy in just the requirements file
-COPY --chown=elg:elg requirements.txt /elg/
+# create an unprivileged user
+RUN addgroup --gid 1001 "mere_mortal" \
+    && adduser --disabled-password --gecos "mere_mortal user,,," --home /home4mere_mortal --ingroup mere_mortal --uid 1001 mere_mortal
 
-# Everything from here down runs as the unprivileged user account
-USER elg:elg
+# everything from here down runs as the unprivileged user account 
+USER mere_mortal:mere_mortal
+WORKDIR /home4mere_mortal
 
-WORKDIR /elg
-
-
-# Create a Python virtual environment for the dependencies
-RUN python -m venv venv 
-RUN /elg/venv/bin/python -m pip install --upgrade pip
-RUN venv/bin/pip --no-cache-dir install -r requirements.txt 
+# copy in the requirements file, create a Python virtual environment and install dependencies
+COPY --chown=mere_mortal:mere_mortal requirements.txt ./
+RUN python3 -m venv ./venv 
+RUN ./venv/bin/python3 -m pip install --upgrade pip
+RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt 
 
 # Copy ini the entrypoint script and everything else our app needs
 #
@@ -31,18 +35,18 @@ RUN venv/bin/pip --no-cache-dir install -r requirements.txt
 #
 # RUN venv/bin/python -c "from transformers import DistilBertTokenizer" \
 #                     -c "DistilBertTokenizer.from_pretrained('bert-base-uncased')"
-RUN /elg/venv/bin/python -m nltk.downloader punkt
+RUN ./venv/bin/python -m nltk.downloader punkt
 
-COPY --chown=elg:elg docker-entrypoint.sh elg_sdk_morph.py filosoft_morph.py vmeta et.dct /elg/
-COPY --chown=elg:elg gitlab-docker-elg-tokenizer/estnltk_tokenizer4elg.py /elg/gitlab-docker-elg-tokenizer/
+# copy current task related skripts
 
+COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_estnltk_sento.py ./
+RUN chmod +x docker-entrypoint.sh flask_estnltk_sento.py
 
+# parameters for gunicorn
 ENV WORKERS=1
 ENV TIMEOUT=30
 ENV WORKER_CLASS=sync
 ENV LOGURU_LEVEL=INFO
 
-
-RUN chmod +x ./docker-entrypoint.sh
-RUN chmod +x ./vmeta
+# start web server (guncorn+flask)
 ENTRYPOINT ["./docker-entrypoint.sh"]
