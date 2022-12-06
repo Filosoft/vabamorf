@@ -1,0 +1,74 @@
+<style>
+.spanline {
+    background-color: blue;
+    position: relative;
+    height: 3px;
+    margin-left: 0px;
+}
+
+.tables {
+    position: absolute;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.tables tbody tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+.tables tbody tr:nth-child(odd) {
+    background-color: beige;
+}
+
+.tables tbody tr:hover {
+    background-color: ivory;
+}
+
+.attribute-names-table {
+    padding: 6px;
+}
+
+.attribute-column {
+    padding: 6px;
+}
+
+.attribute-names-table tbody tr:nth-child(even) {
+    background-color: white;
+}
+
+.attribute-names-table tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.attribute-names-table tbody tr:hover {
+    background-color: white;
+}
+
+.chosen-span {
+    border: 2px solid red;
+}
+
+.highlighted {
+    border: 2px solid red;
+}
+
+.alt-tables {
+    position: absolute;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.alt-tables tbody tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+.alt-tables tbody tr:nth-child(odd) {
+    background-color: beige;
+}
+
+.alt-tables tbody tr:hover {
+    background-color: ivory;
+}
+</style><script>var display= new estnltk.attribute_visualiser.DisplayCell('display',-1,0,0); 
+Jupyter.keyboard_manager.disable();
+</script><span style=" " class='spandisplay plain-spandisplay' span_info0='[{"attr": "L0-0"}]' span_index0='0' span_texts="Tere">Tere</span><span style=" " class='spandisplay plain-spandisplay' span_info0='[{"attr": "L0-1"}]' span_index0='1' span_texts=",">,</span> maailm!<button onclick="display.export_data('display')">Export data</button>

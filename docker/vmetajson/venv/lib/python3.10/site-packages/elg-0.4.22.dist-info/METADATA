@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: elg
+Version: 0.4.22
+Summary: Use the European Language Grid in your Python projects
+Home-page: https://gitlab.com/european-language-grid/platform/python-client
+Author: ELG Technical Team
+Author-email: contact@european-language-grid.eu
+License: MIT
+Keywords: tools,sdk,language technology,europe,european,nlp
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
+Requires-Dist: requests (>=2.25)
+Requires-Dist: tqdm (>=4.49)
+Requires-Dist: pandas (>=1.2)
+Requires-Dist: loguru (>=0.5)
+Requires-Dist: pydantic (>=1.7.4)
+Provides-Extra: flask
+Requires-Dist: flask (>=2.0) ; extra == 'flask'
+Requires-Dist: docker (>=5.0) ; extra == 'flask'
+Requires-Dist: requests-toolbelt (>=0.9) ; extra == 'flask'
+Provides-Extra: quality
+Requires-Dist: black (==21.4b0) ; extra == 'quality'
+Requires-Dist: isort (==5.5.4) ; extra == 'quality'
+Provides-Extra: quart
+Requires-Dist: quart (>=0.15.1) ; extra == 'quart'
+Requires-Dist: docker (>=5.0) ; extra == 'quart'
+Requires-Dist: requests-toolbelt (>=0.9) ; extra == 'quart'
+
+# European Language Grid Python SDK
+
+The [**European Language Grid**](https://live.european-language-grid.eu/) is the primary platform for Language Technology in Europe. With the ELG Python SDK, you can use LT services and search the catalog inside your Python projects.
+
+To have more information about the Python SDK, please look at the documentation: [https://european-language-grid.readthedocs.io/en/stable/all/A1_PythonSDK/GettingStarted.html](https://european-language-grid.readthedocs.io/en/stable/all/A1_PythonSDK/GettingStarted.html).
+
+
