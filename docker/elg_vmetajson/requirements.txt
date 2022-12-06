@@ -1,4 +1,0 @@
-gunicorn
-elg[flask]
-nltk
-estnltk
