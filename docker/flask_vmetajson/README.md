@@ -81,10 +81,10 @@ Sisendiks on lausestatud ja sõnestatud tekst. Selle tegemiseks saab kasutada [l
 
 ```json
 {
-    "content": string,  /* algne tekst */
+    "content": string,  /* algne tekst, võib puududa */
     "annotations":
     {
-    "sentences":        /* lausete massiiv */
+    "sentences":        /* lausete massiiv, võib puududa, kui ei kasuta --guesspropnames lippu */
     [
         {
             "start": number,  /* lause alguspositsioon algses tekstis, võib puududa */
@@ -114,10 +114,10 @@ Sisendiks on lausestatud ja sõnestatud tekst. Selle tegemiseks saab kasutada [l
 
 ```json
 {
-    "content": string,  /* algne tekst */
+    "content": string,  /* algne tekst, ainult siis, kui see sisendis ka oli */
     "annotations":
     {
-    "sentences":        /* lausete massiiv */
+    "sentences":        /* lausete massiiv, ainult siis, kui see sisendis ka oli */
     [
         {
             "start": number,  /* lause alguspositsioon algses tekstis, võib puududa */
