@@ -23,7 +23,7 @@ proc = subprocess.Popen(['./vmetajson', '--path=.'],
 
 app = Flask("vmetajson")
 
-@app.route('/morf', methods=['POST']) #@app.route('/morf', methods=['GET', 'POST'])
+@app.route('/process', methods=['POST']) #@app.route('/morf', methods=['GET', 'POST'])
 def morf():
     """Morf analüüsime JSONiga antud sõnesid ja kuvame tulemust JSONkujul
 

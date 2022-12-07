@@ -22,8 +22,6 @@ RUN python3 -m venv ./venv
 RUN ./venv/bin/python3 -m pip install --upgrade pip
 RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt 
 
-# Copy ini the entrypoint script and everything else our app needs
-#
 # Many Python libraries used for LT such as nltk, transformers, etc. default to
 # downloading their models from the internet the first time they are accessed.
 # This is a problem for container images, as every run is the "first time"
@@ -35,12 +33,11 @@ RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt
 #
 # RUN venv/bin/python -c "from transformers import DistilBertTokenizer" \
 #                     -c "DistilBertTokenizer.from_pretrained('bert-base-uncased')"
-RUN ./venv/bin/python -m nltk.downloader punkt
+RUN ./venv/bin/python -m nltk.downloader -d venv/share/nltk_data punkt
 
-# copy current task related skripts
-
-COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_estnltk_sento.py ./
-RUN chmod +x docker-entrypoint.sh flask_estnltk_sento.py
+# Copy the entrypoint script and everything else our app needs
+COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_estnltk_sentok.py estnltk_sentok.py ./
+RUN chmod +x docker-entrypoint.sh flask_estnltk_sentok.py estnltk_sentok.py
 
 # parameters for gunicorn
 ENV WORKERS=1
