@@ -160,7 +160,7 @@ JSON võib sisaldada lisaks muud, programmi kasutajale vajalikku infot, see ei s
 
 ESTNLTK sõnestaja annab välja rohkem infot aga morf analüsaator kasutab sellest ainult allkirjeldatud osa.
 
-**_NB! ```--guesspropnames``` lipu kasutamiseks peavad olema ka laused annoteeritud_**
+
 
 ```json
 {
