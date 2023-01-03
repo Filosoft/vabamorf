@@ -138,14 +138,16 @@ public:
                 goto syntaks;
             }
             //-----------------------------
-            if(lipp_oleta_pn==true && lipp_xml==false)
-                fprintf(stderr,
-                    "--guesspropname lippu saab kasutada ainult koos --xml lipuga");
-            if(lipp_oleta==true && lipp_xml==false)
-                fprintf(stderr,
-                    "--guesspropname lippu saab kasutada ainult koos --guess lipuga");
-            goto syntaks;
         }
+        if(lipp_oleta_pn==true && (lipp_xml==false || lipp_oleta==false))
+        {
+            fprintf(stderr,
+                    "--guesspropname lippu saab kasutada ainult koos --xml ja --guess lipuga\n");
+            //if(lipp_oleta==true && lipp_xml==false)
+            //    fprintf(stderr,
+            //        "--guesspropname lippu saab kasutada ainult koos --guess lipuga");
+            goto syntaks;
+        } 
         if(i==argc)
             return; // std-sisend std-väljundiks
         if(i+2==argc)
