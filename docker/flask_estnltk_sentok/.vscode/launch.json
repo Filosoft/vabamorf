@@ -5,12 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flask",
+            "name": "Flask-server",
             "type": "python",
             "request": "launch",
             "program": "./flask_estnltk_sentok.py",
             "args": []
-        },       
+        },
+        {
+            "name": "test",
+            "type": "python",
+            "request": "launch",
+            "program": "./test.py",
+            "args": ["--indent", "testfile.txt"]
+        },    
       
     ]
 }
