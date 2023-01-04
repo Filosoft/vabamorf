@@ -389,7 +389,7 @@ ETMRFA::~ETMRFA(void)
 bool ETMRFA::EmptyClassInvariant(void)
 {
     return
-    maxTasand == 100
+        maxTasand == 100
         && nSona == 0
         && MORF0::EmptyClassInvariant()
         && MRF2YH2MRF::EmptyClassInvariant()
@@ -399,13 +399,17 @@ bool ETMRFA::EmptyClassInvariant(void)
 
 bool ETMRFA::ClassInvariant(void)
 {
-    bool ret =
+    /*bool ret =
         mrfFlags != NULL
         && a.ClassInvariant()
         && MORF0::ClassInvariant()
         && MRF2YH2MRF::ClassInvariant()
         //&& MRFAUDCT::ClassInvariant() // See ei pea olema avatud
-        ;
+        ;*/
+    bool ret=true;
+    ret = ret && (mrfFlags != NULL);
+    ret = ret && a.ClassInvariant();
+    ret = ret && MRF2YH2MRF::ClassInvariant();
     return ret;
 }
 

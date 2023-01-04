@@ -117,9 +117,9 @@ public:
     int line;
     /** Faili nimi, kus jama tekkis */
     const char* file;
-    /** Faili versioon */
+    /**  Viit globaalse skkobiga stringile, slgselt (SVNi aegadel) oli faili versioon, nüüd muu samuti */
     const char* versioon;
-    /** Veateade (globaalse skoobiga) */
+    /** Viit globaalse skkobiga stringile, veateade */
     const char* msg;
     /** <ul><li> @a ==true 8bitine msgBuf <li> @a ==false wcharidest msgBuf  </ul> */
     bool charMsgBuf;
@@ -328,7 +328,7 @@ public:
 
     void Print(void) const
     {
-        fprintf(stderr, "%s:%d\n", file, line);
+        fprintf(stderr, "%s:%d", file, line);
         /*
         if (errNo != 0)
         {
@@ -337,44 +337,58 @@ public:
         if (versioon)
             fprintf(stderr, "(%s)\n", versioon);
         */
+       if(versioon != NULL)
+             fprintf(stderr, " : %s", versioon);
         if (msg != NULL)
-            fprintf(stderr, "%s", msg);
+            fprintf(stderr, " : %s", msg);
         if (charMsgBuf == true)
         {
-            if (msg != NULL && msgBuf.a[0] != '\0')
-                fprintf(stderr, " : ");
             if (msgBuf.a[0] != '\0')
-                fprintf(stderr, "%s", msgBuf.a);
+                fprintf(stderr, " : %s", msgBuf.a);
         }
         else
         {
-            if (msg != NULL && msgBuf.w[0] != FSWCHAR('\0'))
-                fprintf(stderr, " : ");
             if(msgBuf.w[0] != FSWCHAR('\0'))
-                fprintf(stderr, "%s",
-                        (const char*)FSStrWtoA(msgBuf.w, FSCP_UTF8));
+                fprintf(stderr, " : %s", (const char*)FSStrWtoA(msgBuf.w, FSCP_UTF8));
         }
         fprintf(stderr, "\n");
     }
 
+    /**
+     * @brief Teeme erindiga saadud infost veateatestringi
+     * 
+     * @return CFSAString Veateatestring
+     */
     CFSAString Teade(void) const
     {
-        extern const char *etMrfVersionString;
         CFSAString teade;
-        teade.Format("%s:%s:%d - ", etMrfVersionString, file, line);
+        teade.Format("[%s:%d]", file, line);
+        if(versioon != NULL)
+        {
+            teade += " : ";
+            teade += versioon;
+        }
         if (msg != NULL)
+        {
+            teade += " : ";
             teade += msg;
+        }
         if (charMsgBuf == true)
         {
-            if (msg != NULL && msgBuf.a[0] != '\0')
+
+            if (msgBuf.a[0] != '\0')
+            {
                 teade += " : ";
-            teade += msgBuf.a;
+                teade += msgBuf.a;
+            }
         }
         else
         {
-            if (msg != NULL && msgBuf.w[0] != FSWCHAR('\0'))
+            if (msgBuf.w[0] != FSWCHAR('\0'))
+            {
                 teade += " : ";
-            teade += FSStrWtoA(msgBuf.w, FSCP_UTF8);
+                teade += FSStrWtoA(msgBuf.w, FSCP_UTF8);
+            }
         }
         return teade;
     }

@@ -1,0 +1,4 @@
+gunicorn
+Flask
+#nltk
+estnltk
