@@ -416,6 +416,7 @@ bool ETMRFA::ClassInvariant(void)
 //private
 // kui suurtäheline sõna võiks olla tegelt lause alguses, nt. otseses kõnes, siis
 // lyli->lipp |= PRMS_JUSTKUI_LAUSE_ALGUS; // ahela lülile lause algusmärgend külge
+// NB! seda on mõtet teha ainult selle lipukombin. puhul:  MF_YHESTA | MF_DFLT_OLETA | MF_LISAPNANAL
 
 void ETMRFA::MargistaJustkuiLauseAlgused(AHEL2 &ahel, int lauseAlgusIdx)
 {
@@ -430,14 +431,13 @@ void ETMRFA::MargistaJustkuiLauseAlgused(AHEL2 &ahel, int lauseAlgusIdx)
         (jooksev->lipp & PRMS_TAGEOS) != PRMS_TAGEOS; idx++)
     {
         if ((jooksev->lipp & PRMS_MRF) != PRMS_MRF)
-            continue; // jätame vahele, kui ei ole morf analüüs
+            continue; // jätame vahele, sest see polegi morfitav sõna
         ++sonaNr;
         MRFTULEMUSED *pMorfJooksev = jooksev->ptr.pMrfAnal;
 
         // +/-xml lipust sõltuvalt puhastame märgendi(te)st
         FSXSTRING puhastatudS6na(pMorfJooksev->s6na);
         PuhastaXMList<FSXSTRING, FSWCHAR > (puhastatudS6na, mrfFlags->ChkB(MF_XML));
-        //if (TaheHulgad::suurtht.Find(pMorfJooksev->s6na[0]) == -1) // ei alga suurega
         if (TaheHulgad::suurtht.Find(puhastatudS6na[0]) == -1) // ei alga suurega
             continue; // siis pole ka huvitav
 
@@ -453,6 +453,8 @@ void ETMRFA::MargistaJustkuiLauseAlgused(AHEL2 &ahel, int lauseAlgusIdx)
             eelmine = ahel.LyliN(idx, -1, PRMS_MRF, &indeks);
             assert(indeks >= lauseAlgusIdx);
             MRFTULEMUSED *pMorfEelmine = eelmine->ptr.pMrfAnal;
+            if (pMorfEelmine->on_tulem()==false) 
+                continue;    // jama... lihtsalt ignoreeri!
             if ((*pMorfEelmine)[0]->sl == FSxSTR("Z")) // eelmine oli kirjavahemärk
             {
                 if ((*pMorfEelmine)[0]->tyvi == FSxSTR(",")) // , on normaalne
@@ -468,6 +470,8 @@ void ETMRFA::MargistaJustkuiLauseAlgused(AHEL2 &ahel, int lauseAlgusIdx)
                         yle_eelmine = ahel.LyliN(idx, -2, PRMS_MRF, &indeks);
                         assert(indeks >= lauseAlgusIdx);
                         MRFTULEMUSED *pMorfYle_Eelmine = yle_eelmine->ptr.pMrfAnal;
+                        if (pMorfYle_Eelmine->on_tulem()==false)
+                            continue;  // jama... lihtsalt ignoreeri!
                         for (int i = 0; i < pMorfYle_Eelmine->idxLast; i++)
                         {
                             if ((*pMorfYle_Eelmine)[i]->sl == FSxSTR("Y")) // lyhend .
