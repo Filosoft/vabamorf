@@ -139,6 +139,7 @@ public:
             }
             //-----------------------------
         }
+        /*
         if(lipp_oleta_pn==true && (lipp_xml==false || lipp_oleta==false))
         {
             fprintf(stderr,
@@ -148,6 +149,7 @@ public:
             //        "--guesspropname lippu saab kasutada ainult koos --guess lipuga");
             goto syntaks;
         } 
+        */
         if(i==argc)
             return; // std-sisend std-väljundiks
         if(i+2==argc)
