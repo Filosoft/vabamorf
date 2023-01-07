@@ -23,7 +23,6 @@ Jsoni käitlemiseks käsurealt: jq, gron
 #include "../../../lib/etana/loefailist.h"
 #include "../../../lib/etana/fsjsoncpp.h"
 
-
 class VMETLJSON
 {
 public:
@@ -158,7 +157,7 @@ private:
             syntaks:
                 fprintf(stderr,
                     "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
-                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
+                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetltjson/LOEMIND.md\n",
                     argv[0]);
                 exit(EXIT_FAILURE);
             }
@@ -283,12 +282,12 @@ private:
         CFSWString rida;
         LYLI lyli;
 
-        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetljson")==true)
+        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetltjson")==true)
         {
             // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
             VaikeLipudPaika();
             bool lipudOK=true;           
-            for(Json::Value::const_iterator i=jsonobj["params"]["vmetljson"].begin(); i != jsonobj["params"]["vmetljson"].end(); ++i)
+            for(Json::Value::const_iterator i=jsonobj["params"]["vmetltjson"].begin(); i != jsonobj["params"]["vmetltjson"].end(); ++i)
             {
 
                 if(LipuStringPaika(i->asCString())==false)
@@ -370,7 +369,8 @@ private:
         LYLI_UTF8 lyli_utf8 = lyli;
         MRFTULEMUSED_UTF8& mrftulemused_utf8 = *(lyli_utf8.ptr.pMrfAnal);
 
-        features["complexity"] = mrftulemused_utf8.tagasiTasand;
+        if(mrftulemused_utf8.idxLast > 0)
+            features["complexity"] = mrftulemused_utf8.tagasiTasand;
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
         {
             Json::Value json_mrf;
@@ -426,7 +426,7 @@ private:
     /** 
      * @brief Copy-konstruktor on illegaalne
      */
-    VMETLJSON(const VMETAJSON&)
+    VMETLJSON(const VMETLJSON&)
     {
         assert(false);
     }
@@ -434,7 +434,7 @@ private:
     /** 
      * @brief Omistamisoperaator on illegaalne
      */
-    VMETLJSON & operator=(const VMETAJSON&)
+    VMETLJSON & operator=(const VMETLJSON&)
     {
         assert(false);
         return *this;

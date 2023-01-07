@@ -564,7 +564,8 @@ private:
             classic.TrimRight("\n");
             features["classic"]=(const char*)classic;
         }
-        features["complexity"] = mrftulemused_utf8.tagasiTasand;
+        if(mrftulemused_utf8.idxLast > 0)
+            features["complexity"] = mrftulemused_utf8.tagasiTasand; // ainult siis, kui õnnestus analüüsida
         //features["mrf"] = Json::arrayValue;   // tekitaks tühja massivi, kui anlüüse pole
                                                 // praegu on nii, et kui anaüüse pole, siis "mrf"-i pole
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
