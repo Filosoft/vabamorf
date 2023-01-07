@@ -1,0 +1,106 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        // vmetajson -------
+        {
+            "name": "vmetajson dflt",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--json={\\\"content\\\":\\\"creedo vanamees\\\", \\\"params\\\":{\\\"vmetajson\\\":[\\\"--formattedjson\\\"]}}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "vmetajson guess",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--json={\\\"content\\\":\\\"creedo vanamees\\\", \\\"params\\\":{\\\"vmetajson\\\":[\\\"--formattedjson\\\", \\\"--guess\\\"]}}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        //----vmetltjson
+        {
+            "name": "vmetltjson dflt",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetltjson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--json={\\\"content\\\":\\\"creedo vanamees\\\", \\\"params\\\":{\\\"vmetltjson\\\":[\\\"--formattedjson\\\"]}}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "vmetltjson guess",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetltjson.db",
+            "cwd": "${workspaceFolder}",
+            "args": [ "--json={\\\"content\\\":\\\"creedo vanamees\\\", \\\"params\\\":{\\\"vmetltjson\\\":[\\\"--formattedjson\\\", \\\"--guess\\\"]}}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },        
+    ]
+}
