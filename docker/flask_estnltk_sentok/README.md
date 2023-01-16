@@ -1,12 +1,12 @@
-## Eesti keele lausestaja-sõnestaja konteiner [versioon 2022.09.09]
+## Eesti keele lausestaja-sõnestaja konteiner
 
 [ESTNLTK-l](https://github.com/estnltk/estnltk) põhinevat lausestajat-sõnestajat sisaldav tarkvara-konteiner (docker).
 Teeb utf-8 vormingus tavateksti sobivaks
-[morfoloogilist analüsaatorit sisaldavale konteinerile](https://github.com/Filosoft/vabamorf/tree/2022_09_09/docker/flask_vmetajson).
+[morfoloogilist analüsaatorit sisaldavale konteinerile](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_vmetajson).
 
 ## Mida sisaldab <a name="Mida_sisaldab"></a>
 
-* [EstNLTK](https://github.com/estnltk/estnltk) lausestaja-sõnestaja 
+* [EstNLTK](https://github.com/estnltk/estnltk) lausestaja-sõnestaja
 * Konteineri ja liidesega seotud lähtekood
 
 ## Eeltingimused
@@ -21,6 +21,7 @@ Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida 
 ```commandline
 docker pull vabamorf/estnltk_sentok:2022.09.09
 ```
+
  Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
 
 ## Ise konteineri tegemine
@@ -29,15 +30,24 @@ docker pull vabamorf/estnltk_sentok:2022.09.09
 
 ```commandline
 mkdir -p ~/git/ ; cd ~/git/
-git clone --branch 2022_09_09 --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github_2022_09_09
+git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
+
+<!---
+git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
+--->
 
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github_2022_09_09/docker/flask_estnltk_sentok
+cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
 docker build -t tilluteenused/estnltk_sentok:2022.09.09 .
 ```
+
+<!---
+docker login -u tilluteenused   # access token
+docker push tilluteenused/estnltk_sentok:2022.09.09 
+--->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
@@ -58,7 +68,7 @@ täpitähed jms esitatakse Unicode'i koodidena, nt. õ = \u00f5.
 }
 ```
 
-Kui jsonpäring sisaldab lisaks muud informatsiooni, siis lausetaja-sõnestaja tagastab selle muutumatul kujul
+Kui json-päring sisaldab lisaks muud informatsiooni, siis lausetaja-sõnestaja tagastab selle muutumatul kujul
 
 ## Vastuse json-kuju
 
@@ -178,14 +188,10 @@ curl --silent --request POST --header "Content-Type: application/json" --data '{
 
 ## Vaata lisaks
 
-[Eesti keele morf analüsaator dockeri konteineris](https://github.com/Filosoft/vabamorf/tree/2022_09_09/docker/flask_vmetajson)
+[Eesti keele morf analüsaator dockeri konteineris](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_vmetajson)
 
 ## Autorid
 
 Konteineri autorid: Tarmo Vaino, Heiki-Jaan Kaalep
 
 Konteineri sisu autoreid vt. jaotises [Mida sisaldab](#Mida_sisaldab) toodud viidetest.
- 
-
-
-

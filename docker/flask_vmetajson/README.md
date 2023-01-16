@@ -1,10 +1,10 @@
 # Eesti keele morfoloogilise analüsaatori konteiner
 
-[Filosofti eesti keele morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/tree/2022_09_09/apps/cmdline/vmetajson) sisaldav tarkvara-konteiner
+[Filosofti eesti keele morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetajson) sisaldav tarkvara-konteiner
 
 ## Mida sisaldab <a name="Mida_sisaldab"></a>
 
-* [Filosofti eesti keele morfoloogiline analüsaator](https://github.com/Filosoft/vabamorf/tree/2022_09_09/apps/cmdline/vmetajson)
+* [Filosofti eesti keele morfoloogiline analüsaator](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetajson)
 * Konteineri ja liidesega seotud lähtekood
 
 ## Eeltingimused
@@ -30,14 +30,16 @@ Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine
 Lähtekood koosneb 2 osast
 1. json liides, veebiserver ja konteineri tegemise asjad
 2. FSi morf analüsaator
+
+git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
 ---->
 
 ```commandline
 mkdir -p ~/git; cd ~/git
-git clone https://github.com/Filosoft/vabamorf/tree/2022_09_09 vabamorf_github_2022_09_09
+git clone https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
-Repositoorium sisaldab kompileeritud [Filosofti morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/blob/2022_09_09/apps/cmdline/vmetajson/LOEMIND.md) ja andmefaile:
+Repositoorium sisaldab kompileeritud [Filosofti morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/README.md) ja andmefaile:
 
 * **_vmetajson_** morfoloogilise analüüsi programm.
 * **_et.dct_** programmi poolt kasutatav leksikon.
@@ -48,9 +50,14 @@ vaadake sellekohast [juhendit](https://github.com/Filosoft/vabamorf/blob/master/
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github_2022_09_09/docker/flask_vmetajson
+cd ~/git/vabamorf_github/docker/flask_vmetajson
 docker build -t tilluteenused/vmetajson:2022.09.09 .
 ```
+
+<!---
+docker login -u tilluteenused   # access token
+docker push tilluteenused/vmetajson:2022.09.09 
+--->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
@@ -77,7 +84,7 @@ Sisendiks on tühikuga eraldatud sõnede string.
 
 ### Variant 2
 
-Sisendiks on lausestatud ja sõnestatud tekst. Selle tegemiseks saab kasutada [lausestamise-sõnestamise konteinerit](https://github.com/Filosoft/vabamorf/tree/2022_09_09/docker/flask_estnltk_sentok).
+Sisendiks on lausestatud ja sõnestatud tekst. Selle tegemiseks saab kasutada [lausestamise-sõnestamise konteinerit](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_vmetajson).
 
 ```json
 {
@@ -159,7 +166,7 @@ Sisendiks on lausestatud ja sõnestatud tekst. Selle tegemiseks saab kasutada [l
 }
 ```
 
-Morf analüüsi tulemuste selgutust vaata programmi [vmetajson](https://github.com/Filosoft/vabamorf/blob/2022_09_09/apps/cmdline/vmetajson/LOEMIND.md) kirjeldusest.
+Morf analüüsi tulemuste selgutust vaata programmi [vmetajson](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/README.md) kirjeldusest.
 
 ## Kasutusnäide
 
