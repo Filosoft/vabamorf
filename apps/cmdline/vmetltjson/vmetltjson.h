@@ -1,6 +1,7 @@
 #if !defined(VMETLJSON_H)
 #define VMETLJSON_H
 
+#define VERSION "2023.03.21"
 
 /*
 Jsoni käitlemiseks käsurealt: jq, gron
@@ -96,6 +97,7 @@ public:
     }
 
 private:
+    bool lipp_version;          // --version
     int lipp_maxcomplexity;     // --depth=MAXTASAND
     bool lipp_classic;          // --classic # vmeta stiilis väljundstring
     bool lipp_gt;               // --gt 
@@ -122,6 +124,7 @@ private:
      */
     void VaikeLipudPaika(void)
     {
+        lipp_version = false;
         lipp_maxcomplexity=100; // vaikimisi 100
         lipp_classic=false;
         lipp_gt=false;
@@ -184,6 +187,12 @@ private:
      */
     bool LipuStringPaika(const FSTCHAR* lipuString)
     {
+        //-----------------------------
+        if(strcmp("--version", lipuString)==0) // lisab oletatud analüüsid
+        {
+            lipp_version=true;
+            return true;
+        }
         //-----------------------------
         if(strcmp("--guess", lipuString)==0) // lisab oletatud analüüsid
         {
@@ -289,7 +298,6 @@ private:
             bool lipudOK=true;           
             for(Json::Value::const_iterator i=jsonobj["params"]["vmetltjson"].begin(); i != jsonobj["params"]["vmetltjson"].end(); ++i)
             {
-
                 if(LipuStringPaika(i->asCString())==false)
                 {
                     lipudOK=false;
@@ -308,8 +316,9 @@ private:
         else
             mrf.mrfFlags->Set(lipud_mrf_cl_dflt.Get()); // morfimine ja kuvamine hakkab toimuma käsurealt saadud lippudega
                                                         // jsonobj["annotations"]["tokens"] või jsonobj["content"] on kohustuslik
+        if (lipp_version)
+            jsonobj["version"] = VERSION;
         TeeSedaSonekaupa(jsonobj);  // jsonobj["annotations"]["sentences"] ei ole kohustuslik
-
         fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
     }
 
@@ -379,7 +388,8 @@ private:
             if(i>0 && mrftulemused_utf8[i-1]->lemma.Compare(mrftulemused_utf8[i]->lemma)==0)
                 continue; // selline lemma juba oli, ignoreerime
 
-            json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+            //json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+            json_mrf["pos"] = (const char*)(mrftulemused_utf8[i]->sl);
             json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
 
             sealt=mrftulemused_utf8[i]->eKustTulemused;

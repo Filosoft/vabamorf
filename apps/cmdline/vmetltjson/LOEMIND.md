@@ -16,6 +16,10 @@ vmetltjson \[[**LIPUD**](#lippude_kirjeldus)\]
 
 ## Lipud <a name="lippude_kirjeldus"></a>
 
+### **```--version```**  <a name="lipp_version"></a>
+
+Väljundjsonisse lisatakse programmi versioonistring.
+
 ### **```--guess```** <a name="lipp_guess"></a>
 
 Leksikonist puuduvale sõnale oletakse võimalikud analüüsid. Lipp
@@ -130,7 +134,7 @@ Kui sõne ei õnnestunud lemmatiseerida, siis selle sõne juurde lemmaga seotud 
     "mrf" :           /* sisendsõne lemmade massiiv */
     [
       {
-        "lemma":    LEMMA,    /* lemma */
+        "pos":    SÕNALIIK,    /* sõnaliik */
         "lemma_ma": LEMMA_MA, /* verbilemmale on lisatud ```ma```, muudel juhtudel sama mis LEMMA */
         "source":   ALLIKAS,  /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
       }
@@ -141,19 +145,20 @@ Kui sõne ei õnnestunud lemmatiseerida, siis selle sõne juurde lemmaga seotud 
 
 Täpsemalt vaata näiteid.
 
-### ```SÕNE``` <a name=mrf_sone>
+### ```SÕNE``` <a name="mrf_sone"></a>
 
 Lemmatiseeritav sõne. Sõnega kleepunud punktuatsiooni ignoreeritakse. Reeglina peaks sõnaga kokkukleepunud punktuatsioon olema eelneva sõnestamise/lausestamise 
 käigus juba lahkutõstetud.
 
-### ```LEMMA``` <a name="mrf_LEMMA"></a>
+### ```SÕNALIIK```<a name="mrf_SÕNALIIK"></a>
 
-Algvorm. Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakriips ```_``` ja järelliidet võrdusmärk ```=```.
-Liitsõna puhul on ainult viimane  komponent algvormina.
+Lemma sõnaliik.
 
 ###  ```LEMMA_MA``` <a name="mrf_LEMMA"></a>
 
-Verbi lemmadele on lisatud ```ma```, muudel juhtudel ```LEMMA```.
+Algvorm. Kui sõna on liitmoodustis, siis eelnevast komponente eraldab alakriips ```_``` ja järelliidet võrdusmärk ```=```.
+Liitsõna puhul on ainult viimane  komponent algvormina.
+Verbi lemmadele on lõppu lisatud ```ma```.
 
 ### ```ALLIKAS```
 
@@ -161,12 +166,12 @@ Verbi lemmadele on lisatud ```ma```, muudel juhtudel ```LEMMA```.
 
 ### ```KEERUKUS```
 
-Numbriline hinnand sellele, kui "keeruline" oli sõne analüüsi leida. Suurem number tähistab "keerulisemat" analüüsi. (Näiteks liitsõna analüüs on lihtsõna analüüsist "keerulisem".)
+Numbriline hinnang sellele, kui "keeruline" oli sõne analüüsi leida. Suurem number tähistab "keerulisemat" analüüsi. (Näiteks liitsõna analüüs on lihtsõna analüüsist "keerulisem".)
 
 ## Kasutusnäited
 
 ```cmdline
-vmetljson --json='{"params":{"vmetljson":["--guess"]}, "content": "Vanameest peeti kinni . Sarved & Sõrad"}}' | jq
+vmetltjson --json='{"params":{"vmetltjson":["--guess"]}, "content": "Vanameest peeti kinni . Sarved & Sõrad"}}' | jq
 ```
 
 ```json
@@ -273,7 +278,7 @@ vmetljson --json='{"params":{"vmetljson":["--guess"]}, "content": "Vanameest pee
   },
   "content": "Vanameest peeti kinni . Sarved & Sõrad",
   "params": {
-    "vmetljson": [
+    "vmetltjson": [
       "--guess"
     ]
   }
