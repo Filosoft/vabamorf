@@ -1,4 +1,4 @@
-# Eesti keele morfoloogilise analüsaatori konteiner
+# Eesti keele morfoloogilise analüsaatori konteiner [versioon 2023.04.04]
 
 [Filosofti eesti keele morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetajson) sisaldav tarkvara-konteiner
 
@@ -17,7 +17,7 @@
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull tilluteenused/vmetajson:2022.09.09
+docker pull tilluteenused/vmetajson:2023.04.04
 ```
 
 Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
@@ -51,18 +51,18 @@ vaadake sellekohast [juhendit](https://github.com/Filosoft/vabamorf/blob/master/
 
 ```commandline
 cd ~/git/vabamorf_github/docker/flask_vmetajson
-docker build -t tilluteenused/vmetajson:2022.09.09 .
+docker build -t tilluteenused/vmetajson:2023.04.04 .
 ```
 
 <!---
 docker login -u tilluteenused   # access token
-docker push tilluteenused/vmetajson:2022.09.09 
+docker push tilluteenused/vmetajson:2023.04.04 
 --->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 7000:7000 tilluteenused/vmetajson:2022.09.09
+docker run -p 7007:7007 tilluteenused/vmetajson:2023.04.04
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
@@ -175,7 +175,7 @@ Morf analüüsi tulemuste selgutust vaata programmi [vmetajson](https://github.c
 Sisendiks on sõnede string.
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:7000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:7007/process | jq
 ```
 
 ```json
@@ -277,7 +277,7 @@ curl --silent --request POST --header "Content-Type: application/json" --data '{
 Kasutame sõnestaja konteineri väljundit morf analüsaatori konteineri sisendina. Morf analüüs toimub vaikelippudega.
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data "$(curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:6000/process)" localhost:7000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" --data "$(curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:6000/process)" localhost:7007/process | jq
 ```
 
 ```json
@@ -463,7 +463,7 @@ Kasutame sõnestaja konteineri väljundit morf analüsaatori konteineri sisendin
 hääldusmärgid ning lausekontekstist lähtudes võimalikke pärisnimeanalüüse.
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data "$(curl --silent --request POST --header "Content-Type: application/json" --data '{"params":{"vmetajson":["--guess","--guesspropnames", "--addphonetics"]}, "content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:6000/process)" localhost:7000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" --data "$(curl --silent --request POST --header "Content-Type: application/json" --data '{"params":{"vmetajson":["--guess","--guesspropnames", "--addphonetics"]}, "content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:6000/process)" localhost:7007/process | jq
 ```
 
 ```json

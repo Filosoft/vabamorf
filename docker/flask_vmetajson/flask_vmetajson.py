@@ -1,5 +1,7 @@
  #!/usr/bin/env python3
 
+VERSION = "2023.04.04"
+
 """ 
 Virtuaalkeskkonna loomine:
 $ ./create_venv
@@ -23,9 +25,14 @@ proc = subprocess.Popen(['./vmetajson', '--path=.'],
 
 app = Flask("vmetajson")
 
-# tokenization
-# synthesis
-# disambiguation
+@app.route('/version', methods=['GET', 'POST'])
+def flask_estnltk_version():
+    """Tagastame veebiliidese versiooni
+
+    Returns:
+        ~flask.Response: JSONkujul versioonistring
+    """
+    return jsonify({"version":VERSION})
 
 @app.route('/process', methods=['POST']) #@app.route('/morf', methods=['GET', 'POST'])
 @app.route('/analysis', methods=['POST'])
