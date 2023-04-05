@@ -1,4 +1,4 @@
-## Eesti keele lausestaja-sõnestaja konteiner
+## Eesti keele lausestaja-sõnestaja konteiner [versioon 2023.04.04]
 
 [ESTNLTK-l](https://github.com/estnltk/estnltk) põhinevat lausestajat-sõnestajat sisaldav tarkvara-konteiner (docker).
 Teeb utf-8 vormingus tavateksti sobivaks
@@ -19,7 +19,7 @@ Teeb utf-8 vormingus tavateksti sobivaks
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull vabamorf/estnltk_sentok:2022.09.09
+docker pull vabamorf/estnltk_sentok:2023.04.04
 ```
 
  Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
@@ -40,19 +40,18 @@ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-docker build -t tilluteenused/estnltk_sentok:2022.09.09 .
+cd ~/git/vabamorf_github/docker/flask_estnltk_sentok; docker build -t tilluteenused/estnltk_sentok:2023.04.04 .
 ```
 
 <!---
 docker login -u tilluteenused   # access token
-docker push tilluteenused/estnltk_sentok:2022.09.09 
+docker push tilluteenused/estnltk_sentok:2023.04.04 
 --->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 6000:6000 tilluteenused/estnltk_sentok:2022.09.09
+docker run -p 6000:6000 tilluteenused/estnltk_sentok:2023.04.04
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
@@ -103,10 +102,12 @@ Kui json-päring sisaldab lisaks muud informatsiooni, siis lausetaja-sõnestaja 
 }
 ```
 
-## Kasutusnäide
+## Kasutusnäited
+
+### Teksti sõnestamine ja lausestamine
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:6000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' localhost:6000/process | jq
 ```
 
 ```json
@@ -122,12 +123,20 @@ curl --silent --request POST --header "Content-Type: application/json" --data '{
         "start": 0
       },
       {
-        "end": 30,
+        "end": 38,
         "features": {
-          "end": 7,
+          "end": 10,
           "start": 4
         },
         "start": 18
+      },
+      {
+        "end": 52,
+        "features": {
+          "end": 13,
+          "start": 10
+        },
+        "start": 39
       }
     ],
     "tokens": [
@@ -179,12 +188,70 @@ curl --silent --request POST --header "Content-Type: application/json" --data '{
           "token": "Sõrad"
         },
         "start": 25
+      },
+      {
+        "end": 31,
+        "features": {
+          "token": ":"
+        },
+        "start": 30
+      },
+      {
+        "end": 37,
+        "features": {
+          "token": "telef"
+        },
+        "start": 32
+      },
+      {
+        "end": 38,
+        "features": {
+          "token": "."
+        },
+        "start": 37
+      },
+      {
+        "end": 40,
+        "features": {
+          "token": "+"
+        },
+        "start": 39
+      },
+      {
+        "end": 51,
+        "features": {
+          "token": "372 345 534"
+        },
+        "start": 40
+      },
+      {
+        "end": 52,
+        "features": {
+          "token": "."
+        },
+        "start": 51
       }
     ]
   },
-  "content": "Mees peeti kinni. Sarved&Sõrad"
+  "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."
 }
 ```
+
+### Veebiliidesega seotud skripti versioon
+
+```cmdline
+curl --silent --request POST --header "Content-Type: application/json"  localhost:6000/version | jq
+```
+
+```json
+{
+  "version": "VERSION}"
+}
+```
+
+## Mida uut
+
+* **_[versioon 2023.04.04]_** -- Võimalus küsida versiooni-infot.
 
 ## Vaata lisaks
 
