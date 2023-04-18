@@ -1,4 +1,4 @@
-## Eesti keele lausestaja-sõnestaja konteiner [versioon 2023.04.04]
+# Eesti keele lausestaja-sõnestaja konteiner [versioon 2023.04.18]
 
 [ESTNLTK-l](https://github.com/estnltk/estnltk) põhinevat lausestajat-sõnestajat sisaldav tarkvara-konteiner (docker).
 Teeb utf-8 vormingus tavateksti sobivaks
@@ -19,7 +19,7 @@ Teeb utf-8 vormingus tavateksti sobivaks
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull vabamorf/estnltk_sentok:2023.04.04
+docker pull vabamorf/estnltk_sentok:2023.04.18
 ```
 
  Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
@@ -40,18 +40,18 @@ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github/docker/flask_estnltk_sentok; docker build -t tilluteenused/estnltk_sentok:2023.04.04 .
+cd ~/git/vabamorf_github/docker/flask_estnltk_sentok; docker build -t tilluteenused/estnltk_sentok:2023.04.18 .
 ```
 
 <!---
 docker login -u tilluteenused   # access token
-docker push tilluteenused/estnltk_sentok:2023.04.04 
+docker push tilluteenused/estnltk_sentok:2023.04.18 
 --->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 6000:6000 tilluteenused/estnltk_sentok:2023.04.04
+docker run -p 6000:6000 tilluteenused/estnltk_sentok:2023.04.18
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
@@ -251,7 +251,10 @@ curl --silent --request POST --header "Content-Type: application/json"  localhos
 
 ## Mida uut
 
-* **_[versioon 2023.04.04]_** -- Võimalus küsida versiooni-infot.
+* **_[versioon 2023.04.18]_** -- Võimalus küsida versiooni-infot.
+* **_[versioon 2023.04.18]_** -- Lisatud:
+  * ```/api/tokenizer/version``` (```/version``` sünonüüm)
+  * ```/api/tokenizer/process``` (```/process``` sünonüüm)
 
 ## Vaata lisaks
 

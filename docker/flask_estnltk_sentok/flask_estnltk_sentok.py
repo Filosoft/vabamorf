@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 
-VERSION = "2023.04.04"
+VERSION = "2023.04.18"
 
 """ 
 Virtuaalkeskkonna loomine:
@@ -20,6 +20,7 @@ import estnltk_sentok
 
 app = Flask("estnltk_sentok")
 
+@app.route('/api/tokenizer/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
 def flask_estnltk_version():
     """Tagastame veebiliidese versiooni
@@ -27,10 +28,10 @@ def flask_estnltk_version():
     Returns:
         ~flask.Response: JSONkujul versioonistring
     """
-    return jsonify({"version":"VERSION}"})
+    return jsonify({"version":VERSION})
 
+@app.route('/api/tokenizer/process', methods=['POST'])
 @app.route('/process', methods=['POST']) #@app.route('/morf', methods=['GET', 'POST'])
-@app.route('/tokenization', methods=['POST'])
 def flask_estnltk_sentok():
     """Lausestame ja sõnestame sisendteksti
 

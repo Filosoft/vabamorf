@@ -25,6 +25,7 @@ proc = subprocess.Popen(['./vmetajson', '--path=.'],
 
 app = Flask("vmetajson")
 
+@app.route('/api/analyser/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
 def flask_estnltk_version():
     """Tagastame veebiliidese versiooni
@@ -34,8 +35,8 @@ def flask_estnltk_version():
     """
     return jsonify({"version":VERSION})
 
-@app.route('/process', methods=['POST']) #@app.route('/morf', methods=['GET', 'POST'])
-@app.route('/analysis', methods=['POST'])
+@app.route('/api/analyser/process', methods=['POST'])
+@app.route('/process', methods=['POST'])
 def morf():
     """Morf analüüsime JSONiga antud sõnesid ja kuvame tulemust JSONkujul
 
