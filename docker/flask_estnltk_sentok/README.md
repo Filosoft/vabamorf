@@ -245,7 +245,7 @@ curl --silent --request POST --header "Content-Type: application/json"  localhos
 
 ```json
 {
-  "version": "VERSION}"
+  "version": "2023.04.04"
 }
 ```
 
