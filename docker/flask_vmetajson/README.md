@@ -1,4 +1,4 @@
-# Eesti keele morfoloogilise analüsaatori konteiner [versioon 2023.04.18]
+# Eesti keele morfoloogilise analüsaatori konteiner [versioon 2023.04.19]
 
 [Filosofti eesti keele morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetajson) sisaldav tarkvara-konteiner
 
@@ -17,7 +17,7 @@
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull tilluteenused/vmetajson:2023.04.18
+docker pull tilluteenused/vmetajson:2023.04.19
 ```
 
 Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
@@ -51,18 +51,18 @@ vaadake sellekohast [juhendit](https://github.com/Filosoft/vabamorf/blob/master/
 
 ```commandline
 cd ~/git/vabamorf_github/docker/flask_vmetajson
-docker build -t tilluteenused/vmetajson:2023.04.18 .
+docker build -t tilluteenused/vmetajson:2023.04.19 .
 ```
 
 <!---
 docker login -u tilluteenused   # access token
-docker push tilluteenused/vmetajson:2023.04.18 
+docker push tilluteenused/vmetajson:2023.04.19 
 --->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 7007:7007 tilluteenused/vmetajson:2023.04.18
+docker run -p 7007:7007 tilluteenused/vmetajson:2023.04.19
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
@@ -459,7 +459,7 @@ curl --silent --request POST --header "Content-Type: application/json" --data "$
 
 ## Mida uut
 
-* **_versioon 2023.04.18_** Lisatud päringud:
+* **_versioon 2023.04.19_** Lisatud päringud:
   * ```/api/analyser/version``` (päringu ```/version``` sünonüüm)
   * ```/api/analyser/process``` (päringu ```/process``` sünonüüm)
 

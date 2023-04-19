@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 
-VERSION = "2023.04.04"
+VERSION = "2023.04.18"
 
 """ 
 Virtuaalkeskkonna loomine:
