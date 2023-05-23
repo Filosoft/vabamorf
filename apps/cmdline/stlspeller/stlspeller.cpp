@@ -1,7 +1,8 @@
 #include "speller.h"
 #include <iostream>
 
-const wchar_t *words[] = { L"esimene", L"vikane", L"teine", L"vannaema", 0 };
+/* 2023.05.23 Kerge facelift Renee programmile.
+*/
 
 #if defined (UNICODE)
 int wmain(int argc, wchar_t* argv[])
@@ -9,28 +10,25 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	FSUNUSED(argc);
-	FSUNUSED(argv);
-
 	try {
-		vabamorf::speller spl(FSTSTR("et.dct"));
+		vabamorf::SPELLER_UTF8 speller("et.dct");
 
-		for (size_t i = 0; words[i]; i++) {
-			std::wcout << words[i] << L" -- ";
-			if (spl.spell(words[i])) {
-				std::wcout << L"OK\n";
+		for (int i = 1; i < argc; i++) {
+			std::cout << argv[i] << " -- ";
+			if (speller.spell(argv[i])) {
+				std::cout << "OK\n";
 			} else {
-				std::wcout << L"Vigane, soovitan:";
-				std::vector<std::wstring> suggs = spl.suggest(words[i]);
-				for (size_t j = 0; j < suggs.size(); j++) {
-					std::wcout << L" " << suggs[j];
+				std::cout << "Vigane, soovitan:";
+				std::vector<std::string> suggestions = speller.suggest(argv[i]);
+				for (size_t j = 0; j < suggestions.size(); j++) {
+					std::cout << " " << suggestions[j];
 				}
-				std::wcout << L"\n";
+				std::cout << "\n";
 			}
 		}
 
 	} catch (const vabamorf::exception &) {
-		std::wcerr << L"Viga!\n";
+		std::cerr << "Viga!\n";
 	}
 	return 0;
 }
