@@ -71,7 +71,7 @@ Sisendiks on tühikuga eraldatud sõnede string.
 
 ### Variant 2
 
-Sisendiks on lausestatud ja sõnestatud tekst. Selle tegemiseks saab kasutada [lausestamise-sõnestamise konteinerit](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_vmetajson).
+Sisendiks on sõnestatud tekst. Selle tegemiseks saab kasutada [lausestamise-sõnestamise konteinerit](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_vmetajson).
 
 ```json
 {
