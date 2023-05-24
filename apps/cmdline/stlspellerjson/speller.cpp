@@ -9,20 +9,13 @@ namespace vabamorf
 	speller::speller(const std::string &lex)
 	#endif
 	{
-		try 
-		{
-			linguistic.Open(lex.c_str());
-		} 
-		catch (...) 
-		{
-			throw exception();
-		}
+		Start(lex);
 	}
 
 	#if defined(UNICODE)
-	void speller::open(const std::wstring &lex)
+	void speller::Start(const std::wstring &lex)
 	#else
-	void speller::open(const std::string &lex)
+	void speller::Start(const std::string &lex)
 	#endif
 	{
 		try 
@@ -64,7 +57,4 @@ namespace vabamorf
 			throw exception();
 		}
 	}
-
-
-
 } // namespace
