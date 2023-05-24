@@ -297,8 +297,8 @@ namespace vabamorf
 		 */
 		void VaikeLipudPaika(void)
 		{
-			lipp_taanded=false;    // kogu json ühel real
-			lipp_utf8=true;        // utf8 sümbolid koodidena  
+			lipp_taanded=false;    	// kogu json ühel real
+			lipp_utf8=false;        // true: väljund utf8, muidu nagi jsonis ikka  
 		}
 
 	/**
@@ -324,7 +324,7 @@ namespace vabamorf
 					// see kirjuta std::cerr peale ümber
 					fprintf(stderr,
 						"Süntaks: %s [LIPUD...]\n"
-						"Täpsemalt vt TODO\n",
+						"Täpsemalt vt https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/stlspellerjson\n",
 						argv[0]);
 					exit(EXIT_FAILURE);
 				}

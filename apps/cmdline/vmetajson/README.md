@@ -159,8 +159,6 @@ ESTNLTK sõnestaja annab välja rohkem infot aga morf analüsaator kasutab selle
 
 Lausepiiride kohta käiv info ei ole sõnekaupa morfoloogilist analüüsi tehes vajalik.
 
-
-
 ```json
 {
   "params": { "vmetajson": [parameeter, ...]}, /* võib puududa, siis kasutakse käsureaga määratud lippe */
