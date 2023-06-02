@@ -14,6 +14,6 @@ platformdirs==3.5.1
 pylint==2.17.4
 tomli==2.0.1
 tomlkit==0.11.8
-typing_extensions==4.6.1
+typing_extensions==4.6.3
 Werkzeug==2.3.4
 wrapt==1.15.0

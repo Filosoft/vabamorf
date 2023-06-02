@@ -3,32 +3,66 @@
 VERSION = "2023.05.20"
 
 """
+----------------------------------------------
 
-1 Käivitame veebiserveri (pythoni skript või konteiner kohalikus masinas)
-    1.1 käsurealt pythoni skriptiga:
-        1.1.1 loome vajaliku virtuaalkeskkonna (ühekordne tegevus)
-        $ cd ~/git/vabamorf_github/docker/flask_stlspeller
-        $ ./create_venv.sh
-        1.1.2 käivitame pythoni skripti
-        $ ./venv/bin/python3 ./flask_stlspeller.py
-    1.2 konteiner kohalikus masinas
-        1.2.1 teeme konteineri
-        $  cd ~/git/vabamorf_github/docker/flask_stlspeller
-        $ docker build -t tilluteenused/speller:2023.05.20 .
-        1.2.2 käivitame konteineri
-        $ docker run -p 7005:7005 tilluteenused/speller:2023.05.20
-2 Saadame käsurealt curli päringu kohalikus arvutis töötavele veebiserverile või TÜ pilves
-    2.1 Päring kohalikus masinas töötavale veebiserverile
-    $ curl --silent  --request POST --header "Content-Type: application/json" --data '{"content":"oun terre tere"}' localhost:7005/process|jq
-    2.2 Päring TÜ pilves töötavale veebiserverile
-    $ curl --silent  --request POST --header "Content-Type: application/json" --data '{"content":"oun terre tere"}' https://smart-search.tartunlp.ai/api/speller/process|jq
+Flask veebiserver, pakendab spelleri veebiteenuseks
 
-Virtuaalkeskkonna loomine:
-$ ./create_venv
-Serveri käivitamine
-./venv/bin/python3 ./flask_stlspeller.py
-Päringute näited:
-curl --silent  --request POST --header "Content-Type: application/json" --data '{"content":"oun terre tere"}' localhost:7005/process|jq
+----------------------------------------------
+
+Lähtekoodist pythoni skripti kasutamine
+1 Lähtekoodi allalaadimine (1.1), virtuaalkeskkonna loomine (1.2), veebiteenuse käivitamine pythoni koodist (1.3) ja CURLiga veebiteenuse kasutamise näited (1.4)
+1.1 Lähtekoodi allalaadimine
+    $ mkdir -p ~/git/ ; cd ~/git/
+    $ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
+1.2 Virtuaalkeskkonna loomine
+    $ cd ~/git/vabamorf_github/docker/flask_stlspeller
+    $ ./create_venv.sh
+1.3 Veebiserveri käivitamine pythoni koodist
+    $ venv/bin/python3 ./flask_stlspeller.py
+1.4 CURLiga veebiteenuse kasutamise näited
+    $ curl --silent  --request POST --header "Content-Type: application/json" \
+        --data '{"content":"oun terre tere"}' \
+        localhost:7005/process | jq
+    $ curl --silent  --request POST --header "Content-Type: application/json" \
+        --data '{"content":"oun terre tere"}' \
+        localhost:7005/api/speller/process | jq
+    $ curl --silent  --request POST --header "Content-Type: application/json" \
+        localhost:7005/version | jq
+    $ curl --silent  --request POST --header "Content-Type: application/json" \
+        localhost:7005/version | jq
+
+----------------------------------------------
+
+Lähtekoodist tehtud konteineri kasutamine
+2 Lähtekoodi allalaadimine (2.1), konteineri kokkupanemine (2.2), konteineri käivitamine (2.3) ja CURLiga veebiteenuse kasutamise näited  (2.4)
+2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
+2.2 Konteineri kokkupanemine
+    $ cd ~/git/vabamorf_github/docker/flask_stlspeller
+    $ docker build -t tilluteenused/speller:2023.05.20 .
+2.3 Konteineri käivitamine
+    $ docker run -p 7005:7005 tilluteenused/speller:2023.05.20
+2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
+
+----------------------------------------------
+
+DockerHUBist tõmmatud konteineri kasutamine
+3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
+3.1 DockerHUBist konteineri tõmbamine
+    $ docker pull tilluteenused/speller:2023.05.20
+3.2 Konteineri käivitamine: järgi punkti 2.3
+3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
+
+----------------------------------------------
+
+TÜ pilves töötava konteineri kasutamine
+4 CURLiga veebiteenuse kasutamise näited
+    $ curl --silent --request POST --header "Content-Type: application/json" \
+        --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
+        https://smart-search.tartunlp.ai/api/speller/process | jq
+    $ curl --silent --request POST --header "Content-Type: application/json" \
+        https://smart-search.tartunlp.ai/api/tokenizer/version | jq  
+
+----------------------------------------------
 """
 
 import subprocess
