@@ -60,7 +60,7 @@ TÜ pilves töötava konteineri kasutamine
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://smart-search.tartunlp.ai/api/speller/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai/api/tokenizer/version | jq  
+        https://smart-search.tartunlp.ai/api/speller/version | jq  
 
 ----------------------------------------------
 """
