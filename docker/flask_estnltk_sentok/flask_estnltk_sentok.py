@@ -18,6 +18,7 @@ Lähtekoodist pythoni skripti kasutamine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ ./create_venv.sh
 1.3 Veebiserveri käivitamine pythoni koodist
+    $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ venv/bin/python3 ./flask_estnltk_sentok.py
 1.4 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
@@ -39,6 +40,8 @@ Lähtekoodist tehtud konteineri kasutamine
 2.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ docker build -t tilluteenused/estnltk_sentok:2023.04.18 .
+    # docker login -u tilluteenused
+    # docker push tilluteenused/estnltk_sentok:2023.04.18   
 2.3 Konteineri käivitamine
     $ docker run -p 6000:6000 tilluteenused/estnltk_sentok:2023.04.18
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
@@ -60,7 +63,7 @@ TÜ pilves töötava konteineri kasutamine
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://smart-search.tartunlp.ai/api/tokenizer/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai//api/tokenizer/version | jq  
+        https://smart-search.tartunlp.ai/api/tokenizer/version | jq  
 
 ----------------------------------------------
 """

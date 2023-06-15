@@ -2,8 +2,46 @@
 #define FSJSONCPP_H
 
 #include <jsoncpp/json/json.h> 
-#include <iostream>
+
+#include <algorithm> 
+#include <cctype>
+#include <iostream>  
 #include <string> 
+#include <assert.h>
+#include <iterator>
+
+
+
+/**
+ * @brief trim from start (in place)
+ * 
+ * @param s
+ */
+static inline void ltrim(std::string &s)
+{
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) { return !std::isspace(ch); }));
+}
+
+/**
+ * @brief trim from end (in place)
+ * 
+ * @param s 
+ */
+static inline void rtrim(std::string &s)
+{
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !std::isspace(ch); }).base(), s.end());
+}
+
+/**
+ * @brief trim from both ends (in place)
+ * 
+ * @param s 
+ */
+static inline void trim(std::string &s)
+{
+    ltrim(s);
+    rtrim(s);
+}
 
 class FSJSONCPP
 {
@@ -57,9 +95,17 @@ class FSJSONCPP
             Json::StreamWriterBuilder wbuilder;
             if(use_StyledWriter==false)
                 wbuilder["indentation"] = "";
-            //wbuilder.settings_["emitUTF8"] = use_emitUTF8;
             wbuilder["emitUTF8"] = use_emitUTF8;
-            std::cout << Json::writeString(wbuilder,jsonobj ) << std::endl;
+            std::cout << Json::writeString(wbuilder,jsonobj) << std::endl;
+        }
+
+        const std::string Json2string(const Json::Value& jsonobj, const bool use_StyledWriter = false, const bool use_emitUTF8=false)
+        {
+            Json::StreamWriterBuilder wbuilder;
+            if(use_StyledWriter==false)
+                wbuilder["indentation"] = "";
+            wbuilder["emitUTF8"] = use_emitUTF8;
+            return Json::writeString(wbuilder,jsonobj);
         }
 
         /**

@@ -81,6 +81,11 @@ Lisab väljundjsoni "klassikalisel" vmeta kujul analüüsistringi.
 
 Väljundisse utf8 kodeeringus sümbolid.
 
+### **```--version```** <a name=lipp_version></a>
+
+Lisab väljundjonisse versiooniinfo.
+
+
 ### **```--guess```** <a name="lipp_guess"></a>
 
 Leksikonist puuduvale sõnale oletakse võimalikud analüüsid. Lipp

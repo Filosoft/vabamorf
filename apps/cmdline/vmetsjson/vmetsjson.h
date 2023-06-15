@@ -20,6 +20,42 @@
 #include "../../../lib/etana/loefailist.h"
 #include "../../../lib/etana/fsjsoncpp.h"
 
+
+/*
+
+{
+    "params": { {"vmetsjson": [parameeter, ...]} }, // võib puududa, siis kasutakse käsureaga määratud lippe
+    "annotations":
+    {
+        "tokens":
+        [
+            {
+                "features":
+                {
+                    "token": SÕNE,      // algne morf analüüsitav sõne
+                    "classic": str,     // sõne morf analüüsistring vmets-kujul, ainult --classic lipu korral 
+                    "hint": NÄIDISSÕNA, // kääname analoogiliselt NÄIDISSÕNAGA 
+                    "mrf" :             // sisendsõne analüüsivariantide massiiv
+                    [
+                        {
+                            "stem":     TÜVI,
+                            "ending":   LÕPP,    
+                            "kigi":     KIGI,
+                            "pos":      SÕNALIIK,
+                            "fs":       KATEGOORIAD,
+                            "gt":       KATEGOORIAD,    // --gt lipu korral 
+                            "source":   ALLIKAS,        // P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
+
+*/
+
+
 /**
  * @brief JSONit käsitleva käsureaprogrammi templiit
  * 
@@ -48,7 +84,6 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
     }
     catch (CFSFileException& isCFSFileException)
     {
-        //fprintf(stderr, "FSC [%x]\nFSC : S/V viga\n", isCFSFileException.m_nError);
         FSJSONCPP().JsonError("FSC: S/V viga");
         FSCTerminate();
         return EXIT_FAILURE;
@@ -72,38 +107,6 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
         return EXIT_FAILURE;
     }
 }
-
-/**
- * @brief trim from start (in place)
- * 
- * @param s
- */
-static inline void ltrim(std::string &s)
-{
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) { return !std::isspace(ch); }));
-}
-
-/**
- * @brief trim from end (in place)
- * 
- * @param s 
- */
-static inline void rtrim(std::string &s)
-{
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !std::isspace(ch); }).base(), s.end());
-}
-
-/**
- * @brief trim from both ends (in place)
- * 
- * @param s 
- */
-static inline void trim(std::string &s)
-{
-    ltrim(s);
-    rtrim(s);
-}
-
 
 class VMETSJSON
 {
@@ -225,6 +228,11 @@ public:
 private:
     bool lipp_haaldus;          // -p --phonetics/--nophonetics
     bool lipp_oleta;            // -q --guess/--dontguess
+    bool lipp_classic;
+    bool lipp_taanded;
+    bool lipp_utf8;
+    bool lipp_version;
+    bool lipp_gt;
 
     CFSAString path;            // -p --path
     CFSAString sisendfail;      // vaikimisi - (stdin))
@@ -235,6 +243,163 @@ private:
     //ETMRFA mrf;
     ETMRFAS mrf;
     MRF_FLAGS lipud_gen;
+
+    /**
+     * @brief Panema paika lippude vaikeväärtused
+     * 
+     */
+    void VaikeLipudPaika(void)
+    {
+        lipp_classic=false;
+        lipp_gt=false;
+        lipp_oleta=false;
+        lipp_haaldus=false;     // EI lisa hääldusmärke   
+        lipp_taanded=false;     // kogu json ühel real
+        lipp_utf8=false;        // utf8 sümbolid koodidena
+        lipp_version=false;     // EI kuva väljundis versiooniinfot 
+    }
+
+    /**
+    * @brief Kohendame lippude vaikeväärtused käsurealt antutele vastavaks
+    * 
+    * @param argc Lippude massivi pikkus
+    * @param argv Lippude massiiv
+    */
+    void LipuStringidKasurealt(int argc, FSTCHAR** argv)
+    {
+        assert(EmptyClassInvariant() == true);
+        VaikeLipudPaika();
+
+        PATHSTR pathstr;
+        path=(const char*)pathstr; // Vaikimisi keskkonnamuutujast PATH
+        bool lipudOK=true;  
+        Json::Value jsonError;    
+        for(int i=1; i<argc; ++i)
+        {
+            if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
+            {
+            syntaks:
+                std::cerr << "Programmi kirjeldust vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetsjson/README.md\n";
+                exit(EXIT_FAILURE);
+            }
+            if(LipuStringPaika(argv[i])==false)
+            {
+                lipudOK=false;
+                std::string errString = "Illegaalne lipp: ";
+                errString += argv[i];
+                jsonError["failure"]["errors"].append(errString);
+            }           
+        }
+        if(lipudOK==false)
+        {
+            fsJsonCpp.JsonWriter(jsonError);
+            exit(EXIT_FAILURE);
+        }
+    }   
+
+    /**
+     * @brief Üksiku stringina antud parameetri käitlemine
+     * 
+     * @param lipuString 
+     * @return true -- oli lubatud lipp, false -- ei tundnud sellist
+     */
+    bool LipuStringPaika(const FSTCHAR* lipuString)
+    {
+
+        //-----------------------------
+        if(strcmp("--guess", lipuString)==0) // lisab oletatud analüüsid
+        {
+            lipp_oleta=true;
+            return true;
+        }
+
+        //-----------------------------
+        if(strcmp("--addphonetics", lipuString)==0)
+        {
+            lipp_haaldus=true;
+            return true;
+        }
+        //-----------------------------
+        if(strcmp("--gt",lipuString)==0)
+        {
+            lipp_gt=true;
+            return true;
+        }
+
+        //-----------------------------
+        if(strncmp("--path=", lipuString, sizeof("--path=")-1)==0)
+        {
+            path=lipuString+(strchr(lipuString, '=')-lipuString+1);
+            return true;
+        }
+
+        //=============================
+        if(strncmp("--json=", lipuString, sizeof("--json=")-1)==0)
+        {
+            json_str_fs = lipuString+(strchr(lipuString, '=')-lipuString+1);
+            return true;
+        }
+        if(strcmp("--formattedjson", lipuString)==0)
+        {
+            lipp_taanded=true;
+            return true;
+        }
+        if(strcmp("--utf8json", lipuString)==0)
+        {
+            lipp_utf8=true;
+            return true;
+        }
+        if(strcmp("--classic", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
+        {
+            lipp_classic=true;
+            return true;
+        }
+        //-----------------------------
+        if(strcmp("--version", lipuString)==0) // lisa väljundjsonisse versiooniinfo
+        {
+            lipp_version=true;
+            return true;
+        }    
+        return false;
+    }
+
+    /**
+     * @brief Seame lipustringide järgi lipubitid paika
+     * 
+     * @return MRF_FLAGS_BASE_TYPE 
+     */
+    MRF_FLAGS_BASE_TYPE LipuBitidPaika(void)
+    {
+        MRF_FLAGS lipuBitid;
+
+        //TODO
+        // üksiksõnade analüüs vaikimisi selliste lippudega
+        MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks =
+                                MF_MRF | MF_ALGV | MF_POOLITA |
+                                MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
+                                MF_PIKADVALED | MF_LYHREZH;
+
+        // oletamise korral: Off(MF_PIKADVALED), Off(MF_LYHREZH), On(MF_OLETA)
+        // pärisnimeanalüüside lisamise korrral peab oletamine sees olema
+
+        lipuBitid.Set(lipud_yksiksonade_analyysiks);
+ 
+        if(lipp_haaldus==true)
+        {
+            lipuBitid.On(MF_KR6NKSA);
+        }
+        if(lipp_oleta==true)
+        {
+            lipuBitid.On(MF_OLETA);       // ühestamise korral pole mõistlik "off"
+            lipuBitid.Off(MF_PIKADVALED); // "ülipikad" sõned saavad Z
+            lipuBitid.Off(MF_LYHREZH);    // kõik lühendisarnased sõned lühendiks
+        }
+
+        if(lipp_gt==true)
+            lipuBitid.On(MF_GTMRG);
+    }
+
+
 
     void TeeSedaFailiga(VOTAFAILIST& in, PANEFAILI& out)
     {
@@ -312,13 +477,13 @@ private:
     }
 
     /** Copy-konstruktor on illegaalne */
-    VMETS(const VMETS&)
+    VMETSJSON(const VMETSJSON&)
     {
         assert(false);
     }
 
     /** Omistamisoperaator on illegaalne */
-    VMETS & operator=(const VMETS&)
+    VMETSJSON & operator=(const VMETSJSON&)
     {
         assert(false);
         return *this;

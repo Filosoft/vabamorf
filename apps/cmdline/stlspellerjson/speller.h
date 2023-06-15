@@ -282,10 +282,13 @@ namespace vabamorf
 			InitClassVariables();
 		}
 
+		const char* VERSION = "2023.06.01";
+
 	private:
 		CFSAString path;            // --path=... (ainult käsurealt)
 		bool lipp_taanded;          // --formattedjson (käsurealt & std sisendist läbi jsoni)
 		bool lipp_utf8;             // --utf8json (käsurealt & std sisendist läbi jsoni)
+		bool lipp_version;          // versiooni-info kuvamine
 		CFSAString json_str_fs;     // --json=... lipu tagant (käsurealt & std sisendist)
 
 		FSJSONCPP  fsJsonCpp;
@@ -299,6 +302,7 @@ namespace vabamorf
 		{
 			lipp_taanded=false;    	// kogu json ühel real
 			lipp_utf8=false;        // true: väljund utf8, muidu nagi jsonis ikka  
+        	lipp_version=false;     // EI kuva väljundis versiooniinfot 
 		}
 
 	/**
@@ -322,10 +326,7 @@ namespace vabamorf
 				{
 				syntaks:
 					// see kirjuta std::cerr peale ümber
-					fprintf(stderr,
-						"Süntaks: %s [LIPUD...]\n"
-						"Täpsemalt vt https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/stlspellerjson\n",
-						argv[0]);
+					std::cerr << "Programmi kirjeldust vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/stlspellerjson/README.md\n",
 					exit(EXIT_FAILURE);
 				}
 				if(LipuStringPaika(argv[i])==false)
@@ -374,6 +375,12 @@ namespace vabamorf
 				return true;
 			}
 			//-----------------------------
+			if(strcmp("--version", lipuString)==0) // lisa väljundjsonisse versiooniinfo
+			{
+				lipp_version=true;
+				return true;
+			}  
+			//-----------------------------
 			return false;
 		}
 
@@ -409,7 +416,10 @@ namespace vabamorf
 			}
 
 			// Teeme mida vaja, sisuline töö JSONi kaudu antud sõnadega
-
+			if(lipp_version==true)
+			{
+				jsonobj["version"] = VERSION;
+			}
 			if(jsonobj.isMember("content")==true) // kui "content" on olemas...
 			{
 				if((jsonobj.isMember("annotations") == false) || (jsonobj["annotations"].isMember("tokens") == false))

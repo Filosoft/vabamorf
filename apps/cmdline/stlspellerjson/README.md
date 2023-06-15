@@ -30,6 +30,10 @@ Lipu ```--json``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist
 
 Väljundisse utf8 kodeeringus sümbolid.
 
+### **```--version```** <a name=lipp_version></a>
+
+Väljundjsonisse lisatakse versiooniinfo.
+
 ## Sisend <a name="sisendi_kirjeldus"></a>
 
 ### Minimaalne jsonsisend

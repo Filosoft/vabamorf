@@ -55,7 +55,6 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
     }
     catch (CFSFileException& isCFSFileException)
     {
-        //fprintf(stderr, "FSC [%x]\nFSC : S/V viga\n", isCFSFileException.m_nError);
         FSJSONCPP().JsonError("FSC: S/V viga");
         FSCTerminate();
         return EXIT_FAILURE;
@@ -80,37 +79,6 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
     }
 }
 
-
-/**
- * @brief trim from start (in place)
- * 
- * @param s
- */
-static inline void ltrim(std::string &s)
-{
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) { return !std::isspace(ch); }));
-}
-
-/**
- * @brief trim from end (in place)
- * 
- * @param s 
- */
-static inline void rtrim(std::string &s)
-{
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !std::isspace(ch); }).base(), s.end());
-}
-
-/**
- * @brief trim from both ends (in place)
- * 
- * @param s 
- */
-static inline void trim(std::string &s)
-{
-    ltrim(s);
-    rtrim(s);
-}
 
 class VMETAJSON
 {
@@ -184,6 +152,8 @@ public:
         InitClassVariables();
     }
 
+    const char* VERSION = "2023.06.01";
+
 private:
     int lipp_maxcomplexity;     // --depth=MAXTASAND
     bool lipp_classic;          // --classic # vmeta stiilis väljundstring
@@ -195,6 +165,7 @@ private:
     bool lipp_haaldus;          // --phonetics
     bool lipp_taanded;          // --formattedjson
     bool lipp_utf8;             // --utf8json
+    bool lipp_version;          // versiooni-info kuvamine
     CFSAString path;            // --path=...
     CFSAString json_str_fs;     // --json=... lipu tagant
 
@@ -221,7 +192,8 @@ private:
                                 // põhjal pärisnimesid
         lipp_haaldus=false;     // EI lisa hääldusmärke   
         lipp_taanded=false;     // kogu json ühel real
-        lipp_utf8=false;        // utf8 sümbolid koodidena  
+        lipp_utf8=false;        // utf8 sümbolid koodidena
+        lipp_version=false;     // EI kuva väljundis versiooniinfot 
     }
 
    /**
@@ -244,10 +216,7 @@ private:
             if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
             {
             syntaks:
-                fprintf(stderr,
-                    "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n"
-                    "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/LOEMIND.md\n",
-                    argv[0]);
+                std::cerr << "Programmi kirjeldust vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/README.md\n";
                 exit(EXIT_FAILURE);
             }
             if(LipuStringPaika(argv[i])==false)
@@ -341,6 +310,11 @@ private:
             return true;
         }
         //-----------------------------
+        if(strcmp("--version", lipuString)==0) // lisa väljundjsonisse versiooniinfo
+        {
+            lipp_version=true;
+            return true;
+        }    
         return false;
     }
 
@@ -424,6 +398,10 @@ private:
         }
         else
             mrf.mrfFlags->Set(lipud_mrf_cl_dflt.Get()); // morfimine ja kuvamine hakkab toimuma käsurealt saadud lippudega
+        if(lipp_version==true)
+        {
+            jsonobj["version"] = VERSION;
+        }
         if(lipp_oleta_pn==true)
         {
             if(lipp_oleta==false)

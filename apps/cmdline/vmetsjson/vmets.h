@@ -94,10 +94,10 @@ public:
     void Run(void)
     {
         // vaikimisi lipud paika
-	lipud_gen.Start(MF_DFLT_GENOLE|MF_YHELE_REALE|MF_KOMA_LAHKU);
+	    lipud_gen.Start(MF_DFLT_GENOLE|MF_YHELE_REALE|MF_KOMA_LAHKU);
 
                                 
-	// lisa käsirealt määratud lipuväärtused
+	    // lisa käsirealt määratud lipuväärtused
         lipud_gen.OnOff(MF_OLETA,   lipp_oleta); 
         lipud_gen.OnOff(MF_KR6NKSA, lipp_haaldus);
 

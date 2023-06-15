@@ -1,7 +1,6 @@
 #if !defined(VMETLJSON_H)
 #define VMETLJSON_H
 
-#define VERSION "2023.03.21"
 
 /*
 Jsoni käitlemiseks käsurealt: jq, gron
@@ -95,6 +94,8 @@ public:
         mrf.Stop();
         InitClassVariables();
     }
+
+    const char *VERSION =  "2023.03.21";
 
 private:
     bool lipp_version;          // --version

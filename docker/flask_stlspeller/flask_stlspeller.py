@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 
-VERSION = "2023.05.20"
+VERSION = "2023.06.03"
 
 """
 ----------------------------------------------
@@ -24,12 +24,10 @@ Lähtekoodist pythoni skripti kasutamine
         --data '{"content":"oun terre tere"}' \
         localhost:7005/process | jq
     $ curl --silent  --request POST --header "Content-Type: application/json" \
-        --data '{"content":"oun terre tere"}' \
-        localhost:7005/api/speller/process | jq
-    $ curl --silent  --request POST --header "Content-Type: application/json" \
         localhost:7005/version | jq
     $ curl --silent  --request POST --header "Content-Type: application/json" \
-        localhost:7005/version | jq
+        --data '{"params":{"stlspellerjson":["--version"]}}' \
+        localhost:7005/process | jq
 
 ----------------------------------------------
 
@@ -38,9 +36,11 @@ Lähtekoodist tehtud konteineri kasutamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 2.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_stlspeller
-    $ docker build -t tilluteenused/speller:2023.05.20 .
+    $ docker build -t tilluteenused/speller:2023.06.03 .
+    # docker login -u tilluteenused
+    # docker push tilluteenused/speller:2023.06.03
 2.3 Konteineri käivitamine
-    $ docker run -p 7005:7005 tilluteenused/speller:2023.05.20
+    $ docker run -p 7005:7005 tilluteenused/speller:2023.06.03
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
 ----------------------------------------------
@@ -48,7 +48,7 @@ Lähtekoodist tehtud konteineri kasutamine
 DockerHUBist tõmmatud konteineri kasutamine
 3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
 3.1 DockerHUBist konteineri tõmbamine
-    $ docker pull tilluteenused/speller:2023.05.20
+    $ docker pull tilluteenused/speller:2023.06.03
 3.2 Konteineri käivitamine: järgi punkti 2.3
 3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
@@ -57,11 +57,13 @@ DockerHUBist tõmmatud konteineri kasutamine
 TÜ pilves töötava konteineri kasutamine
 4 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
+        --data '{"content":"oun õun terre"}' \
         https://smart-search.tartunlp.ai/api/speller/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai/api/tokenizer/version | jq  
-
+        https://smart-search.tartunlp.ai/api/speller/version | jq  
+    $ curl --silent --request POST --header "Content-Type: application/json" \
+        --data '{"params":{"stlspellerjson":["--version"]}}' \
+        https://smart-search.tartunlp.ai/api/speller/process | jq 
 ----------------------------------------------
 """
 
