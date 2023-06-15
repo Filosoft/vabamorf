@@ -233,6 +233,10 @@ private:
     bool lipp_utf8;
     bool lipp_version;
     bool lipp_gt;
+    CFSAString json_str_fs;     // --json=... lipu tagant
+
+    FSJSONCPP  fsJsonCpp;
+    FS_2_GT    fs_2_gt;
 
     CFSAString path;            // -p --path
     CFSAString sisendfail;      // vaikimisi - (stdin))
@@ -374,7 +378,7 @@ private:
 
         //TODO
         // üksiksõnade analüüs vaikimisi selliste lippudega
-        MRF_FLAGS_BASE_TYPE lipud_yksiksonade_analyysiks =
+        MRF_FLAGS_BASE_TYPE lipud_synteesiks =
                                 MF_MRF | MF_ALGV | MF_POOLITA |
                                 MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
                                 MF_PIKADVALED | MF_LYHREZH;
@@ -382,21 +386,22 @@ private:
         // oletamise korral: Off(MF_PIKADVALED), Off(MF_LYHREZH), On(MF_OLETA)
         // pärisnimeanalüüside lisamise korrral peab oletamine sees olema
 
-        lipuBitid.Set(lipud_yksiksonade_analyysiks);
+        lipuBitid.Set(lipud_synteesiks);
  
         if(lipp_haaldus==true)
         {
             lipuBitid.On(MF_KR6NKSA);
         }
-        if(lipp_oleta==true)
+        if(lipp_oleta==true) //TODO -vaata kuidas siin lipud
         {
             lipuBitid.On(MF_OLETA);       // ühestamise korral pole mõistlik "off"
             lipuBitid.Off(MF_PIKADVALED); // "ülipikad" sõned saavad Z
             lipuBitid.Off(MF_LYHREZH);    // kõik lühendisarnased sõned lühendiks
         }
-
         if(lipp_gt==true)
             lipuBitid.On(MF_GTMRG);
+
+        return lipuBitid.Get();
     }
 
 
