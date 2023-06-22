@@ -114,7 +114,7 @@ Algvormi e. lemma asemel kuvatakse vormitüvi. Vaikimisi kuvatakse algvormi, lii
 
 Lisatakse [GT-süsteemis](https://www.keeleveeb.ee/dict/corpus/shared/categories.html) [kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et).
 
-### **```--phonetics```** <a name="lipp_addphonetics"></a>
+### **```--addphonetics```** <a name="lipp_addphonetics"></a>
 
 Tüvekujusse lisatakse hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
