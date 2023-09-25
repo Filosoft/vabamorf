@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "flask_vmetsjson.py",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/docker/flask_vmetsjson/",
+            "program": "./flask_vmetsjson.py",
+            "args": [],
+        },
+        {
             "name": "vmetsjon",
             "type": "cppdbg",
             "request": "launch",
