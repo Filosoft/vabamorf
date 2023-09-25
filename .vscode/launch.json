@@ -5,6 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "vmetsjon",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetsjson.db",
+            "cwd": "${workspaceFolder}/apps/cmdline/project/unix/",
+            "args": [ "--path=${workspaceFolder}/dct/binary/", "--json={\\\"content\\\":\\\"tere\\\", \\\"params\\\":{\\\"vmetsjaon\\\":[\\\"--formattedjson\\\"]}}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "stlspellerjson dflt",
             "type": "cppdbg",
             "request": "launch",

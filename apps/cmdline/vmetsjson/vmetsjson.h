@@ -1,12 +1,6 @@
 #if !defined(VMETSJSON_H)
 #define VMETSJSON_H
 
-#include "../../../lib/etana/etmrfana.h"
-#include "../../../lib/etana/viga.h"
-#include "../../../lib/etana/mrf2yh2mrf.h"
-#include "../../../lib/etana/fs2gt.h"
-#include "../../../lib/etana/loefailist.h"
-
 #include <algorithm> 
 #include <cctype>
 #include <iostream>  
@@ -22,44 +16,63 @@
 
 
 /*
-
-{
-    "params": { {"vmetsjson": [parameeter, ...]} }, // võib puududa, siis kasutakse käsureaga määratud lippe
-    "annotations":
-    {
-        "tokens":
-        [
-            {
-                "features":
-                {
-                    "token": SÕNE,      // algne morf analüüsitav sõne
-                    "classic": str,     // sõne morf analüüsistring vmets-kujul, ainult --classic lipu korral 
-                    "hint": NÄIDISSÕNA, // kääname analoogiliselt NÄIDISSÕNAGA 
-                    "mrf" :             // sisendsõne analüüsivariantide massiiv
-                    [
-                        {
-                            "stem":     TÜVI,
-                            "ending":   LÕPP,    
-                            "kigi":     KIGI,
-                            "pos":      SÕNALIIK,
-                            "fs":       KATEGOORIAD,
-                            "gt":       KATEGOORIAD,    // --gt lipu korral 
-                            "source":   ALLIKAS,        // P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust
-                        }
-                    ]
+Lippudest sobivad ainult +oletamine, +gt-märgendid, +hääldusmärgid.
+Väljundis on alati tüvi!
+{   "params": { {"vmetsjson": [parameeter, ...]} }, // võib puududa, siis kasutakse käsureaga määratud lippe
+    "content": str,                     // tühikuga eraldatud lemmade loend, kui puudub peab olema vähemalt "token" antud
+    "annotations":                      
+    {   "tokens":                       // lemma (puudub kui "content" on antud)
+        [   {   "features":
+                {   "token": string,    // lemma (puudub kui "content" on antud) 
+                    "hint": str,        // vaikimisi ""
+                    "kigi": str,        // vaikimisi ""
+                    "pos":  str,        // SÕNALIIK, vaikimisi "*"
+                    "fs":   str,        // KATEGOORIAD, vaikimisi "*"
                 }
             }
         ]
     }
 }
 
+{   "params": { {"vmetsjson": [parameeter, ...]} },
+    "content": str, // tühikuga eraldatud lemmade loend, kui puudub peab olema vähemalt "token" antud
+    "annotations":
+    {   "tokens": 
+        [   {   "features":
+                {   "token": string,    // päringust 
+                    "hint": str,        // päringust
+                    "kigi": str,        // päringust,
+                    "pos":  str,        // päringust,
+                    "fs":   str,        // päringust,
+                    "mrf" :             // sisendsõne sünteesivariantide massiiv 
+                    [   {   "stem":     TÜVI,           // sünteesitud tüvi
+                            "ending":   LÕPP,    
+                            "kigi":     KIGI,
+                            "pos":      SÕNALIIK,
+                            "fs":       KATEGOORIAD,
+                            "gt":       KATEGOORIAD,    // --gt lipu korral
+                            "source":   ALLIKAS,        // P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust
+                        }
+                    ],
+                }
+            }
+        ]
+    }
+}
+
+Kasutusnäited
+./vmetsjson --json='{"content":"tere"}' | jq 
+./vmetsjson --json='{"annotations":{"tokens":[{"features":{"token":"palk","hint":"palgi"}}  ] } }' | jq
+./vmetsjson --json='{"annotations": {"tokens":[{"features":{"token":"palk","hint":"palgi"}},{"features":{"token":"palk","hint":"palga"}}]}}' | j
+./vmetsjson --classic --json='{"annotations": {"tokens":[ {"features": {"token": "president", "pos":"S", "fs":"pl p"}}]}}' | jq 
+on --classic --guess  --json='{"annotations": {"tokens":[ {"features": {"token": "presitent"}},{"features": {"token": "president"}}  ] }}' | jq 
 */
 
 
 /**
  * @brief JSONit käsitleva käsureaprogrammi templiit
  * 
- * @tparam MAIN VMETAJSON või VMETYJSON (realiseerimata)
+ * @tparam MAIN VMETSJSON
  * @param argc käsurea parameetrite arv
  * @param argv käsurea parameetrite massiiv
  * @return int 
@@ -116,105 +129,44 @@ public:
         InitClassVariables();
     }
 
-    VMETSJSON(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
+    void Start(int argc, FSTCHAR** argv)
     {
-        InitClassVariables();
-        Start(argc, argv, envp, _ext_);
-        assert(ClassInvariant());
-    }
-    
-    void Start(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
-    {
-        assert(EmptyClassInvariant() == true);
-        lipp_oleta=true;    // oletame leksikonist puuduvad sõned
-        lipp_haaldus=false; // hääldusmärke ei lisa
-        PATHSTR pathstr;
-        path=(const char*)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
-        sisendfail="-";     // vaikimisi stdin
-        valjundfail="-";    // vaikimisi stdout
-
-        int i;
-        //pathi initsialiseerimine keskonnamuutujast
-        for(i=1; i<argc && argv[i][0]=='-' && argv[i][1]!='\0' ; ++i)
-        {
-            if(strcmp("-h", argv[i])==0 || strcmp("--help", argv[i])==0)
-            {
-    syntaks:           
-                fprintf(stderr, 
-                        "%s [LIPUD...] [sisendfail väljundfail]\n"
-                        "Täpsemalt vt https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmets/LOEMIND.md\n",
-                        argv[0]);
-                exit(EXIT_FAILURE);
-            }        
-
-            //-----------------------------
-            if(strcmp("--guess", argv[i])==0)
-            {
-                lipp_oleta=true;
-                continue;
-            }
-            if(strcmp("-q", argv[i])==0 || strcmp("--dontguess", argv[i])==0)
-            {
-                lipp_oleta=false;
-                continue;
-            }
-            //-----------------------------
-            if(strcmp("--dontaddphonetics", argv[i])==0)
-            {
-                lipp_haaldus=false;
-                continue;
-            }            
-            if(strcmp("-f", argv[i])==0 || strcmp("--addphonetics", argv[i])==0)
-            {
-                lipp_haaldus=true;
-                continue;
-            }
-
-            //-----------------------------
-            if(strcmp("-p", argv[i])==0 || strcmp("--path", argv[i])==0)
-            {
-                if(++i >= argc)
-                    throw VEAD(__FILE__, __LINE__, "Parameetri -p tagant puudub rada");
-                path=argv[i];
-                continue;
-            }  
-        }
-        if(i==argc)
-            return; // std-sisend std-väljundiks
-        if(i+2==argc)
-        {
-            sisendfail=argv[i++];
-            valjundfail=argv[i];
-            return;
-        }
-        goto syntaks;
-
+        LipuStringidKasurealt(argc, argv);
+        lipud_cl_dflt.Set(LipuBitidPaika()); // kui jsonist lippe ei tule kasutame seda
+        mrf.Start(path, lipud_cl_dflt.Get());
     }
 
-    /** Töötleb sisendfailid */
+    /**
+     * @brief Korraldame käsurealt või std-sisendist tuleva jsoni läbilaskmist
+     * 
+     */
     void Run(void)
     {
-        // vaikimisi lipud paika
-	lipud_gen.Start(MF_DFLT_GENOLE|MF_YHELE_REALE|MF_KOMA_LAHKU);
-
-                                
-	// lisa käsirealt määratud lipuväärtused
-        lipud_gen.OnOff(MF_OLETA,   lipp_oleta); 
-        lipud_gen.OnOff(MF_KR6NKSA, lipp_haaldus);
-
-        mrf.Start(path, lipud_gen.Get());
-
-        if(sisendfail == "-")
-            sisse.Start(PFSCP_UTF8, path);
+        if(json_str_fs.GetLength() > 0)
+        {   // JSON sisend tuleb käsurea parameetrist
+            Json::Value jsonobj;
+            std::string message;
+            if(fsJsonCpp.JsonParse((const char*)json_str_fs, message, jsonobj)==false)
+                fsJsonCpp.JsonWarning(message.c_str());
+            else
+                TeeSeda(jsonobj);
+        }
         else
-            sisse.Start(sisendfail, "rb", PFSCP_UTF8, path);
-
-        if(valjundfail == "-")
-            valja.Start(PFSCP_UTF8, path);
-        else
-            valja.Start(valjundfail, "wb", PFSCP_UTF8, path);
-        
-        TeeSedaFailiga(sisse, valja);
+        {   // JSON sisend tuleb std-sisendist
+            std::string line;  
+	        while(std::getline(std::cin,line))
+            {
+                trim(line);
+                if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
+                    continue;
+                Json::Value jsonobj;
+                std::string message;
+                if(fsJsonCpp.JsonParse(line, message, jsonobj)==false)
+                    fsJsonCpp.JsonWarning(message.c_str());
+                else
+                    TeeSeda(jsonobj);
+	        } 
+        }
     }
 
     /** Taastab argumentideta konstruktori järgse seisu */
@@ -225,15 +177,17 @@ public:
         InitClassVariables();
     }
 
+    const char* VERSION = "2023.09.20";
+
 private:
-    bool lipp_haaldus;          // -p --phonetics/--nophonetics
-    bool lipp_oleta;            // -q --guess/--dontguess
+    CFSAString json_str_fs;     // --json=... lipu tagant
+    bool lipp_haaldus;          // -p --phonetics
+    bool lipp_oleta;            // -q --guess
     bool lipp_classic;
     bool lipp_taanded;
     bool lipp_utf8;
     bool lipp_version;
     bool lipp_gt;
-    CFSAString json_str_fs;     // --json=... lipu tagant
 
     FSJSONCPP  fsJsonCpp;
     FS_2_GT    fs_2_gt;
@@ -244,9 +198,8 @@ private:
     
     VOTAFAILIST sisse;
     PANEFAILI valja;
-    //ETMRFA mrf;
     ETMRFAS mrf;
-    MRF_FLAGS lipud_gen;
+    MRF_FLAGS lipud_cl_dflt;
 
     /**
      * @brief Panema paika lippude vaikeväärtused
@@ -309,34 +262,26 @@ private:
      */
     bool LipuStringPaika(const FSTCHAR* lipuString)
     {
-
-        //-----------------------------
-        if(strcmp("--guess", lipuString)==0) // lisab oletatud analüüsid
+        if(strcmp("--guess", lipuString)==0) // lisab oletatud sünteesid
         {
             lipp_oleta=true;
             return true;
         }
-
-        //-----------------------------
-        if(strcmp("--addphonetics", lipuString)==0)
+        if(strcmp("--addphonetics", lipuString)==0) // lisab hääldusmärgid
         {
             lipp_haaldus=true;
             return true;
         }
-        //-----------------------------
         if(strcmp("--gt",lipuString)==0)
         {
             lipp_gt=true;
             return true;
         }
-
-        //-----------------------------
         if(strncmp("--path=", lipuString, sizeof("--path=")-1)==0)
         {
             path=lipuString+(strchr(lipuString, '=')-lipuString+1);
             return true;
         }
-
         //=============================
         if(strncmp("--json=", lipuString, sizeof("--json=")-1)==0)
         {
@@ -378,11 +323,9 @@ private:
 
         //TODO
         // üksiksõnade analüüs vaikimisi selliste lippudega
-        MRF_FLAGS_BASE_TYPE lipud_synteesiks =
-                                MF_MRF | MF_ALGV | MF_POOLITA |
-                                MF_YHELE_REALE | MF_KOMA_LAHKU | MF_VEEBIAADRESS |
-                                MF_PIKADVALED | MF_LYHREZH;
-
+        MRF_FLAGS_BASE_TYPE lipud_synteesiks = MF_GENE;
+        // MF_DFLT_GEN = MF_GENE | MF_V0TAKOKKU;
+        // MF_DFLT_GENOLE = MF_GENE | MF_OLETA | MF_V0TAKOKKU;
         // oletamise korral: Off(MF_PIKADVALED), Off(MF_LYHREZH), On(MF_OLETA)
         // pärisnimeanalüüside lisamise korrral peab oletamine sees olema
 
@@ -394,9 +337,9 @@ private:
         }
         if(lipp_oleta==true) //TODO -vaata kuidas siin lipud
         {
-            lipuBitid.On(MF_OLETA);       // ühestamise korral pole mõistlik "off"
-            lipuBitid.Off(MF_PIKADVALED); // "ülipikad" sõned saavad Z
-            lipuBitid.Off(MF_LYHREZH);    // kõik lühendisarnased sõned lühendiks
+            lipuBitid.On(MF_OLETA);
+            //lipuBitid.Off(MF_PIKADVALED); // "ülipikad" sõned saavad Z
+            //lipuBitid.Off(MF_LYHREZH);    // kõik lühendisarnased sõned lühendiks
         }
         if(lipp_gt==true)
             lipuBitid.On(MF_GTMRG);
@@ -404,63 +347,135 @@ private:
         return lipuBitid.Get();
     }
 
-
-
-    void TeeSedaFailiga(VOTAFAILIST& in, PANEFAILI& out)
+    /** 
+     * @brief Laseme ühe jsoni päringu läbi
+     */
+    void TeeSeda(Json::Value& jsonobj)
     {
         bool ret;
         CFSWString rida;
         LYLI lyli;
 
-
-        while (in.Rida(rida) == true)
+        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetsjson")==true)
         {
-            rida.Trim();
-            if (rida.GetLength() <= 0)
-                continue; // ignoreeerime "white space"idest koosnevaid ridu
-
-            ret = mrf.Set(rida);
-            if (ret == true)
+            // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
+            VaikeLipudPaika();
+            bool lipudOK=true;           
+            for(Json::Value::const_iterator i=jsonobj["params"]["vmetsjson"].begin(); i != jsonobj["params"]["vmetsjson"].end(); ++i)
             {
-                while (mrf.Get(lyli) == true)
+                if(LipuStringPaika(i->asCString())==false)
                 {
-                    //if((lyli.lipp & PRMS_MRF)==PRMS_MRF)
-                    //    lyli.ptr.pMrfAnal->SortUniq();
-                    //out.Pane(&lyli, lipud_mrf.Get());
-                    if((lyli.lipp & PRMS_MRF)!=PRMS_MRF)
-                    {
-                        out.Pane(&lyli, lipud_gen.Get());
-                        continue;
-                    }
-                    assert((lyli.lipp & PRMS_MRF)==PRMS_MRF);
-                    LYLI_UTF8 lyli_utf8(lyli);
-                    MRFTULEMUSED_UTF8* mt_utf8=lyli_utf8.ptr.pMrfAnal;
-                    //if(lipud_mrf.ChkB(MF_GTMRG))
-                    //    fs_2_gt.LisaGT(mt_utf8->s6na, *mt_utf8);
-                    out.Pane(&lyli_utf8, lipud_gen.Get());
+                    lipudOK=false;
+                    std::string warning = "Illegaalne lipp: " + i->asString();
+                    jsonobj["warnings"].append(warning);
                 }
             }
-        }
-        while (mrf.Flush(lyli) == true)
-        {
-            //if((lyli.lipp & PRMS_MRF)==PRMS_MRF)
-            //    lyli.ptr.pMrfAnal->SortUniq();
-            //out.Pane(&lyli, lipud_mrf.Get());
-            if((lyli.lipp & PRMS_MRF)!=PRMS_MRF)
+            if(lipudOK==false)
             {
-                out.Pane(&lyli, lipud_gen.Get());
-                continue;
+                fsJsonCpp.JsonWriter(jsonobj);
+                return;
             }
-            assert((lyli.lipp & PRMS_MRF)==PRMS_MRF);
-            LYLI_UTF8 lyli_utf8(lyli);
-            MRFTULEMUSED_UTF8* mt_utf8=lyli_utf8.ptr.pMrfAnal;
-            //if(lipud_mrf.ChkB(MF_GTMRG))
-            //    fs_2_gt.LisaGT(mt_utf8->s6na, *mt_utf8);
-            valja.Pane(&lyli_utf8, lipud_gen.Get());
+            mrf.mrfFlags->Set(LipuBitidPaika()); // süntees ja kuvamine hakkab toimuma jsonist saadud lippudega
+        }
+        else
+            mrf.mrfFlags->Set(lipud_cl_dflt.Get()); // morfimine ja kuvamine hakkab toimuma käsurealt saadud lippudega
+        if(lipp_version==true)
+        {
+            jsonobj["version"] = VERSION;
+        }
+        // jsonobj["annotations"]["tokens"] või jsonobj["content"] on kohustuslik
+        TeeSedaSonekaupa(jsonobj);
+
+        fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
+    }
+
+void TeeSedaSonekaupa(Json::Value& jsonobj)
+    {
+        if(jsonobj.isMember("content")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
+        {   // "content" on olemas, aga annoteeritud sõnesid pole, tekitame need
+            std::stringstream tokens(jsonobj["content"].asString());
+            std::istream_iterator<std::string> begin(tokens);
+            std::istream_iterator<std::string> end;
+            std::vector<std::string> vectokens(begin, end);
+        
+            for(std::string token : vectokens)
+            {
+                Json::Value jsonToken;
+                jsonToken["features"]["token"] = token; // ainus kohustuslik, teistel vaikeväärtus olemas
+                jsonobj["annotations"]["tokens"].append(jsonToken);
+            }
+        }
+        if(jsonobj.isMember("annotations") && jsonobj["annotations"].isMember("tokens"))
+        {
+            Json::Value& jsonTokens = jsonobj["annotations"]["tokens"];
+            for(Json::Value& jsonToken : jsonTokens)
+            {   
+                MRFTULEMUSED valja;
+                Json::Value& jsonFeatures = jsonToken["features"];
+                FSXSTRING geneSona   = jsonFeatures["token"].asCString(); // kohustuslik
+                FSXSTRING naidis     = jsonFeatures.isMember("hint") ? jsonFeatures["hint"].asCString() : "";
+                FSXSTRING geneLiik   = jsonFeatures.isMember("pos" ) ? jsonFeatures["pos" ].asCString() : "*";
+                FSXSTRING genevormid = jsonFeatures.isMember("fs"  ) ? jsonFeatures["fs"  ].asCString() : "*,";
+                FSXSTRING geneKigi   = jsonFeatures.isMember("kigi") ? jsonFeatures["kigi"].asCString() : "";
+                bool ret = mrf.SyntDetailne(valja, &geneSona, &naidis, 
+                        &geneLiik, &genevormid, &geneKigi);
+                MrfTulemused_2_JSON(jsonFeatures, valja);
+            }
+            return;
+        }
+        jsonobj["warnings"].append("JSON ei sisalda morfimiseks vajalikku infot");
+    }
+
+    void MrfTulemused_2_JSON(Json::Value& features, MRFTULEMUSED& mrftulemused)
+    {
+        MRFTULEMUSED_UTF8 mrftulemused_utf8 = mrftulemused;
+        mrftulemused_utf8.StrctKomadLahku();
+        if(mrf.mrfFlags->ChkB(MF_GTMRG))
+            fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
+        if(lipp_classic)
+        {   // lisame väljundjsonisse klassikalise analüüsistringi
+            PCFSAString classic;
+            mrftulemused_utf8.Strct2Strng(&classic, mrf.mrfFlags);
+            classic.TrimRight("\n");
+            features["classic"]=(const char*)classic;
+        }
+        for(int i=0; i < mrftulemused_utf8.idxLast; i++)
+        {
+            Json::Value json_mrf;
+            EMRFKUST sealt;
+            json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+            json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
+            if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
+                json_mrf["ending"] = (const char*)(mrftulemused_utf8[i]->lopp);
+            else
+                json_mrf["ending"] = "0";  
+            json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
+            mrftulemused_utf8[i]->vormid.TrimRight(" ,");
+            json_mrf["fs"]   = (const char*)(mrftulemused_utf8[i]->vormid);
+            if(mrf.mrfFlags->ChkB(MF_GTMRG))
+            {
+                mrftulemused_utf8[i]->vormidGT.TrimRight(" ,");
+                json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
+            }
+            sealt=mrftulemused_utf8[i]->eKustTulemused;
+            if(sealt==eMRF_PARITUD)
+                sealt=mrftulemused_utf8.eKustTulemused;
+            switch(sealt)
+            {  
+                case eMRF_P: json_mrf["source"] = "P"; break; // põhisõnastikust
+                case eMRF_L: json_mrf["source"] = "L"; break; // lisasõnastikust
+                case eMRF_O: json_mrf["source"] = "O"; break; // sõnapõhisest oletajast
+                case eMRF_S: json_mrf["source"] = "S"; break; // lausepõhisest oletajast
+                case eMRF_PARITUD: json_mrf["source"] = mrftulemused_utf8.eKustTulemused; break; // päritud
+                default: json_mrf["source"] = "X"; break;     // eMRF_X, ise ka ei tea 
+            }   
+            features["mrf"].append(json_mrf);          
         }
     }
 
-    /** Muutujate esialgseks initsialiseerimsieks konstruktoris */
+    /** 
+     * @brief Muutujate esialgseks initsialiseerimsieks konstruktoris
+     */
     void InitClassVariables(void)
     {
 

@@ -73,32 +73,26 @@ Kui json-päring sisaldab lisaks muud informatsiooni, siis lausetaja-sõnestaja 
 
 ```json
 {
-    "content": string,  /* algne tekst */
-    "annotations":
-    {
-    "sentences":        /* lausete massiiv */
-    [
-        {
-            "start": number,  /* lause alguspositsioon algses tekstis */
-            "end": number,    /* lause lõpupositsioon algses tekstis */
-            "features":
-            {
-                "start": number, /* lause algusindeks tokens'ite massivis */
-                "end": number,   /* lause lõpuindeks tokens'ite massivis */
-            }
+  "content": string,  /* algne tekst */
+  "annotations":
+  { "sentences":        /* lausete massiiv */
+    [ { "start": number,  /* lause alguspositsioon algses tekstis */
+        "end": number,    /* lause lõpupositsioon algses tekstis */
+        "features":
+        { "start": number, /* lause algusindeks tokens'ite massivis */
+          "end": number,   /* lause lõpuindeks tokens'ite massivis */
         }
+      }
     ],
     "tokens":           /* sõnede massiiv */
-    [
-        {
-            "start": number,  /* sõne alguspositsioon algses tekstis */
-            "end": number,    /* sõne lõpupositsioon algses tekstis */
-            "features":
-            {
-                "token": string,  /* sõne */
-            }
+    [ { "start": number,  /* sõne alguspositsioon algses tekstis */
+        "end": number,    /* sõne lõpupositsioon algses tekstis */
+        "features":
+        { "token": string,  /* sõne */
         }
+      }
     ],
+  }
 }
 ```
 
