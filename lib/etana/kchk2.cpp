@@ -63,14 +63,15 @@ int MORF0::kchk2(
                 if (TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("se"))) // ...se+lik on �ldiselt mittesobiv
                     {
                     if (! (TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("naise")) || TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("poisikese")) ||
-                           TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("lapse")) || TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("tossikese"))) )
+                           TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("lapse")) || TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("tossikese")) ||
+                           TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("inimese"))) )
                            continue;
                     }
                 if (TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("ne"))) // ...ne+lik on �ldiselt mittesobiv
                     {
                     if (! (TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("laine")) || TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("eine")) ||
                            TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("l\x00E4\x00E4ne")) || TaheHulgad::OnLopus(&(vt_tyvi), FSxSTR("\x00F5nne")) || 
-                           vt_tyvi == FSxSTR("aine") ))
+                           vt_tyvi == FSxSTR("aine") || vt_tyvi == FSxSTR("vene")))
                            continue;
                     }
                 }
