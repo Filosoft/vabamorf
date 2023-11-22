@@ -14438,7 +14438,7 @@ tes:0802|inimese_h<ing inimese_h<inge inimese_hinge!\S\.22^I^!
 sage:0905|inimese_k<eskne inimese_k<eskse!\Am\.2+9!
 tes:0802|inimese_kujuline inimese_kujulise inimese_kujulis[T!\Am\.12^I^+7!
 tes:0802|inimese_l<aps inimese_lapse inimese_l<as[T inimese_las[TE (inimese_lapsi)!\S\.14^I^! **$ADT$: --
-lisa:1019|inimesel<ik inimesel<ikku inimesel?iku!\A\.25^E^+11!
+lisa:1019|?inimesel<ik ?inimesel<ikku ?inimeseliku!\A\.25^E^+11!
 tes:0802|inimese_l<oom inimese_l<ooma inimese_looma!\S\.22^I^!
 tes:0802|inimese_p<õlgl<ik inimese_p<õlgl<ikku inimese_p<õlgliku!\A\.25^E^+11!
 tes:0802|inimese_p<õlgus inimese_p<õlguse!\S\.11^I^+7!&&!\S\.9+7!
@@ -14457,7 +14457,7 @@ tes:0802|inimese_t<eadus inimese_t<eaduse!\S\.11^I^+7!&&!\S\.9+7!
 sage:0905|inimese_t<undmine inimese_t<undmise inimese_t<undmis[T!\S\.12^I^+7!
 tes:0802|inimese_v<ihkaja!\S\.1+9!
 lisam:1019|inimesiti!\D\!
-lisa:1019|inimesl<ik inimesl<ikku inimesl?iku!\A\.25^E^+11!
+lisa:1019|?inimesl<ik ?inimesl<ikku ?inimesliku!\A\.25^E^+11!
 vvsv:0093|inimesta[MA!\V\.27!
 tes:0802|inimeste_sugu inimeste_s<oo (inimeste_s<ukku)!\S\.18!
 vvsv:0093|inimestu[MA!\V\.27!
@@ -27533,7 +27533,7 @@ sage:0905|käigu_k<as]t käigu_k<as]ti käigu_kas]ti!\S\.22^E^!
 sage:0905|käiguline käigulise käigulis[T!\A\.12^I^+7!
 sagem:0905|käigu_p<ealt!\D\!
 vvsm:0093|käigus!\K\!
-lisa:1019|käigust<ik käigust<ikku käigust?iku!\S\.25^E^+11!
+lisa:1019|k?äigust<ik k?äigust<ikku k?äigustiku!\S\.25^E^+11!
 vvs:0093|k<äija!\S\.1+9!
 vvs:0093|k<äik k<äiku käigu!\SW\.22^E^!
 tesv:0902|**k<äiku=<and[MA k<äiku=<and[A k<äiku=anna[B k<äiku=<an[TUD k<äiku=<and[MATA k<äiku=<and[EV k<äiku=<an]d[IS k<äiku=<and[KU k<äiku=anna[ME k<äiku=<an[TAKSE k<äiku=<an]d[SIN k<äiku=<an]d[SIME k<äiku=<and[NUD !\V\.34! 
@@ -30993,7 +30993,7 @@ lisa:0094|liiva_v<ärvi!\A\!
 lisa:0094|Liivi!\H\.16!
 vvs:0093|liivikas liivika!\S\.2+9!
 vvs:0093|liivik liiviku!\S\.2+9!
-lisa:1019|liivil<ik liivil<ikku liiviliku!\A\.25^E^+11!
+lisa:1019|l?iivil<ik l?iivil<ikku l?iiviliku!\A\.25^E^+11!
 lisa:0094|Liivi_m<aa!\H\.26.SG!
 vvs:0093|l?iivist<ik l?iivist<ikku l?iivistiku!\S\.25^E^+11!
 vvs:0093|l<iivlane l<iivlase l<iivlas[T!\S\.12^I^+7!&&(!\S\.10+7!)
@@ -31060,7 +31060,7 @@ lisa:0904|l<imb l<imbi limbi!\Sn\.22^E^!
 lisa:0904|limbo!\S\.16!
 voor:0094|limericki!\G\!
 voor:0094|L?imer<ick L?imer<icki L?imer?icki!\H\.22^E^.SG!
-lisa:1019|limer<ik limer<ikku limer?iku!\S\.25^E^+11!
+lisa:1019|l?imer<ik l?imer<ikku l?imeriku!\S\.25^E^+11!
 vvs:0093|lim<iit lim<iiti lim?iidi!\S\.22^E^+7!
 vvsv:0093|limit<eeri[MA limiteeri[B!\V\.28!
 vvs:0093|limnol<oogia!\S\.1+9!
@@ -41856,7 +41856,7 @@ vvs:0093|?ortop<eed ?ortop<eedi ?ortopeedi!\S\.22^E^+7!
 lisa:1019|ortor<eksia!\S\.1+9!
 lisa:1019|orto_rektik orto_rektiku!\S\.2+9!
 vvs:0093|orund orundi!\Sn\.2+9!%i>e[I%
-lisa:1019|orust<ik orust<ikku orust?iku!\S\.25^E^+11!
+lisa:1019|?orust<ik ?orust<ikku ?orustiku!\S\.25^E^+11!
 vvs:0093|orvand orvandi!\S\.2+9!%i>e[I%
 vvs:0093|<orv <orva orva!\S\.22^I^!
 voor:1019|?orwellil<ik ?orwellil<ikku ?orwelliliku!\A\.25^E^+11!
@@ -43864,7 +43864,7 @@ sage:0905|p<eegli_l<aud p<eegli_l<auda p<eegli_laua!\S\.22^U^!
 sage:0905|p<eegli_m<eister p<eegli_m<eistri!\S\.2+9!%i>e[I%
 vvs:0093|p<eeker p<eekri!\S\.2+9!%i>e[I%
 vvs:0093|p<eekon p<eekoni!\S\.2+9!%i>e[I%
-lisa:1019|peelest<ik peelest<ikku peelest?iku!\S\.25^E^+11!
+lisa:1019|p?eelest<ik p?eelest<ikku p?eelestiku!\S\.25^E^+11!
 lisa:0904|p<eel p<eeli p?eeli!\S\.22^E^!
 vvs:0093|peenar p<eenra!\S\.8+9!
 vvsv:0093|p<eendu[MA!\V\.27!
@@ -44915,7 +44915,7 @@ tes:0902|pil]distaja!\S\.1+9!
 vvsv:0093|pil]dista[MA!\V\.27!
 tes:0902|pil]distamine pil]distamise pil]distamis[T!\S\.12^I^+7!
 sage:0905|pil]distatav pil]distatava!\A\.2+9!
-lisa:1019|pil]dist<ik pil]dist<ikku pil]dist?iku!\S\.25^E^+11!
+lisa:1019|p?il]dist<ik p?il]dist<ikku p?il]distiku!\S\.25^E^+11!
 vvs:0093|pil]distus pil]distuse!\S\.11^I^+7!
 vvsv:0093|p<ildu[MA pillu[B!\V\.28!
 lisa:0094|p<ildur p<ilduri!\S\.2+9!%i>e[I%
@@ -68623,7 +68623,7 @@ sage:0905|vene_k<eelne vene_k<eelse!\Am\.2+9!
 vvs:0093|venelane venelase venelas[T!\S\.12^I^+7!
 vvs:0093|venelanna!\S\.16!
 lisa:0094|v?enelask<ond v?enelask<onda v?enelaskonna!\S\.22^I^+7!
-lisa:1019|venel<ik venel<ikku venel?iku!\A\.25^E^+11!
+lisa:1019|v?enel<ik v?enel<ikku v?eneliku!\A\.25^E^+11!
 lisa:0094|vene_m<aa!\Gn\!
 lisa:0094|Vene_m<aa!\H\.26.SG!
 sage:0905|vene_m<aalane vene_m<aalase vene_m<aalas[T!\S\.12^I^+7!&&(!\S\.10+7!)
