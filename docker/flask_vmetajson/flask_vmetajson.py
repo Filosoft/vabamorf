@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 
-VERSION = "2023.06.01"
+VERSION = "2023.06.03"
 
 """ 
 ----------------------------------------------
@@ -45,11 +45,11 @@ Lähtekoodist tehtud konteineri kasutamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 2.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_vmetajson
-    $ docker build -t tilluteenused/vmetajson:2023.06.01 .
+    $ docker build -t tilluteenused/vmetajson:2023.06.03 .
     # docker login -u tilluteenused
-    # docker push tilluteenused/vmetajson:2023.06.01 .
+    # docker push tilluteenused/vmetajson:2023.06.03
 2.3 Konteineri käivitamine
-    $ docker run -p 7007:7007 tilluteenused/vmetajson:2023.06.01
+    $ docker run -p 7007:7007 tilluteenused/vmetajson:2023.06.03
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
 ----------------------------------------------
@@ -57,7 +57,7 @@ Lähtekoodist tehtud konteineri kasutamine
 DockerHUBist tõmmatud konteineri kasutamine
 3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
 3.1 DockerHUBist konteineri tõmbamine
-    $ docker pull tilluteenused/vmetajson:2023.06.01 
+    $ docker pull tilluteenused/vmetajson:2023.06.03 
 3.2 Konteineri käivitamine: järgi punkti 2.3
 3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
@@ -70,6 +70,9 @@ TÜ pilves töötava konteineri kasutamine
         https://smart-search.tartunlp.ai/api/analyser/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         https://smart-search.tartunlp.ai/api/analyser/version | jq  
+    $ curl --silent --request POST --header "Content-Type: application/json" \
+        --data '{"params":{"vmetajson":["--version"]}}' \
+        https://smart-search.tartunlp.ai/api/analyser/process | jq
 
 ----------------------------------------------
 """
@@ -89,7 +92,7 @@ app = Flask("vmetajson")
 
 @app.route('/api/analyser/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
-def flask_estnltk_version():
+def api_analyser_version():
     """Tagastame veebiliidese versiooni
 
     Returns:
