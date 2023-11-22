@@ -16,7 +16,8 @@ ok  {"content":"Mees peeti kinni .", "params":{"vmetajson":["--guess"]}}
 
 #include <algorithm> 
 #include <cctype>
-#include <iostream>  
+#include <iostream>
+#include <sstream>
 #include <string> 
 #include <assert.h>
 #include <iterator>
