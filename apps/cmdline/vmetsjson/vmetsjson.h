@@ -4,6 +4,7 @@
 #include <algorithm> 
 #include <cctype>
 #include <iostream>  
+#include <sstream>
 #include <string> 
 #include <assert.h>
 #include <iterator>
