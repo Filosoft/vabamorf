@@ -142,10 +142,7 @@ public:
         if(lipp_oleta_pn==true && (lipp_xml==false || lipp_oleta==false))
         {
             fprintf(stderr,
-                    "--guesspropname lippu saab kasutada ainult koos --xml ja --guess lipuga\n");
-            //if(lipp_oleta==true && lipp_xml==false)
-            //    fprintf(stderr,
-            //        "--guesspropname lippu saab kasutada ainult koos --guess lipuga");
+                    "--guesspropnames lippu saab kasutada ainult koos --xml ja --guess lipuga\n");
             goto syntaks;
         } 
         if(i==argc)
