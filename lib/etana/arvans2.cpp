@@ -138,7 +138,7 @@ int MORF0::arvans2(MRFTULEMUSED *tulemus, FSXSTRING *sonna, int S6naPikkus, VARI
                 // kas on soome p�risnimi?
                 if (TaheHulgad::OnLopus(&(tyvi), FSxSTR("se")) && vorm.Find(FSxSTR("sg ")) != -1)
                     {
-                    if (soome_pn_se(&tyvi, tyvepik, &s)) // se -> nen
+                    if (soome_pn_se(&tyvi, tyvepik, &s) && mrfFlags.Chk(MF_ALGV)) // se -> nen
                         {
                         tmpsona = tyvi.Left(tyvepik-2);
                         tmpsona += FSxSTR("nen");
@@ -152,7 +152,7 @@ int MORF0::arvans2(MRFTULEMUSED *tulemus, FSXSTRING *sonna, int S6naPikkus, VARI
                     }
                 else if (TaheHulgad::OnLopus(&(tyvi), FSxSTR("s")) && lopp == FSxSTR("t"))
                     {
-                    if (soome_pn_s(&tyvi, tyvepik)) // s -> nen
+                    if (soome_pn_s(&tyvi, tyvepik) && mrfFlags.Chk(MF_ALGV)) // s -> nen
                         {
                         tmpsona = tyvi.Left(tyvepik-1);
                         tmpsona += FSxSTR("nen");

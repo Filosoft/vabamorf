@@ -166,7 +166,11 @@ int MORF0::ty_suf(
 		    if (res > ALL_RIGHT)
 			    return res; /* viga! */
 		    if (res == ALL_RIGHT)
-			    klp = lopp_ma;
+			    //klp = lopp_ma;
+                k = ssobivus( dptr, (const FSxCHAR *)(*sonaliik[cnt]), sonaliik[cnt]->GetLength(), 
+                lopp_ma, FSxSTR("V"), SUVA_VRM, sobivad, sizeof(sobivad) );
+                if (!k)     /* pole verbi tüvi; on nt. ioota */
+                    return ALL_RIGHT;   /* polnud õiget tyve */
 		    }
 		}
 	if (res == POLE_YLDSE || res == POLE_SEDA) /*sellist tyve sonastikus pole*/
