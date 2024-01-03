@@ -453,7 +453,7 @@ namespace vabamorf
 						{
 							suggestions_jsonlist.append(suggestions[j]);
 						}
-					jsonToken["features"]["suggestions"] = suggestions_jsonlist;
+						jsonToken["features"]["suggestions"] = suggestions_jsonlist;
 					}
 				}
 			}
