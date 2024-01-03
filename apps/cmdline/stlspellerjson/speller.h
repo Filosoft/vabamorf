@@ -449,11 +449,16 @@ namespace vabamorf
 					{									// ...leiame soovitused...
 						Json::Value suggestions_jsonlist;
 						std::vector<std::string> suggestions = speller.suggest(jsonFeatures["token"].asCString());
-						for (size_t j = 0; j < suggestions.size(); j++) 
+						if(suggestions.size() > 0)
 						{
-							suggestions_jsonlist.append(suggestions[j]);
+							for (size_t j = 0; j < suggestions.size(); j++) 
+							{
+								suggestions_jsonlist.append(suggestions[j]);
+							}
+							jsonToken["features"]["suggestions"] = suggestions_jsonlist;
 						}
-						jsonToken["features"]["suggestions"] = suggestions_jsonlist;
+						else
+							jsonToken["features"]["suggestions"] =  Json::arrayValue;
 					}
 				}
 			}
