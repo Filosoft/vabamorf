@@ -191,6 +191,21 @@ neile pakutakse parandatud variante.
 }
 ```
 
+```cmdline
+./stlspellerjson.db  --json='{"params":{"stlspellerjson":["--version"]}}'
+```
+
+```json
+{"params":{"stlspellerjson":["--version"]},"version":"2024.01.03"}
+```
+```cmdline
+./stlspellerjson.db  --json='{}' --version     
+```
+
+```json
+{"version":"2024.01.03"}
+```
+
 ## Autor
 
 Copyright © 1997-2023 OÜ Filosoft

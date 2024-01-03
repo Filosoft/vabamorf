@@ -153,7 +153,7 @@ public:
         InitClassVariables();
     }
 
-    const char* VERSION = "2023.06.01";
+    const char* VERSION = "2024.01.03";
 
 private:
     int lipp_maxcomplexity;     // --depth=MAXTASAND

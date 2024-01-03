@@ -179,7 +179,7 @@ public:
         InitClassVariables();
     }
 
-    const char* VERSION = "2023.09.20";
+    const char* VERSION = "2024.01.03";
 
 private:
     CFSAString json_str_fs;     // --json=... lipu tagant
