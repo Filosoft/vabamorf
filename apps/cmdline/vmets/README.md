@@ -130,7 +130,7 @@ palk (palga) //_S_ sg g, pl p, //     p<alk+u //_S_ pl p, //    p<alka+sid //_S_
 
 ## See also
 
-* Morphological generator [containerized](https://gitlab.com/tilluteenused/docker-elg-synth/-/blob/main/README.md).
+* Morphological generator [containerized](https://gitlab.com/tilluteenused/docker-elg-synth/-/blob/master/README.md).
 * Commandline morphological analyzer [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/README.md).
 
 

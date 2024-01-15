@@ -140,7 +140,7 @@ palk (palga) //_S_ sg g, pl p, //     p<alk+u //_S_ pl p, //    p<alka+sid //_S_
 
 ## Vaata lisaks
 
-* Morfoloogiline süntesaator [konteineris](https://gitlab.com/tilluteenused/docker-elg-synth/-/blob/main/LOEMIND.md).
+* Morfoloogiline süntesaator [konteineris](https://gitlab.com/tilluteenused/docker-elg-synth/-/blob/master/LOEMIND.md).
 * Morfoloogilise analüsaatori käsureaprogramm [vmeta](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/LOEMIND.md).
 
 
