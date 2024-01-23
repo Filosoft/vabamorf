@@ -1,7 +1,5 @@
  #!/usr/bin/env python3
 
-VERSION = "2024.01.23"
-
 """ 
 ----------------------------------------------
 
@@ -13,21 +11,26 @@ Mida uut:
 ----------------------------------------------
 
 Lähtekoodist pythoni skripti käivitamine
-TODO
 
-----------------------------------------------
-Lähtekoodist käivitatud veebiserveri kasutamine
-1 Lähtekoodi allalaadimine (1.1), virtuaalkeskkonna loomine (1.2), veebiteenuse käivitamine pythoni koodist (1.3) ja CURLiga veebiteenuse kasutamise näited (1.4)
 1.1 Lähtekoodi allalaadimine
     $ mkdir -p ~/git/ ; cd ~/git/
     $ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
 1.2 Virtuaalkeskkonna loomine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ ./create_venv.sh
-1.3 Veebiserveri käivitamine pythoni koodist
+1.3 Skripti kasutusnäited
+    #Ilma argumentideta loeb JSONit std-sisendist ja kirjutab tulemuse std-väljundisse
+    $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
+    $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
+
+----------------------------------------------
+Lähtekoodist käivitatud veebiserveri kasutamine
+2.1 Lähtekoodi allalaadimine, vt 1.1
+2.2 Virtuaalkeskkonna loomine, vt 1.2
+2.3 Veebiserveri käivitamine pythoni koodist
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ venv/bin/python3 ./flask_estnltk_sentok.py
-1.4 CURLiga veebiteenuse kasutamise näited
+2.4 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         localhost:6000/api/estnltk/tokenizer/process | jq
@@ -39,30 +42,28 @@ Lähtekoodist käivitatud veebiserveri kasutamine
 ----------------------------------------------
 
 Lähtekoodist tehtud konteineri kasutamine
-2 Lähtekoodi allalaadimine (2.1), konteineri kokkupanemine (2.2), konteineri käivitamine (2.3) ja CURLiga veebiteenuse kasutamise näited  (2.4)
-2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
-2.2 Konteineri kokkupanemine
+3.1 Lähtekoodi allalaadimine: järgi punkti 1.1
+3.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ docker build -t tilluteenused/api_estnltk_sentok:2024.01.23 .
     # docker login -u tilluteenused
     # docker push tilluteenused/api_estnltk_sentok:2024.01.23   
-2.3 Konteineri käivitamine
+3.3 Konteineri käivitamine
     $ docker run -p 6000:6000 tilluteenused/estnltk_sentok:2024.01.23
-2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
+3.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
 ----------------------------------------------
 
 DockerHUBist tõmmatud konteineri kasutamine
-3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
-3.1 DockerHUBist konteineri tõmbamine
+4.1 DockerHUBist konteineri tõmbamine
     $ docker pull tilluteenused/estnltk_sentok:2024.01.23 
-3.2 Konteineri käivitamine: järgi punkti 2.3
-3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
+4.2 Konteineri käivitamine: järgi punkti 2.3
+4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
 ----------------------------------------------
 
 TÜ pilves töötava konteineri kasutamine
-4 CURLiga veebiteenuse kasutamise näited
+5 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://smart-search.tartunlp.ai/api/estnltk/tokenizer/process | jq
@@ -79,9 +80,11 @@ import argparse
 from flask import Flask, request, jsonify, make_response, abort
 from functools import wraps
 
-import estnltk_sentok
+import estnltk_sentok # tag SENTences & TOKens
 
-app = Flask("estnltk_sentok")
+app = Flask(__name__)
+
+VERSION = "2024.01.23"
 
 # JSONsisendi max suuruse piiramine {{
 try:

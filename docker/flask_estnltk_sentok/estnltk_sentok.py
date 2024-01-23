@@ -10,9 +10,7 @@ def estnltk_sentok(content: str) -> Tuple[List, List]:
     '''
     Find sentences and tokens
     :param str: input text
-    :param features: optional information
-    :param annotations: add here tokens and sentences
-    :return: sentence and token boundaries in ELG-annotation format
+    :return: sentence and token boundaries
     '''
     estnltk_text = Text(content)
     estnltk_text.tag_layer(['words'])
@@ -28,11 +26,6 @@ def estnltk_sentok(content: str) -> Tuple[List, List]:
     return sentences, tokens
 
 if __name__ == '__main__':
-    '''
-    Ilma argumentideta loeb JSONit std-sisendist ja kirjutab tulemuse std-väljundisse
-    $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
-    $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
-    '''
     import argparse
 
     argparser = argparse.ArgumentParser(allow_abbrev=False)
