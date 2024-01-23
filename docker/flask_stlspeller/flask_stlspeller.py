@@ -1,6 +1,6 @@
  #!/usr/bin/env python3
 
-VERSION = "2023.06.03"
+VERSION = "2024.01.04"
 
 """
 ----------------------------------------------
@@ -22,12 +22,12 @@ Lähtekoodist pythoni skripti kasutamine
 1.4 CURLiga veebiteenuse kasutamise näited
     $ curl --silent  --request POST --header "Content-Type: application/json" \
         --data '{"content":"oun terre tere"}' \
-        localhost:7005/process | jq
+        localhost:7005/api/vm/speller/process | jq
     $ curl --silent  --request POST --header "Content-Type: application/json" \
-        localhost:7005/version | jq
+        localhost:7005/api/vm/speller/version | jq
     $ curl --silent  --request POST --header "Content-Type: application/json" \
         --data '{"params":{"stlspellerjson":["--version"]}}' \
-        localhost:7005/process | jq
+        localhost:7005/api/vm/speller/process | jq
 
 ----------------------------------------------
 
@@ -36,11 +36,11 @@ Lähtekoodist tehtud konteineri kasutamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 2.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_stlspeller
-    $ docker build -t tilluteenused/speller:2023.06.03 .
+    $ DOCKER_BUILDKIT=1 docker build -t tilluteenused/vm_speller:2024.01.04 .
     # docker login -u tilluteenused
-    # docker push tilluteenused/speller:2023.06.03
+    # docker push tilluteenused/vm_speller:2024.01.04
 2.3 Konteineri käivitamine
-    $ docker run -p 7005:7005 tilluteenused/speller:2023.06.03
+    $ docker run -p 7005:7005 tilluteenused/vm_speller:2024.01.04
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
 ----------------------------------------------
@@ -48,7 +48,7 @@ Lähtekoodist tehtud konteineri kasutamine
 DockerHUBist tõmmatud konteineri kasutamine
 3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
 3.1 DockerHUBist konteineri tõmbamine
-    $ docker pull tilluteenused/speller:2023.06.03
+    $ docker pull tilluteenused/vm/speller:2024.01.04
 3.2 Konteineri käivitamine: järgi punkti 2.3
 3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
@@ -58,13 +58,40 @@ TÜ pilves töötava konteineri kasutamine
 4 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"oun õun terre"}' \
-        https://smart-search.tartunlp.ai/api/speller/process | jq
+        https://smart-search.tartunlp.ai5/api/vm/speller/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai/api/speller/version | jq  
+        https://smart-search.tartunlp.ai/api/vm/speller/version | jq  
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"params":{"stlspellerjson":["--version"]}}' \
-        https://smart-search.tartunlp.ai/api/speller/process | jq 
+        https://smart-search.tartunlp.ai/api/vm/speller/process | jq 
 ----------------------------------------------
+
+5 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+
+5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
+
+kubectl create deployment smart-search-api-vm-speller \
+  --image=tilluteenused/vm_speller:2024.01.04
+
+5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
+
+kubectl expose deployment smart-search-api-vm-speller \
+  --type=ClusterIP --port=80 --target-port=7005
+
+5.3 `ingress`-konfiguratsioonifaili täiendamine
+
+kubectl edit ingress smart-search-api-ingress
+
+Lisage sinna
+
+- backend:
+    service:
+    name: smart-search-api-vm-speller
+    port:
+        number: 80
+path: /api/vm/speller/?(.*)
+pathType: Prefix
+
 """
 
 import subprocess
@@ -80,7 +107,8 @@ proc = subprocess.Popen(['./stlspellerjson', '--path=.'],
 
 app = Flask("stlspellerjson")
 
-@app.route('/api/analyser/version', methods=['GET', 'POST'])
+@app.route('/api/vm/speller/version', methods=['GET', 'POST'])
+@app.route('/api/speller/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
 def version():
     """Tagastame veebiliidese versiooni
@@ -88,8 +116,9 @@ def version():
     Returns:
         ~flask.Response: JSONkujul versioonistring
     """
-    return jsonify({"version":VERSION})
+    return jsonify({"FLASK-liidese version":VERSION})
 
+@app.route('/api/vm/speller/process', methods=['POST'])
 @app.route('/api/speller/process', methods=['POST'])
 @app.route('/process', methods=['POST'])
 def speller():
