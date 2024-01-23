@@ -58,7 +58,7 @@ TÜ pilves töötava konteineri kasutamine
 4 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"oun õun terre"}' \
-        https://smart-search.tartunlp.ai5/api/vm/speller/process | jq
+        https://smart-search.tartunlp.ai/api/vm/speller/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         https://smart-search.tartunlp.ai/api/vm/speller/version | jq  
     $ curl --silent --request POST --header "Content-Type: application/json" \
