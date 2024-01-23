@@ -1,11 +1,14 @@
  #!/usr/bin/env python3
 
-VERSION = "2023.04.18"
+VERSION = "2024.01.23"
 
 """ 
 ----------------------------------------------
 
-Flask veebiserver, pakendab ESTNLTK sõnestaja veebiteenuseks
+Flask veebiserver, pakendab ESTNLTK sõnestaja morfi ja ühestamisega kokkusobivaks veebiteenuseks
+
+Mida uut:
+2024-01-23 Erinevatest vigadest raporteerimine asjakohasem
 
 ----------------------------------------------
 
@@ -40,11 +43,11 @@ Lähtekoodist tehtud konteineri kasutamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 2.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-    $ docker build -t tilluteenused/api_estnltk_sentok:2023.04.18 .
+    $ docker build -t tilluteenused/api_estnltk_sentok:2024.01.23 .
     # docker login -u tilluteenused
-    # docker push tilluteenused/api_estnltk_sentok:2023.04.18   
+    # docker push tilluteenused/api_estnltk_sentok:2024.01.23   
 2.3 Konteineri käivitamine
-    $ docker run -p 6000:6000 tilluteenused/estnltk_sentok:2023.04.18
+    $ docker run -p 6000:6000 tilluteenused/estnltk_sentok:2024.01.23
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
 ----------------------------------------------
@@ -52,7 +55,7 @@ Lähtekoodist tehtud konteineri kasutamine
 DockerHUBist tõmmatud konteineri kasutamine
 3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
 3.1 DockerHUBist konteineri tõmbamine
-    $ docker pull tilluteenused/estnltk_sentok:2023.04.18 
+    $ docker pull tilluteenused/estnltk_sentok:2024.01.23 
 3.2 Konteineri käivitamine: järgi punkti 2.3
 3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
@@ -114,6 +117,7 @@ def rotten_json(e):
 def rotten_json(e):
     return jsonify(error=str(e)), 500
 
+#---------------------------------------------------------------------------
 
 @app.route('/api/estnltk/tokenizer/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
@@ -148,6 +152,8 @@ def flask_estnltk_sentok():
     except ValueError as e:
         abort(500, description=str(e))
     return jsonify(request_json), 200
+
+#---------------------------------------------------------------------------
 
 if __name__ == '__main__':
     default_port=6000
