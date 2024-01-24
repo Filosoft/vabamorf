@@ -78,9 +78,9 @@ Mida uut:
     $ kubectl create deployment smart-search-api-estnltk-tokenizer \
     --image=tilluteenused/api_estnltk_sentok:2024.01.23
 
-Keskkonnamuutujate abil saab muuta maksimaalse lubatava päringu suurust,
+Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 
-Ava konfiguratsioonifail  redaktoris
+Ava konfiguratsioonifail redaktoris
 
     $ kubectl edit deployment smart-search-api-estnltk-tokenizer
 
