@@ -1,0 +1,14 @@
+# cd ~/git/vabamorf_github/docker/flask_stlspeller
+# docker-compose up -d
+# docker-compose down
+
+services:
+  api_vm_speller:
+    image: tilluteenused/api_vm_speller:2024.01.23
+    ports:
+      - 7005:7005
+    environment:
+      - MAX_CONTENT_LENGTH=5000000      
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
