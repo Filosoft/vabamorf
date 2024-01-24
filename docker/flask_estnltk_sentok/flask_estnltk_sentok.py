@@ -10,7 +10,7 @@ Mida uut:
 
 ----------------------------------------------
 
-Lähtekoodist pythoni skripti käivitamine
+1 Lähtekoodist pythoni skripti käivitamine
 1.1 Lähtekoodi allalaadimine
     $ mkdir -p ~/git/ ; cd ~/git/
     $ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
@@ -24,7 +24,7 @@ Lähtekoodist pythoni skripti käivitamine
 
 ----------------------------------------------
 
-Lähtekoodist käivitatud veebiserveri kasutamine
+2 Lähtekoodist käivitatud veebiserveri kasutamine
 2.1 Lähtekoodi allalaadimine, vt 1.1
 2.2 Virtuaalkeskkonna loomine, vt 1.2
 2.3 Veebiserveri käivitamine pythoni koodist
@@ -39,13 +39,13 @@ Lähtekoodist käivitatud veebiserveri kasutamine
 
 ----------------------------------------------
 
-Lähtekoodist tehtud konteineri kasutamine
+3  Lähtekoodist konteineri tegemine ja kasutamine
 3.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 3.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ docker-compose build
     # docker login -u tilluteenused
-    # docker push tilluteenused/api_estnltk_sentok:2024.01.23   
+    # docker-compose push   
 3.3 Konteineri käivitamine
     $ docker-compose up -d
 3.4 Konteineri peatamine
@@ -54,7 +54,7 @@ Lähtekoodist tehtud konteineri kasutamine
 
 ----------------------------------------------
 
-DockerHUBist tõmmatud konteineri kasutamine
+4 DockerHUBist tõmmatud konteineri kasutamine
 4.1 DockerHUBist konteineri tõmbamine ja käivitamine
     $ docker-compose pull
 4.2 Konteineri käivitamine: järgi punkti 3.3
@@ -62,8 +62,7 @@ DockerHUBist tõmmatud konteineri kasutamine
 
 ----------------------------------------------
 
-TÜ pilves töötava konteineri kasutamine
-5 CURLiga veebiteenuse kasutamise näited
+5 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://smart-search.tartunlp.ai/api/estnltk/tokenizer/process | jq
@@ -72,7 +71,7 @@ TÜ pilves töötava konteineri kasutamine
 
 ----------------------------------------------
 
-DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+6 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
 
 6.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
 
