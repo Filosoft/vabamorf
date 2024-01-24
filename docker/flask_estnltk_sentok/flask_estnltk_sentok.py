@@ -11,7 +11,6 @@ Mida uut:
 ----------------------------------------------
 
 Lähtekoodist pythoni skripti käivitamine
-
 1.1 Lähtekoodi allalaadimine
     $ mkdir -p ~/git/ ; cd ~/git/
     $ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
@@ -24,6 +23,7 @@ Lähtekoodist pythoni skripti käivitamine
     $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
 
 ----------------------------------------------
+
 Lähtekoodist käivitatud veebiserveri kasutamine
 2.1 Lähtekoodi allalaadimine, vt 1.1
 2.2 Virtuaalkeskkonna loomine, vt 1.2
@@ -35,8 +35,6 @@ Lähtekoodist käivitatud veebiserveri kasutamine
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         localhost:6000/api/estnltk/tokenizer/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json"  \
-        localhost:6000/version | jq
-    $ curl --silent --request POST --header "Content-Type: application/json"  \
         localhost:6000/api/estnltk/tokenizer/version | jq
 
 ----------------------------------------------
@@ -45,19 +43,21 @@ Lähtekoodist tehtud konteineri kasutamine
 3.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 3.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-    $ docker build -t tilluteenused/api_estnltk_sentok:2024.01.23 .
+    $ docker-compose build
     # docker login -u tilluteenused
     # docker push tilluteenused/api_estnltk_sentok:2024.01.23   
 3.3 Konteineri käivitamine
-    $ docker run -p 6000:6000 tilluteenused/estnltk_sentok:2024.01.23
-3.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
+    $ docker-compose up -d
+3.4 Konteineri peatamine
+    $ docker-compose down
+3.5 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
 ----------------------------------------------
 
 DockerHUBist tõmmatud konteineri kasutamine
-4.1 DockerHUBist konteineri tõmbamine
-    $ docker pull tilluteenused/estnltk_sentok:2024.01.23 
-4.2 Konteineri käivitamine: järgi punkti 2.3
+4.1 DockerHUBist konteineri tõmbamine ja käivitamine
+    $ docker-compose pull
+4.2 Konteineri käivitamine: järgi punkti 3.3
 4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
 ----------------------------------------------
@@ -71,6 +71,42 @@ TÜ pilves töötava konteineri kasutamine
         https://smart-search.tartunlp.ai/api/estnltk/tokenizer/version | jq  
 
 ----------------------------------------------
+
+DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+6.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
+
+    $ kubectl create deployment smart-search-api-estnltk-tokenizer \
+    --image=tilluteenused/api_estnltk_sentok:2024.01.23
+
+Keskkonnamuutujate abil saab muuta maksimaalse lubatava päringu suurust,
+
+Selleks redigeeriga konfiguratsioonifaili
+
+$ kubectl edit deployment smart-search-api-estnltk-tokenizer
+
+Lisades sinna soovitud keskkonnamuutujate väärtused:
+
+    env:
+    - name: MAX_CONTENT_LENGTH
+      value: "5000000"
+
+6.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
+
+    $ kubectl expose deployment smart-search-api-estnltk-tokenizer \
+        --type=ClusterIP --port=80 --target-port=6000
+        
+6.3 `ingress`-konfiguratsioonifaili täiendamine
+
+    $ kubectl edit ingress smart-search-api-ingress
+    
+    - backend:
+        service:
+        name: smart-search-api-estnltk-tokenizer
+        port:
+            number: 80
+    path: /api/estnltk/tokenizer/?(.*)
+    pathType: Prefix
+      
 """
 
 import os
@@ -116,7 +152,7 @@ def page_not_found(e):
 def rotten_json(e):
     return jsonify(error=str(e)), 400
 
-@app.errorhandler(500) # Internal Error
+@app.errorhandler(500) # Internal Error from ESTNLTK
 def rotten_json(e):
     return jsonify(error=str(e)), 500
 
@@ -131,7 +167,7 @@ def flask_estnltk_version():
     Returns:
         ~flask.Response: JSONkujul versioonistring
     """
-    return jsonify({"FLASK-liidese version":VERSION})
+    return jsonify({"FLASK-liidese version":VERSION, "MAX_CONTENT_LENGTH": MAX_CONTENT_LENGTH})
 
 @app.route('/api/estnltk/tokenizer/process', methods=['POST'])
 @app.route('/process', methods=['POST'])

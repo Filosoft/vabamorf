@@ -1,0 +1,14 @@
+# cd  ~/git/vabamorf_github/docker/flask_estnltk_sentok
+# docker-compose up -d
+# docker-compose down
+
+services:
+  api_estnltk_sentok:
+    image: tilluteenused/api_estnltk_sentok:2024.01.23
+    ports:
+      - 6000:6000
+    environment:
+      - MAX_CONTENT_LENGTH=5000000      
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
