@@ -15,7 +15,7 @@ Flask veebiserver, pakendab spelleri veebiteenuseks
     $ cd ~/git/vabamorf_github/docker/flask_stlspeller
     $ ./create_venv.sh
 1.3 Veebiserveri käivitamine pythoni koodist
-Kasutab UBUNTU 22.04 LTS eelkompileeritud programmi `stlspellerjson`.
+Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `stlspellerjson`.
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ venv/bin/python3 ./flask_stlspeller.py
 1.4 Kasutusnäited
@@ -116,7 +116,7 @@ proc = subprocess.Popen(['./stlspellerjson', '--path=.'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.DEVNULL)
 
-app = Flask("stlspellerjson")
+app = Flask(__name__)
 
 VERSION = "2024.01.23"
 
