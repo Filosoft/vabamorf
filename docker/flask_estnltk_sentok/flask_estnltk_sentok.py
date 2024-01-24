@@ -73,6 +73,7 @@ TÜ pilves töötava konteineri kasutamine
 ----------------------------------------------
 
 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+
 6.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
 
     $ kubectl create deployment smart-search-api-estnltk-tokenizer \
@@ -80,9 +81,9 @@ DockerHubis oleva konteineri lisamine oma KUBERNETESesse
 
 Keskkonnamuutujate abil saab muuta maksimaalse lubatava päringu suurust,
 
-Selleks redigeeriga konfiguratsioonifaili
+Ava konfiguratsioonifail  redaktoris
 
-$ kubectl edit deployment smart-search-api-estnltk-tokenizer
+    $ kubectl edit deployment smart-search-api-estnltk-tokenizer
 
 Lisades sinna soovitud keskkonnamuutujate väärtused:
 
@@ -97,8 +98,12 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
         
 6.3 `ingress`-konfiguratsioonifaili täiendamine
 
+Ava konfiguratsioonifail  redaktoris
+
     $ kubectl edit ingress smart-search-api-ingress
     
+Täienda konfiguratsioonigaili
+
     - backend:
         service:
         name: smart-search-api-estnltk-tokenizer
