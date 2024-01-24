@@ -52,8 +52,7 @@ Kasutab UBUNTU 22.04 LTS eelkompileeritud programmi `stlspellerjson`.
 
 ----------------------------------------------
 
-
-TÜ pilves töötava konteineri CURLiga kasutamise näited
+4 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"oun õun terre"}' \
         https://smart-search.tartunlp.ai/api/vm/speller/process | jq
@@ -62,34 +61,47 @@ TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"params":{"stlspellerjson":["--version"]}, "content":"" }' \
         https://smart-search.tartunlp.ai/api/vm/speller/process | jq 
+
 ----------------------------------------------
 
 5 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
 
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
 
-kubectl create deployment smart-search-api-vm-speller \
-  --image=tilluteenused/api_vm_speller:2024.01.23
+    $ kubectl create deployment smart-search-api-vm-speller \
+        --image=tilluteenused/api_vm_speller:2024.01.23
 
+Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
+
+Ava konfiguratsioonifail redaktoris
+
+    $ kubectl edit deployment smart-search-api-vm-speller
+
+Lisades sinna soovitud keskkonnamuutujate väärtused:
+
+    env:
+    - name: MAX_CONTENT_LENGTH
+      value: "5000000"
+        
 5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
 
-kubectl expose deployment smart-search-api-vm-speller \
-  --type=ClusterIP --port=80 --target-port=7005
+    $ kubectl expose deployment smart-search-api-vm-speller \
+        --type=ClusterIP --port=80 --target-port=7005
 
 5.3 `ingress`-konfiguratsioonifaili täiendamine
 
-kubectl edit ingress smart-search-api-ingress
+    $ kubectl edit ingress smart-search-api-ingress
 
-Lisage sinna
+Lisa sinna
 
-- backend:
-    service:
-    name: smart-search-api-vm-speller
-    port:
-        number: 80
-path: /api/vm/speller/?(.*)
-pathType: Prefix
-
+    - backend:
+        service:
+        name: smart-search-api-vm-speller
+        port:
+            number: 80
+    path: /api/vm/speller/?(.*)
+    pathType: Prefix
+----------------------------------------------
 """
 import os
 import subprocess
