@@ -66,35 +66,28 @@ TÜ pilves töötava konteineri kasutamine
 
 ----------------------------------------------
 
-
+5 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
-
     $ kubectl create deployment smart-search-api-vm-vmetajson \
-        --image=tilluteenused/api_vm_vmetajson:2024.01.23
+        --image=tilluteenused/api_vm_vmetajson:2024.01.24
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
-
 Ava konfiguratsioonifail redaktoris
-
     $ kubectl edit deployment smart-search-api-vm-vmetajson
 
 Lisades sinna soovitud keskkonnamuutujate väärtused:
-
     env:
     - name: MAX_CONTENT_LENGTH
       value: "5000000"
         
 5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
-
     $ kubectl expose deployment smart-search-api-vm-vmetajson \
         --type=ClusterIP --port=80 --target-port=7007
 
 5.3 `ingress`-konfiguratsioonifaili täiendamine
-
     $ kubectl edit ingress smart-search-api-ingress
 
 Lisa sinna
-
     - backend:
         service:
         name: smart-search-api-vm-vmetajson
