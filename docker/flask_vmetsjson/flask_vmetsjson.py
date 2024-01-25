@@ -87,13 +87,14 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
     $ kubectl edit ingress smart-search-api-ingress
 
 Lisa sinna
-    - backend:
-        service:
-        name: smart-search-api-vm-vmetsjson
-        port:
-            number: 80
-    path: /api/vm/generator/?(.*)
-    pathType: Prefix
+
+      - backend:
+          service:
+            name: smart-search-api-vm-vmetsjson
+            port:
+              number: 80
+        path: /api/vm/generator/?(.*)
+        pathType: Prefix
 
 ----------------------------------------------
 """
@@ -173,7 +174,7 @@ def morf():
         request_json = json.loads(request.data)
     except ValueError as e:
         abort(400, description=str(e))
-    if ("content" not in request_json) or ("tss" not in request_json):
+    if ("content" not in request_json) and ("tss" not in request_json):
         abort(400, description="Required 'content' or 'tss'")
     try:    
         proc.stdin.write(f'{json.dumps(request_json)}\n')
