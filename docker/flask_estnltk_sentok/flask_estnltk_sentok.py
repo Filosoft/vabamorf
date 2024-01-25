@@ -192,7 +192,7 @@ def flask_estnltk_sentok():
         request_json["annotations"] = {}
     try:
         request_json["annotations"]["sentences"], request_json["annotations"]["tokens"] = estnltk_sentok.estnltk_sentok(request_json["content"])
-    except ValueError as e:
+    except Exception as e:
         abort(500, description=str(e))
     return jsonify(request_json), 200
 
