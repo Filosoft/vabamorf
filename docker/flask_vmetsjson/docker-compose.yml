@@ -1,0 +1,16 @@
+# cd ~/git/vabamorf_github/docker/flask_vmetsjson
+# docker-compouse build
+# docker-compound pull
+# docker-compose up -d
+# docker-compose down
+
+services:
+  api_vm_speller:
+    image: tilluteenused/api_vm_vmetsjson:2024.01.22
+    ports:
+      - 7008:7008
+    environment:
+      - MAX_CONTENT_LENGTH=5000000      
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
