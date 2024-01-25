@@ -186,6 +186,7 @@ CFSArray<CMorphInfo> CLinguistic::Analyze(const CFSWString &szWord)
 		m_pMorph->Clr();
 		m_pMorph->SetMaxTasand();
 		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA &(~MF_V0TAKOKKU);
+		if (m_bStem) Flags&=(~MF_ALGV);
 		if (!m_bAbbrevations) Flags&=(~MF_LYHREZH);
 		if (!m_bRomanNumerals) Flags|=MF_ARAROOMA;
 		if (m_bGuess) { Flags|=MF_OLETA; Flags&=(~MF_PIKADVALED); }
@@ -218,6 +219,7 @@ CFSArray<CMorphInfos> CLinguistic::AnalyzeSentence(const CPTWordArray &Words)
 		m_pMorph->Clr();
 		m_pMorph->SetMaxTasand();
 		MRF_FLAGS_BASE_TYPE Flags=MF_DFLT_MORFA | MF_YHESTA;
+		if (m_bStem) Flags&=(~MF_ALGV);
 		if (!m_bCombineWords) Flags&=(~MF_V0TAKOKKU);
 		if (!m_bAbbrevations) Flags&=(~MF_LYHREZH);
 		if (!m_bRomanNumerals) Flags|=MF_ARAROOMA;

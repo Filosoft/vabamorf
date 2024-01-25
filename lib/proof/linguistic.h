@@ -25,6 +25,7 @@ public:
 	DECLARE_FSNOCOPY(CLinguistic);
 
 	CLinguistic() :
+		m_bStem(false),
 		m_bAbbrevations(true), m_bRomanNumerals(true),
 		m_bGuess(false), m_bPhonetic(false),
 		m_bProperName(false), m_bCombineWords(false),
@@ -93,7 +94,13 @@ public:
 
 public:
 /**
-* Analyze abbrevations stricktly. Applies to Spell, Analyze
+* true: morf analüüsi väljundis tüvi; false: morf analüüsi väljundis lemma, vaikeväärtus
+* Applies to Analyze
+*/
+	bool m_bStem;
+
+/**
+* Analyze abbrevations strictly. Applies to Spell, Analyze
 */
 	bool m_bAbbrevations;
 
