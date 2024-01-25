@@ -53,8 +53,8 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
 
 ----------------------------------------------
 
-TÜ pilves töötava konteineri kasutamine
-4 CURLiga veebiteenuse kasutamise näited
+4 TÜ pilves töötava konteineri kasutamise näited
+
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://smart-search.tartunlp.ai/api/vm/analyser/process | jq
@@ -66,7 +66,7 @@ TÜ pilves töötava konteineri kasutamine
 
 ----------------------------------------------
 
-5 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+5 DockerHubis oleva konteineri lisamine KUBERNETESesse
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
     $ kubectl create deployment smart-search-api-vm-vmetajson \
         --image=tilluteenused/api_vm_vmetajson:2024.01.24
