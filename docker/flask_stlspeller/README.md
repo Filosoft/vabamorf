@@ -1,4 +1,4 @@
-# Eesti keele spellerit ja kirjavigade parandajat sisaldav konteiner [versioon 2023.05.20]
+# Eesti keele spellerit ja kirjavigade parandajat sisaldav konteiner [versioon 2024.01.23]
 
 [Eesti keele spellerit ja kirjavigade parandajat](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/stlspellerjson) sisaldav tarkvara-konteiner
 
@@ -17,7 +17,7 @@
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull tilluteenused/speller:2023.05.20
+docker pull tilluteenused/speller:2024.01.23
 ```
 
 Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
@@ -42,17 +42,23 @@ vaadake sellekohast [juhendit](https://github.com/Filosoft/vabamorf/blob/master/
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github/docker/flask_stlspeller
-docker build -t tilluteenused/speller:2023.05.20 .
+cd ~/git/vabamorf_github/docker/flask_stlspeller \
+        && docker-compose build
 ```
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 7005:7005 tilluteenused/speller:2023.05.20
+cd ~/git/vabamorf_github/docker/flask_stlspeller \
+        && docker-compose up -d
 ```
 
-Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
+## Konteineri töö lõpetamine <a name="Konteineri_töö_lõpetamine"></a>
+
+```commandline
+cd ~/git/vabamorf_github/docker/flask_stlspeller \
+        && docker-compose down
+```
 
 ## Päringu json-kuju
 
@@ -115,9 +121,9 @@ Sisendiks on sõnestatud tekst. Selle tegemiseks saab kasutada [lausestamise-sõ
 
 Morf analüüsi tulemuste selgutust vaata programmi [vmetajson](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/README.md) kirjeldusest.
 
-## Kasutusnäide
+## Kasutusnäited
 
-### Näide
+### Kohalikus arvutis töötava konteineri kasutamine
 
 Sisendiks on sõnede string.
 
@@ -167,6 +173,52 @@ curl --silent --request POST --header "Content-Type: application/json" --data '{
         "content" : "tere terre oun"
 }
 
+```
+
+### TÜ KUBERNETESes töötava konteineri kasutamine
+
+Sisendiks on sõnede string.
+
+```commandline
+curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"tere terre oun"}' \
+        https://smart-search.tartunlp.ai/api/vm/speller/process | jq
+```
+
+```json
+{
+  "annotations": {
+    "tokens": [
+      {
+        "features": {
+          "token": "tere"
+        }
+      },
+      {
+        "features": {
+          "suggestions": [
+            "tere",
+            "tarre",
+            "tetre",
+            "tedre"
+          ],
+          "token": "terre"
+        }
+      },
+      {
+        "features": {
+          "suggestions": [
+            "onu",
+            "on",
+            "õun"
+          ],
+          "token": "oun"
+        }
+      }
+    ]
+  },
+  "content": "tere terre oun",
+  "version": "2023.06.01"
+}
 ```
 
 ## Autorid
