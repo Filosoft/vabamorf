@@ -3,7 +3,17 @@
 # docker-compose down
 
 services:
-  api_vm_speller:
+  api_estnltk_sentok:
+    image: tilluteenused/api_estnltk_sentok:2024.01.23
+    ports:
+      - 6000:6000
+    environment:
+      - MAX_CONTENT_LENGTH=5000000      
+    build:
+      context: ../flask_estnltk_sentok
+      dockerfile: ./Dockerfile
+
+  api_vm_vmetajson:
     image: tilluteenused/api_vm_vmetajson:2024.01.24
     ports:
       - 7007:7007
@@ -12,3 +22,4 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+
