@@ -38,7 +38,7 @@ if __name__ == '__main__':
         if "annotations" not in json_io:
             json_io["annotations"] = {}
         json_io["annotations"]["sentences"], json_io["annotations"]["tokens"]  = estnltk_sentok(json_io["content"])
-        json.dump(json_io, sys.stdout, indent=args.indent)
+        json.dump(json_io, sys.stdout, indent=args.indent, ensure_ascii=False)
     else:
         for line in sys.stdin:
             line = line.strip()
@@ -48,6 +48,6 @@ if __name__ == '__main__':
             if "annotations" not in json_io:
                 json_io["annotations"] = {}
             json_io["annotations"]["sentences"], json_io["annotations"]["tokens"]  = estnltk_sentok(json_io["content"])
-            json.dump(json_io, sys.stdout, indent=args.indent)
+            json.dump(json_io, sys.stdout, indent=args.indent, ensure_ascii=False)
             sys.stdout.write('\n')
 
