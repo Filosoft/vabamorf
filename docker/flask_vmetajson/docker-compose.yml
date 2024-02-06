@@ -14,7 +14,7 @@ services:
       dockerfile: ./Dockerfile
 
   api_vm_vmetajson:
-    image: tilluteenused/api_vm_vmetajson:2024.01.24
+    image: tilluteenused/api_vm_vmetajson:2024.02.03
     ports:
       - 7007:7007
     environment:

@@ -69,7 +69,7 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
 5 DockerHubis oleva konteineri lisamine KUBERNETESesse
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
     $ kubectl create deployment smart-search-api-vm-vmetajson \
-        --image=tilluteenused/api_vm_vmetajson:2024.01.24
+        --image=tilluteenused/api_vm_vmetajson:2024.02.03
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 Ava konfiguratsioonifail redaktoris
