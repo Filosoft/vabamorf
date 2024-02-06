@@ -5,11 +5,12 @@
 /*
 Jsoni käitlemiseks käsurealt: jq, gron
 
-Paranda
-ok  {"content":"Mees peeti kinni .", "params":["vmetajson":["--formattedjson"]]}
-??  {"content":"Mees peeti kinni .", "params":[]}
-ok  {"content":"Mees peeti kinni .", "params":{"vmetajson":[]}}
-ok  {"content":"Mees peeti kinni .", "params":{"vmetajson":["--guess"]}}
+Mida uut:
+2024-02-02
+* --classic lipu asemele :
+  * --classic1 (sama mis endine --classic) 
+  * --classic2 FS stiilis analüüsistring iga analüüsivariandi juurde
+* JSON sisendis libatud "tss" (TabSeparatedStrings)  
 */
 
 // sudo apt-get install -y libjsoncpp-dev
@@ -17,10 +18,12 @@ ok  {"content":"Mees peeti kinni .", "params":{"vmetajson":["--guess"]}}
 #include <algorithm> 
 #include <cctype>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <string> 
 #include <assert.h>
 #include <iterator>
+#include <regex>
 #include "../../../lib/etana/etmrfana.h"
 #include "../../../lib/etana/viga.h"
 #include "../../../lib/etana/mrf2yh2mrf.h"
@@ -80,10 +83,11 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
     }
 }
 
-
 class VMETAJSON
 {
 public:
+    const char* VERSION = "2024.02.02";
+
     VMETAJSON(void)
     {
         InitClassVariables();
@@ -153,11 +157,10 @@ public:
         InitClassVariables();
     }
 
-    const char* VERSION = "2024.01.03";
-
 private:
     int lipp_maxcomplexity;     // --depth=MAXTASAND
-    bool lipp_classic;          // --classic # vmeta stiilis väljundstring
+    bool lipp_classic1;          // --classic1 # vmeta stiilis väljundstring sõne juures
+    bool lipp_classic2;          // --classic2 # vmeta stiilis väljundstring analüüsivariandi juures
     bool lipp_gt;               // --gt 
     bool lipp_hmm;              // --hmm markov (ühestaja)
     bool lipp_stem;             // --tüvi
@@ -184,7 +187,8 @@ private:
     void VaikeLipudPaika(void)
     {
         lipp_maxcomplexity=100; // vaikimisi 100
-        lipp_classic=false;
+        lipp_classic1=false;
+        lipp_classic2=false;
         lipp_gt=false;
         lipp_hmm=false;
         lipp_stem=false; 
@@ -292,7 +296,19 @@ private:
         //=============================
         if(strncmp("--json=", lipuString, sizeof("--json=")-1)==0)
         {
-            json_str_fs = lipuString+(strchr(lipuString, '=')-lipuString+1);
+            if(lipuString[7] != '@')
+            {
+                json_str_fs = lipuString+(strchr(lipuString, '=')-lipuString+1);
+                return true;
+            }
+            std::ifstream file(lipuString+8); // Create an input file stream object
+            if (file.is_open()) // Check if the file is open
+            {
+                std::stringstream buffer;
+                buffer << file.rdbuf();
+                file.close();
+                json_str_fs = buffer.str().c_str();
+            }
             return true;
         }
         if(strcmp("--formattedjson", lipuString)==0)
@@ -305,9 +321,14 @@ private:
             lipp_utf8=true;
             return true;
         }
-        if(strcmp("--classic", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
+        if(strcmp("--classic1", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
         {
-            lipp_classic=true;
+            lipp_classic1=true;
+            return true;
+        }
+        if(strcmp("--classic2", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
+        {
+            lipp_classic2=true;
             return true;
         }
         //-----------------------------
@@ -318,7 +339,6 @@ private:
         }    
         return false;
     }
-
 
     /**
      * @brief Seame lipustringide järgi lipubitid paika
@@ -439,7 +459,6 @@ private:
             std::istream_iterator<std::string> begin(tokens);
             std::istream_iterator<std::string> end;
             std::vector<std::string> vectokens(begin, end);
-            //jsonobj["annotations"]["tokens"] = Json::arrayValue;
 
             for(std::string token : vectokens)
             {
@@ -447,6 +466,19 @@ private:
                 jsonToken["features"]["token"] = token;
                 jsonobj["annotations"]["tokens"].append(jsonToken);
             }
+        }
+        if(jsonobj.isMember("tss")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
+        {
+            // "tss" on olemas, aga annoteeritud sõnesid pole, tekitame need
+            std::string tokens = jsonobj["tss"].asString();
+            std::istringstream iss(tokens);
+            std::string token;
+            while(std::getline(iss, token, '\t'))   // but we can specify a different on
+            {
+                Json::Value jsonToken;
+                jsonToken["features"]["token"] = token;
+                jsonobj["annotations"]["tokens"].append(jsonToken);
+            }           
         }
         if(jsonobj.isMember("annotations") && jsonobj["annotations"].isMember("tokens"))
         {
@@ -459,16 +491,6 @@ private:
                 mrf.Flush(lyli);
                 MrfTulemused_2_JSON(jsonFeatures, lyli);
             }
-            /*
-            for(int i=0; i<jsonTokens.size(); i++)
-            {
-                Json::Value& jsonToken = jsonTokens[i]; 
-                const FSXSTRING fsStr = jsonToken["features"]["token"].asCString();
-                mrf.Set1(fsStr);
-                LYLI lyli;
-                mrf.Flush(lyli);
-                MrfTulemused_2_JSON(jsonToken["features"], lyli);
-            }   */  
             return;
         }
         jsonobj["warnings"].append("JSON ei sisalda morfimiseks vajalikku infot");
@@ -536,12 +558,12 @@ private:
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
 
-        if(lipp_classic)
+        if(lipp_classic1)
         {   // lisame väljundjsonisse klassikalise analüüsistringi
-            PCFSAString classic;
-            mrftulemused_utf8.Strct2Strng(&classic, mrf.mrfFlags);
-            classic.TrimRight("\n");
-            features["classic"]=(const char*)classic;
+            PCFSAString classic1;
+            mrftulemused_utf8.Strct2Strng(&classic1, mrf.mrfFlags);
+            classic1.TrimRight("\n");
+            features["classic1"]=(const char*)classic1;
         }
         if(mrftulemused_utf8.idxLast > 0)
             features["complexity"] = mrftulemused_utf8.tagasiTasand; // ainult siis, kui õnnestus analüüsida
@@ -551,6 +573,12 @@ private:
         {
             Json::Value json_mrf;
             EMRFKUST sealt;
+            if(lipp_classic2)
+            {
+                PCFSAString classic2;
+                mrftulemused_utf8[i]->Strct2Strng(&classic2, mrf.mrfFlags);
+                json_mrf["classic2"] = (const char*)classic2;
+            }
             if(mrf.mrfFlags->ChkB(MF_ALGV)==true)
             {
                 json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
@@ -588,6 +616,12 @@ private:
                 case eMRF_PARITUD: json_mrf["source"] = mrftulemused_utf8.eKustTulemused; break; // päritud
                 default: json_mrf["source"] = "X"; break;     // eMRF_X, ise ka ei tea 
             }   
+            if(lipp_classic2)
+            {
+                PCFSAString classic2;
+                mrftulemused_utf8[i]->Strct2Strng(&classic2, mrf.mrfFlags);
+                json_mrf["classic2"] = (const char*)classic2;
+            } 
             features["mrf"].append(json_mrf);
         }
     }
