@@ -1,4 +1,4 @@
-# vmetajson
+# VMETAJSON: JSON kujul sisendi ja väljundiga eesti keele morfoloogiline analüsaator [versioon 2024.02.02]
 
 ## Motivatsioon veel ühe morfiversiooni tegemiseks
 
@@ -73,9 +73,15 @@ Lipu ```--json``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist
 
 Üherealise väljundjsoni asemel taanetega kujundatud json.
 
-### **```--classic```** <a name="lipp_classic"></a>
+### **```--classic1```** <a name="lipp_classic"></a>
 
 Lisab väljundjsoni "klassikalisel" vmeta kujul analüüsistringi.
+Sisaldab algset sõne ja kõiki analõõsivariante.
+
+### **```--classic2```** <a name="lipp_classic"></a>
+
+Lisab väljundjsonis jooksva analüüsivariandi juurde "klassikalisel" vmeta kujul analüüsistringi.
+Sisaldab tüve/lemmat, sõnaliiki ja vormi.
 
 ### **```--utf8json```** <a name=lipp_utf8json></a>
 
@@ -105,6 +111,7 @@ sõnede analüüsi oletamiseks.
 ### **```--maxcpmlexity=KEERUKUS```** <a name="lipp_maxcpmlexity"></a>
 
 **KEERUKUS** täisarvuline parameeter, mis määrab ära selle kui keerulisi variante proovitakse.
+Tavaliselt on mõistlik jätta see parameeter programmile määrata.
 
 ### **```--stem```**  <a name="lipp_stem"></a>
 
@@ -195,6 +202,21 @@ Kirjeldus katab minimaalselt vajaliku info. JSON võib sisaldada lisaks muud, pr
 }
 ```
 
+Tühikuga eraldatud sõned morfimiseks. Eelnevas näites on meil 4 sõne:
+`tühikuga`, `eraldatud`, `sõned` ja `morfimiseks`.
+
+```json
+{
+  "params": { "vmetajson": [parameeter, ...]}, /* võib puududa, siis kasutakse käsureaga määratud lippe */
+  "tss":"tabulatsooniga\teraldatud sõned\tmorfimiseks"
+}
+```
+
+Tabulatsiooniga eraldatud sõned morfimiseks. Sõne võib sisaldada tühikut.
+Eelnevas näites on meil 3 sõnet: `tabulatsooniga`, `eraldatud sõned` ja `morfimiseks`.
+See võimaldab käsitleda tühikut sisaldavat sõne ühe analüüsitava üksusena,
+näiteks: `New York` või `+372 456 456`.
+
 Morf analüsaator ignoreerib sõnega kokkukleepunud punktuatsiooni.
 
 ## Väljundi kirjeldus
@@ -249,9 +271,9 @@ Kui sõne ei õnnestunud morf analüüsida, siis selle sõne juurde morf infoga 
 
 Täpsemalt vaata näiteid.
 
-### ```SÕNE``` <a name=mrf_sone>
+### ```SÕNE``` <a name=mrf_sone></a>
 
-Morf analüüsitav sõne. Sõnega kleepunud punktuatsiooni ignoreeritakse. Reeglina peaks sõnaga kokkukleepunud punktuatsioon olema eelneva sõnestamise/lausestamise 
+Morf analüüsitav sõne. Sõnega kleepunud punktuatsiooni ignoreeritakse. Reeglina peaks sõnaga kokkukleepunud punktuatsioon olema eelneva sõnestamise/lausestamise
 käigus juba lahkutõstetud.
 
 ### ```TYVI``` <a name="mrf_TYVI"></a>
