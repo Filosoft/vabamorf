@@ -164,6 +164,8 @@ def flask_estnltk_version():
 
 @app.route('/api/vm/generator/process', methods=['POST'])
 @app.route('/process', methods=['POST'])
+@limit_content_length(MAX_CONTENT_LENGTH)
+@limit_content_length(MAX_CONTENT_LENGTH)
 def morf():
     """Morf sünteesime JSONiga nõutud lemmade+vormid ja kuvame tulemust JSONkujul
 
