@@ -6,7 +6,8 @@ include Makefile.base
 
 LIBS=json.ar proof.ar etyhh.ar etana.ar fsc.ar
 LIBS_DB=$(LIBS:.ar=.db.ar)
-EXE=vmetsjson vmetltjson vmetajson vmets vmeta vmety etdisamb etana etsyn stlspeller stlspellerjson
+EXE=vmetyjson vmetsjson vmetltjson vmetajson vmets vmeta vmety etdisamb etana etsyn stlspeller stlspellerjson
+#EXE=vmetsjson vmetltjson vmetajson vmets vmeta vmety etdisamb etana etsyn stlspeller stlspellerjson
 EXE_DB=$(addsuffix .db,$(EXE))
 
 # sihid
@@ -23,6 +24,8 @@ lib_db: $(LIBS_DB)
 
 
 clean :
+	-rm -rf vmetyjson*
+	-rm -rf vmetyjson.db*
 	-rm -rf vmetsjson*
 	-rm -rf vmetsjson.db*
 	-rm -rf stlspellerjson*
@@ -55,7 +58,6 @@ clean :
 	-rm -rf proof.db.ar*
 	-rm -rf json.ar*
 	-rm -rf json.db.ar*
-
 
 # teegid
 etyhh.ar : $(wildcard $(ROOTDIR)/lib/etyhh/*.cpp) $(wildcard $(ROOTDIR)/lib/etyhh/*.h)
@@ -90,6 +92,12 @@ json.db.ar : $(wildcard $(ROOTDIR)/apps/lib/*.cpp) $(wildcard $(ROOTDIR)/apps/li
 
 
 # programmid
+vmetyjson : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjson/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjson/*.h)
+	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+vmetyjson.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjson/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjson/*.h)
+	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
 vmetsjson : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmetsjson/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetsjson/*.h)
 	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
