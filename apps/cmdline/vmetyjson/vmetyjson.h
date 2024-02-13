@@ -27,6 +27,33 @@ Jsoni käitlemiseks käsurealt: jq, gron
 
 #include "../../../lib/etyhh/t3common.h"
 
+/**
+        {
+            "name": "vmetyjson",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetyjson.db",
+            "cwd": "${workspaceFolder}/apps/cmdline/project/unix/",
+            "args": [ "--json=@proov2.json"],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+*/
+
 
 /**
  * @brief JSONit käsitleva käsureaprogrammi templiit
@@ -411,7 +438,7 @@ private:
                             (*mrf)["fs"].asString().c_str() );          // FS-vorm
                     }
                     
-                    // ühestamismärgendite saamiseks selline jura {{
+                    // ühestamismärgendite saamiseks on vajalik utf-16 {{
                     MRFTULEMUSED mrftulemused(mrftulemused_utf8);
                     fs_2_hmm.FsTags2YmmTags(&mrftulemused);
                     MRFTULEMUSED_UTF8 mrftulemused_utf8_with_yhm = mrftulemused;
@@ -452,15 +479,32 @@ private:
 
                             if (json_pos != hmm_pos || json_fs != hmm_fs || hmm_stem_lemma != json_stem_lemma)
                             {
-                                mrf["prefferred"] = false;
+                                mrf["preferred"] = false;
                                 continue;
                             }
                             // kõik klappis: sõnaliik, vorm, tüvi|lemma
-                            mrf["prefferred"] = true;
+                            mrf["preferred"] = true;
                         }
                     }
-                    
                 }
+                if(sent_start < sent_end 
+                        && tokens[0]["features"]["mrf"].size() > 0
+                        && tokens[0]["features"]["mrf"][0].isMember("classic2") == true)
+                {
+                    for(int t = sent_start; t < sent_end; t++)
+                    {
+                        Json::Value& token=tokens[t];
+                        for(int m=0; m < token["features"]["mrf"].size(); m++)
+                        {
+                            Json::Value& mrf = token["features"]["mrf"][m];
+                            if(mrf["preferred"].asBool()==true)
+                                mrf["classic2"] = mrf["classic2"].asString() + "+";
+                            else
+                                mrf["classic2"] = mrf["classic2"].asString() + "-";
+                        }
+                    }
+                }
+
             }
         }
         catch(...)
