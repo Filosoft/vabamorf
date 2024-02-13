@@ -7,8 +7,7 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 
 ----------------------------------------------
 
-Lähtekoodist pythoni skripti kasutamine
-1 Lähtekoodi allalaadimine (1.1), virtuaalkeskkonna loomine (1.2), veebiteenuse käivitamine pythoni koodist (1.3) ja CURLiga veebiteenuse kasutamise näited (1.4)
+1. Lähtekoodist pythoni skripti kasutamine
 1.1 Lähtekoodi allalaadimine
     $ mkdir -p ~/git/ ; cd ~/git/
     $ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
@@ -18,45 +17,76 @@ Lähtekoodist pythoni skripti kasutamine
 1.3 Veebiserveri käivitamine pythoni koodist
     $ cd ~/git/vabamorf_github/docker/flask_vmetyjson
     $ venv/bin/python3 ./flask_vmetyjson.py
-1.4 CURLiga veebiteenuse kasutamise näited
-
+1.4 CURLiga veebiteenuse kasutamise näited (näites on kasutatud TÜ pilves olevat sõnestjat ja morf analüsaatorit. Kui on kiirevõitu, kasutage lokaalseid konteinereid.)
+    $ curl --silent --request POST --header "Content-Type: application/json" localhost:7009/api/vm/disambiguator/version
+    $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/vm/analyser/process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin localhost:7009/api/vm/disambiguator/process \
+        | jq | less
 
 ----------------------------------------------
 
-Lähtekoodist tehtud konteineri kasutamine
-2 Lähtekoodi allalaadimine (2.1), konteineri kokkupanemine (2.2), konteineri käivitamine (2.3) ja CURLiga veebiteenuse kasutamise näited  (2.4)
+2. Lähtekoodist tehtud konteineri kasutamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 2.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_vmetyjson
-    $ docker build -t tilluteenused/api_vm_vmetyjson:2024.02.05 .
+    $ docker-compose build
     # docker login -u tilluteenused
-    # docker push tilluteenused/api_vm_vmetyjson:2024.02.05
+    # docker push tilluteenused/api_vm_vmetyjson:2024.02.06
 2.3 Konteineri käivitamine
-    $ docker run -p 7009:7009 tilluteenused/api_vm_vmetyjson:2024.02.05
+    $ docker-compose up -d
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
 ----------------------------------------------
 
-DockerHUBist tõmmatud konteineri kasutamine
-3 DockerHUBist koneineri tõmbamine (3.1), konteineri käivitamine (3.2) ja CURLiga veebiteenuse kasutamise näited (3.3)
+3 DockerHUBist tõmmatud konteineri kasutamine
 3.1 DockerHUBist konteineri tõmbamine
-    $ docker pull tilluteenused/vmetajson:2023.06.05
+    $ docker pull tilluteenused/vmetajson:2023.06.06
 3.2 Konteineri käivitamine: järgi punkti 2.3
 3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 
 ----------------------------------------------
 
-TÜ pilves töötava konteineri kasutamine
-4 CURLiga veebiteenuse kasutamise näited
-    $ curl --silent --request POST --header "Content-Type: application/json" \
-        --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
-        https://smart-search.tartunlp.ai/api/analyser/process | jq
-    $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai/api/analyser/version | jq  
-    $ curl --silent --request POST --header "Content-Type: application/json" \
-        --data '{"params":{"vmetajson":["--version"]}}' \
-        https://smart-search.tartunlp.ai/api/analyser/process | jq
+4 TÜ pilves töötava konteineri CURLiga kasutamise näited
+    $ curl --silent --request POST --header "Content-Type: application/json" https://smart-search.tartunlp.ai/api/vm/disambiguator/version
+    $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/vm/analyser/process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/vm/disambiguator/process \
+        | jq | less
 
+----------------------------------------------
+
+5 DockerHubis oleva konteineri lisamine KUBERNETESesse
+5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
+    $ kubectl create deployment smart-search-api-vm-vmetyjson \
+        --image=tilluteenused/api_vm_vmetyjson:2024.02.06
+
+Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
+Ava konfiguratsioonifail redaktoris
+    $ kubectl edit deployment smart-search-api-vm-vmetyjson
+
+Lisades sinna soovitud keskkonnamuutujate väärtused:
+    env:
+    - name: MAX_CONTENT_LENGTH
+      value: "5000000"
+        
+5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
+    $ kubectl expose deployment smart-search-api-vm-vmetyjson \
+        --type=ClusterIP --port=80 --target-port=7009
+
+5.3 `ingress`-konfiguratsioonifaili täiendamine
+    $ kubectl edit ingress smart-search-api-ingress
+
+Lisa sinna
+    - backend:
+        service:
+        name: smart-search-api-vm-vmetyjson
+        port:
+            number: 80
+    path: /api/vm/disambiguator/?(.*)
+    pathType: Prefix
 ----------------------------------------------
 """
 
@@ -75,7 +105,7 @@ proc = subprocess.Popen(['./vmetyjson', '--path=.'],
 
 app = Flask(__name__)
 
-VERSION = "2024.02.03"
+VERSION = "2024.02.04"
 
 # JSONsisendi max suuruse piiramine {{
 try:

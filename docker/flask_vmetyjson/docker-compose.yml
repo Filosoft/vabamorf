@@ -26,7 +26,7 @@ services:
       - api_estnltk_sentok
 
   api_vm_vmetyjson:
-    image: tilluteenused/api_vm_vmetyjson:2024.02.05
+    image: tilluteenused/api_vm_vmetyjson:2024.02.06
     ports:
       - 7009:7009
     environment:
