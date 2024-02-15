@@ -20,21 +20,16 @@ Kompileeritud programmid:
 
 ## Käsurea süntaks
 
-`split_tokens [--path KATALOOG] [{sisendfail|-} {väljundfail|-}]`
+`split_tokens [--path KATALOOG] [{sisendfail|-}`
 
 * `KATALOOG` selles kataloogis peab asuma morf analüsaatori leksikon `et.dct`
   Kui kataloogi nime pole antud, otsitakse leksikoni keskkonnamuutujas `PATH` loetletud kataloogidest.
-* Kui `sisendfail` ja `väljundfail` poole etteantud, loetakse sisend `stdin`ist ja väljund kirjutakse `stdout`i.
-* Kui `sisendfail`i kohal on `-`, loetakse sisend `stdin`ist.
-* Kui `väljundfail`i  kohal on `-`, kirjutatakse väljund `stdout`i.
+* Kui `sisendfail` pole etteantud, või `sisendfail`i kohal on `-` loetakse sisend `stdin`ist.
+* Väljund kirjutatakse alati `stdout`i.
 
 ## Kasutusnäide
 
 ```bash
-echo 'Müütilise “punameremaoga”.' | ./split_tokens --path ~/git/vabamorf_github/dct/binary - -
-müütilise
-“
-puna mere mao ga
-”
-.
+echo 'Müütilise “punameremaoga”.' | ./split_tokens --path ~/git/vabamorf_github/dct/binary    
+müütilise “ puna mere mao ga ” . 
 ```

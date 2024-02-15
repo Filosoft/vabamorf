@@ -1,6 +1,11 @@
 #if !defined(VMETA_H)
 #define VMETA_H
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string> 
+
 #include "../../../lib/etana/etmrfana.h"
 #include "../../../lib/etana/viga.h"
 #include "../../../lib/etana/loefailist.h"
@@ -54,26 +59,29 @@ public:
         PATHSTR pathstr;
         path = (const char *)pathstr; // Vaikimisi see, mis on keskkonnamuutujas PATH
         sisendfail = "-";             // vaikimisi stdin
-        valjundfail = "-";            // vaikimisi stdout
 
         int i;
         // pathi initsialiseerimine keskonnamuutujast
         for (i = 1; i < argc && argv[i][0] == '-' && argv[i][1] != '\0'; ++i)
         {
+            if (strcmp("-v", argv[i]) == 0 || strcmp("--version", argv[i]) == 0)
+            {
+                std::cout << "version = " << VERSION << '\n';
+                exit(EXIT_SUCCESS);
+            }
+            //-----------------------------            
             if (strcmp("-h", argv[i]) == 0 || strcmp("--help", argv[i]) == 0)
             {
             syntaks:
-                fprintf(stderr,
-                        "Süntaks: %s [LIPUD...] [sisendfail väljundfail]\n",
-                        argv[0]);
-                exit(EXIT_FAILURE);
+                std::cout << "Süntaks: " << argv[0] << "[LIPUD...] [sisendfail väljundfail]\n";
+                exit(EXIT_SUCCESS);
             }
             //-----------------------------
             if (strcmp("-p", argv[i]) == 0 || strcmp("--path", argv[i]) == 0)
             {
                 if (++i >= argc)
                 {
-                    fprintf(stderr, "Parameetri -p tagant puudub rada\n\n");
+                    std::cerr << "Parameetri -p tagant puudub rada\n\n";
                     goto syntaks;
                 }
                 path = argv[i];
@@ -82,17 +90,16 @@ public:
             //-----------------------------
             if (strcmp("-", argv[i]) != 0)
             {
-                fprintf(stderr, "Illegaalne lipp: %s\n\n", argv[i]);
+                std::cerr << "Illegaalne lipp: " << argv[i] << '\n';
                 goto syntaks;
             }
             //-----------------------------
         }
         if (i == argc)
             return; // std-sisend std-väljundiks
-        if (i + 2 == argc)
+        if (i + 1 == argc)
         {
             sisendfail = argv[i++];
-            valjundfail = argv[i];
             return;
         }
         goto syntaks;
@@ -113,12 +120,7 @@ public:
         else
             sisse.Start(sisendfail, "rb", PFSCP_UTF8, path);
 
-        if (valjundfail == "-")
-            valja.Start(PFSCP_UTF8, path);
-        else
-            valja.Start(valjundfail, "wb", PFSCP_UTF8, path);
-
-        TeeSedaFailiga(sisse, valja);
+        TeeSedaFailiga(sisse);
     }
 
     /** Taastab argumentideta konstruktori järgse seisu */
@@ -129,17 +131,17 @@ public:
         InitClassVariables();
     }
 
+    const char* VERSION = "2024.02.14";
+
 private:
     CFSAString path;        // -p --path
     CFSAString sisendfail;  // vaikimisi - (stdin))
-    CFSAString valjundfail; // vaikimisi - (stdout)
 
     VOTAFAILIST sisse;
-    PANEFAILI valja;
     ETMRFA mrf;
     MRF_FLAGS lipud_mrf;
 
-    void TeeSedaFailiga(VOTAFAILIST &in, PANEFAILI &out)
+    void TeeSedaFailiga(VOTAFAILIST &in)
     {
         bool ret;
         FSXSTRING rida;
@@ -192,7 +194,6 @@ private:
                     assert((lyli.lipp & PRMS_MRF) == PRMS_MRF);
                     LYLI_UTF8 lyli_utf8(lyli);
                     MRFTULEMUSED_UTF8 *mt_utf8 = lyli_utf8.ptr.pMrfAnal;
-                    // valja.Pane(&lyli_utf8, lipud_mrf.Get());
                     TMPLPTRARRAYSRT<PCFSAString> tyved_lopud(10, 10);
                     for (int j = 0; j < mt_utf8->idxLast; j++)
                     {
@@ -231,13 +232,15 @@ private:
                     for (int j = 0; j < parim->idxLast; j++)
                     {
                         if (j > 0)
-                            valja.Pane(" ");
-                        valja.Pane(*(*parim)[j]);
+                            std::cout << " ";
+                        std::cout << (const char*)*(*parim)[j];
                     }
-                    valja.Pane("\n");
+                    std::cout << ' ';
                 }
             }
+            std::cout << std::endl;
         }
+        
     }
 
     /** Muutujate esialgseks initsialiseerimsieks konstruktoris */
@@ -248,16 +251,14 @@ private:
     /** Argumentideta konstruktori abil starditud klassi invariant */
     bool EmptyClassInvariant(void)
     {
-        return sisse.EmptyClassInvariant() && valja.EmptyClassInvariant() &&
-               mrf.EmptyClassInvariant();
+        return sisse.EmptyClassInvariant() && mrf.EmptyClassInvariant();
     }
 
     /** Initsialiseeritud klassi invariant */
 
     bool ClassInvariant(void)
     {
-        return sisse.ClassInvariant() && valja.ClassInvariant() &&
-               mrf.ClassInvariant();
+        return sisse.ClassInvariant() && mrf.ClassInvariant();
     }
 
     /** Copy-konstruktor on illegaalne */
