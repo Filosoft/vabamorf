@@ -7,15 +7,15 @@
 #include "../../../lib/etana/fs2gt.h"
 #include "../../../lib/etana/loefailist.h"
 
-class VMETANA
+class SPLIT_TOKENS
 {
 public:
-    VMETANA(void)
+    SPLIT_TOKENS(void)
     {
         InitClassVariables();
     }
 
-    VMETANA(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
+    SPLIT_TOKENS(int argc, FSTCHAR** argv, FSTCHAR** envp, const FSTCHAR* _ext_)
     {
         InitClassVariables();
         Start(argc, argv, envp, _ext_);
@@ -331,13 +331,13 @@ private:
     }
 
     /** Copy-konstruktor on illegaalne */
-    VMETANA(const VMETANA&)
+    SPLIT_TOKENS(const SPLIT_TOKENS&)
     {
         assert(false);
     }
 
     /** Omistamisoperaator on illegaalne */
-    VMETANA & operator=(const VMETANA&)
+    SPLIT_TOKENS & operator=(const SPLIT_TOKENS&)
     {
         assert(false);
         return *this;

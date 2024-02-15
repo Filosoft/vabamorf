@@ -159,6 +159,16 @@ public:
         return 0;
     }
 
+    inline static bool OnS_punktuatsioon(const FSxCHAR c)
+    {
+        return s_punktuatsioon.Find(c) == -1 ? false : true;
+    }
+
+    inline static bool OnPunktuatsioon(const FSxCHAR c)
+    {
+        return punktuatsioon.Find(c) == -1 ? false : true;
+    }
+
     /** Kas on täishäälik */
     inline static bool OnTaishaalik(const FSxCHAR c)
     {
