@@ -1,0 +1,20 @@
+include Makefile.base
+
+LIBS=json.ar proof.ar etyhh.ar etana.ar fsc.ar
+LIBS_DB=$(LIBS:.ar=.db.ar)
+
+# sihid
+
+all: split_tokens split_tokens.db
+
+clean:
+	-rm -rf split_tokens
+	-rm -rf split_tokens.db
+
+# programmid
+split_tokens : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/split_tokens/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/split_tokens/*.h)
+	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+split_tokens.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/split_tokens/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/split_tokens/*.h)
+	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
