@@ -57,23 +57,26 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
 
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
-        https://smart-search.tartunlp.ai/api/vm/analyser/process | jq
+        https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"params":{"vmetajson":["--version"]}, "content":""}' \
-        https://smart-search.tartunlp.ai/api/vm/analyser/process | jq
+        https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai/api/vm/analyser/version | jq
+        https://vabamorf.tartunlp.ai/api/vm/analyser/version | jq
 
 ----------------------------------------------
 
 5 DockerHubis oleva konteineri lisamine KUBERNETESesse
+
+EELDUS: Arvuti, kus on installitud/konfitud Kubernates/ingress.
+
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
-    $ kubectl create deployment smart-search-api-vm-vmetajson \
+    $ kubectl create deployment vabamorf-api-vm-vmetajson \
         --image=tilluteenused/api_vm_vmetajson:2024.02.03
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 Ava konfiguratsioonifail redaktoris
-    $ kubectl edit deployment smart-search-api-vm-vmetajson
+    $ kubectl edit deployment vabamorf-api-vm-vmetajson
 
 Lisades sinna soovitud keskkonnamuutujate väärtused:
     env:
@@ -81,7 +84,7 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
       value: "5000000"
         
 5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
-    $ kubectl expose deployment smart-search-api-vm-vmetajson \
+    $ kubectl expose deployment vabamorf-api-vm-vmetajson \
         --type=ClusterIP --port=80 --target-port=7007
 
 5.3 `ingress`-konfiguratsioonifaili täiendamine
@@ -90,7 +93,7 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
 Lisa sinna
     - backend:
         service:
-        name: smart-search-api-vm-vmetajson
+        name: vabamorf-api-vm-vmetajson
         port:
             number: 80
     path: /api/vm/analyser/?(.*)

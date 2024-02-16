@@ -20,8 +20,8 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 1.4 CURLiga veebiteenuse kasutamise näited (näites on kasutatud TÜ pilves olevat sõnestjat ja morf analüsaatorit. Kui on kiirevõitu, kasutage lokaalseid konteinereid.)
     $ curl --silent --request POST --header "Content-Type: application/json" localhost:7009/api/vm/disambiguator/version
     $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
-        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/estnltk/tokenizer//process \
-        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/vm/analyser/process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin localhost:7009/api/vm/disambiguator/process \
         | jq | less
 
@@ -51,21 +51,25 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 4 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" https://smart-search.tartunlp.ai/api/vm/disambiguator/version
     $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
-        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/estnltk/tokenizer//process \
-        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/vm/analyser/process \
-        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://smart-search.tartunlp.ai/api/vm/disambiguator/process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/disambiguator/process \
         | jq | less
-
+    $ echo '{"params": {"vmetajson": [ "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/disambiguator/process \
+        | jq | less
 ----------------------------------------------
 
 5 DockerHubis oleva konteineri lisamine KUBERNETESesse
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
-    $ kubectl create deployment smart-search-api-vm-vmetyjson \
+    $ kubectl create deployment vabamorf-api-vm-vmetyjson \
         --image=tilluteenused/api_vm_vmetyjson:2024.02.06
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 Ava konfiguratsioonifail redaktoris
-    $ kubectl edit deployment smart-search-api-vm-vmetyjson
+    $ kubectl edit deployment vabamorf-api-vm-vmetyjson
 
 Lisades sinna soovitud keskkonnamuutujate väärtused:
     env:
@@ -73,7 +77,7 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
       value: "5000000"
         
 5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
-    $ kubectl expose deployment smart-search-api-vm-vmetyjson \
+    $ kubectl expose deployment vabamorf-api-vm-vmetyjson \
         --type=ClusterIP --port=80 --target-port=7009
 
 5.3 `ingress`-konfiguratsioonifaili täiendamine
@@ -82,7 +86,7 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
 Lisa sinna
     - backend:
         service:
-        name: smart-search-api-vm-vmetyjson
+        name: vabamorf-api-vm-vmetyjson
         port:
             number: 80
     path: /api/vm/disambiguator/?(.*)

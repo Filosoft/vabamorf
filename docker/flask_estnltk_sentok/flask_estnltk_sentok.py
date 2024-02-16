@@ -65,9 +65,9 @@ Mida uut:
 5 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
-        https://smart-search.tartunlp.ai/api/estnltk/tokenizer/process | jq
+        https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://smart-search.tartunlp.ai/api/estnltk/tokenizer/version | jq  
+        https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/version | jq  
 
 ----------------------------------------------
 
