@@ -20,7 +20,7 @@ Kompileeritud programmid:
 
 ## Käsurea süntaks
 
-`split_tokens [--path KATALOOG] [{sisendfail|-}`
+`split_tokens [--path KATALOOG] [{sisendfail|-}]`
 
 * `KATALOOG` selles kataloogis peab asuma morf analüsaatori leksikon `et.dct`
   Kui kataloogi nime pole antud, otsitakse leksikoni keskkonnamuutujas `PATH` loetletud kataloogidest.
