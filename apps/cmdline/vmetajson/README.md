@@ -30,17 +30,20 @@
 vmetajson \[[**LIPUD**](#lippude_kirjeldus)\]
 
 * Vaikimisi kuvatakse analüüsi tulemuses sisendsõne lemmat (algvormi).
-  Tüve saamiseks kasutage ```--stem``` lippu.
+  Tüve saamiseks kasutage `--stem` parameetrit.
   Ei ole võimalik saada väljundisse **korraga** tüve ja lemmat (ainult üks kahest).
 
 * Vaikimisi ei oletata leksikonist puuduvate sõnade võimalikke analüüse.
-  Selleks tuleb kasutada ```--guess``` parameetrit.
+  Oletuste lisamiseks kasuta `--guess` parameetrit.
 
-* Vaikimisi kasutatakse FS-süsteemi kategooriaid.
+* Vaikimisi on väljundis FS-süsteemis morfoloogilised kategooriad.
+  GR-süsteemis morfoloogiliste katagooriate lisamiseks kasuta `--gt` parameetrit.
 
 * Vaikimisi ei oletata lausekonteksti põhjal täiendavaid võimalikke pärisnimeanalüüse.
+  Täiendavate pärisnimeanalüüside lisamiseks kasuta `-guesspropnames` parameetrit.
 
 * Vaikimisi ei lisata tüvesse/lemmasse hääldusmärke.
+  Hääldusmärkide lisamiseks kasuta `--addphonetics` parameetrit.
 
 * Vaikimisi on kogu väljundjson ühel real ja täpitähed json-standardi kohaselt
   esitatud vastavate koodidena.
@@ -63,11 +66,15 @@ otsitakse keskkonnamuutujas **PATH** loetletud kataloogidest.
 
 JSON-päringus seda lippu ```params``` kaudu määrata ei saa.
 
-### **```--json=JSON```** <a name="lipp_json"></a>
+### **```--json=JSONSTRING```** <a name="lipp_json"></a>
 
-Sisend-json. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
+Sisend-json käsurealt. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
-Lipu ```--json``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist. Sellisel juhul lõpetab programmi töö ```Ctrl+C``` või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
+### **```--json=@JSONFAIL```** <a name="lipp_json"></a>
+
+Sisend-json failist `JSONFAIL`. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
+
+Lipu ```--json=``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist. Sellisel juhul lõpetab programmi töö ```Ctrl+C``` või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
 
 ### **```--formattedjson```** <a name=lipp_formattedjson></a>
 
@@ -227,7 +234,7 @@ Kui programmi töö katkes töö jätkamist mittevõimaldava vea tõttu on välj
 
 ```json
 {
-  "failure":{"errors":["array of status messages"]}
+  "failure": ["array of status messages"]
   ... /* algne sisendjson, kui vea tekkimise hetkeks oli sisendjson õnnestunult parsitud */
 }
 ```

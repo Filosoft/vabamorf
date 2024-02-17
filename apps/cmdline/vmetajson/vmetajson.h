@@ -86,7 +86,7 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
 class VMETAJSON
 {
 public:
-    const char* VERSION = "2024.02.02";
+    const char* VERSION = "2024.02.04";
 
     VMETAJSON(void)
     {
@@ -130,20 +130,28 @@ public:
                 TeeSeda(jsonobj);
         }
         else
-        {   // JSON sisend tuleb std-sisendist
-            std::string line;  
-	        while(std::getline(std::cin,line))
+        {
+            try
             {
-                trim(line);
-                if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
-                    continue;
-                Json::Value jsonobj;
-                std::string message;
-                if(fsJsonCpp.JsonParse(line, message, jsonobj)==false)
-                    fsJsonCpp.JsonWarning(message.c_str());
-                else
-                    TeeSeda(jsonobj);
-	        } 
+                // JSON sisend tuleb std-sisendist
+                std::string line;  
+                while(std::getline(std::cin,line))
+                {
+                    trim(line);
+                    if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
+                        continue;
+                    Json::Value jsonobj;
+                    std::string message;
+                    if(fsJsonCpp.JsonParse(line, message, jsonobj)==false)
+                        fsJsonCpp.JsonWarning(message.c_str());
+                    else
+                        TeeSeda(jsonobj);
+                }
+            } 
+            catch(...)
+            {
+                FSJSONCPP().JsonWarning("Mingi jama");
+            }
         }
     }
 
