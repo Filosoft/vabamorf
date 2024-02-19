@@ -86,7 +86,7 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
 class VMETAJSON
 {
 public:
-    const char* VERSION = "2024.02.04";
+    const char* VERSION = "2024.02.19";
 
     VMETAJSON(void)
     {

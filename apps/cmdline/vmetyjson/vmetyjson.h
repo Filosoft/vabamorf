@@ -195,7 +195,7 @@ public:
         //??? InitClassVariables();
     }
 
-    const char* VERSION = "2024.01.19";
+    const char* VERSION = "2024.02.19";
 
 private:
     //bool lipp_gt;               // --gt 
