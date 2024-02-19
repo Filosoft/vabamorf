@@ -56,14 +56,16 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
 4 TÜ pilves töötava konteineri kasutamise näited
 
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
-        https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
-    $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"params":{"vmetajson":["--version"]}, "content":""}' \
         https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         https://vabamorf.tartunlp.ai/api/vm/analyser/version | jq
-
+    $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--classic2"]}, "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
+    $ echo '{"params": {"vmetajson": ["--guess", "--classic2"]}, "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \ 
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
+        | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
 ----------------------------------------------
 
 5 DockerHubis oleva konteineri lisamine KUBERNETESesse

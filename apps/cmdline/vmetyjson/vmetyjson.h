@@ -1,5 +1,5 @@
-#if !defined(VMETAJSON_H)
-#define VMETAJSON_H
+#if !defined(VMETYJSON_H)
+#define VMETYJSON_H
 
 
 /*
@@ -113,14 +113,14 @@ class VMETYJSON
 public:
     VMETYJSON(void)
     {
-        //??? InitClassVariables();
+        InitClassVariables();
     }
 
     VMETYJSON(int argc, FSTCHAR** argv)
     {
-        //??? InitClassVariables();
+        InitClassVariables();
         Start(argc, argv);
-        //??? assert(ClassInvariant());
+        assert(ClassInvariant());
     }
 
     /**
@@ -134,7 +134,6 @@ public:
         LipuStringidKasurealt(argc, argv);
         lipud_yhh_cl_dflt.Set(LipuBitidPaika()); // kui jsonist lippe ei tule kasutame sedas
         // siin peab ühestaja sõnastiku pathname'i väljakammima
-        // TODO
         CFSString yhestajaSonastikuNimi = "et3.dct", yhestajaSonastikuPikkNimi;
         if (Which(&yhestajaSonastikuPikkNimi, &path, &yhestajaSonastikuNimi) == false)
         {
@@ -161,20 +160,28 @@ public:
                 TeeSeda(jsonobj);
         }
         else
-        {   // JSON sisend tuleb std-sisendist
-            std::string line;  
-	        while(std::getline(std::cin,line))
+        { 
+            try
             {
-                trim(line);
-                if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
-                    continue;
-                Json::Value jsonobj;
-                std::string json_parse_error_message;
-                if(fsJsonCpp.JsonParse(line, json_parse_error_message, jsonobj)==false)
-                    fsJsonCpp.JsonWarning(json_parse_error_message.c_str());
-                else
-                    TeeSeda(jsonobj);
-	        } 
+                // JSON sisend tuleb std-sisendist
+                std::string line;  
+                while(std::getline(std::cin,line))
+                {
+                    trim(line);
+                    if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
+                        continue;
+                    Json::Value jsonobj;
+                    std::string json_parse_error_message;
+                    if(fsJsonCpp.JsonParse(line, json_parse_error_message, jsonobj)==false)
+                        fsJsonCpp.JsonWarning(json_parse_error_message.c_str());
+                    else
+                        TeeSeda(jsonobj);
+                }
+            }
+            catch(...)
+            {
+                fsJsonCpp.JsonWarning("Mingi JAMA");
+            }
         }
     }
 
@@ -188,15 +195,11 @@ public:
         //??? InitClassVariables();
     }
 
-    const char* VERSION = "2024.01.18";
+    const char* VERSION = "2024.01.19";
 
 private:
-    bool lipp_classic;          // --classic # vmeta stiilis väljundstring
-    bool lipp_gt;               // --gt 
-    bool lipp_hmm;              // --hmm markov (ühestaja)
-
-
-
+    //bool lipp_gt;               // --gt 
+    //bool lipp_hmm;              // --hmm markov (ühestaja)
 
     bool lipp_taanded;          // --formattedjson
     bool lipp_utf8;             // --utf8json
@@ -208,7 +211,6 @@ private:
     FS_2_GT    fs_2_gt;
     MRF2YH2MRF fs_2_hmm;
 
-    //ET3   yhh;
     ET3UTF8AHEL yhh;
     MRF_FLAGS lipud_yhh_cl_dflt; // käsureaga määratud lipud
 
@@ -218,9 +220,8 @@ private:
      */
     void VaikeLipudPaika(void)
     {
-        lipp_classic=false;
-        lipp_gt=false;
-        lipp_hmm=false;
+        //lipp_gt=false;
+        //lipp_hmm=false;
         lipp_taanded=false;     // kogu json ühel real
         lipp_utf8=false;        // utf8 sümbolid koodidena
         lipp_version=false;     // EI kuva väljundis versiooniinfot 
@@ -234,7 +235,6 @@ private:
     */
     void LipuStringidKasurealt(int argc, FSTCHAR** argv)
     {
-        //??? assert(EmptyClassInvariant() == true);
         VaikeLipudPaika();
 
         PATHSTR pathstr;
@@ -315,7 +315,6 @@ private:
         return false;
     }
 
-
     /**
      * @brief Seame lipustringide järgi lipubitid paika
      * 
@@ -326,10 +325,6 @@ private:
         MRF_FLAGS_BASE_TYPE lipud_yhestamiseks = MF_DFLT_MORFY;
         MRF_FLAGS lipuBitid;
         lipuBitid.Set(lipud_yhestamiseks);
-        if(lipp_gt==true)
-            lipuBitid.On(MF_GTMRG);
-        if(lipp_hmm==true)
-            lipuBitid.On(MF_YHMRG);
         return lipuBitid.Get();
     }
 
@@ -342,42 +337,50 @@ private:
         CFSWString rida;
         LYLI lyli;
 
-        if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetyjson")==true)
+        try
         {
-            // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
-            VaikeLipudPaika();
-            bool lipudOK=true;           
-            for(Json::Value::const_iterator i=jsonobj["params"]["vmetyjson"].begin(); i != jsonobj["params"]["vmetyjson"].end(); ++i)
+            if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetyjson")==true)
             {
-                if(LipuStringPaika(i->asCString())==false)
+                // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
+                VaikeLipudPaika();
+                bool lipudOK=true;           
+                for(Json::Value::const_iterator i=jsonobj["params"]["vmetyjson"].begin(); i != jsonobj["params"]["vmetyjson"].end(); ++i)
                 {
-                    lipudOK=false;
-                    std::string warning = "Illegaalne lipp: " + i->asString();
-                    jsonobj["warnings"].append(warning);
+                    if(LipuStringPaika(i->asCString())==false)
+                    {
+                        lipudOK=false;
+                        std::string warning = "Illegaalne lipp: " + i->asString();
+                        fsJsonCpp.AddJsonWarning(warning.c_str(), jsonobj);
+                    }
                 }
+                if(lipudOK==false)
+                {
+                    fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
+                    return;
+                }
+                yhh.SetFlags(LipuBitidPaika()); // ühestamine ja kuvamine hakkab toimuma jsonist saadud lippudega
             }
-            if(lipudOK==false)
+            else
+                yhh.SetFlags(lipud_yhh_cl_dflt.Get()); // ühestamine ja kuvamine hakkab toimuma käsurealt saadud lippudega
+            
+            if(lipp_version==true)
             {
-                fsJsonCpp.JsonWriter(jsonobj);
-                return;
+                jsonobj["version"] = VERSION;
             }
-            yhh.SetFlags(LipuBitidPaika()); // ühestamine ja kuvamine hakkab toimuma jsonist saadud lippudega
-        }
-        else
-            yhh.SetFlags(lipud_yhh_cl_dflt.Get()); // ühestamine ja kuvamine hakkab toimuma käsurealt saadud lippudega
-        
-        if(lipp_version==true)
-        {
-            jsonobj["version"] = VERSION;
-        }
 
-        if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("sentences")==false)
-        {
-            fsJsonCpp.JsonWarning("Morf ühestamise korral peavad olema laused annoteeritud");
-            return;
+            if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("sentences")==false)
+            {
+                fsJsonCpp.AddJsonWarning("Ühestamiseks peavad laused olema annoteeritud", jsonobj);
+            }
+            else
+            {
+                TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
+            }
         }
-        TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
-
+        catch(...)
+        {
+            fsJsonCpp.AddJsonWarning("Application Error", jsonobj);
+        }
         fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
     }
  

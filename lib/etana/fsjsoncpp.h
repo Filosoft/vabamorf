@@ -49,9 +49,9 @@ class FSJSONCPP
         /**
          * @brief String Jsoniks
          * 
-         * @param str JSON-kujule teisendatav (char *) string 
-         * @param message Äpardumise korral veateade
-         * @param jsonobj Õnnestumise korral vastav JSON
+         * @param str[in] JSON-kujule teisendatav (char *) string 
+         * @param message[out] Äpardumise korral veateade
+         * @param jsonobj[out] Õnnestumise korral vastav JSON
          * @return true -- Õnnestus, false -- Äpardus 
          */
         bool JsonParse(const char* str, std::string& message, Json::Value& jsonobj)
@@ -68,9 +68,9 @@ class FSJSONCPP
         /**
          * @brief 
          * 
-         * @param str JSON-kujule teisendatav (std::string&) string
-         * @param message  Äpardumise korral veateade
-         * @param jsonobj  Õnnestumise korral vastav JSON
+         * @param str[in] JSON-kujule teisendatav (std::string&) string
+         * @param message[out]  Äpardumise korral veateade
+         * @param jsonobj[out]  Õnnestumise korral vastav JSON
          * @return true -- Õnnestus, false -- Äpardus
          */
         bool JsonParse(const std::string& str, std::string& message, Json::Value& jsonobj)
@@ -87,8 +87,9 @@ class FSJSONCPP
         /**
          * @brief Json std::cout faili
          * 
-         * @param jsonobj Kuvatav JSON
-         * @param use_StyledWriter true -- Kujundatult, false -- Kõik ühel real
+         * @param jsonobj[in] Kuvatav JSON
+         * @param use_StyledWriter[in] true Kujundatult, false -- Kõik ühel real
+         * @param use_emitUTF8[in] true: väljundisse UTF-8
          */
         void JsonWriter(const Json::Value& jsonobj, const bool use_StyledWriter = false, const bool use_emitUTF8=false)
         {
@@ -99,6 +100,15 @@ class FSJSONCPP
             std::cout << Json::writeString(wbuilder,jsonobj) << std::endl;
         }
 
+        /**
+         * @brief 
+         * 
+         * @param jsonobj[in] JSONsisend
+         * @param use_StyledWriter[in] true Kujundatult, false -- Kõik ühel real
+         * @param use_emitUTF8[in] true: väljundisse UTF-8
+         *
+         * @return const std::string stringiks teisendatud JSONsisend
+         */
         const std::string Json2string(const Json::Value& jsonobj, const bool use_StyledWriter = false, const bool use_emitUTF8=false)
         {
             Json::StreamWriterBuilder wbuilder;
@@ -112,15 +122,29 @@ class FSJSONCPP
          * @brief Viga, üldjuhul programm pärast seda edasi ei tööta.
          * 
          * TJSON:
-         * {"failure":{"errors":[array of status messages]}}
+         * {"errors":[array of status messages]}
          * 
-         * @param msg sõnum
+         * @param msg[in] sõnum
          */
         void JsonError(const char* msg)
         {
             Json::Value json_err;
-            json_err["failure"]["errors"].append(msg);
-            FSJSONCPP().JsonWriter(json_err);
+            json_err["errors"].append(msg);
+            JsonWriter(json_err);
+        }
+
+        /**
+         * @brief Viga, üldjuhul programm pärast seda edasi ei tööta.
+         * 
+         * JSON:
+         * {"errors":[array of status messages]}
+         * 
+         * @param msg[in] sõnum
+         * @param jsonobj[in/out] sellele JSONobjekti massiivi jsonobj["errors"] lisame veateate msg
+         */
+        void AddJsonError(const char* msg, Json::Value& jsonobj)
+        {
+            jsonobj["errors"].append(msg);
         }
 
         /**
@@ -135,8 +159,22 @@ class FSJSONCPP
         {
             Json::Value json_warning;
             json_warning["warnings"].append(msg);
-            FSJSONCPP().JsonWriter(json_warning);
+            JsonWriter(json_warning);
         }        
+
+        /**
+         * @brief Hoiatus, see päring läks metsa, proovi uut.
+         * 
+         * JSON:
+         * {"warnings":[array of status messages]}
+         *
+         * @param msg[in] sõnum
+         * @param jsonobj[in/out] sellele JSONobjekti massiivi jsonobj["errors"] lisame hoiatuse msg
+         */
+        void AddJsonWarning(const char* msg, Json::Value& jsonobj)
+        {
+            jsonobj["warnings"].append(msg);
+        }
 
     private:
             Json::Reader jsonreader;

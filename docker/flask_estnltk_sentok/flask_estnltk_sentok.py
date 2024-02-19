@@ -75,14 +75,14 @@ Mida uut:
 
 6.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
 
-    $ kubectl create deployment smart-search-api-estnltk-tokenizer \
+    $ kubectl create deployment vabamorf-api-estnltk-tokenizer \
     --image=tilluteenused/api_estnltk_sentok:2024.01.23
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 
 Ava konfiguratsioonifail redaktoris
 
-    $ kubectl edit deployment smart-search-api-estnltk-tokenizer
+    $ kubectl edit deployment vabamorf-api-estnltk-tokenizer
 
 Lisades sinna soovitud keskkonnamuutujate väärtused:
 
@@ -92,7 +92,7 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
 
 6.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
 
-    $ kubectl expose deployment smart-search-api-estnltk-tokenizer \
+    $ kubectl expose deployment vabamorf-api-estnltk-tokenizer \
         --type=ClusterIP --port=80 --target-port=6000
         
 6.3 `ingress`-konfiguratsioonifaili täiendamine
@@ -105,7 +105,7 @@ Täienda konfiguratsioonigaili
 
     - backend:
         service:
-        name: smart-search-api-estnltk-tokenizer
+        name: vabamorf-api-estnltk-tokenizer
         port:
             number: 80
     path: /api/estnltk/tokenizer/?(.*)
