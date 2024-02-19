@@ -1,4 +1,4 @@
-# VMETAJSON: JSON kujul sisendi ja väljundiga eesti keele morfoloogiline analüsaator [versioon 2024.02.02]
+# VMETAJSON: JSON kujul sisendi ja väljundiga eesti keele morfoloogiline analüsaator [versioon 2024.02.19]
 
 ## Motivatsioon veel ühe morfiversiooni tegemiseks
 
@@ -322,7 +322,7 @@ Numbriline hinnand sellele, kui "keeruline" oli sõne analüüsi leida. Suurem n
 
 ## Kasutusnäited
 
-Programmi kasutamise näide skriptis [testargs.sh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/testargs.sh)
+Programmi kasutamise näide skriptis [demo-workflow1.sh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/demo-workflow1.sh) ja [demo-workflow2.sh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/demo-workflow2.sh).
 
 ## Autor
 
