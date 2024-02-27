@@ -195,7 +195,7 @@ public:
         //??? InitClassVariables();
     }
 
-    const char* VERSION = "2024.02.19";
+    const char* VERSION = "2024.02.22";
 
 private:
     //bool lipp_gt;               // --gt 
@@ -501,9 +501,9 @@ private:
                         {
                             Json::Value& mrf = token["features"]["mrf"][m];
                             if(mrf["preferred"].asBool()==true)
-                                mrf["classic2"] = mrf["classic2"].asString() + "+";
+                                mrf["classic2"] = "+ " + mrf["classic2"].asString();
                             else
-                                mrf["classic2"] = mrf["classic2"].asString() + "-";
+                                mrf["classic2"] = "+ " + mrf["classic2"].asString();
                         }
                     }
                 }

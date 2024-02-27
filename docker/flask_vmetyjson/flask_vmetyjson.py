@@ -65,7 +65,7 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 5 DockerHubis oleva konteineri lisamine KUBERNETESesse
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
     $ kubectl create deployment vabamorf-api-vm-vmetyjson \
-        --image=tilluteenused/api_vm_vmetyjson:2024.02.06
+        --image=tilluteenused/api_vm_vmetyjson:2024.02.22
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 Ava konfiguratsioonifail redaktoris
@@ -109,7 +109,7 @@ proc = subprocess.Popen(['./vmetyjson', '--path=.'],
 
 app = Flask(__name__)
 
-VERSION = "2024.02.04"
+VERSION = "2024.02.22"
 
 # JSONsisendi max suuruse piiramine {{
 try:
