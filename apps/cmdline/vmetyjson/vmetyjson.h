@@ -195,7 +195,7 @@ public:
         //??? InitClassVariables();
     }
 
-    const char* VERSION = "2024.02.22";
+    const char* VERSION = "2024.02.23";
 
 private:
     //bool lipp_gt;               // --gt 
@@ -503,7 +503,7 @@ private:
                             if(mrf["preferred"].asBool()==true)
                                 mrf["classic2"] = "+ " + mrf["classic2"].asString();
                             else
-                                mrf["classic2"] = "+ " + mrf["classic2"].asString();
+                                mrf["classic2"] = "- " + mrf["classic2"].asString();
                         }
                     }
                 }
