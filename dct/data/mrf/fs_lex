@@ -1685,7 +1685,7 @@ vvs:0093|alveol<aarne alveol<aarse!\A\.2+9!
 vvs:0093|alve<ool alve<ooli alve?ooli!\S\.22^E^+7!
 lisa:1001|Alviine!\H\.16!
 lisa:0919|al?õtša!\S\.16!
-lisa:0094|Amadeus Amadeuse!\H\.9+9!
+lisa:0094|?Amadeus ?Amadeuse!\H\.9+9!
 vvs:0093|amalg<aam amalg<aami amalg?aami!\S\.22^E^+7!
 lisav:0804|amalg<aami[MA amalgaami[B!\V\.28!
 voor:0094|Am?alie!\H\.26.SG!
@@ -42764,11 +42764,11 @@ lisa:0094|palest<iinlane palest<iinlase palest<iinlas[T!\S\.12^I^+7!
 lisa:0094|palest?iinlanna!\S\.16!
 vvs:0093|palet paleti!\S\.2+9!%i>e[I%
 vvs:0093|pal<et]t pal<et]ti pal?et]i!\S\.22^E^+7!
-tes:0096|paleuslane paleuslase paleuslas[T!\S\.12^I^+7!
+tes:0096|p?aleuslane p?aleuslase p?aleuslas[T!\S\.12^I^+7!
 tes:0902|p?aleusl<ik p?aleusl<ikku p?aleusliku!\A\.25^E^+11!
-tesm:0902|paleuslikult!\D\!
-vvs:0093|paleus paleuse!\S\.11^I^+7!
-vvsv:0093|paleusta[MA!\V\.27!
+tesm:0902|p?aleuslikult!\D\!
+vvs:0093|p?aleus p?aleuse!\S\.11^I^+7!
+vvsv:0093|p?aleusta[MA!\V\.27!
 sage:0905|palga_arm<ee!\S\.26+9!%ee>e[I%
 sage:0905|palga_f<ond palga_f<ondi palga_fondi!\S\.22^E^!
 sage:0905|palga_korraldus palga_korralduse!\S\.11^I^+7!
@@ -58237,7 +58237,7 @@ tes:0802|sõna_t<ulv sõna_t<ulva sõna_tulva!\S\.22^I^!
 tesv:0902|**sõnatu=ole[MA sõnatu=<oll[A sõnatu=ole[B sõnatu=<ol[DUD sõnatu=ole[MATA sõnatu=ole[V sõnatu=ol[I sõnatu=ol[GU sõnatu=ole[ME sõnatu=oll[AKSE sõnatu=ol[IN sõnatu=ol[IME sõnatu=ol[NUD !\V\.36! $b$sõnatu=<on $vad$sõnatu=<on 
 vvs:0093|sõnatus sõnatuse!\S\.11^I^+7!
 tes:0802|sõna_uputus sõna_uputuse!\S\.11^I^+7!
-lisa:1019|sõnaus sõnause!\S\.11^I^+7!
+lisa:1019|s?õnaus s?õnause!\S\.11^I^+7!
 sage:0905|sõna_vabadus sõna_vabaduse!\S\.11^I^+7!
 tes:0802|sõna_v<aene sõna_v<aese sõna_v<aes[T!\Am\.10+9!
 sage:0905|sõna_vahe (sõna_v<ahhe)!\S\.16!
