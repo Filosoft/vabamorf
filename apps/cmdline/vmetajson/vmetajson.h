@@ -86,7 +86,7 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
 class VMETAJSON
 {
 public:
-    const char* VERSION = "2024.02.19";
+    const char* VERSION = "2024.02.28";
 
     VMETAJSON(void)
     {
@@ -127,13 +127,17 @@ public:
             if(fsJsonCpp.JsonParse((const char*)json_str_fs, message, jsonobj)==false)
                 fsJsonCpp.JsonWarning(message.c_str());
             else
+            {
+                sisend_torust = false;
                 TeeSeda(jsonobj);
+            }
         }
         else
         {
             try
             {
                 // JSON sisend tuleb std-sisendist
+                sisend_torust = true;
                 std::string line;  
                 while(std::getline(std::cin,line))
                 {
@@ -167,8 +171,8 @@ public:
 
 private:
     int lipp_maxcomplexity;     // --depth=MAXTASAND
-    bool lipp_classic1;          // --classic1 # vmeta stiilis väljundstring sõne juures
-    bool lipp_classic2;          // --classic2 # vmeta stiilis väljundstring analüüsivariandi juures
+    bool lipp_result_string_as_joined;          // --classic1 # vmeta stiilis väljundstring sõne juures
+    bool lipp_result_string_as_discrete;          // --classic2 # vmeta stiilis väljundstring analüüsivariandi juures
     bool lipp_gt;               // --gt 
     bool lipp_hmm;              // --hmm markov (ühestaja)
     bool lipp_stem;             // --tüvi
@@ -178,6 +182,7 @@ private:
     bool lipp_taanded;          // --formattedjson
     bool lipp_utf8;             // --utf8json
     bool lipp_version;          // versiooni-info kuvamine
+    bool sisend_torust;         // loeme sisendi stdin'ist
     CFSAString path;            // --path=...
     CFSAString json_str_fs;     // --json=... lipu tagant
 
@@ -195,8 +200,8 @@ private:
     void VaikeLipudPaika(void)
     {
         lipp_maxcomplexity=100; // vaikimisi 100
-        lipp_classic1=false;
-        lipp_classic2=false;
+        lipp_result_string_as_joined=false;
+        lipp_result_string_as_discrete=false;
         lipp_gt=false;
         lipp_hmm=false;
         lipp_stem=false; 
@@ -207,6 +212,7 @@ private:
         lipp_taanded=false;     // kogu json ühel real
         lipp_utf8=false;        // utf8 sümbolid koodidena
         lipp_version=false;     // EI kuva väljundis versiooniinfot 
+        sisend_torust=false;
     }
 
    /**
@@ -279,7 +285,7 @@ private:
             return true;
         }
         //-----------------------------
-        if(strcmp("--gt",lipuString)==0)
+        if(strcmp("--gt-category",lipuString)==0)
         {
             lipp_gt=true;
             return true;
@@ -321,7 +327,9 @@ private:
         }
         if(strcmp("--formattedjson", lipuString)==0)
         {
-            lipp_taanded=true;
+            // --formattedjson lippu ei saa kasutada standardsisendist tuleva JSONi korrral
+            if(sisend_torust == false)
+                lipp_taanded=true;
             return true;
         }
         if(strcmp("--utf8json", lipuString)==0)
@@ -329,14 +337,14 @@ private:
             lipp_utf8=true;
             return true;
         }
-        if(strcmp("--classic1", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
+        if(strcmp("--result-string-as-joined", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
         {
-            lipp_classic1=true;
+            lipp_result_string_as_joined=true;
             return true;
         }
-        if(strcmp("--classic2", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
+        if(strcmp("--result-string-as-discrete", lipuString)==0) // lisab klassikalise fs-stiilis väljundstringi
         {
-            lipp_classic2=true;
+            lipp_result_string_as_discrete=true;
             return true;
         }
         //-----------------------------
@@ -435,7 +443,7 @@ private:
                 }
             if(lipp_version==true)
             {
-                jsonobj["version"] = VERSION;
+                jsonobj["version_vmetajson"] = VERSION;
             }
             if(lipp_oleta_pn==true)
             {
@@ -578,70 +586,64 @@ private:
         if(mrf.mrfFlags->ChkB(MF_GTMRG))
             fs_2_gt.LisaGT(mrftulemused_utf8.s6na, mrftulemused_utf8);
 
-        if(lipp_classic1)
+        if(lipp_result_string_as_joined)
         {   // lisame väljundjsonisse klassikalise analüüsistringi
-            PCFSAString classic1;
-            mrftulemused_utf8.Strct2Strng(&classic1, mrf.mrfFlags);
-            classic1.TrimRight("\n");
-            features["classic1"]=(const char*)classic1;
+            PCFSAString result_string_as_joined;
+            mrftulemused_utf8.Strct2Strng(&result_string_as_joined, mrf.mrfFlags);
+            result_string_as_joined.TrimRight("\n");
+            features["result-string-as-joined"]=(const char*)result_string_as_joined;
         }
         if(mrftulemused_utf8.idxLast > 0)
-            features["complexity"] = mrftulemused_utf8.tagasiTasand; // ainult siis, kui õnnestus analüüsida
+            features["lexicon-based-effort-level"] = mrftulemused_utf8.tagasiTasand; // ainult siis, kui õnnestus analüüsida
         //features["mrf"] = Json::arrayValue;   // tekitaks tühja massivi, kui anlüüse pole
                                                 // praegu on nii, et kui anaüüse pole, siis "mrf"-i pole
         for(int i=0; i < mrftulemused_utf8.idxLast; i++)
         {
             Json::Value json_mrf;
             EMRFKUST sealt;
-            if(lipp_classic2)
+            if(lipp_result_string_as_discrete)
             {
-                PCFSAString classic2;
-                mrftulemused_utf8[i]->Strct2Strng(&classic2, mrf.mrfFlags);
-                json_mrf["classic2"] = (const char*)classic2;
+                PCFSAString result_string_as_discrete;
+                mrftulemused_utf8[i]->Strct2Strng(&result_string_as_discrete, mrf.mrfFlags);
+                json_mrf["result-string-as-discrete"] = (const char*)result_string_as_discrete;
             }
             if(mrf.mrfFlags->ChkB(MF_ALGV)==true)
             {
-                json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
-                json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
+                // anname välja ainult ma lõpulise lemma
+                json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->lemma);
+                //json_mrf["lemma"] = (const char*)(mrftulemused_utf8[i]->tyvi);
+                //json_mrf["lemma_ma"] = (const char*)(mrftulemused_utf8[i]->lemma);
             }
             else
             {
                 json_mrf["stem"] = (const char*)(mrftulemused_utf8[i]->tyvi);
             } 
-            json_mrf["kigi"] = (const char*)(mrftulemused_utf8[i]->kigi);
+            json_mrf["enclitic-gi"] = (const char*)(mrftulemused_utf8[i]->kigi);
             if(mrftulemused_utf8[i]->lopp.GetLength() > 0)
                 json_mrf["ending"] = (const char*)(mrftulemused_utf8[i]->lopp);
             else
                 json_mrf["ending"] = "0";
             if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
                 json_mrf["hmm"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
-
             json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
             mrftulemused_utf8[i]->vormid.TrimRight(" ,");
-            json_mrf["fs"]   = (const char*)(mrftulemused_utf8[i]->vormid);
+            json_mrf["fs-category"]   = (const char*)(mrftulemused_utf8[i]->vormid);
             if(mrf.mrfFlags->ChkB(MF_GTMRG))
             {
                 mrftulemused_utf8[i]->vormidGT.TrimRight(" ,");
-                json_mrf["gt"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
+                json_mrf["gt-category"] = (const char*)(mrftulemused_utf8[i]->vormidGT);
             }
             sealt=mrftulemused_utf8[i]->eKustTulemused;
             if(sealt==eMRF_PARITUD)
                 sealt=mrftulemused_utf8.eKustTulemused;
             switch(sealt)
             {  
-                case eMRF_P: json_mrf["source"] = "P"; break; // põhisõnastikust
-                case eMRF_L: json_mrf["source"] = "L"; break; // lisasõnastikust
-                case eMRF_O: json_mrf["source"] = "O"; break; // sõnapõhisest oletajast
-                case eMRF_S: json_mrf["source"] = "S"; break; // lausepõhisest oletajast
-                case eMRF_PARITUD: json_mrf["source"] = mrftulemused_utf8.eKustTulemused; break; // päritud
-                default: json_mrf["source"] = "X"; break;     // eMRF_X, ise ka ei tea 
+                case eMRF_P: json_mrf["method"] = "lexicon-based"; break;   // põhisõnastikust
+                case eMRF_L: json_mrf["method"] = "user-lexison"; break;    // lisasõnastikust
+                case eMRF_O: json_mrf["method"] = "guessing"; break;        // sõnapõhisest oletajast
+                case eMRF_S: json_mrf["method"] = "proper-name-guessing-in-context"; break; // lausepõhisest oletajast
+                default: json_mrf["method"] = "unknown"; break;             // eMRF_X, ise ka ei tea 
             }   
-            if(lipp_classic2)
-            {
-                PCFSAString classic2;
-                mrftulemused_utf8[i]->Strct2Strng(&classic2, mrf.mrfFlags);
-                json_mrf["classic2"] = (const char*)classic2;
-            } 
             features["mrf"].append(json_mrf);
         }
     }

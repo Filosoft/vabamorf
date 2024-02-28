@@ -50,7 +50,7 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 
 4 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" https://smart-search.tartunlp.ai/api/vm/disambiguator/version
-    $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
+    $ echo '{"params": {"vmetyjson": ["--version"], "vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/disambiguator/process \
@@ -109,7 +109,7 @@ proc = subprocess.Popen(['./vmetyjson', '--path=.'],
 
 app = Flask(__name__)
 
-VERSION = "2024.02.22"
+VERSION = "2024.02.24"
 
 # JSONsisendi max suuruse piiramine {{
 try:
