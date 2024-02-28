@@ -28,7 +28,6 @@ RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt
 COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_vmetyjson.py vmetyjson et3.dct ./
 RUN chmod +x *.py vmetyjson
 
-COPY --chown=mere_mortal:mere_mortal test.json ./
 # parameters for gunicorn
 ENV WORKERS=1
 ENV TIMEOUT=30
@@ -37,4 +36,5 @@ ENV LOGURU_LEVEL=INFO
 
 # start web server
 ENTRYPOINT ["./docker-entrypoint.sh"]
+# keep running 4ever 4 db
 #ENTRYPOINT ["tail", "-f", "/dev/null"]

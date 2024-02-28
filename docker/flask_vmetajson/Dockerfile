@@ -35,3 +35,5 @@ ENV LOGURU_LEVEL=INFO
 
 # start web server
 ENTRYPOINT ["./docker-entrypoint.sh"]
+# keep running 4ever 4 db
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
