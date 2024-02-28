@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# POOLELI
-
 command_line_stem()
 {
     echo '{"params": {"vmetajson": ["--result-string-as-joined", "--result-string-as-discrete", "--stem", "--guess"]}, "content": "Mees peeti kinni. Töx-Mõx, telef +373 45 676 987."}' \
