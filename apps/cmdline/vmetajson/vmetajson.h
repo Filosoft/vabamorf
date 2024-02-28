@@ -639,7 +639,7 @@ private:
             switch(sealt)
             {  
                 case eMRF_P: json_mrf["method"] = "lexicon-based"; break;   // põhisõnastikust
-                case eMRF_L: json_mrf["method"] = "user-lexison"; break;    // lisasõnastikust
+                case eMRF_L: json_mrf["method"] = "user-lexicon"; break;    // lisasõnastikust
                 case eMRF_O: json_mrf["method"] = "guessing"; break;        // sõnapõhisest oletajast
                 case eMRF_S: json_mrf["method"] = "proper-name-guessing-in-context"; break; // lausepõhisest oletajast
                 default: json_mrf["method"] = "unknown"; break;             // eMRF_X, ise ka ei tea 
