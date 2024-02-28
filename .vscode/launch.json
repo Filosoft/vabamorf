@@ -5,6 +5,97 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "split_tokens",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/split_tokens.db",
+            "cwd": "${workspaceFolder}/apps/cmdline/project/unix/",
+            "args": [ "proov.txt", "-" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "split_tokensn",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/apps/cmdline/project/unix",
+            "program": "./split_tokens.db",
+            "env": {},
+            "args": ["proov.txt", "-"]
+        },
+        {
+            "name": "flask_api_vmetyjson",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/docker/flask_vmetyjson",
+            "program": "./flask_vmetyjson.py",
+            "env": {},
+            "args": ["-d"]
+        },
+        {
+            "name": "vmetajson",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetajson.db",
+            "cwd": "${workspaceFolder}/apps/cmdline/project/unix/",
+            "args": [ "--json={\\\"tss\\\":\\\"kinnipeetud\\\tmees\\\"}" ],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        // vmetyjson -------
+        {
+            "name": "vmetyjson",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/cmdline/project/unix/vmetyjson.db",
+            "cwd": "${workspaceFolder}/apps/cmdline/project/unix/",
+            "args": [ "--formattedjson", "--json=@test2.json"],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "flask_vmetsjson.py",
             "type": "python",
             "request": "launch",

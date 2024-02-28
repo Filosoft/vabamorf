@@ -1,7 +1,25 @@
 # Tekstisõnede tükeldamine
 
-Lõikab sõnaga kokkukleepunud punktuatsiooni eraldi sõnedeks.
-Sõnad tükeldab tüvi, lõpp, liitsõnapiir, eel- ja järelliitepiir jne kohalt.
+## Tükeldamisalgoritmid
+
+### Variant 1 (`--v1`)
+
+* Sõnaga kokkukleepunud punktuatsioon igaüks omaette tükkiks.
+* Ees ja järelliide omaette tükiks.
+* Lõpp omaette tükiks.
+* Lihtsõna tüvi omaette tükiks.
+* Liitsõna tüve tükeldame liitsõna piirilt omaette tükkideks.
+* Lühend omaette tükiks
+
+### Variant 2 (`--v2`)
+
+* Sõnaga kokkukleepunud punktuatsioon igaüks omaette tükkiks.
+* Ees ja järelliide omaette tükiks.
+* Lõpp omaette tükiks.
+* Lihtsõna tüvi omaette tükiks, kui oli vabamorfi leksikonis, oletatud tüve tükeldame üksiktähtedeks.
+* Liitsõna tüve tükeldame liitsõna piirilt, vabamorfi leksikonis olevad osasõnad jätame omaette tükkideks,
+  oletatud liitsõna osaõna tükeldame üksiktähtedeks.
+* Lühendi tükeldame üksiktähtedeks.
 
 ## Kompileerimine
 
@@ -20,7 +38,7 @@ Kompileeritud programmid:
 
 ## Käsurea süntaks
 
-`split_tokens [--path KATALOOG] [{sisendfail|-}]`
+`split_tokens [--path KATALOOG] {--v1|--v2} [{sisendfail|-}]`
 
 * `KATALOOG` selles kataloogis peab asuma morf analüsaatori leksikon `et.dct`
   Kui kataloogi nime pole antud, otsitakse leksikoni keskkonnamuutujas `PATH` loetletud kataloogidest.

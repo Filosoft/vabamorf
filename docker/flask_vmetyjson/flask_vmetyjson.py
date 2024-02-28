@@ -50,12 +50,12 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 
 4 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" https://smart-search.tartunlp.ai/api/vm/disambiguator/version
-    $ echo '{"params": {"vmetyjson": ["--version"], "vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
+    $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/disambiguator/process \
         | jq | less
-    $ echo '{"params": {"vmetajson": [ "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
+    $ echo '{"params": {"vmetyjson": ["--version"], "vmetajson": [ "--guess", "--gt", "--classic2"]}, "content": "Mees peeti kinni. AS Sarved&Sõrad. TöxMöx."}' \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/disambiguator/process \
@@ -109,7 +109,7 @@ proc = subprocess.Popen(['./vmetyjson', '--path=.'],
 
 app = Flask(__name__)
 
-VERSION = "2024.02.24"
+VERSION = "2024.02.26"
 
 # JSONsisendi max suuruse piiramine {{
 try:
@@ -155,7 +155,7 @@ def api_analyser_version():
     Returns:
         ~flask.Response: JSONkujul versioonistring
     """
-    return jsonify({"version":VERSION})
+    return jsonify({"version_flask_vmetyjson":VERSION})
 
 @app.route('/api/vm/disambiguator/process', methods=['POST'])
 @app.route('/process', methods=['POST'])

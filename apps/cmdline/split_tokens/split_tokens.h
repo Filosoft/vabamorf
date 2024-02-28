@@ -149,43 +149,11 @@ private:
 
         while (in.Rida(rida) == true)
         {
-            if (rida.GetLength() <= 0)
-                continue; // ignoreeerime "white space"idest koosnevaid ridu
-            rida.Trim();
-            const wchar_t *prida = (const WCHAR *)rida;
             TMPLPTRARRAY<FSXSTRING> algne_tykeldus(10, 10);
-            int pos = 0;
-            while (pos < rida.GetLength())
-            {
-                if (TaheHulgad().OnWhiteSpace(rida[pos]) == true)
-                    pos++; // white space'i ignoreerime
-                while (pos < rida.GetLength() && TaheHulgad().OnS_punktuatsioon(rida[pos]) == true)
-                { // tõstame algusest sodi eraldi tokeniteks
-                    FSXSTRING *ptoken = algne_tykeldus.AddPlaceHolder();
-                    *ptoken += rida[pos++];
-                }
-                int real_token_start = pos;
-                // otsime üles lõpetava white space'i
-                while (pos < rida.GetLength() && TaheHulgad().OnWhiteSpace(rida[pos]) == false)
-                    pos++;
-                int next_whitespace = pos;
-                int real_token_end = pos;
-                while (TaheHulgad().OnS_punktuatsioon(rida[--real_token_end]) == true)
-                    ;
-                // [real_token_end, pos) on sõna lõppu kleepunud punktuatsioon
-                // [real_token_start, real_token_end] on ilma algus- ja lõpusodita sõne
-                if (real_token_start <= real_token_end)
-                {
-                    FSXSTRING *ptoken = algne_tykeldus.AddPlaceHolder();
-                    *ptoken = rida.Mid(real_token_start, real_token_end - real_token_start + 1);
-                }
-                int tagasodi = real_token_end + 1;
-                while (tagasodi < next_whitespace)
-                {
-                    FSXSTRING *ptoken = algne_tykeldus.AddPlaceHolder();
-                    *ptoken += rida[tagasodi++];
-                }
-            }
+
+            if(naiivne_tokeniseerija(algne_tykeldus, rida) == false)
+                continue;
+
             for (int i = 0; i < algne_tykeldus.idxLast; i++)
             {
                 ret = mrf.Set1(*(algne_tykeldus[i]));
@@ -240,7 +208,58 @@ private:
             }
             std::cout << std::endl;
         }
-        
+    }
+
+    /**
+     * @brief Sõnestab sisendrea.
+     * 
+     * Tõstab punktuatsiooni lahku.
+     * 
+     * @param algne_tykeldus[out] Leitud sõnede massiiv 
+     * @param rida[in] Sõnestatav rida
+     * @return true Leiti sõnesid
+     * @return false Rida ei sisaldanud ühtegi sõne
+     */
+    bool naiivne_tokeniseerija(TMPLPTRARRAY<FSXSTRING>& algne_tykeldus, FSXSTRING& rida)
+    {
+            if (rida.GetLength() <= 0)
+                false; // ignoreeerime "white space"idest koosnevaid ridu
+            rida.Trim();
+            const wchar_t *prida = (const WCHAR *)rida;
+
+            int pos = 0;
+            while (pos < rida.GetLength())
+            {
+                if (TaheHulgad().OnWhiteSpace(rida[pos]) == true)
+                    pos++; // white space'i ignoreerime
+                while (pos < rida.GetLength() && TaheHulgad().OnS_punktuatsioon(rida[pos]) == true)
+                { // tõstame algusest sodi eraldi tokeniteks
+                    FSXSTRING *ptoken = algne_tykeldus.AddPlaceHolder();
+                    *ptoken += rida[pos++];
+                }
+                int real_token_start = pos;
+                // otsime üles lõpetava white space'i
+                while (pos < rida.GetLength() && TaheHulgad().OnWhiteSpace(rida[pos]) == false)
+                    pos++;
+                int next_whitespace = pos;
+                int real_token_end = pos;
+                while (TaheHulgad().OnS_punktuatsioon(rida[--real_token_end]) == true)
+                    ;
+                // [real_token_end, pos) on sõna lõppu kleepunud punktuatsioon
+                // [real_token_start, real_token_end] on ilma algus- ja lõpusodita sõne
+                if (real_token_start <= real_token_end)
+                {
+                    FSXSTRING *ptoken = algne_tykeldus.AddPlaceHolder();
+                    *ptoken = rida.Mid(real_token_start, real_token_end - real_token_start + 1);
+                }
+                int tagasodi = real_token_end + 1;
+                while (tagasodi < next_whitespace)
+                {
+                    FSXSTRING *ptoken = algne_tykeldus.AddPlaceHolder();
+                    *ptoken += rida[tagasodi++];
+                }
+            }
+            return algne_tykeldus.idxLast > 0;
     }
 
     /** Muutujate esialgseks initsialiseerimsieks konstruktoris */

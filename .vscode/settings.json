@@ -62,6 +62,9 @@
         "semaphore": "cpp",
         "shared_mutex": "cpp",
         "stop_token": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "complex": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
     }
 }
