@@ -157,13 +157,17 @@ public:
             if(fsJsonCpp.JsonParse((const char*)json_str_fs, json_parse_error_message, jsonobj)==false)
                 fsJsonCpp.JsonWarning(json_parse_error_message.c_str());
             else
+            {
+                sisend_torust = false;
                 TeeSeda(jsonobj);
+            }
         }
         else
         { 
             try
             {
                 // JSON sisend tuleb std-sisendist
+                sisend_torust = true;
                 std::string line;  
                 while(std::getline(std::cin,line))
                 {
@@ -195,15 +199,13 @@ public:
         //??? InitClassVariables();
     }
 
-    const char* VERSION = "2024.02.24";
+    const char* VERSION = "2024.02.28";
 
 private:
-    //bool lipp_gt;               // --gt 
-    //bool lipp_hmm;              // --hmm markov (ühestaja)
-
     bool lipp_taanded;          // --formattedjson
     bool lipp_utf8;             // --utf8json
     bool lipp_version;          // versiooni-info kuvamine
+    bool sisend_torust;         // loeme sisendi stdin'ist
     CFSAString path;            // --path=...
     CFSAString json_str_fs;     // --json=... lipu tagant
 
@@ -224,7 +226,8 @@ private:
         //lipp_hmm=false;
         lipp_taanded=false;     // kogu json ühel real
         lipp_utf8=false;        // utf8 sümbolid koodidena
-        lipp_version=false;     // EI kuva väljundis versiooniinfot 
+        lipp_version=false;     // EI kuva väljundis versiooniinfot
+        sisend_torust=false; 
     }
 
    /**
@@ -298,7 +301,9 @@ private:
         }
         if(strcmp("--formattedjson", lipuString)==0)
         {
-            lipp_taanded=true;
+            // --formattedjson lippu ei saa kasutada standardsisendist tuleva JSONi korrral
+            if(sisend_torust == false)
+                lipp_taanded=true;
             return true;
         }
         if(strcmp("--utf8json", lipuString)==0)
@@ -365,7 +370,7 @@ private:
             
             if(lipp_version==true)
             {
-                jsonobj["version"] = VERSION;
+                jsonobj["version_vmetyjson"] = VERSION;
             }
 
             if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("sentences")==false)
@@ -436,9 +441,9 @@ private:
                                 ? (*mrf)["lemma"].asString().c_str() 
                                 : (*mrf)["stem"].asString().c_str(),
                             (*mrf)["ending"].asString().c_str(),        // lõpp
-                            (*mrf)["kigi"].asString().c_str(),          // ki|gi
+                            (*mrf)["enclitic_gi"].asString().c_str(),   // ki|gi
                             (*mrf)["pos"].asString().c_str(),           // sõnaliik
-                            (*mrf)["fs"].asString().c_str() );          // FS-vorm
+                            (*mrf)["fs-category"].asString().c_str() ); // FS-vorm
                     }
                     
                     // ühestamismärgendite saamiseks on vajalik utf-16 {{
@@ -472,7 +477,7 @@ private:
                         
                         const std::string& json_stem_lemma = mrf.isMember("lemma") ? mrf["lemma"].asString() : mrf["stem"].asString();
                         const std::string& json_pos = mrf["pos"].asString();
-                        const std::string& json_fs = mrf["fs"].asString();
+                        const std::string& json_fs = mrf["fs-category"].asString();
 
                         for(int a=0; a < mrftulemused_utf8->idxLast; a++)
                         {                  
@@ -492,7 +497,7 @@ private:
                 }
                 if(sent_start < sent_end 
                         && tokens[0]["features"]["mrf"].size() > 0
-                        && tokens[0]["features"]["mrf"][0].isMember("classic2") == true)
+                        && tokens[0]["features"]["mrf"][0].isMember("result-string-as-discrete") == true)
                 {
                     for(int t = sent_start; t < sent_end; t++)
                     {
@@ -501,9 +506,9 @@ private:
                         {
                             Json::Value& mrf = token["features"]["mrf"][m];
                             if(mrf["preferred"].asBool()==true)
-                                mrf["classic2"] = "+ " + mrf["classic2"].asString();
+                                mrf["result-string-as-discrete"] = "+ " + mrf["result-string-as-discrete"].asString();
                             else
-                                mrf["classic2"] = "- " + mrf["classic2"].asString();
+                                mrf["result-string-as-discrete"] = "- " + mrf["result-string-as-discrete"].asString();
                         }
                     }
                 }
