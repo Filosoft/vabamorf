@@ -10,29 +10,29 @@ services:
     environment:
       - MAX_CONTENT_LENGTH=5000000      
     build:
-      context: ../flask_estnltk_sentok
+      context: ../../../../docker/flask_estnltk_sentok/
       dockerfile: ./Dockerfile
 
   api_vm_vmetajson:
-    image: tilluteenused/api_vm_vmetajson:2024.02.03
+    image: tilluteenused/api_vm_vmetajson:2024.02.28
     ports:
       - 7007:7007
     environment:
       - MAX_CONTENT_LENGTH=5000000      
     build:
-      context: ../flask_vmetajson
+      context: ../../../../docker/flask_vmetyjson/
       dockerfile: ./Dockerfile
     depends_on:
       - api_estnltk_sentok
 
   api_vm_vmetyjson:
-    image: tilluteenused/api_vm_vmetyjson:2024.02.22
+    image: tilluteenused/api_vm_vmetyjson:2024.02.28
     ports:
       - 7009:7009
     environment:
       - MAX_CONTENT_LENGTH=5000000      
     build:
-      context: ./
+      context: ../../../../docker/flask_vmetyjson/
       dockerfile: ./Dockerfile
     depends_on:
       - api_vm_vmetajson
