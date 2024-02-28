@@ -74,7 +74,7 @@ EELDUS: Arvuti, kus on installitud/konfitud Kubernates/ingress.
 
 5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
     $ kubectl create deployment vabamorf-api-vm-vmetajson \
-        --image=tilluteenused/api_vm_vmetajson:2024.02.03
+        --image=tilluteenused/api_vm_vmetajson:2024.02.28
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 Ava konfiguratsioonifail redaktoris
