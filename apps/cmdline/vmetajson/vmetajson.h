@@ -290,7 +290,7 @@ private:
             lipp_gt=true;
             return true;
         }
-        if(strcmp("--hmm", lipuString)==0)
+        if(strcmp("--hmm-category", lipuString)==0)
         {
             lipp_hmm=true;
             return true;
@@ -624,7 +624,7 @@ private:
             else
                 json_mrf["ending"] = "0";
             if(mrftulemused_utf8[i]->mrg1st.GetLength() > 0)
-                json_mrf["hmm"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
+                json_mrf["hmm-category"] = (const char*)(mrftulemused_utf8[i]->mrg1st);
             json_mrf["pos"]  = (const char*)(mrftulemused_utf8[i]->sl);
             mrftulemused_utf8[i]->vormid.TrimRight(" ,");
             json_mrf["fs-category"]   = (const char*)(mrftulemused_utf8[i]->vormid);
