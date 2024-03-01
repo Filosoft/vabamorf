@@ -199,7 +199,7 @@ public:
         //??? InitClassVariables();
     }
 
-    const char* VERSION = "2024.02.28";
+    const char* VERSION = "2024.02.29";
 
 private:
     bool lipp_taanded;          // --formattedjson
@@ -222,12 +222,8 @@ private:
      */
     void VaikeLipudPaika(void)
     {
-        //lipp_gt=false;
-        //lipp_hmm=false;
-        lipp_taanded=false;     // kogu json ühel real
         lipp_utf8=false;        // utf8 sümbolid koodidena
         lipp_version=false;     // EI kuva väljundis versiooniinfot
-        sisend_torust=false; 
     }
 
    /**

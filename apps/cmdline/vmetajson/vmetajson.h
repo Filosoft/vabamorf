@@ -11,7 +11,7 @@ Mida uut:
   * --classic1 (sama mis endine --classic) 
   * --classic2 FS stiilis analüüsistring iga analüüsivariandi juurde
   * JSON sisendis libatud "tss" (TabSeparatedStrings) 
-2024-02-28
+2024-02-29
   * lippe  ümbernimetaud
   * JSONis asju ümbernimetatud
 */
@@ -89,7 +89,7 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
 class VMETAJSON
 {
 public:
-    const char* VERSION = "2024.02.28";
+    const char* VERSION = "2024.02.29";
 
     VMETAJSON(void)
     {

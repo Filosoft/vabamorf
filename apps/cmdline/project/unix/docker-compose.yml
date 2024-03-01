@@ -16,7 +16,7 @@ services:
       dockerfile: ./Dockerfile
 
   api_vm_vmetajson:
-    image: tilluteenused/api_vm_vmetajson:2024.02.28
+    image: tilluteenused/api_vm_vmetajson:2024.02.29
     ports:
       - 7007:7007
     environment:
@@ -28,7 +28,7 @@ services:
       - api_estnltk_sentok
 
   api_vm_vmetyjson:
-    image: tilluteenused/api_vm_vmetyjson:2024.02.28
+    image: tilluteenused/api_vm_vmetyjson:2024.02.29
     ports:
       - 7009:7009
     environment:

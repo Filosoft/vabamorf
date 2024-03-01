@@ -40,7 +40,8 @@ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
 ### 2. Konteineri kokkupanemine
 
 ```commandline
-cd ~/git/vabamorf_github/docker/flask_estnltk_sentok; docker build -t tilluteenused/estnltk_sentok:2023.04.18 .
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker-compose build api_estnltk_sentok
 ```
 
 <!---
@@ -51,7 +52,8 @@ docker push tilluteenused/estnltk_sentok:2023.04.18
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-docker run -p 6000:6000 tilluteenused/estnltk_sentok:2023.04.18
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker-compose up api_estnltk_sentok
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
