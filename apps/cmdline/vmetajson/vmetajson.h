@@ -10,7 +10,10 @@ Mida uut:
 * --classic lipu asemele :
   * --classic1 (sama mis endine --classic) 
   * --classic2 FS stiilis analüüsistring iga analüüsivariandi juurde
-* JSON sisendis libatud "tss" (TabSeparatedStrings)  
+  * JSON sisendis libatud "tss" (TabSeparatedStrings) 
+2024-02-28
+  * lippe  ümbernimetaud
+  * JSONis asju ümbernimetatud
 */
 
 // sudo apt-get install -y libjsoncpp-dev
@@ -212,7 +215,6 @@ private:
         lipp_taanded=false;     // kogu json ühel real
         lipp_utf8=false;        // utf8 sümbolid koodidena
         lipp_version=false;     // EI kuva väljundis versiooniinfot 
-        sisend_torust=false;
     }
 
    /**
