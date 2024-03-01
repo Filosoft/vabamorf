@@ -171,7 +171,7 @@ def flask_estnltk_version():
     Returns:
         ~flask.Response: JSONkujul versioonistring
     """
-    return jsonify({"FLASK-liidese version":VERSION, "MAX_CONTENT_LENGTH": MAX_CONTENT_LENGTH})
+    return jsonify({"version_tokenizer_flask":VERSION, "MAX_CONTENT_LENGTH": MAX_CONTENT_LENGTH})
 
 @app.route('/api/estnltk/tokenizer/process', methods=['POST'])
 @app.route('/process', methods=['POST'])

@@ -1,4 +1,4 @@
-# Eesti keele lausestaja-sõnestaja konteiner [versioon 2023.04.18]
+# Eesti keele lausestaja-sõnestaja konteiner [versioon 2024.01.23]
 
 [ESTNLTK-l](https://github.com/estnltk/estnltk) põhinevat lausestajat-sõnestajat sisaldav tarkvara-konteiner (docker).
 Teeb utf-8 vormingus tavateksti sobivaks
@@ -14,40 +14,32 @@ Teeb utf-8 vormingus tavateksti sobivaks
 * Peab olema paigaldatud tarkvara konteineri tegemiseks/kasutamiseks; juhised on [docker'i veebilehel](https://docs.docker.com/).
 * Kui sooviks on lähtekoodi ise kompileerida või konteinerit kokku panna, siis peab olema paigaldatud versioonihaldustarkvara; juhised on [git'i veebilehel](https://git-scm.com/).
 
-## Konteineri allalaadimine Docker Hub'ist
+## Konteineri kasutamine
 
-Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
-
-```commandline
-docker pull vabamorf/estnltk_sentok:2023.04.18
-```
-
- Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
-
-## Ise konteineri tegemine
-
-### 1. Lähtekoodi allalaadimine
+### Lähtekoodi allalaadimine
 
 ```commandline
 mkdir -p ~/git/ ; cd ~/git/
 git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
-<!---
-git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
---->
+### Konteineri allalaadimine Docker Hub'ist
 
-### 2. Konteineri kokkupanemine
+Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
+
+```commandline
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker-compose pull api_estnltk_sentok
+```
+
+Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
+
+### Konteineri kokkupanemine lähtekoodist
 
 ```commandline
 cd ~/git/vabamorf_github/apps/cmdline/project/unix
 docker-compose build api_estnltk_sentok
 ```
-
-<!---
-docker login -u tilluteenused   # access token
-docker push tilluteenused/estnltk_sentok:2023.04.18 
---->
 
 ## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
