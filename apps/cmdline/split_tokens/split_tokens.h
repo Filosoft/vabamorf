@@ -115,10 +115,10 @@ public:
         lipud_mrf.Set(lipud_yksiksonade_analyysiks);
         mrf.Start(path, lipud_mrf.Get());
 
-        if (sisendfail == "-")
-            sisse.Start(PFSCP_UTF8, path);
-        else
-            sisse.Start(sisendfail, "rb", PFSCP_UTF8, path);
+        //if (sisendfail == "-")
+        //    sisse.Open(PFSCP_UTF8, path);
+        //else
+        sisse.Open(sisendfail, "rb");
 
         TeeSedaFailiga(sisse);
     }
@@ -137,78 +137,144 @@ private:
     CFSAString path;        // -p --path
     CFSAString sisendfail;  // vaikimisi - (stdin))
 
-    VOTAFAILIST sisse;
+    CPFSFile sisse;
     ETMRFA mrf;
     MRF_FLAGS lipud_mrf;
 
-    void TeeSedaFailiga(VOTAFAILIST &in)
+    void TeeSedaFailiga(CPFSFile &in)
     {
         bool ret;
-        FSXSTRING rida;
+        CFSAString rida;
         LYLI lyli;
-
-        while (in.Rida(rida) == true)
+        in.ReadTrimmedLine(&rida); // tabeli veerunimed
+        std::cout << "kokku\tsõnavorm\ttükeldus\tuued_tüved\tkokku_tüvesid\tuued_lõpud\tkokku_tüvesid+lõppusid\n";
+        TMPLPTRARRAYBIN<PCFSAString, PCFSAString> koik_tyved(500, 100);
+        TMPLPTRARRAYBIN<PCFSAString, PCFSAString> koik_lopud_kigi(500, 100);
+        
+        while (in.ReadTrimmedLine(&rida) == true)
         {
-            TMPLPTRARRAY<FSXSTRING> algne_tykeldus(10, 10);
+            PCFSAString sagedus, token;
+            tykelda(rida, sagedus, token);
 
-            if(naiivne_tokeniseerija(algne_tykeldus, rida) == false)
-                continue;
-
-            for (int i = 0; i < algne_tykeldus.idxLast; i++)
+            ret = mrf.Set1(token);
+            while (mrf.Flush(lyli) == true)
             {
-                ret = mrf.Set1(*(algne_tykeldus[i]));
-                while (mrf.Flush(lyli) == true)
-                {
-                    assert((lyli.lipp & PRMS_MRF) == PRMS_MRF);
-                    LYLI_UTF8 lyli_utf8(lyli);
-                    MRFTULEMUSED_UTF8 *mt_utf8 = lyli_utf8.ptr.pMrfAnal;
-                    TMPLPTRARRAYSRT<PCFSAString> tyved_lopud(10, 10);
-                    for (int j = 0; j < mt_utf8->idxLast; j++)
-                    {
-                        PCFSAString *ptoken = tyved_lopud.AddPlaceHolder();
-                        *ptoken += (*mt_utf8)[j]->tyvi;
-                        if ((*mt_utf8)[j]->lopp.GetLength() > 0 && (*mt_utf8)[j]->lopp[0] != '0')
-                        {
-                            *ptoken += "+";
-                            *ptoken += (*mt_utf8)[j]->lopp;
-                        }
-                        if ((*mt_utf8)[j]->kigi.GetLength() > 0)
-                        {
-                            *ptoken += "+";
-                            *ptoken += (*mt_utf8)[j]->kigi;
-                        }
-                    }
-                    tyved_lopud.SortUniq();
+                int j = 0;
+                assert((lyli.lipp & PRMS_MRF) == PRMS_MRF);
+                LYLI_UTF8 lyli_utf8(lyli);
+                MRFTULEMUSED_UTF8 *mt_utf8 = lyli_utf8.ptr.pMrfAnal;
+                TMPLPTRARRAYSRT<PCFSAString> tyved(mt_utf8->idxLast, 0);
+                PCFSAString puhas;
+                puhastaTyvi((*mt_utf8)[j]->tyvi, puhas);
+                typedef TMPLPTRARRAY<PCFSAString> TMPLPTRARRAY_CFSAS;
+                TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> tykeldus2;
+                TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> tykeldus1(puhas, "_", 15, 0);
+                TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> *parim = &tykeldus1;
+                TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> *jooksev = &tykeldus2;
+                TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> *tmp;  
 
-                    typedef TMPLPTRARRAY<PCFSAString> TMPLPTRARRAY_CFSAS;
-                    TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> tykeldus2;
-                    TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> tykeldus1(*(tyved_lopud[0]), "_+=", 10, 10);
-                    TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> *parim = &tykeldus1;
-                    TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> *jooksev = &tykeldus2;
-                    TYKELDATUDPCFSSTRING<PCFSAString, CFSAString, TMPLPTRARRAY_CFSAS> *tmp;
-                    for (int j = 1; j < tyved_lopud.idxLast; j++)
-                    {
-                        jooksev->Start(*(tyved_lopud[j]), "_+=", 10, 10);
-                        if (jooksev->idxLast > parim->idxLast)
-                        {
-                            tmp = parim;
-                            parim = jooksev;
-                            jooksev = tmp;
-                        }
-                    }
-                    // parim == valime olemasoloevatest tükeldustest selle, kus on kõige rohkem tükke
-                    for (int j = 0; j < parim->idxLast; j++)
-                    {
-                        if (j > 0)
-                            std::cout << " ";
-                        std::cout << (const char*)*(*parim)[j];
-                    }
-                    std::cout << ' ';
+                TMPLPTRARRAY<PCFSAString>  lopp_kigi_1;
+                TMPLPTRARRAY<PCFSAString>  lopp_kigi_2;
+                TMPLPTRARRAY<PCFSAString> *parim_lopp_kigi = &lopp_kigi_1;
+                TMPLPTRARRAY<PCFSAString> *jooksev_lopp_kigi = &lopp_kigi_2;
+                TMPLPTRARRAY<PCFSAString> *tmp_lopp_kigi;             
+
+                parim_lopp_kigi->Start(2, 0);
+                if((*mt_utf8)[j]->lopp.GetLength() > 0 && (*mt_utf8)[j]->lopp.Compare("0")!=0 )
+                {
+                    PCFSAString *ptoken = parim_lopp_kigi->AddPlaceHolder();
+                    *ptoken = (*mt_utf8)[j]->lopp;
                 }
+                if((*mt_utf8)[j]->kigi.GetLength() > 0 && (*mt_utf8)[j]->kigi.Compare("0")!=0 )
+                {
+                    PCFSAString *ptoken = parim_lopp_kigi->AddPlaceHolder();
+                    *ptoken = (*mt_utf8)[j]->kigi;
+                }  
+
+                for (j = 1; j < mt_utf8->idxLast; j++)
+                {
+                    puhastaTyvi((*mt_utf8)[j]->tyvi, puhas);
+                    jooksev->Start(puhas, "_", 15, 0);
+                    jooksev_lopp_kigi->Start(2, 0);
+                    if((*mt_utf8)[j]->lopp.GetLength() > 0 && (*mt_utf8)[j]->lopp.Compare("0")!=0 )
+                    {
+                        PCFSAString *ptoken = jooksev_lopp_kigi->AddPlaceHolder();
+                        *ptoken = (*mt_utf8)[j]->lopp;
+                    }
+                    if((*mt_utf8)[0]->kigi.GetLength() > 0 && (*mt_utf8)[j]->kigi.Compare("0")!=0 )
+                    {
+                        PCFSAString *ptoken = jooksev_lopp_kigi->AddPlaceHolder();
+                        *ptoken = (*mt_utf8)[j]->kigi;
+                    } 
+                    if(jooksev->idxLast + jooksev_lopp_kigi->idxLast > parim->idxLast + parim_lopp_kigi->idxLast)
+                    {
+                        tmp = parim;
+                        parim = jooksev;
+                        jooksev = tmp;  
+                        tmp_lopp_kigi = parim_lopp_kigi;
+                        parim_lopp_kigi = jooksev_lopp_kigi;
+                        jooksev_lopp_kigi = tmp_lopp_kigi;       
+                    }
+                }
+
+                // parim == valime olemasoloevatest tükeldustest selle, kus on kõige rohkem tükke
+                std::cout << sagedus << "\t" << token << "\t[ " << (const char*)*(*parim)[0] << " ";
+                for (j = 1; j < parim->idxLast; j++)
+                {
+                    std::cout << "##" << (const char*)*(*parim)[j] << ' ';
+                }
+                for (j=0; j < parim_lopp_kigi->idxLast; j++)
+                {
+                    std::cout << "##" << (const char*)*(*parim_lopp_kigi)[j] << ' ';
+                }             
+                std::cout << "]\t[";
+                for (j = 0; j < parim->idxLast; j++)
+                {
+                    int idx;
+                    if(koik_tyved.Get((*parim)[j], &idx) == NULL)
+                    {   // sellist tüve veel polnud
+                        koik_tyved.AddClone(*(*parim)[j], idx);
+                        std::cout << " " << (const char*)*(*parim)[j];
+                    }
+                }
+                std::cout << " ]\t" << koik_tyved.idxLast << "\t[";
+                for (j = 0; j < parim_lopp_kigi->idxLast; j++)
+                {
+                    int idx;
+                    if(koik_lopud_kigi.Get((*parim_lopp_kigi)[j], &idx) == NULL)
+                    {   // sellist lõppu veel polnud
+                        koik_lopud_kigi.AddClone(*(*parim_lopp_kigi)[j], idx);
+                        std::cout << " " << (const char*)*(*parim_lopp_kigi)[j];
+                    }
+                }
+                std::cout << " ]\t" << koik_lopud_kigi.idxLast + koik_tyved.idxLast;                
             }
-            std::cout << std::endl;
+            std::cout << '\n';
         }
     }
+
+    void tykelda(CFSAString& rida, PCFSAString &sagedus, PCFSAString &token)
+    {
+        int i=0;
+        while(rida[i] != ' ' && rida[i] != '\0')
+            i++;
+        sagedus = rida.Left(i++);
+        token = rida.Mid(i,rida.GetLength()-i);
+        for(i=token.GetLength()-1; token[i] == ' ' || token[i] == '\t' || token[i] == '\n'; i--)
+            token[i]='\0';
+    }
+
+    void puhastaTyvi(PCFSAString& algneTyvi, PCFSAString& puhasTyvi)
+    {
+        CFSAString sodi("=+");
+        puhasTyvi = "";
+        for(int i = 0; i< algneTyvi.GetLength(); i++)
+        {
+            if(sodi.Find(algneTyvi[i]) == -1)
+                puhasTyvi += algneTyvi[i];
+        }
+    }
+
 
     /**
      * @brief Sõnestab sisendrea.
@@ -270,14 +336,14 @@ private:
     /** Argumentideta konstruktori abil starditud klassi invariant */
     bool EmptyClassInvariant(void)
     {
-        return sisse.EmptyClassInvariant() && mrf.EmptyClassInvariant();
+        return mrf.EmptyClassInvariant();
     }
 
     /** Initsialiseeritud klassi invariant */
 
     bool ClassInvariant(void)
     {
-        return sisse.ClassInvariant() && mrf.ClassInvariant();
+        return mrf.ClassInvariant();
     }
 
     /** Copy-konstruktor on illegaalne */
