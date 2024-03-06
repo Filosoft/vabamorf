@@ -6,16 +6,7 @@
 git clone https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
-## Windows
-
-### Prerequisites
-
-* MS Visual Studio 2010
-
 ### Compiling
-
-* Open **_vabamorf_github/apps/cmdline/project/vc2010/cmdline.sln_**
-* Run the compiler.
 
 ## Linux
 
@@ -29,6 +20,7 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```cmdline
 cd vabamorf_github/apps/cmdline/project/unix
 ```
+
 Compiling all:
 
 ```cmdline
