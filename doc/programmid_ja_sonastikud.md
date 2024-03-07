@@ -6,8 +6,6 @@
 git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
-## Windows
-
 ## Linux
 
 ### Vajalik tarkvara
