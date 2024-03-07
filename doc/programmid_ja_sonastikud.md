@@ -18,6 +18,7 @@ git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```cmdline
 cd vabamorf_github/apps/cmdline/project/unix
 ```
+
 Kõige kompileerimine:
 
 ```cmdline
