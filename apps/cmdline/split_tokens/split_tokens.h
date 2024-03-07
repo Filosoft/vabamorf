@@ -73,7 +73,7 @@ public:
             if (strcmp("-h", argv[i]) == 0 || strcmp("--help", argv[i]) == 0)
             {
             syntaks:
-                std::cout << "Süntaks: " << argv[0] << "[LIPUD...] [sisendfail väljundfail]\n";
+                std::cout << "Süntaks: " << argv[0] << "[--path RADA] [--version] [sisendfail]\n";
                 exit(EXIT_SUCCESS);
             }
             //-----------------------------

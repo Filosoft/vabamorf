@@ -131,7 +131,6 @@ public:
                 fsJsonCpp.JsonWarning(message.c_str());
             else
             {
-                sisend_torust = false;
                 TeeSeda(jsonobj);
             }
         }
@@ -140,7 +139,6 @@ public:
             try
             {
                 // JSON sisend tuleb std-sisendist
-                sisend_torust = true;
                 std::string line;  
                 while(std::getline(std::cin,line))
                 {
@@ -185,7 +183,7 @@ private:
     bool lipp_taanded;          // --formattedjson
     bool lipp_utf8;             // --utf8json
     bool lipp_version;          // versiooni-info kuvamine
-    bool sisend_torust;         // loeme sisendi stdin'ist
+
     CFSAString path;            // --path=...
     CFSAString json_str_fs;     // --json=... lipu tagant
 
@@ -330,8 +328,6 @@ private:
         if(strcmp("--formattedjson", lipuString)==0)
         {
             // --formattedjson lippu ei saa kasutada standardsisendist tuleva JSONi korrral
-            if(sisend_torust == false)
-                lipp_taanded=true;
             return true;
         }
         if(strcmp("--utf8json", lipuString)==0)
@@ -465,6 +461,8 @@ private:
             {                               // jsonobj["annotations"]["tokens"] või jsonobj["content"] on kohustuslik
                 TeeSedaSonekaupa(jsonobj);  // jsonobj["annotations"]["sentences"] ei ole kohustuslik
             }
+            if(json_str_fs.GetLength() <= 0)
+                lipp_taanded = false;
             fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
         }
         catch(...)
