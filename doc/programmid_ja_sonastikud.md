@@ -8,15 +8,6 @@ git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 
 ## Windows
 
-### Vajalik tarkvara
-
-* MS Visual Studio 2010
-
-### Kompileerimine
-
-* Avage **_vabamorf_github/apps/cmdline/project/vc2010/cmdline.sln_**
-* Käivitage kompilaator.
-
 ## Linux
 
 ### Vajalik tarkvara
