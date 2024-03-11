@@ -29,77 +29,68 @@
 
 vmetajson \[[**LIPUD**](#lippude_kirjeldus)\]
 
-* Vaikimisi kuvatakse analüüsi tulemuses sisendsõne lemmat (algvormi).
-  Tüve saamiseks kasutage `--stem` parameetrit.
-  Ei ole võimalik saada väljundisse **korraga** tüve ja lemmat (ainult üks kahest).
+Kui ühtegi lippu pole käsurea või JSONsisendi kaudu antud:
 
-* Vaikimisi ei oletata leksikonist puuduvate sõnade võimalikke analüüse.
-  Oletuste lisamiseks kasuta `--guess` parameetrit.
+* JSONsisend loetakse std-sisendist. Programmi töö lõpetab `Ctrl+C` 
+  või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
 
-* Vaikimisi on väljundis FS-süsteemis morfoloogilised kategooriad.
-  GR-süsteemis morfoloogiliste katagooriate lisamiseks kasuta `--gt` parameetrit.
+* JSONväljund kirjutatakse std-väljundisse.
 
-* Vaikimisi ei oletata lausekonteksti põhjal täiendavaid võimalikke pärisnimeanalüüse.
-  Täiendavate pärisnimeanalüüside lisamiseks kasuta `-guesspropnames` parameetrit.
+* JSONväljundis kuvatakse sisendsõne lemmat (algvormi).
 
-* Vaikimisi ei lisata tüvesse/lemmasse hääldusmärke.
-  Hääldusmärkide lisamiseks kasuta `--addphonetics` parameetrit.
+* JSONväljundis ei ole oletatud leksikonist puuduvate sõnade võimalikke analüüse.
 
-* Vaikimisi on kogu väljundjson ühel real ja täpitähed json-standardi kohaselt
+* JSONväljundis on FS-süsteemis morfoloogilised kategooriad.
+
+* JSONväljundis ei oletata lausekonteksti põhjal täiendavaid võimalikke pärisnimeanalüüse.
+
+* JSONväljundis ei lisata lemmasse hääldusmärke.
+  
+* JSONväljund on ühel real ja täpitähed json-standardi kohaselt
   esitatud vastavate koodidena.
+
+* Põhileksikoni `et.dct` otsitakse keskkonnamuutujas `PATH` loetletud kataloogidest.
 
 ## Lipud <a name="lippude_kirjeldus"></a>
 
-Kui soovite morf analüüsi tulemusi hiljem ühestada, **peab** sisendjson sisaldama
-lausete ja sõnede anntotatsioone ning tuleb kasutada [```--guess```](#lipp_guess) lippu.
+### Lipud mida saab anda ainult käsurealt
 
-Tüüpiliselt morf analüüs asub töövoos peale sõnestamist/lausestamist 
-ja enne morfoloogilist ühestamist.
+#### **```--path=K1:[K2:...]```**  <a name="lipp_path"></a>
 
-### **```--path=K1:[K2:...]```**  <a name="lipp_path"></a>
+Leksikoni `et.dct` otsitakse kataloogidest **K1, K2, ...**.
 
-Leksikonid võivad olla kataloogis **K1, K2, ...**
+Vaikimisi otsitakse põhileksikoni `et.dct`
+keskkonnamuutujas **PATH** loetletud kataloogidest.
 
-Vaikimisi põhileksikoni **et.dct** ja
-[kasutajasõnastikku](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmeta/kasutajasonastik.md)
-otsitakse keskkonnamuutujas **PATH** loetletud kataloogidest.
-
-JSON-päringus seda lippu ```params``` kaudu määrata ei saa.
-
-### **```--json=JSONSTRING```** <a name="lipp_json"></a>
+#### **```--json=JSONSTRING```** <a name="lipp_json"></a>
 
 Sisend-json käsurealt. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
-### **```--json=@JSONFAIL```** <a name="lipp_json"></a>
+#### **```--json=@JSONFAIL```** <a name="lipp_json"></a>
 
 Sisend-json failist `JSONFAIL`. Lähemalt vaata [Sisendi kirjeldus](#sisendi_kirjeldus).
 
 Lipu ```--json=``` puudumise ḱorral ootab programm JSON-pärnguid std-sisendist. Sellisel juhul lõpetab programmi töö ```Ctrl+C``` või sisendfaili lõpp (ümbersuuntud std-sisendi korral).
 
-### **```--formattedjson```** <a name=lipp_formattedjson></a>
+### Lipud mida saab anda käsurealt ja/või JSONsisendiga
 
-Üherealise väljundjsoni asemel taanetega kujundatud json.
+#### **`--result-string-as-joined`** 
 
-### **```--classic1```** <a name="lipp_classic"></a>
+Lisab JSONväljundis sisendsõne juurde [vmeta kujul analüüsistringi](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmeta).
 
-Lisab väljundjsoni "klassikalisel" vmeta kujul analüüsistringi.
-Sisaldab algset sõne ja kõiki analõõsivariante.
+#### **`--result-string-as-discrete`**
 
-### **```--classic2```** <a name="lipp_classic"></a>
+Lisab JSONväljundis jooksva analüüsivariandi juurde [vmeta kujul analüüsistringi](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmeta).
 
-Lisab väljundjsonis jooksva analüüsivariandi juurde "klassikalisel" vmeta kujul analüüsistringi.
-Sisaldab tüve/lemmat, sõnaliiki ja vormi.
+#### **```--utf8json```** <a name=lipp_utf8json></a>
 
-### **```--utf8json```** <a name=lipp_utf8json></a>
+JSONväljundisse utf8 kodeeringus sümbolid.
 
-Väljundisse utf8 kodeeringus sümbolid.
-
-### **```--version```** <a name=lipp_version></a>
+#### **```--version```** <a name=lipp_version></a>
 
 Lisab väljundjonisse versiooniinfo.
 
-
-### **```--guess```** <a name="lipp_guess"></a>
+#### **```--guess```** <a name="lipp_guess"></a>
 
 Leksikonist puuduvale sõnale oletakse võimalikud analüüsid. Lipp
 [```--guesspropnames```](#lipp_guesspropnames) eeldab lipu
@@ -108,99 +99,58 @@ Leksikonist puuduvale sõnale oletakse võimalikud analüüsid. Lipp
 **_Märkus:_** Ülipikad ja liberaalselt lühendiks määratletavad sõned saavad
 analüüsi oletamise (```--guess``` lipp) käigus, aga allikaks pannakse neile "põhisõnastik".
 
-### **```--guesspropnames```** <a name="lipp_guesspropnames"></a>
+#### **```--guesspropnames```** <a name="lipp_guesspropnames"></a>
 
 Suurtähelisele sõnale lisatakse (teoreetiliselt) võimalikud pärisnime analüüsid.
 **NB!** Seda lippu saab kasutada ainult siis kui sisendjsonis on annoteeritud
 sõned ja laused ning on kasutatud ```--guess``` lippu leksikonist puuduvate
 sõnede analüüsi oletamiseks.
 
-### **```--maxcpmlexity=KEERUKUS```** <a name="lipp_maxcpmlexity"></a>
+#### **```--maxcomplexity=KEERUKUS```** <a name="lipp_maxcpmlexity"></a>
 
 **KEERUKUS** täisarvuline parameeter, mis määrab ära selle kui keerulisi variante proovitakse.
 Tavaliselt on mõistlik jätta see parameeter programmile määrata.
 
-### **```--stem```**  <a name="lipp_stem"></a>
+#### **```--stem```**  <a name="lipp_stem"></a>
 
 Algvormi e. lemma asemel kuvatakse vormitüvi. Vaikimisi kuvatakse algvormi, liitsõna puhul on ainult viimane  komponent algvormina.
 
-### **```--gt```** <a name="lipp_gt"></a>
+#### **```--gt```** <a name="lipp_gt"></a>
 
 Lisatakse [GT-süsteemis](https://www.keeleveeb.ee/dict/corpus/shared/categories.html) [kategooriad](https://cl.ut.ee/ressursid/morfo-systeemid/index.php?lang=et).
 
-### **```--addphonetics```** <a name="lipp_addphonetics"></a>
+#### **```--addphonetics```** <a name="lipp_addphonetics"></a>
 
-Tüvekujusse lisatakse hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
+Tüve- või lemmakujusse lisatakse hääldusmärgid: ```<``` kolmas välde, ```?``` rõhk, ```]``` palatalisatsioon.
 
 ## Sisend <a name="sisendi_kirjeldus"></a>
 
-### Nõuded sisendjsonile ```--guesspropnames``` lipu korral
+### Nõuded JSONsisendile `--guesspropnames` lipu korral
 
-Kirjeldus katab minimaalselt vajaliku info.
+See lipp eeldab sõnestatud ja lausestatud sisenteksti.
+Selleks on soovitatav kasutada
+[ESTNLTKal baseeruvat sõnestajat ja lausestajat](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_estnltk_sentok)
 
-Selle lipu korral peab sisendjson sisaldama sõnede ja lausete annotatsiooni.
-
-JSON võib sisaldada lisaks muud, programmi kasutajale vajalikku infot, see ei sega morf analüüsi programmi.
-
-```json
-{
-  "params": { {"vmetajson": [parameeter, ...]} }, /* võib puududa, siis kasutakse käsureaga määratud lippe */
-  "annotations":
-  {
-    "sentences":
-    [
-      {
-        "features":
-        {
-          "start": number, /* lause algusindeks tokens'ite massivis */
-          "end": number,   /* lause lõpuindeks tokens'ite massivis */
-        }
-      }
-    ],
-    "tokens":
-    [
-      {
-        "features":
-        {
-          "token": string,  /* analüüsitav sõne */
-        }
-      }
-    ],
-  }
-}
-```
-
-### Nõuded sisend-JSONile ```--guesspropnames``` lipu puudumisel
+### Nõuded sisend-JSONile `--guesspropnames` lipu puudumisel
 
 #### Sisend on tehtud ESTNLTK sõnestaja/lausestaja väljundist
 
-ESTNLTK sõnestaja annab välja rohkem infot aga morf analüsaator kasutab sellest ainult allkirjeldatud osa.
+[ESTNLTKal baseeruva sõnestaja ja lausestaja](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_estnltk_sentok)
+väljund sobib muutmata kujul `vmetajson` programmi sisendiks.
 
-Lausepiiride kohta käiv info ei ole sõnekaupa morfoloogilist analüüsi tehes vajalik.
+Kui soovite lisada JSONsisendisse programmi `vmetajson` ülakirjeldatud lippe,
+lisage JSONsisendisse `params` väli, näiteks selliselt
 
 ```json
 {
   "params": { "vmetajson": [parameeter, ...]}, /* võib puududa, siis kasutakse käsureaga määratud lippe */
   "annotations":
   {
-    "tokens":
-    [
-      {
-        "features":
-        {
-          "token": string,  /* analüüsitav sõne */
-        }
-      }
-    ],
+  ...
   }
-}
 ```
 
-### Minimaalne json  tühikutega eraldatud sõnede analüüsimisks
-
-Kirjeldus katab minimaalselt vajaliku info. JSON võib sisaldada lisaks muud, programmi kasutajale vajalikku infot, see ei sega morf analüüsi programmi.
-
-**_NB! Ei võimalda ```--guesspropnames``` lipu kasutamist._**
+#### Kui me teame sisendsõnesid ja need ei sisalda tühikuid
 
 ```json
 {
@@ -211,6 +161,8 @@ Kirjeldus katab minimaalselt vajaliku info. JSON võib sisaldada lisaks muud, pr
 
 Tühikuga eraldatud sõned morfimiseks. Eelnevas näites on meil 4 sõne:
 `tühikuga`, `eraldatud`, `sõned` ja `morfimiseks`.
+
+#### Kui me teame sisendsõnesid ja need võivad sisaldada tühikuid
 
 ```json
 {
@@ -252,26 +204,27 @@ Väljundis JSONi sõnedele lisatakse morf analüüsi info. Muus osas sääb sise
 Kui sõne ei õnnestunud morf analüüsida, siis selle sõne juurde morf infoga seotud väljasid ei lisata.
 
 ```json
-{
-  "features":
-  {
-    "token": SÕNE,  /* algne morf analüüsitav sõne */
-    "classic": str, /* sõne morf analüüsistring vmeta-kujul, ainult --classic lipu korral */
-    "complexity": KEERUKUS,
-    "mrf" :           /* sisendsõne analüüsivariantide massiiv */
-    [
-      {
-        "stem":     TÜVI,     /* --stem lipu korral */
-        "lemma":    LEMMA,    /* --stem lipu puudumise korral */
-        "lemma_ma": LEMMA_MA, /* --stem lipu puudumise korral, verbilemmale on lisatud ```ma```, muudel juhtudel sama mis LEMMA */
-        "ending":   LÕPP,    
-        "kigi":     KIGI,
-        "pos":      SÕNALIIK,
-        "fs":       KATEGOORIAD,
-        "gt":       KATEGOORIAD,  /* --gt lipu korral */
-        "source":   ALLIKAS,      /* P:põhisõnastikust, L:lisasõnastikust, O:sõnepõhisest oletajast, S:lausepõhisest oletajast, X:ei tea kust */
+{ "annotations":
+  { "tokens":
+    [ { "features":
+        { "token": SÕNE,  /* algne morf analüüsitav sõne */
+          "complexity": KEERUKUS,
+          "result-string-as-joined": VMETA_VORMIS_VÄLJUDSTRING, /* --result-string-as-joined lipu korral*/
+          "mrf" :           /* sisendsõne analüüsivariantide massiiv */
+          [ { "stem":     TÜVI,     /* --stem lipu korral */
+              "lemma":    LEMMA,    /* --stem lipu puudumise korral */
+              "ending":   LÕPP,     /* lõpp */
+              "enclitic-gi":     KIGI,
+              "pos":      SÕNALIIK,
+              "fs-category":       KATEGOORIAD,
+              "gt-category":       KATEGOORIAD,  /* --gt lipu korral */
+              "method":   ALLIKAS,      /* "lexicon-based", "user-lexicon", "guessing", "proper-name-guessing-in-context", "unknown" */
+              "result-string-as-discrete": VMETA_VORMIS_VÄLJUDSTRING /* --result-string-as-discrete lipu korral*/
+            }
+          ],
+        }
       }
-    ],
+    ]
   }
 }
 ```
@@ -314,7 +267,11 @@ Partikkel.
 
 ### ```ALLIKAS```
 
-**_"P"_** - põhisõnastikust, **_"L"_** - lisasõnastikust, **_"O"_** - sõnepõhisest oletajast, **_"S"_** - lausepõhisest oletajast, **_"X"_** - määratlemata.
+* `lexicon-based` analüüsitav sõne oli põhisõnastikus
+* `user-lexicon` analüüsitav sõne oli kasutaja sõnastikus
+* `guessing` analüüsitav sõne ei olnud põhisõnastikus, analüüsivariandid on tuletatud sõnakujust
+* `proper-name-guessing-in-context` lausepõhisest oletajast saadud analüüs 
+* `unknown` ei tea kust saime
 
 ### ```KEERUKUS```
 
@@ -322,9 +279,8 @@ Numbriline hinnand sellele, kui "keeruline" oli sõne analüüsi leida. Suurem n
 
 ## Kasutusnäited
 
-Programmi kasutamise näide skriptis [demo-workflow1.sh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/demo-workflow1.sh) ja [demo-workflow2.sh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/demo-workflow2.sh).
+Programmi kasutamise näide skriptis [demo-workflow1.sh](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/demo-workflow1.sh)
 
 ## Autor
 
 Copyright © 1997-2022 OÜ Filosoft
-

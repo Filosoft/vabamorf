@@ -185,7 +185,7 @@ private:
                     PCFSAString *ptoken = parim_lopp_kigi->AddPlaceHolder();
                     *ptoken = (*mt_utf8)[j]->lopp;
                 }
-                if((*mt_utf8)[j]->kigi.GetLength() > 0 && (*mt_utf8)[j]->kigi.Compare("0")!=0 )
+                if((*mt_utf8)[j]->kigi.GetLength() > 0)
                 {
                     PCFSAString *ptoken = parim_lopp_kigi->AddPlaceHolder();
                     *ptoken = (*mt_utf8)[j]->kigi;
@@ -201,7 +201,7 @@ private:
                         PCFSAString *ptoken = jooksev_lopp_kigi->AddPlaceHolder();
                         *ptoken = (*mt_utf8)[j]->lopp;
                     }
-                    if((*mt_utf8)[0]->kigi.GetLength() > 0 && (*mt_utf8)[j]->kigi.Compare("0")!=0 )
+                    if((*mt_utf8)[j]->kigi.GetLength() > 0)
                     {
                         PCFSAString *ptoken = jooksev_lopp_kigi->AddPlaceHolder();
                         *ptoken = (*mt_utf8)[j]->kigi;
@@ -216,7 +216,6 @@ private:
                         jooksev_lopp_kigi = tmp_lopp_kigi;       
                     }
                 }
-
                 // parim == valime olemasoloevatest tükeldustest selle, kus on kõige rohkem tükke
                 std::cout << sagedus << "\t" << token << "\t[ " << (const char*)*(*parim)[0] << " ";
                 for (j = 1; j < parim->idxLast; j++)
@@ -231,20 +230,32 @@ private:
                 for (j = 0; j < parim->idxLast; j++)
                 {
                     int idx;
-                    if(koik_tyved.Get((*parim)[j], &idx) == NULL)
+                    PCFSAString tyveke;
+                    if(j > 0)
+                        tyveke = "##";
+                    tyveke = tyveke + *(*parim)[j];
+                    if(koik_tyved.Get(&tyveke, &idx) == NULL)
+                    {   // sellist tüve veel polnud
+                        koik_tyved.AddClone(tyveke, idx);
+                        std::cout << " " << (const char*)tyveke;
+                    }
+
+                    /*if(koik_tyved.Get((*parim)[j], &idx) == NULL)
                     {   // sellist tüve veel polnud
                         koik_tyved.AddClone(*(*parim)[j], idx);
                         std::cout << " " << (const char*)*(*parim)[j];
-                    }
+                    }*/
                 }
                 std::cout << " ]\t" << koik_tyved.idxLast << "\t[";
                 for (j = 0; j < parim_lopp_kigi->idxLast; j++)
                 {
                     int idx;
-                    if(koik_lopud_kigi.Get((*parim_lopp_kigi)[j], &idx) == NULL)
+                    PCFSAString lopukeke = "##";
+                    lopukeke = lopukeke + *(*parim_lopp_kigi)[j];
+                    if(koik_lopud_kigi.Get(&lopukeke, &idx) == NULL)
                     {   // sellist lõppu veel polnud
-                        koik_lopud_kigi.AddClone(*(*parim_lopp_kigi)[j], idx);
-                        std::cout << " " << (const char*)*(*parim_lopp_kigi)[j];
+                        koik_lopud_kigi.AddClone(lopukeke, idx);
+                        std::cout << " " << (const char*)lopukeke;
                     }
                 }
                 std::cout << " ]\t" << koik_lopud_kigi.idxLast + koik_tyved.idxLast;                
