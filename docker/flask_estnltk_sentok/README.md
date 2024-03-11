@@ -92,11 +92,22 @@ Kui json-päring sisaldab lisaks muud informatsiooni, siis lausetaja-sõnestaja 
 
 ## Kasutusnäited
 
-### Teksti sõnestamine ja lausestamine
+### Teksti sõnestamine ja lausestamine kohalikus arvutis oleva konteineri abil
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' localhost:6000/process | jq
+curl --silent --request POST --header "Content-Type: application/json" \
+  --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
+  localhost:6000/api/estnltk/tokenizer/process | jq
 ```
+
+### Teksti sõnestamine ja lausestamine kohalikus TÜ Kuberneteses oleva konteineri abil
+
+```commandline
+curl --silent --request POST --header "Content-Type: application/json" \
+  --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
+  https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
+```
+### JSONväljund
 
 ```json
 {
