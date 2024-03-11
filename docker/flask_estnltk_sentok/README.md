@@ -107,6 +107,7 @@ curl --silent --request POST --header "Content-Type: application/json" \
   --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
   https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
 ```
+
 ### JSONväljund
 
 ```json
