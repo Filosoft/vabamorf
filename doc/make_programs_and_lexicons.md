@@ -14,6 +14,7 @@ git clone https://github.com/Filosoft/vabamorf.git vabamorf_github
 
 * g++
 * gmake
+* [libjsoncpp-dev package](https://github.com/open-source-parsers/jsoncpp)
 
 ### Compiling
 

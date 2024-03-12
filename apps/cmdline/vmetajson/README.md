@@ -138,9 +138,6 @@ Selleks on soovitatav kasutada
 [ESTNLTKal baseeruva sõnestaja ja lausestaja](https://github.com/Filosoft/vabamorf/tree/master/docker/flask_estnltk_sentok)
 väljund sobib muutmata kujul `vmetajson` programmi sisendiks.
 
-Kui soovite lisada JSONsisendisse programmi `vmetajson` ülakirjeldatud lippe,
-lisage JSONsisendisse `params` väli, näiteks selliselt
-
 ```json
 {
   "params": { "vmetajson": [parameeter, ...]}, /* võib puududa, siis kasutakse käsureaga määratud lippe */
@@ -177,6 +174,11 @@ See võimaldab käsitleda tühikut sisaldavat sõne ühe analüüsitava üksusen
 näiteks: `New York` või `+372 456 456`.
 
 Morf analüsaator ignoreerib sõnega kokkukleepunud punktuatsiooni.
+
+Kui soovite lisada JSONsisendisse programmi `vmetajson` ülakirjeldatud lippe,
+lisage JSONsisendisse `params` väli, näiteks selliselt
+
+
 
 ## Väljundi kirjeldus
 

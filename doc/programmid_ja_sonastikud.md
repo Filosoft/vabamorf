@@ -12,6 +12,7 @@ git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 
 * g++
 * gmake
+* libjsoncpp-dev teek (Ubuntu korral `sudo apt-get install -y libjsoncpp-dev`)
 
 ### Kompileerimine
 
