@@ -114,11 +114,10 @@ Täienda konfiguratsioonigaili
 """
 
 import os
-import subprocess
+#import subprocess
 import json
 import argparse
-from flask import Flask, request, jsonify, make_response, abort
-from functools import wraps
+from flask import Flask, request, jsonify, abort #, make_response
 
 import estnltk_sentok # tag SENTences & TOKens
 
@@ -128,7 +127,7 @@ VERSION = "2024.01.23"
 
 # JSONsisendi max suuruse piiramine {{
 try:
-    MAX_CONTENT_LENGTH=int(os.environ.get('MAX_CONTENT_LENGTH'))
+    MAX_CONTENT_LENGTH = int(os.environ.get('MAX_CONTENT_LENGTH'))
 except:
     MAX_CONTENT_LENGTH = 5 * 1000000000 # 5 GB 
 
