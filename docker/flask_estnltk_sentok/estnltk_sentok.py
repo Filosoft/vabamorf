@@ -2,27 +2,31 @@
 
 import json
 import sys
+from typing import Dict, List, Tuple, Type
 from estnltk import Text
 from estnltk.taggers import SentenceTokenizer
-from typing import Dict, List, Tuple
 
-def estnltk_sentok(content: str) -> Tuple[List, List]:
+
+def estnltk_sentok(content: str) -> Tuple[List[Dict], List[Dict]]:
     '''
     Find sentences and tokens
     :param str: input text
     :return: sentence and token boundaries
     '''
-    estnltk_text = Text(content)
+    estnltk_text: Type[Text] = Text(content)
     estnltk_text.tag_layer(['words'])
     SentenceTokenizer().tag(estnltk_text)
-    sentences = []
-    tokens = []
+
+    sentences: List[Dict] = []
+    tokens: List[Dict] = []
     for sentence in estnltk_text.sentences:
-        sent_start_idx = len(tokens)
+        sent_start_idx: int = len(tokens)
         for word in sentence:
-            tokens.append({"start": word.start, "end": word.end, "features": {"token": word.enclosing_text}})
-        sent_end_idx = len(tokens)
-        sentences.append({"start": sentence.start, "end": sentence.end, "features":{"start":sent_start_idx, "end":sent_end_idx}})
+            tokens.append({"start": word.start, "end": word.end,
+                    "features": {"token": word.enclosing_text}})
+        sent_end_idx: int = len(tokens)
+        sentences.append({"start": sentence.start, "end": sentence.end, 
+                    "features":{"start":sent_start_idx, "end":sent_end_idx}})
     return sentences, tokens
 
 if __name__ == '__main__':
