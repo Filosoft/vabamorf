@@ -34,14 +34,15 @@ if __name__ == '__main__':
 
     argparser = argparse.ArgumentParser(allow_abbrev=False)
     argparser.add_argument('-j', '--json', type=str, help='json input')
-    argparser.add_argument('-i', '--indent', type=int, default=None, help='indent for json output, None=all in one line')
+    argparser.add_argument('-i', '--indent', type=int, default=None, 
+                           help='indent for json output, None=all in one line')
     args = argparser.parse_args()
     annotations = {}
     if args.json is not None:
         json_io = json.loads(args.json)
         if "annotations" not in json_io:
             json_io["annotations"] = {}
-        json_io["annotations"]["sentences"], json_io["annotations"]["tokens"]  = estnltk_sentok(json_io["content"])
+        json_io["annotations"]["sentences"], json_io["annotations"]["tokens"] = estnltk_sentok(json_io["content"])
         json.dump(json_io, sys.stdout, indent=args.indent, ensure_ascii=False)
     else:
         for line in sys.stdin:
