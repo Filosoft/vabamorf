@@ -6,7 +6,6 @@ from typing import Dict, List, Tuple, Type
 from estnltk import Text
 from estnltk.taggers import SentenceTokenizer
 
-
 def estnltk_sentok(content: str) -> Tuple[List[Dict], List[Dict]]:
     '''
     Find sentences and tokens
