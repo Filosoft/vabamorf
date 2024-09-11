@@ -1,4 +1,4 @@
-# Eesti keele lausestaja-sõnestaja konteiner [versioon 2024.01.23]
+ # Eesti keele lausestaja-sõnestaja konteiner [versioon 2024.01.23]
 
 [ESTNLTK-l](https://github.com/estnltk/estnltk) põhinevat lausestajat-sõnestajat sisaldav tarkvara-konteiner (docker).
 Teeb utf-8 vormingus tavateksti sobivaks
@@ -14,38 +14,40 @@ Teeb utf-8 vormingus tavateksti sobivaks
 * Peab olema paigaldatud tarkvara konteineri tegemiseks/kasutamiseks; juhised on [docker'i veebilehel](https://docs.docker.com/).
 * Kui sooviks on lähtekoodi ise kompileerida või konteinerit kokku panna, siis peab olema paigaldatud versioonihaldustarkvara; juhised on [git'i veebilehel](https://git-scm.com/).
 
-## Konteineri kasutamine
+## Konteineriga majandamine
 
-### Lähtekoodi allalaadimine
+### 1 Lähtekoodi allalaadimine
 
 ```commandline
 mkdir -p ~/git/ ; cd ~/git/
 git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
-### Konteineri allalaadimine Docker Hub'ist
+### 2.1 Konteineri allalaadimine Docker Hub'ist
 
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
 cd ~/git/vabamorf_github/apps/cmdline/project/unix
-docker-compose pull api_estnltk_sentok
+docker compose pull api_estnltk_sentok
 ```
 
 Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
 
-### Konteineri kokkupanemine lähtekoodist
+### 2.2 Konteineri kokkupanemine lähtekoodist
 
 ```commandline
 cd ~/git/vabamorf_github/apps/cmdline/project/unix
-docker-compose build api_estnltk_sentok
+docker compose build api_estnltk_sentok
 ```
 
-## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
+Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
+
+### 3 Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
 cd ~/git/vabamorf_github/apps/cmdline/project/unix
-docker-compose up api_estnltk_sentok
+docker compose up api_estnltk_sentok
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.

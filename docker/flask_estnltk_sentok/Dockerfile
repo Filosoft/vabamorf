@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     tini \
     python3 \
     python3-pip \
-    python3.10-venv \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 # create an unprivileged user
@@ -33,7 +33,8 @@ RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt
 #
 # RUN venv/bin/python -c "from transformers import DistilBertTokenizer" \
 #                     -c "DistilBertTokenizer.from_pretrained('bert-base-uncased')"
-RUN ./venv/bin/python -m nltk.downloader -d venv/share/nltk_data punkt
+#RUN ./venv/bin/python3 -m nltk.downloader -d venv/share/nltk_data punkt
+RUN ./venv/bin/python3 -m nltk.downloader -d venv/share/nltk_data punkt_tab
 
 # Copy the entrypoint script and everything else our app needs
 COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_estnltk_sentok.py estnltk_sentok.py ./

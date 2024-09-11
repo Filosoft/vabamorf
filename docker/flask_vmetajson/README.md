@@ -10,59 +10,44 @@
 ## Eeltingimused
 
 * Peab olema paigaldatud tarkvara konteineri tegemiseks/kasutamiseks; juhised on [docker'i veebilehel](https://docs.docker.com/).
-* Kui sooviks on lähtekoodi ise kompileerida või konteinerit kokku panna, siis peab olema paigaldatud versioonihaldustarkvara; juhised on [git'i veebilehel](https://git-scm.com/).
+* Kui sooviks on lähtekoodi ise kompileerida või konteinerit kokku panna, siis peab olema paigaldatud:
+  * Versioonihaldustarkvara; juhised on [git'i veebilehel](https://git-scm.com/).
+  *  C++ programmidega majandamiseks vajalik GNU tarkvara.
 
-## Konteineri allalaadimine Docker Hub'ist
+## Konteineriga majandamine
 
-Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
-
-```commandline
-docker pull tilluteenused/vmetajson:2023.04.19
-```
-
-Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
-
-## Ise konteineri tegemine
-
-### 1. Lähtekoodi allalaadimine
-
-<!---
-Lähtekood koosneb 2 osast
-1. json liides, veebiserver ja konteineri tegemise asjad
-2. FSi morf analüsaator
-
-git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
----->
+### 1 Lähtekoodi ja skriptide allalaadimine GITHUBist
 
 ```commandline
 mkdir -p ~/git; cd ~/git
 git clone https://github.com/Filosoft/vabamorf.git vabamorf_github
 ```
 
-Repositoorium sisaldab kompileeritud [Filosofti morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/README.md) ja andmefaile:
+### 2.1 Konteineri allalaadimine Docker Hub'ist
 
-* **_vmetajson_** morfoloogilise analüüsi programm.
-* **_et.dct_** programmi poolt kasutatav leksikon.
-
-Kui soovite ise programmi (**_vmetajson_**) kompileerida või leksikoni (**_et.dct_**) täiendada/muuta ja uuesti kokku panna, 
-vaadake sellekohast [juhendit](https://github.com/Filosoft/vabamorf/blob/master/doc/programmid_ja_sonastikud.md).
-
-### 2. Konteineri kokkupanemine
+Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-cd ~/git/vabamorf_github/docker/flask_vmetajson
-docker build -t tilluteenused/vmetajson:2023.04.19 .
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker compose pull api_vm_vmetajson
 ```
 
-<!---
-docker login -u tilluteenused   # access token
-docker push tilluteenused/vmetajson:2023.04.19 
---->
+Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
 
-## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
+### 2.2 Konteineri kokkupanemine lähtekoodist
 
 ```commandline
-docker run -p 7007:7007 tilluteenused/vmetajson:2023.04.19
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker compose build api_vm_vmetajson
+```
+
+Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
+
+### 3 Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
+
+```commandline
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker compose up api_vm_vmetajson
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.

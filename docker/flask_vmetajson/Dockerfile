@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     libjsoncpp-dev \
     python3 \
     python3-pip \
-    python3.10-venv \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 # create an unprivileged user

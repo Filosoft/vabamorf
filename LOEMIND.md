@@ -21,7 +21,9 @@
   * [etana](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etana/readme.txt) - analüüs, sisend/väljund JSONi kujul
   * [etdisamb](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etdisamb/readme.txt) - ühestamine, sisend/väljund JSONi kujul
   * [etsyn](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/etsyn/readme.txt) - süntees, sisend/väljund JSONi kujul
-
+  * [vmetajson](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetajson) - analüüs, sisend/väljund JSONi kujul
+  * [vmetyjson](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetyjson) - ühestamine, sisend/väljund JSONi kujul
+  
 ## Kirjandus
 Heiki-Jaan Kaalep, Tarmo Vaino. *Teksti täielik morfoloogiline analüüs lingvisti töövahendite komplektis.* Arvutuslingvistikalt inimesele. Tartu Ülikooli üldkeeleteaduse õppetooli toimetised (2000): 87-99. [trükieelne versioon](https://www.cl.ut.ee/yllitised/kogumik2000.pdf)
 

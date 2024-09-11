@@ -1,4 +1,4 @@
-# Eesti keele morfoloogilise ühestaja konteiner [versioon 2023.11.XX]
+# Eesti keele morfoloogilise ühestaja konteiner [versioon 2024.02.29]
 
 [Filosofti eesti keele morfoloogilist ühestajat](https://github.com/Filosoft/vabamorf/tree/master/apps/cmdline/vmetyjson) sisaldav tarkvara-konteiner
 
@@ -12,57 +12,40 @@
 * Peab olema paigaldatud tarkvara konteineri tegemiseks/kasutamiseks; juhised on [docker'i veebilehel](https://docs.docker.com/).
 * Kui sooviks on lähtekoodi ise kompileerida või konteinerit kokku panna, siis peab olema paigaldatud versioonihaldustarkvara; juhised on [git'i veebilehel](https://git-scm.com/).
 
-## Konteineri allalaadimine Docker Hub'ist
+## 
+
+## Konteineriga majandamine
+
+### 1 Lähtekoodi allalaadimine GITHUB'ist
+
+```commandline
+mkdir -p ~/git/ ; cd ~/git/
+git clone --depth 1 https://github.com/Filosoft/vabamorf.git vabamorf_github
+```
+
+### 2.1 Konteineri allalaadimine Docker Hub'ist
 
 Valmis konteineri saab laadida alla Docker Hub'ist, kasutades Linux'i käsurida (Windows'i/Mac'i käsurida on analoogiline):
 
 ```commandline
-docker pull tilluteenused/vmetyjson:2023.11.XX
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker compose pull api_vm_vmetyjson
 ```
 
 Seejärel saab jätkata osaga [Konteineri käivitamine](#Konteineri_käivitamine).
 
-## Ise konteineri tegemine
-
-### 1. Lähtekoodi allalaadimine
-
-<!---
-Lähtekood koosneb 2 osast
-1. json liides, veebiserver ja konteineri tegemise asjad
-2. FSi morf analüsaator
-
-git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
----->
+### 2.2 Konteineri kokkupanemine lähtekoodist
 
 ```commandline
-mkdir -p ~/git; cd ~/git
-git clone https://github.com/Filosoft/vabamorf.git vabamorf_github
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker compose build api_vm_vmetyjson
 ```
 
-Repositoorium sisaldab kompileeritud [Filosofti morfoloogilist analüsaatorit](https://github.com/Filosoft/vabamorf/blob/master/apps/cmdline/vmetajson/README.md) ja andmefaile:
-
-* **_vmetajson_** morfoloogilise analüüsi programm.
-* **_et.dct_** programmi poolt kasutatav leksikon.
-
-Kui soovite ise programmi (**_vmetajson_**) kompileerida või leksikoni (**_et.dct_**) täiendada/muuta ja uuesti kokku panna, 
-vaadake sellekohast [juhendit](https://github.com/Filosoft/vabamorf/blob/master/doc/programmid_ja_sonastikud.md).
-
-### 2. Konteineri kokkupanemine
+### 3 Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
 
 ```commandline
-cd ~/git/vabamorf_github/docker/flask_vmetajson
-docker build -t tilluteenused/vmetajson:2023.04.19 .
-```
-
-<!---
-docker login -u tilluteenused   # access token
-docker push tilluteenused/vmetajson:2023.04.19 
---->
-
-## Konteineri käivitamine <a name="Konteineri_käivitamine"></a>
-
-```commandline
-docker run -p 7007:7007 tilluteenused/vmetajson:2023.04.19
+cd ~/git/vabamorf_github/apps/cmdline/project/unix
+docker compose up api_vm_vmetyjson
 ```
 
 Käivitatud konteineri töö lõpetab Ctrl+C selles terminaliaknas, kust konteiner käivitati.
@@ -172,113 +155,16 @@ Morf analüüsi tulemuste selgutust vaata programmi [vmetajson](https://github.c
 
 ### Näide 1
 
-Sisendiks on sõnede string.
-
-```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:7007/process | jq
-```
-
-```json
-{
-  "annotations": {
-    "tokens": [
-      {
-        "features": {
-          "complexity": 1,
-          "mrf": [
-            {
-              "ending": "0",
-              "fs": "sg n",
-              "kigi": "",
-              "lemma": "mees",
-              "lemma_ma": "mees",
-              "pos": "S",
-              "source": "P"
-            },
-            {
-              "ending": "s",
-              "fs": "sg in",
-              "kigi": "",
-              "lemma": "mesi",
-              "lemma_ma": "mesi",
-              "pos": "S",
-              "source": "P"
-            }
-          ],
-          "token": "Mees"
-        }
-      },
-      {
-        "features": {
-          "complexity": 1,
-          "mrf": [
-            {
-              "ending": "0",
-              "fs": "adt",
-              "kigi": "",
-              "lemma": "peet",
-              "lemma_ma": "peet",
-              "pos": "S",
-              "source": "P"
-            },
-            {
-              "ending": "ti",
-              "fs": "ti",
-              "kigi": "",
-              "lemma": "pida",
-              "lemma_ma": "pidama",
-              "pos": "V",
-              "source": "P"
-            },
-            {
-              "ending": "0",
-              "fs": "sg p",
-              "kigi": "",
-              "lemma": "peet",
-              "lemma_ma": "peet",
-              "pos": "S",
-              "source": "P"
-            }
-          ],
-          "token": "peeti"
-        }
-      },
-      {
-        "features": {
-          "complexity": 1,
-          "mrf": [
-            {
-              "ending": "0",
-              "fs": "",
-              "kigi": "",
-              "lemma": "kinni",
-              "lemma_ma": "kinni",
-              "pos": "D",
-              "source": "P"
-            }
-          ],
-          "token": "kinni."
-        }
-      },
-      {
-        "features": {
-          "complexity": 4,
-          "token": "Sarved&Sõrad"
-        }
-      }
-    ]
-  },
-  "content": "Mees peeti kinni. Sarved&Sõrad"
-}
-```
-
-### Näide 2
-
 Kasutame sõnestaja konteineri väljundit morf analüsaatori konteineri sisendina. Morf analüüs toimub vaikelippudega.
 
 ```commandline
-curl --silent --request POST --header "Content-Type: application/json" --data "$(curl --silent --request POST --header "Content-Type: application/json" --data '{"content":"Mees peeti kinni. Sarved&Sõrad"}' localhost:6000/process)" localhost:7007/process | jq
+echo '{"params": {"vmetajson": [ "--stem", "--guess", "--classic2"]}, "content": "Mees peeti kinni."}' \
+| curl --silent --request POST --header "Content-Type: application/json" --data @- localhost:6000/api/estnltk/tokenizer/process \
+| curl --silent --request POST --header "Content-Type: application/json" --data @- localhost:7007/api/vm/analyser/process \
+| curl --silent --request POST --header "Content-Type: application/json" --data @- localhost:7009/api/vm/disambiguator/process \
+| jq
 ```
+
 
 ```json
 {
@@ -291,39 +177,29 @@ curl --silent --request POST --header "Content-Type: application/json" --data "$
           "start": 0
         },
         "start": 0
-      },
-      {
-        "end": 30,
-        "features": {
-          "end": 7,
-          "start": 4
-        },
-        "start": 18
       }
     ],
     "tokens": [
       {
         "end": 4,
         "features": {
-          "complexity": 1,
+          "lexicon-based-effort-level": 1,
           "mrf": [
             {
+              "enclitic-gi": "",
               "ending": "0",
-              "fs": "sg n",
-              "kigi": "",
+              "fs-category": "sg n",
               "lemma": "mees",
-              "lemma_ma": "mees",
-              "pos": "S",
-              "source": "P"
+              "method": "lexicon-based",
+              "pos": "S"
             },
             {
+              "enclitic-gi": "",
               "ending": "s",
-              "fs": "sg in",
-              "kigi": "",
+              "fs-category": "sg in",
               "lemma": "mesi",
-              "lemma_ma": "mesi",
-              "pos": "S",
-              "source": "P"
+              "method": "lexicon-based",
+              "pos": "S"
             }
           ],
           "token": "Mees"
@@ -333,34 +209,31 @@ curl --silent --request POST --header "Content-Type: application/json" --data "$
       {
         "end": 10,
         "features": {
-          "complexity": 1,
+          "lexicon-based-effort-level": 1,
           "mrf": [
             {
+              "enclitic-gi": "",
               "ending": "0",
-              "fs": "adt",
-              "kigi": "",
+              "fs-category": "adt",
               "lemma": "peet",
-              "lemma_ma": "peet",
-              "pos": "S",
-              "source": "P"
+              "method": "lexicon-based",
+              "pos": "S"
             },
             {
+              "enclitic-gi": "",
               "ending": "ti",
-              "fs": "ti",
-              "kigi": "",
-              "lemma": "pida",
-              "lemma_ma": "pidama",
-              "pos": "V",
-              "source": "P"
+              "fs-category": "ti",
+              "lemma": "pidama",
+              "method": "lexicon-based",
+              "pos": "V"
             },
             {
+              "enclitic-gi": "",
               "ending": "0",
-              "fs": "sg p",
-              "kigi": "",
+              "fs-category": "sg p",
               "lemma": "peet",
-              "lemma_ma": "peet",
-              "pos": "S",
-              "source": "P"
+              "method": "lexicon-based",
+              "pos": "S"
             }
           ],
           "token": "peeti"
@@ -370,16 +243,15 @@ curl --silent --request POST --header "Content-Type: application/json" --data "$
       {
         "end": 16,
         "features": {
-          "complexity": 1,
+          "lexicon-based-effort-level": 1,
           "mrf": [
             {
+              "enclitic-gi": "",
               "ending": "0",
-              "fs": "",
-              "kigi": "",
+              "fs-category": "",
               "lemma": "kinni",
-              "lemma_ma": "kinni",
-              "pos": "D",
-              "source": "P"
+              "method": "lexicon-based",
+              "pos": "D"
             }
           ],
           "token": "kinni"
@@ -389,71 +261,13 @@ curl --silent --request POST --header "Content-Type: application/json" --data "$
       {
         "end": 17,
         "features": {
-          "complexity": 1,
           "token": "."
         },
         "start": 16
-      },
-      {
-        "end": 24,
-        "features": {
-          "complexity": 1,
-          "mrf": [
-            {
-              "ending": "d",
-              "fs": "pl n",
-              "kigi": "",
-              "lemma": "sarv",
-              "lemma_ma": "sarv",
-              "pos": "S",
-              "source": "P"
-            }
-          ],
-          "token": "Sarved"
-        },
-        "start": 18
-      },
-      {
-        "end": 25,
-        "features": {
-          "complexity": 1,
-          "mrf": [
-            {
-              "ending": "0",
-              "fs": "",
-              "kigi": "",
-              "lemma": "&",
-              "lemma_ma": "&",
-              "pos": "J",
-              "source": "P"
-            }
-          ],
-          "token": "&"
-        },
-        "start": 24
-      },
-      {
-        "end": 30,
-        "features": {
-          "complexity": 1,
-          "mrf": [
-            {
-              "ending": "d",
-              "fs": "pl n",
-              "kigi": "",
-              "lemma": "sõrg",
-              "lemma_ma": "sõrg",
-              "pos": "S",
-              "source": "P"
-            }
-          ],
-          "token": "Sõrad"
-        },
-        "start": 25
       }
     ]
   },
-  "content": "Mees peeti kinni. Sarved&Sõrad"
+  "content": "Mees peeti kinni."
 }
 ```
 

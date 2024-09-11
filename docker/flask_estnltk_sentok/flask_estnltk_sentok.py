@@ -43,20 +43,20 @@ Mida uut:
 3.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 3.2 Konteineri kokkupanemine
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-    $ docker-compose build
+    $ docker compose build
     # docker login -u tilluteenused
-    # docker-compose push   
+    # docker compose push   
 3.3 Konteineri käivitamine
-    $ docker-compose up -d
+    $ docker compose up -d
 3.4 Konteineri peatamine
-    $ docker-compose down
+    $ docker compose down
 3.5 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
 ----------------------------------------------
 
 4 DockerHUBist tõmmatud konteineri kasutamine
 4.1 DockerHUBist konteineri tõmbamine ja käivitamine
-    $ docker-compose pull
+    $ docker compose pull
 4.2 Konteineri käivitamine: järgi punkti 3.3
 4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
@@ -118,7 +118,7 @@ import os
 import json
 import argparse
 from flask import Flask, request, jsonify, abort #, make_response
-
+from functools import wraps
 import estnltk_sentok # tag SENTences & TOKens
 
 app = Flask(__name__)
