@@ -6,7 +6,7 @@
 
 services:
   api_estnltk_sentok:
-    image: tilluteenused/api_estnltk_sentok:2024.01.23
+    image: tilluteenused/api_estnltk_sentok:2024.09.09
     ports:
       - 6000:6000
     environment:

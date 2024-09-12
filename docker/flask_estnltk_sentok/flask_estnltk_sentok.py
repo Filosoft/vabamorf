@@ -7,6 +7,7 @@ Flask veebiserver, pakendab ESTNLTK sõnestaja morfi ja ühestamisega kokkusobiv
 
 Mida uut:
 2024-01-23 Erinevatest vigadest raporteerimine asjakohasem
+2024-09-09 Pisikohendused ja versioon 2024.09.09 lisatud DockerHub'i
 
 ----------------------------------------------
 
@@ -60,9 +61,11 @@ Mida uut:
 4.2 Konteineri käivitamine: järgi punkti 3.3
 4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
-----------------------------------------------
+==============================================
 
-5 TÜ pilves töötava konteineri CURLiga kasutamise näited
+5 TÜ Kubernetes - Praegu teenus ei tööta TÜ Kuberneteses 
+
+5.1 TÜ pilves töötava konteineri CURLiga kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
@@ -71,12 +74,12 @@ Mida uut:
 
 ----------------------------------------------
 
-6 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+5.2 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
 
-6.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
+5.2.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
 
     $ kubectl create deployment vabamorf-api-estnltk-tokenizer \
-    --image=tilluteenused/api_estnltk_sentok:2024.01.23
+    --image=tilluteenused/api_estnltk_sentok:2024.09.09
 
 Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 
@@ -90,12 +93,12 @@ Lisades sinna soovitud keskkonnamuutujate väärtused:
     - name: MAX_CONTENT_LENGTH
       value: "5000000"
 
-6.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
+5.2.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
 
     $ kubectl expose deployment vabamorf-api-estnltk-tokenizer \
         --type=ClusterIP --port=80 --target-port=6000
         
-6.3 `ingress`-konfiguratsioonifaili täiendamine
+5.2.3 `ingress`-konfiguratsioonifaili täiendamine
 
 Ava konfiguratsioonifail  redaktoris
 
@@ -123,7 +126,7 @@ import estnltk_sentok # tag SENTences & TOKens
 
 app = Flask(__name__)
 
-VERSION = "2024.01.23"
+VERSION = "2024.09.09"
 
 # JSONsisendi max suuruse piiramine {{
 try:
