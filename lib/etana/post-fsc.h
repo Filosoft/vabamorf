@@ -125,8 +125,14 @@ public:
     /** Omistamisoperaator */
     BASIC_TYPE_WITH_CMP & operator=(BASIC_TYPE_WITH_CMP& rec)
     {
+        // DB260826{
+
+        // }DB260826
         if (this != &rec)
-            obj = rec->obj;
+            // TV260826{
+            //obj = rec->obj;
+            obj = rec.obj;
+            // }TV260826
         return *this;
     }
 

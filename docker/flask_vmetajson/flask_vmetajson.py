@@ -18,42 +18,81 @@ Flask veebiserver, pakendab Filosofti morfoloogilise analüsaatori veebiteenusek
 Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
     $ cd ~/git/vabamorf_github/docker/flask_vmetajson
     $ venv/bin/python3 ./flask_vmetajson.py
-1.4 CURLiga veebiteenuse kasutamise näited
+1.4 CURLiga veebiteenuse kasutamise näited (sõnestaja konteiner peab olema eelnevalt käivitatud)
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         localhost:7007/api/vm/analyser/process | jq
-    $ curl --silent --request POST --header "Content-Type: application/json" \
-        --data '{"params":{"vmetajson":["--version"]}, "content":""}' \
-        localhost:7007/api/vm/analyser/process | jq
+    $ echo '{"params": {"vmetajson": ["--guess"]}, "content": "Mees peeti kinni."}' \
+      | curl --silent --request POST --header "Content-Type: application/json" --data @- localhost:6000/api/estnltk/tokenizer/process \
+      | curl --silent --request POST --header "Content-Type: application/json" --data @- localhost:7007/api/vm/analyser/process \
+      | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         localhost:7007/api/vm/analyser/version | jq
 
 ----------------------------------------------
 
-2 Lähtekoodist konteineri tegemine ja kasutamine
+2 Lähtekoodist konteineri tegemine ja käivitamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
-2.2 Konteineri kokkupanemine
+2.2 Konteinerite kokkupanemine (morf analüsaator ja sõnestaja)
     $ cd ~/git/vabamorf_github/docker/flask_vmetajson
-    $ docker-compose build
+    $ docker compose build api_vm_vmetajson
     # docker login -u tilluteenused
-    # docker-compose push
-2.3 Konteineri käivitamine
-    $ docker-compose up -d
+    # docker compose push api_vm_vmetajson
+2.3 Konteinerite käivitamine (morf analüsaator ja sõnestaja)
+    $ docker compose up -d api_vm_vmetajson
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
-2.5 Konteineri peatamine
-    $ docker-compose down
+2.5 Konteinerite peatamine
+    $ docker compose down
 
 ----------------------------------------------
 
-3 DockerHUBist tõmmatud konteineri kasutamine
-3.1 DockerHUBist konteineri tõmbamine ja käivitamine
-    $ docker-compose pull
-3.2 Konteineri käivitamine: järgi punkti 3.3
-3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
+3 DockerHUBist konteineri allalaadimine ja käivitamine
+3.1 DockerHUBist konteineri tõmbamine
+    $ docker compose pull api_vm_vmetajson
+3.2 Konteineri käivitamine: järgi punkti 2.3
+3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
+3.4 Konteinerite peatamine: järgi punkti 2.5
 
 ----------------------------------------------
 
-4 TÜ pilves töötava konteineri kasutamise näited
+4 TÜ Kubernetes - Praegu teenus ei tööta TÜ Kuberneteses 
+
+4.1 DockerHubis oleva konteineri lisamine KUBERNETESesse
+
+EELDUS: Arvuti, kus on installitud/konfitud Kubernates/ingress.
+
+4.1.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
+    $ kubectl create deployment vabamorf-api-vm-vmetajson \
+        --image=tilluteenused/api_vm_vmetajson:2024.09.09
+
+Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
+Ava konfiguratsioonifail redaktoris
+    $ kubectl edit deployment vabamorf-api-vm-vmetajson
+
+Lisades sinna soovitud keskkonnamuutujate väärtused:
+    env:
+    - name: MAX_CONTENT_LENGTH
+      value: "5000000"
+        
+4.1.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
+    $ kubectl expose deployment vabamorf-api-vm-vmetajson \
+        --type=ClusterIP --port=80 --target-port=7007
+
+4.1.3 `ingress`-konfiguratsioonifaili täiendamine
+    $ kubectl edit ingress smart-search-api-ingress
+
+Lisa sinna
+    - backend:
+        service:
+        name: vabamorf-api-vm-vmetajson
+        port:
+            number: 80
+    path: /api/vm/analyser/?(.*)
+    pathType: Prefix
+
+----------------------------------------------
+
+4.2 TÜ pilves töötava konteineri kasutamise näited
 
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"params":{"vmetajson":["--version"]}, "content":""}' \
@@ -66,40 +105,7 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
     $ echo '{"params": {"vmetajson": ["--guess", "--classic2"]}, "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \ 
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
-----------------------------------------------
 
-5 DockerHubis oleva konteineri lisamine KUBERNETESesse
-
-EELDUS: Arvuti, kus on installitud/konfitud Kubernates/ingress.
-
-5.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
-    $ kubectl create deployment vabamorf-api-vm-vmetajson \
-        --image=tilluteenused/api_vm_vmetajson:2024.02.28
-
-Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
-Ava konfiguratsioonifail redaktoris
-    $ kubectl edit deployment vabamorf-api-vm-vmetajson
-
-Lisades sinna soovitud keskkonnamuutujate väärtused:
-    env:
-    - name: MAX_CONTENT_LENGTH
-      value: "5000000"
-        
-5.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
-    $ kubectl expose deployment vabamorf-api-vm-vmetajson \
-        --type=ClusterIP --port=80 --target-port=7007
-
-5.3 `ingress`-konfiguratsioonifaili täiendamine
-    $ kubectl edit ingress smart-search-api-ingress
-
-Lisa sinna
-    - backend:
-        service:
-        name: vabamorf-api-vm-vmetajson
-        port:
-            number: 80
-    path: /api/vm/analyser/?(.*)
-    pathType: Prefix
 ----------------------------------------------
 """
 
@@ -118,7 +124,7 @@ proc = subprocess.Popen(['./vmetajson', '--path=.'],
 
 app = Flask(__name__)
 
-VERSION = "2024.01.24"
+VERSION = "2024.09.09"
 
 # JSONsisendi max suuruse piiramine {{
 try:

@@ -32,32 +32,32 @@ Mida uut:
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
     $ venv/bin/python3 ./flask_estnltk_sentok.py
 2.4 CURLiga veebiteenuse kasutamise näited
+    $ curl --silent --request POST --header "Content-Type: application/json"  \
+        localhost:6000/api/estnltk/tokenizer/version | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         localhost:6000/api/estnltk/tokenizer/process | jq
-    $ curl --silent --request POST --header "Content-Type: application/json"  \
-        localhost:6000/api/estnltk/tokenizer/version | jq
 
 ----------------------------------------------
 
 3  Lähtekoodist konteineri tegemine ja kasutamine
 3.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 3.2 Konteineri kokkupanemine
-    $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-    $ docker compose build
+    $ cd ~/git/vabamorf_github/apps/cmdline/project/unix
+    $ docker compose build api_estnltk_sentok
     # docker login -u tilluteenused
     # docker compose push   
-3.3 Konteineri käivitamine
-    $ docker compose up -d
-3.4 Konteineri peatamine
-    $ docker compose down
+3.3 Konteineri käivitamine (morf analüsaator ja sõnestaja)
+    $ docker compose up -d api_estnltk_sentok
+3.4 Konteinerite peatamine
+    $ docker compose down api_estnltk_sentok
 3.5 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
 ----------------------------------------------
 
 4 DockerHUBist tõmmatud konteineri kasutamine
 4.1 DockerHUBist konteineri tõmbamine ja käivitamine
-    $ docker compose pull
+    $ docker compose pull api_estnltk_sentok
 4.2 Konteineri käivitamine: järgi punkti 3.3
 4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
