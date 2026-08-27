@@ -1,10 +1,12 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 echo "______________________________________________________________________"
-echo '[[' $0
+echo '[[' "$0"
 echo ""
 
-echo "== Kustutame vahefailid kataloogist" ${UFSD_TMP}
+echo "== Kustutame vahefailid kataloogist" "${UFSD_TMP}"
 #cd ${UFSD_TMP}
 if [ -z "${UFSD_TMP}" ]
 then
@@ -12,9 +14,9 @@ then
 	echo '============================================================'
 	echo 'Ära kasuta skripte ükshaaval, kui ei tea, mida nad teevad...'
 	echo 'Vist päästsin praegu su (LINUXi) elu...'
-        exit
+        exit 0
 fi
 
-rm -f ${UFSD_TMP}/* > /dev/null
-echo ']]' $0
+rm -f "${UFSD_TMP}"/* > /dev/null
+echo ']]' "$0"
 

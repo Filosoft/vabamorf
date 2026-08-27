@@ -1,10 +1,12 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 echo "______________________________________________________________________"
-echo '[[' $0
+echo '[[' "$0"
 echo ""
 
-pushd ${UFSD_TMP}  > /dev/null
+pushd "${UFSD_TMP}"  > /dev/null
 
 # NB jooksev kataloog peab olema ${UFSD_TMP}
 
@@ -50,16 +52,15 @@ echo "== " Teeme ühestaja andmefailid
 # et.dct'i pole vaja, kui ei kasuta eksperimentaalset koodi
 #PATH=${UFSD_BINDCT}:$PATH
 
-#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-${UFSD_EXE}/dct-t3mesta$FLAG_DB ${UFSD_SRC_YHH}/all.cooked
-#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-${UFSD_EXE}/dct-t3pakitud$FLAG_DB
-#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
+"${UFSD_EXE}/dct-t3mesta$FLAG_DB" "${UFSD_SRC_YHH}/all.cooked" || exit 1
+"${UFSD_EXE}/dct-t3pakitud$FLAG_DB" || exit 1
+
 
 #echo "== "
 #echo "== Ühestaja sõnastik failis:" ${UFSD_BINDCT}/et3.dct
-cp et3.dct ${UFSD_BINDCT}/et3.dct
+cp et3.dct "${UFSD_BINDCT}/et3.dct"
 
 popd > /dev/null
-echo ']]' $0
+echo ']]' "$0"
 
+exit 0

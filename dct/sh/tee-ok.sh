@@ -1,7 +1,9 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 echo "______________________________________________________________________"
-echo '[[' $0
+echo '[[' "$0"
 echo ""
 
 # NB jooksev kataloog peab olema ${UFSD_TMP}
@@ -10,7 +12,7 @@ echo ""
 #	${UFSD_EXE}/dct-noom$FLAG_DB
 #	${UFSD_EXE}/dct-vrb$FLAG_DB
 
-pushd ${UFSD_TMP} > /dev/null
+pushd "${UFSD_TMP}" > /dev/null
 
 
 # Korjame jooksvasse kataloogi sõnastiku tegemiseks vajalikud
@@ -34,10 +36,10 @@ pushd ${UFSD_TMP} > /dev/null
 #     suf.sok      sufiksid
 #     *.err        vigased sisendread
 
-if [ "${FLAG_SAURUS}" = "--saurus" ]
+if [ "${FLAG_SAURUS:-}" = "--saurus" ]
 then
-  echo == tesaurus
-  cat ${UFSD_SRC_TES}/saurus.html.s6n \
+  echo '==' tesaurus
+  cat "${UFSD_SRC_TES}/saurus.html.s6n" \
   | iconv -f utf8 -t ucs-2le \
   > saurus.uc.s6n || exit 1
 fi
@@ -47,7 +49,7 @@ fi
 echo "== loendid sortida ja UCkujule:"
 for f in 1 2 3 4 5 6 7 8 10
 do
-  cat ${UFSD_SRC_MRF}/loend${f} \
+  cat "${UFSD_SRC_MRF:-}/loend${f}" \
   | LC_COLLATE=C sort | LC_COLLATE=C uniq \
   | iconv -f utf8 -t ucs-2le \
   > loend${f} || exit 1
@@ -56,7 +58,7 @@ done
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 echo -n "== Prefiksid UCkujule: pref.pok --> "
-cat ${UFSD_SRC_MRF}/pref.pok \
+cat "${UFSD_SRC_MRF:-}/pref.pok" \
   | iconv -f utf8 -t ucs-2le \
   > pref.pok || exit 1
 echo "pref.pok"
@@ -66,7 +68,7 @@ echo "pref.pok"
 echo "== Genereerime failist fs_lex muutumatud:"
 for X in vvsm tesm sagem lisam nospm
 do 
-  cat ${UFSD_SRC_MRF}/fs_lex \
+  cat "${UFSD_SRC_MRF:-}/fs_lex" \
     | grep "^${X}:" \
     | sed 's/\(^[a-z][^:]*:\)\(.*$\)/\2/g' \
     | iconv -f utf8 -t ucs-2le \
@@ -79,7 +81,7 @@ echo "  --> mmm.pala.txt"
 echo "== Genereerime failist fs_lex käänduvad:"
 for X in vvs tes sage lisa lisatule xp voor voorxp nosp
 do
-  cat ${UFSD_SRC_MRF}/fs_lex \
+  cat "${UFSD_SRC_MRF:-}/fs_lex" \
     | grep "^${X}:" \
     | sed 's/\(^[a-z][^:]*:\)\(.*$\)/\2/g' \
     | iconv -f utf8 -t ucs-2le \
@@ -92,7 +94,7 @@ echo "  --> nomm.pala.txt"
 echo "== Genereerime failist fs_lex pöörduvad:"
 for X in vvsv tesv lisav xpv sagev nospv
 do
-  cat ${UFSD_SRC_MRF}/fs_lex \
+  cat "${UFSD_SRC_MRF:-}/fs_lex" \
     | grep "^${X}:" \
     | sed 's/\(^[a-z][^:]*:\)\(.*$\)/\2/g' \
     | iconv -f utf8 -t ucs-2le \
@@ -103,7 +105,7 @@ echo "  --> verb.pala.txt"
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
 echo -n "fs_suf ->"
-cat ${UFSD_SRC_MRF}/fs_suf \
+cat "${UFSD_SRC_MRF}"/fs_suf \
   | iconv -f utf8 -t ucs-2le \
   > suf || exit 1
 echo " --> suf"
@@ -126,11 +128,10 @@ echo " --> suf"
 #     suf.sok      sufiksid
 #     *.err        vigased sisendread
 #echo "== NIM/VRB-ime failid: X lgr --> X.[s]ok lgr"
-${UFSD_EXE}/dct-noom$FLAG_DB mmm.pala.txt  mmm.ok   mmm.err  || exit 1
-#echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
-${UFSD_EXE}/dct-noom$FLAG_DB nomm.pala.txt nomm.ok  nomm.err || exit 1
-${UFSD_EXE}/dct-vrb$FLAG_DB  verb.pala.txt verb.ok  verb.err || exit 1
-${UFSD_EXE}/dct-noom$FLAG_DB suf           suf.sok  suf.err  || exit 1
+"${UFSD_EXE}/dct-noom${FLAG_DB:-}" mmm.pala.txt  mmm.ok   mmm.err  || exit 1
+"${UFSD_EXE}/dct-noom${FLAG_DB:-}" nomm.pala.txt nomm.ok  nomm.err || exit 1
+"${UFSD_EXE}/dct-vrb${FLAG_DB:-}"  verb.pala.txt verb.ok  verb.err || exit 1
+"${UFSD_EXE}/dct-noom${FLAG_DB:-}" suf           suf.sok  suf.err  || exit 1
 
 #echo -e "\n\n** $0:$LINENO <enter|ctrl-c>:"; read vastus
 
@@ -139,5 +140,6 @@ rm suf *.pala.txt
 #rm *.err
 
 popd > /dev/null
-echo ']]' $0
+echo ']]' "$0"
 
+exit 0
