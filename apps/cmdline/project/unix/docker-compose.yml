@@ -1,8 +1,8 @@
 # cd ~/git/vabamorf_github/apps/cmdline/project/unix
-# docker-compose build [IMAGE]
-# docker-compose up -d
-# docker-compose down
-# docker-compose push
+# docker compose build [IMAGE]
+# docker compose up -d
+# docker compose down
+# docker compose push
 
 services:
   api_estnltk_sentok:

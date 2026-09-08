@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # create an unprivileged user
-RUN addgroup --gid 1001 "mere_mortal" \
-    && adduser --disabled-password --gecos "mere_mortal user,,," --home /home4mere_mortal --ingroup mere_mortal --uid 1001 mere_mortal
+RUN groupadd --gid 1001 mere_mortal \
+    && useradd --create-home --home-dir /home4mere_mortal --gid 1001 --uid 1001 --shell /bin/bash mere_mortal
 
 # everything from here down runs as the unprivileged user account 
 USER mere_mortal:mere_mortal
