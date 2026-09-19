@@ -102,7 +102,7 @@ Lisa sinna
     $ echo '{"params": {"vmetajson": [ "--stem", "--guess", "--classic2"]}, "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
-    $ echo '{"params": {"vmetajson": ["--guess", "--classic2"]}, "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \ 
+    $ echo '{"params": {"vmetajson": ["--guess", "--classic2"]}, "content": "Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/estnltk/tokenizer//process \
         | curl --silent --request POST --header "Content-Type: application/json" --data @/dev/stdin https://vabamorf.tartunlp.ai/api/vm/analyser/process | jq
 

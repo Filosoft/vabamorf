@@ -1,0 +1,9 @@
+[project]
+name = "flask-estnltk-sentok"
+version = "2026.9.18"
+requires-python = ">=3.10"
+dependencies = [
+  "Flask",
+  "estnltk",
+  "gunicorn",
+]

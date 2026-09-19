@@ -1,4 +1,10 @@
- #!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#   "estnltk",
+#   "Flask"
+# ]
+# ///
 
 """ 
 ----------------------------------------------
@@ -10,28 +16,29 @@ Mida uut:
 2024-09-09 Pisikohendused ja versioon 2024.09.09 lisatud DockerHub'i
 
 ----------------------------------------------
-
+0 Eeldused
+0.1 Python
+0.2 Docker
+0.3 uv
+----------------------------------------------
 1 Lähtekoodist pythoni skripti käivitamine
 1.1 Lähtekoodi allalaadimine
     $ mkdir -p ~/git/ ; cd ~/git/
     $ git clone git@github.com:Filosoft/vabamorf.git vabamorf_github
-1.2 Virtuaalkeskkonna loomine
-    $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-    $ ./create_venv.sh
-1.3 Skripti kasutusnäited
-    #Ilma argumentideta loeb JSONit std-sisendist ja kirjutab tulemuse std-väljundisse
-    $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
-    $ venv/bin/python3 ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
+1.2 Skripti kasutusnäited
+    # Ilma argumentideta loeb JSONit std-sisendist ja kirjutab tulemuse std-väljundisse
+    $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok/
+    $ ./estnltk_sentok.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
+    $ ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
 
 ----------------------------------------------
 
 2 Lähtekoodist käivitatud veebiserveri kasutamine
 2.1 Lähtekoodi allalaadimine, vt 1.1
-2.2 Virtuaalkeskkonna loomine, vt 1.2
-2.3 Veebiserveri käivitamine pythoni koodist
+2.2 Veebiserveri käivitamine pythoni koodist
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok
-    $ venv/bin/python3 ./flask_estnltk_sentok.py
-2.4 CURLiga veebiteenuse kasutamise näited
+    $ ./flask_estnltk_sentok.py
+2.3 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json"  \
         localhost:6000/api/estnltk/tokenizer/version | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
@@ -47,11 +54,11 @@ Mida uut:
     $ docker compose build api_estnltk_sentok
     # docker login -u tilluteenused
     # docker compose push   
-3.3 Konteineri käivitamine (morf analüsaator ja sõnestaja)
+3.3 Konteineri käivitamine
     $ docker compose up -d api_estnltk_sentok
 3.4 Konteinerite peatamine
     $ docker compose down api_estnltk_sentok
-3.5 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
+3.5 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.3
 
 ----------------------------------------------
 
@@ -59,7 +66,7 @@ Mida uut:
 4.1 DockerHUBist konteineri tõmbamine ja käivitamine
     $ docker compose pull api_estnltk_sentok
 4.2 Konteineri käivitamine: järgi punkti 3.3
-4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
+4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.3
 
 ==============================================
 
@@ -116,50 +123,60 @@ Täienda konfiguratsioonigaili
       
 """
 
-import os
-#import subprocess
-import json
 import argparse
-from flask import Flask, request, jsonify, abort #, make_response
+import json
+import os
 from functools import wraps
-import estnltk_sentok # tag SENTences & TOKens
+from typing import Any, Callable, Final
+
+from flask import Flask, abort, jsonify, request
+
+import estnltk_sentok  # tag SENTences & TOKens
 
 app = Flask(__name__)
 
-VERSION = "2024.09.09"
+VERSION = "2026.09.18"
 
 # JSONsisendi max suuruse piiramine {{
-try:
-    MAX_CONTENT_LENGTH = int(os.environ.get('MAX_CONTENT_LENGTH'))
-except:
-    MAX_CONTENT_LENGTH = 5 * 1000000000 # 5 GB 
+def _get_max_content_length() -> int:
+    value = os.environ.get("MAX_CONTENT_LENGTH")
+    if value is None:
+        return 5_000_000_000
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 5_000_000_000
+    
+MAX_CONTENT_LENGTH: Final[int] = _get_max_content_length()
 
-def limit_content_length(max_length):
-    def decorator(f):
+def limit_content_length(max_length: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(f)
-        def wrapper(*args, **kwargs):
-            cl = request.content_length
-            if cl is not None and cl > max_length:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            if request.content_length is not None and request.content_length > max_length:
                 abort(413)
             return f(*args, **kwargs)
         return wrapper
     return decorator
 # }}
 
-@app.errorhandler(413) # Request Entity Too Large: The data value transmitted exceeds the capacity limit.
-def request_entity_too_large(e):
+@app.errorhandler(413)  # Request Entity Too Large: The data value transmitted exceeds the capacity limit.
+def request_entity_too_large(e: Exception) -> tuple[Any, int]:
     return jsonify(error=str(e)), 413
 
-@app.errorhandler(404) # The requested URL was not found on the server.
-def page_not_found(e):
+
+@app.errorhandler(404)  # The requested URL was not found on the server.
+def page_not_found(e: Exception) -> tuple[Any, int]:
     return jsonify(error=str(e)), 404
 
-@app.errorhandler(400) # Rotten JSON
-def rotten_json(e):
+
+@app.errorhandler(400)  # Rotten JSON
+def rotten_json(e: Exception) -> tuple[Any, int]:
     return jsonify(error=str(e)), 400
 
-@app.errorhandler(500) # Internal Error from ESTNLTK
-def rotten_json(e):
+
+@app.errorhandler(500)  # Internal Error from ESTNLTK
+def server_error(e: Exception) -> tuple[Any, int]:
     return jsonify(error=str(e)), 500
 
 #---------------------------------------------------------------------------
@@ -167,25 +184,26 @@ def rotten_json(e):
 @app.route('/api/estnltk/tokenizer/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
 @limit_content_length(MAX_CONTENT_LENGTH)
-def flask_estnltk_version():
+def flask_estnltk_version() -> Any:
     """Tagastame veebiliidese versiooni
 
     Returns:
         ~flask.Response: JSONkujul versioonistring
     """
-    return jsonify({"version_tokenizer_flask":VERSION, "MAX_CONTENT_LENGTH": MAX_CONTENT_LENGTH})
+    return jsonify({"version_tokenizer_flask": VERSION, "MAX_CONTENT_LENGTH": MAX_CONTENT_LENGTH})
+
 
 @app.route('/api/estnltk/tokenizer/process', methods=['POST'])
 @app.route('/process', methods=['POST'])
 @limit_content_length(MAX_CONTENT_LENGTH)
-def flask_estnltk_sentok():
+def flask_estnltk_sentok() -> Any:
     """Lausestame ja sõnestame sisendteksti
 
     Returns:
         ~flask.Response: Lausestamise ja sõnestamise tulemused
     """
     try:
-        request_json = json.loads(request.data)
+        request_json: dict[str, Any] = json.loads(request.data)
     except ValueError as e:
         abort(400, description=str(e))
     if "content" not in request_json:
@@ -201,7 +219,7 @@ def flask_estnltk_sentok():
 #---------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    default_port=6000
+    default_port: int = 6000
     argparser = argparse.ArgumentParser(allow_abbrev=False)
     argparser.add_argument('-d', '--debug', action="store_true", help='use debug mode')
     args = argparser.parse_args()

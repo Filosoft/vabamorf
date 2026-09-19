@@ -1,44 +1,35 @@
-FROM ubuntu
+FROM python:3.11-slim
 
-# install C++ json-library for vmetajson and other stuff
-RUN apt-get update && apt-get install -y \
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     tini \
-    python3 \
-    python3-pip \
-    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
-# create an unprivileged user
-RUN groupadd --gid 1001 mere_mortal \
-    && useradd --create-home --home-dir /home4mere_mortal --gid 1001 --uid 1001 --shell /bin/bash mere_mortal
+ENV UV_PROJECT_ENVIRONMENT=/app/.venv
+ENV PATH="/app/.venv/bin:${PATH}"
 
-# everything from here down runs as the unprivileged user account 
-USER mere_mortal:mere_mortal
-WORKDIR /home4mere_mortal
+RUN pip install --no-cache-dir uv
 
-# copy in the requirements file, create a Python virtual environment and install dependencies
-COPY --chown=mere_mortal:mere_mortal requirements.txt ./
-RUN python3 -m venv ./venv 
-RUN ./venv/bin/python3 -m pip install --upgrade pip
-RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt 
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-install-project --no-dev
 
-# Many Python libraries used for LT such as nltk, transformers, etc. default to
-# downloading their models from the internet the first time they are accessed.
-# This is a problem for container images, as every run is the "first time"
-# starting from a clean copy of the image.  Therefore it is strongly
-# recommended to pre-download any models that your code depends on during the
-# build, so they are cached within the final image.  For example:
-#
-# RUN venv/bin/python -m nltk.downloader -d venv/share/nltk_data punkt
-#
-# RUN venv/bin/python -c "from transformers import DistilBertTokenizer" \
-#                     -c "DistilBertTokenizer.from_pretrained('bert-base-uncased')"
-#RUN ./venv/bin/python3 -m nltk.downloader -d venv/share/nltk_data punkt
-RUN ./venv/bin/python3 -m nltk.downloader -d venv/share/nltk_data punkt_tab
+COPY . .
+RUN uv sync --frozen --no-dev
+
+# Pre-download any models needed by the text processing stack so they are cached
+# in the image instead of being fetched on first runtime use.
+RUN /app/.venv/bin/python -m nltk.downloader -d /usr/local/share/nltk_data punkt_tab
+
+# Create a non-root user and make the app directory writable for it.
+RUN groupadd --gid 1001 app_group \
+    && useradd --create-home --home-dir /home/appuser --uid 1001 --gid 1001 --shell /bin/bash appuser \
+    && chown -R appuser:app_group /app
 
 # Copy the entrypoint script and everything else our app needs
-COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_estnltk_sentok.py estnltk_sentok.py ./
-RUN chmod +x docker-entrypoint.sh flask_estnltk_sentok.py estnltk_sentok.py
+COPY docker-entrypoint.sh .
+RUN chmod +x docker-entrypoint.sh \
+    && chown appuser:app_group docker-entrypoint.sh
 
 # parameters for gunicorn
 ENV WORKERS=1
@@ -46,5 +37,7 @@ ENV TIMEOUT=30
 ENV WORKER_CLASS=sync
 ENV LOGURU_LEVEL=INFO
 
-# start web server (guncorn+flask)
+USER appuser
+
+# start web server (gunicorn + flask)
 ENTRYPOINT ["./docker-entrypoint.sh"]

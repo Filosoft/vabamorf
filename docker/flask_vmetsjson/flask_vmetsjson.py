@@ -34,7 +34,7 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetsjson`.
     # docker login -u tilluteenused
     # docker-compose push
 2.3 Konteineri käivitamine
-    $  docker-compose up -d
+    $  docker-compose up -d api_vm_vmetsjson
 2.4 CURLiga veebiteenuse kasutamise näited: järgi punkti 1.4
 2.5 Konteineri peatamine
     $ docker-compose down
@@ -43,7 +43,7 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetsjson`.
 
 3 DockerHUBist tõmmatud konteineri kasutamine
 3.1 DockerHUBist konteineri tõmbamine ja käivitamine
-    $ docker-compose pull
+    $ docker compose pull api_vm_vmetsjson
 3.2 Konteineri käivitamine: järgi punkti 3.3
 3.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.4
 
