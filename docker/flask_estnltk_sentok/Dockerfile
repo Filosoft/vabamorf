@@ -2,42 +2,42 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Paigaldame tini ja eemaldame apt-i vahemälu
 RUN apt-get update && apt-get install -y --no-install-recommends \
     tini \
     && rm -rf /var/lib/apt/lists/*
 
-ENV UV_PROJECT_ENVIRONMENT=/app/.venv
-ENV PATH="/app/.venv/bin:${PATH}"
+# Paigaldame uv otse ametlikust binaarkujutisest
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-RUN pip install --no-cache-dir uv
+# Pythoni ja uv keskkonnamuutujad
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    UV_PROJECT_ENVIRONMENT=/app/.venv \
+    PATH="/app/.venv/bin:${PATH}"
 
+# Sõltuvuste paigaldus vahemälu efektiivseks ärakasutamiseks
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project --no-dev
 
-COPY . .
-RUN uv sync --frozen --no-dev
+# NLTK mudeli eelallalaadimine
+RUN python -m nltk.downloader -d /usr/local/share/nltk_data punkt_tab
 
-# Pre-download any models needed by the text processing stack so they are cached
-# in the image instead of being fetched on first runtime use.
-RUN /app/.venv/bin/python -m nltk.downloader -d /usr/local/share/nltk_data punkt_tab
-
-# Create a non-root user and make the app directory writable for it.
+# Mitte-root kasutaja loomine
 RUN groupadd --gid 1001 app_group \
-    && useradd --create-home --home-dir /home/appuser --uid 1001 --gid 1001 --shell /bin/bash appuser \
-    && chown -R appuser:app_group /app
+    && useradd --create-home --home-dir /home/appuser --uid 1001 --gid 1001 --shell /bin/bash appuser
 
-# Copy the entrypoint script and everything else our app needs
-COPY docker-entrypoint.sh .
-RUN chmod +x docker-entrypoint.sh \
-    && chown appuser:app_group docker-entrypoint.sh
+# Kopeerime lähtekoodi (omanikuks saab appuser ilma hilisema kalli chown -R käsuta)
+COPY --chown=appuser:app_group . .
 
-# parameters for gunicorn
-ENV WORKERS=1
-ENV TIMEOUT=30
-ENV WORKER_CLASS=sync
-ENV LOGURU_LEVEL=INFO
+# Gunicorn parameetrid
+ENV WORKERS=1 \
+    TIMEOUT=30 \
+    WORKER_CLASS=sync \
+    LOGURU_LEVEL=INFO
+
+EXPOSE 6000
 
 USER appuser
 
-# start web server (gunicorn + flask)
 ENTRYPOINT ["./docker-entrypoint.sh"]

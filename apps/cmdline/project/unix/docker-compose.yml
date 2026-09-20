@@ -6,35 +6,60 @@
 
 services:
   api_estnltk_sentok:
-    image: tilluteenused/api_estnltk_sentok:2026.09.18
+    image: tilluteenused/api_estnltk_sentok:2026.09.20
+    restart: unless-stopped
     ports:
-      - 6000:6000
+      - "7001:7001"
     environment:
-      - MAX_CONTENT_LENGTH=5000000      
+      - MAX_CONTENT_LENGTH=5000000
+      - WORKERS=1
+      - TIMEOUT=30
     build:
       context: ../../../../docker/flask_estnltk_sentok/
       dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7001/health', timeout=3)"]
+      interval: 30s     # Kontrolli iga 30 sekundi tagant
+      timeout: 5s       # Oota vastust kuni 5 sekundit
+      retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
+      start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
 
   api_vm_vmetajson:
     image: tilluteenused/api_vm_vmetajson:2024.09.09
+    restart: unless-stopped
     ports:
-      - 7007:7007
+      - 7002:7002
     environment:
       - MAX_CONTENT_LENGTH=5000000      
     build:
       context: ../../../../docker/flask_vmetajson/
       dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7002/health', timeout=3)"]
+      interval: 30s     # Kontrolli iga 30 sekundi tagant
+      timeout: 5s       # Oota vastust kuni 5 sekundit
+      retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
+      start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks      
     depends_on:
-      - api_estnltk_sentok
+      api_estnltk_sentok:
+        condition: service_healthy
 
   api_vm_vmetyjson:
     image: tilluteenused/api_vm_vmetyjson:2024.02.29
     ports:
-      - 7009:7009
+      - 7003:7003
+    restart: unless-stopped
     environment:
       - MAX_CONTENT_LENGTH=5000000      
     build:
       context: ../../../../docker/flask_vmetyjson/
       dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7003/health', timeout=3)"]
+      interval: 30s     # Kontrolli iga 30 sekundi tagant
+      timeout: 5s       # Oota vastust kuni 5 sekundit
+      retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
+      start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
     depends_on:
-      - api_vm_vmetajson
+      api_vm_vmetajson:
+        condition: service_healthy

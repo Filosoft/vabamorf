@@ -30,7 +30,8 @@ Mida uut:
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok/
     $ ./estnltk_sentok.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
     $ ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
-
+    $ curl --silent --request POST --header "Content-Type: application/json"  \
+        localhost:7001/api/estnltk/tokenizer/health | jq  
 ----------------------------------------------
 
 2 Lähtekoodist käivitatud veebiserveri kasutamine
@@ -40,10 +41,11 @@ Mida uut:
     $ ./flask_estnltk_sentok.py
 2.3 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json"  \
-        localhost:6000/api/estnltk/tokenizer/version | jq
+        localhost:7001/api/estnltk/tokenizer/version | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
-        localhost:6000/api/estnltk/tokenizer/process | jq
+        localhost:7001/api/estnltk/tokenizer/process | jq
+    $ curl --silent --request GET localhost:7001/api/estnltk/tokenizer/health | jq
 
 ----------------------------------------------
 
@@ -77,7 +79,7 @@ Mida uut:
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/version | jq  
+        https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/version | jq
 
 ----------------------------------------------
 
@@ -126,64 +128,49 @@ Täienda konfiguratsioonigaili
 import argparse
 import json
 import os
-from functools import wraps
-from typing import Any, Callable, Final
+from typing import Any, Final
 
 from flask import Flask, abort, jsonify, request
+from werkzeug.exceptions import HTTPException
 
 import estnltk_sentok  # tag SENTences & TOKens
 
 app = Flask(__name__)
 
-VERSION = "2026.09.18"
+VERSION = "2026.09.20"
 
-# JSONsisendi max suuruse piiramine {{
+# JSON sisendi max suuruse piiramine (vaikimisi 10 MB)
 def _get_max_content_length() -> int:
     value = os.environ.get("MAX_CONTENT_LENGTH")
     if value is None:
-        return 5_000_000_000
+        return 10_000_000
     try:
         return int(value)
     except (TypeError, ValueError):
-        return 5_000_000_000
-    
+        return 10_000_000
+
+
 MAX_CONTENT_LENGTH: Final[int] = _get_max_content_length()
-
-def limit_content_length(max_length: int) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
-    def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
-        @wraps(f)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
-            if request.content_length is not None and request.content_length > max_length:
-                abort(413)
-            return f(*args, **kwargs)
-        return wrapper
-    return decorator
-# }}
-
-@app.errorhandler(413)  # Request Entity Too Large: The data value transmitted exceeds the capacity limit.
-def request_entity_too_large(e: Exception) -> tuple[Any, int]:
-    return jsonify(error=str(e)), 413
+app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
 
-@app.errorhandler(404)  # The requested URL was not found on the server.
-def page_not_found(e: Exception) -> tuple[Any, int]:
-    return jsonify(error=str(e)), 404
+@app.errorhandler(HTTPException)
+def handle_http_exception(e: HTTPException) -> tuple[Any, int]:
+    """Käsitleb kõiki standardseid HTTP vigu (nt 400, 404, 413) JSON-kujul."""
+    return jsonify(error=e.description), e.code or 500
 
 
-@app.errorhandler(400)  # Rotten JSON
-def rotten_json(e: Exception) -> tuple[Any, int]:
-    return jsonify(error=str(e)), 400
-
-
-@app.errorhandler(500)  # Internal Error from ESTNLTK
-def server_error(e: Exception) -> tuple[Any, int]:
+@app.errorhandler(Exception)
+def handle_unexpected_exception(e: Exception) -> tuple[Any, int]:
+    """Käsitleb ootamatuid serveripoolseid erindeid ja logib veajälje."""
+    app.logger.exception("Ootamatu viga serveris: %s", e)
     return jsonify(error=str(e)), 500
+
 
 #---------------------------------------------------------------------------
 
 @app.route('/api/estnltk/tokenizer/version', methods=['GET', 'POST'])
 @app.route('/version', methods=['GET', 'POST'])
-@limit_content_length(MAX_CONTENT_LENGTH)
 def flask_estnltk_version() -> Any:
     """Tagastame veebiliidese versiooni
 
@@ -193,9 +180,15 @@ def flask_estnltk_version() -> Any:
     return jsonify({"version_tokenizer_flask": VERSION, "MAX_CONTENT_LENGTH": MAX_CONTENT_LENGTH})
 
 
+@app.route('/api/estnltk/tokenizer/health', methods=['GET'])
+@app.route('/health', methods=['GET'])
+def health_check() -> Any:
+    """Tervisekontrolli otspunkt (Docker ja Kubernetes liveness/readiness)."""
+    return jsonify(status="ok"), 200
+
+
 @app.route('/api/estnltk/tokenizer/process', methods=['POST'])
 @app.route('/process', methods=['POST'])
-@limit_content_length(MAX_CONTENT_LENGTH)
 def flask_estnltk_sentok() -> Any:
     """Lausestame ja sõnestame sisendteksti
 
@@ -203,24 +196,49 @@ def flask_estnltk_sentok() -> Any:
         ~flask.Response: Lausestamise ja sõnestamise tulemused
     """
     try:
-        request_json: dict[str, Any] = json.loads(request.data)
-    except ValueError as e:
-        abort(400, description=str(e))
-    if "content" not in request_json:
-        abort(400, description="Missing 'content'")
-    if "annotations" not in request_json:
+        request_json: Any = json.loads(request.data)
+    except (ValueError, TypeError) as e:
+        abort(400, description=f"Malformed JSON: {e}")
+
+    if not isinstance(request_json, dict):
+        abort(400, description="JSON payload must be a JSON object")
+
+    content = request_json.get("content")
+    if not isinstance(content, str):
+        abort(400, description="Field 'content' is required and must be a string")
+
+    if not isinstance(request_json.get("annotations"), dict):
         request_json["annotations"] = {}
+
     try:
-        request_json["annotations"]["sentences"], request_json["annotations"]["tokens"] = estnltk_sentok.estnltk_sentok(request_json["content"])
+        sentences, tokens = estnltk_sentok.estnltk_sentok(content)
+        request_json["annotations"]["sentences"] = sentences
+        request_json["annotations"]["tokens"] = tokens
     except Exception as e:
+        app.logger.exception("ESTNLTK processing error: %s", e)
         abort(500, description=str(e))
+
     return jsonify(request_json), 200
+
 
 #---------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    default_port: int = 6000
+    default_port: int = 7001
     argparser = argparse.ArgumentParser(allow_abbrev=False)
     argparser.add_argument('-d', '--debug', action="store_true", help='use debug mode')
+    argparser.add_argument(
+        '-p',
+        '--port',
+        type=int,
+        default=int(os.environ.get("PORT", default_port)),
+        help=f'port to listen on (default: {default_port})',
+    )
+    argparser.add_argument(
+        '--host',
+        type=str,
+        default=os.environ.get("HOST", "0.0.0.0"),
+        help='host to listen on (default: 0.0.0.0)',
+    )
     args = argparser.parse_args()
-    app.run(debug=args.debug, port=default_port)
+    app.run(host=args.host, port=args.port, debug=args.debug)
