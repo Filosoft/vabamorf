@@ -30,8 +30,7 @@ Mida uut:
     $ cd ~/git/vabamorf_github/docker/flask_estnltk_sentok/
     $ ./estnltk_sentok.py --indent=4 --json='{"content":"Mees peeti kinni. Vanaisa tööpüksid."}'
     $ ./estnltk_sentok.py --indent=4 --json='{"features":{"optional":"optional"},"content":"Mees peeti kinni. Sarved&Sõrad","annotations":{"bold":[{"start":0,"end":4},{"start":5,"end":10}]}}'
-    $ curl --silent --request POST --header "Content-Type: application/json"  \
-        localhost:7001/api/estnltk/tokenizer/health | jq  
+
 ----------------------------------------------
 
 2 Lähtekoodist käivitatud veebiserveri kasutamine
@@ -42,10 +41,11 @@ Mida uut:
 2.3 CURLiga veebiteenuse kasutamise näited
     $ curl --silent --request POST --header "Content-Type: application/json"  \
         localhost:7001/api/estnltk/tokenizer/version | jq
+    $ curl --silent --request GET localhost:7001/api/estnltk/tokenizer/health | jq
     $ curl --silent --request POST --header "Content-Type: application/json" \
         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
         localhost:7001/api/estnltk/tokenizer/process | jq
-    $ curl --silent --request GET localhost:7001/api/estnltk/tokenizer/health | jq
+
 
 ----------------------------------------------
 
@@ -64,64 +64,64 @@ Mida uut:
 
 ----------------------------------------------
 
-4 DockerHUBist tõmmatud konteineri kasutamine
-4.1 DockerHUBist konteineri tõmbamine ja käivitamine
-    $ docker compose pull api_estnltk_sentok
-4.2 Konteineri käivitamine: järgi punkti 3.3
-4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.3
+# 4 DockerHUBist tõmmatud konteineri kasutamine
+# 4.1 DockerHUBist konteineri tõmbamine ja käivitamine
+#     $ docker compose pull api_estnltk_sentok
+# 4.2 Konteineri käivitamine: järgi punkti 3.3
+# 4.3 CURLiga veebiteenuse kasutamise näited: järgi punkti 2.3
 
-==============================================
+# ==============================================
 
-5 TÜ Kubernetes - Praegu teenus ei tööta TÜ Kuberneteses 
+# 5 TÜ Kubernetes - Praegu teenus ei tööta TÜ Kuberneteses 
 
-5.1 TÜ pilves töötava konteineri CURLiga kasutamise näited
-    $ curl --silent --request POST --header "Content-Type: application/json" \
-        --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
-        https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
-    $ curl --silent --request POST --header "Content-Type: application/json" \
-        https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/version | jq
+# 5.1 TÜ pilves töötava konteineri CURLiga kasutamise näited
+#     $ curl --silent --request POST --header "Content-Type: application/json" \
+#         --data '{"content":"Mees peeti kinni. Sarved&Sõrad: telef. +372 345 534."}' \
+#         https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/process | jq
+#     $ curl --silent --request POST --header "Content-Type: application/json" \
+#         https://vabamorf.tartunlp.ai/api/estnltk/tokenizer/version | jq
 
-----------------------------------------------
+# ----------------------------------------------
 
-5.2 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
+# 5.2 DockerHubis oleva konteineri lisamine oma KUBERNETESesse
 
-5.2.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
+# 5.2.1 Vaikeväärtustega `deployment`-konfiguratsioonifaili loomine
 
-    $ kubectl create deployment vabamorf-api-estnltk-tokenizer \
-    --image=tilluteenused/api_estnltk_sentok:2024.09.09
+#     $ kubectl create deployment vabamorf-api-estnltk-tokenizer \
+#     --image=tilluteenused/api_estnltk_sentok:2024.09.09
 
-Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
+# Keskkonnamuutuja abil saab muuta maksimaalse lubatava päringu suurust.
 
-Ava konfiguratsioonifail redaktoris
+# Ava konfiguratsioonifail redaktoris
 
-    $ kubectl edit deployment vabamorf-api-estnltk-tokenizer
+#     $ kubectl edit deployment vabamorf-api-estnltk-tokenizer
 
-Lisades sinna soovitud keskkonnamuutujate väärtused:
+# Lisades sinna soovitud keskkonnamuutujate väärtused:
 
-    env:
-    - name: MAX_CONTENT_LENGTH
-      value: "5000000"
+#     env:
+#     - name: MAX_CONTENT_LENGTH
+#       value: "5000000"
 
-5.2.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
+# 5.2.2 Vaikeväärtustega `service`-konfiguratsioonifaili loomine
 
-    $ kubectl expose deployment vabamorf-api-estnltk-tokenizer \
-        --type=ClusterIP --port=80 --target-port=6000
+#     $ kubectl expose deployment vabamorf-api-estnltk-tokenizer \
+#         --type=ClusterIP --port=80 --target-port=6000
         
-5.2.3 `ingress`-konfiguratsioonifaili täiendamine
+# 5.2.3 `ingress`-konfiguratsioonifaili täiendamine
 
-Ava konfiguratsioonifail  redaktoris
+# Ava konfiguratsioonifail  redaktoris
 
-    $ kubectl edit ingress smart-search-api-ingress
+#     $ kubectl edit ingress smart-search-api-ingress
     
-Täienda konfiguratsioonigaili
+# Täienda konfiguratsioonigaili
 
-    - backend:
-        service:
-        name: vabamorf-api-estnltk-tokenizer
-        port:
-            number: 80
-    path: /api/estnltk/tokenizer/?(.*)
-    pathType: Prefix
+#     - backend:
+#         service:
+#         name: vabamorf-api-estnltk-tokenizer
+#         port:
+#             number: 80
+#     path: /api/estnltk/tokenizer/?(.*)
+#     pathType: Prefix
       
 """
 

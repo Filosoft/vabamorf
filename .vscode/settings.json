@@ -1,5 +1,19 @@
 {
     "editor.rulers": [80],
+    "editor.unicodeHighlight.allowedCharacters": {
+        "ä": true,
+        "Ä": true,
+        "ö": true,
+        "Ö": true,
+        "ü": true,
+        "Ü": true,
+        "õ": true,
+        "Õ": true,
+        "š": true,
+        "Š": true,
+        "ž": true,
+        "Ž": true
+    },
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
         "Makefile": "cpp",

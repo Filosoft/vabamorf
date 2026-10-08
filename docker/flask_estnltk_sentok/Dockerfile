@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tini \
     && rm -rf /var/lib/apt/lists/*
 
+
+
+
+
 # Paigaldame uv otse ametlikust binaarkujutisest
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
@@ -30,13 +34,14 @@ RUN groupadd --gid 1001 app_group \
 # Kopeerime lähtekoodi (omanikuks saab appuser ilma hilisema kalli chown -R käsuta)
 COPY --chown=appuser:app_group . .
 
+# Tagame vajalike skriptide käivitusõigused
+RUN chmod +x docker-entrypoint.sh flask_estnltk_sentok.py estnltk_sentok.py
+
 # Gunicorn parameetrid
 ENV WORKERS=1 \
     TIMEOUT=30 \
     WORKER_CLASS=sync \
     LOGURU_LEVEL=INFO
-
-EXPOSE 6000
 
 USER appuser
 

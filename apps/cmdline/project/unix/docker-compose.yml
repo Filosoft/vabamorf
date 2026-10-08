@@ -4,58 +4,75 @@
 # docker compose down
 # docker compose push
 
+x-api-estnltk-port:   &api-estnltk-port   "7001"
+x-api-vmetajson-port: &api-vmetajson-port "7002"
+x-api-vmetyjson-port: &api-vmetyjson-port "7003"
+
 services:
   api_estnltk_sentok:
-    image: tilluteenused/api_estnltk_sentok:2026.09.20
+    image: tilluteenused/api_estnltk_sentok:2026.10.05
     restart: unless-stopped
     ports:
-      - "7001:7001"
+      - target: *api-estnltk-port
+        published: *api-estnltk-port
+        protocol: tcp
     environment:
-      - MAX_CONTENT_LENGTH=5000000
-      - WORKERS=1
-      - TIMEOUT=30
+      PORT: *api-estnltk-port
+      MAX_CONTENT_LENGTH: "5000000"
+      WORKERS: "1"
+      TIMEOUT: "30"
     build:
       context: ../../../../docker/flask_estnltk_sentok/
       dockerfile: ./Dockerfile
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7001/health', timeout=3)"]
+      test: ["CMD", "python", "-c", "import os, sys, urllib.request; r = urllib.request.urlopen('http://localhost:' + os.environ['PORT'] + '/health', timeout=3); sys.exit(0 if r.status == 200 else 1)"]
       interval: 30s     # Kontrolli iga 30 sekundi tagant
       timeout: 5s       # Oota vastust kuni 5 sekundit
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
       start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
 
   api_vm_vmetajson:
-    image: tilluteenused/api_vm_vmetajson:2024.09.09
+    image: tilluteenused/api_vm_vmetajson:2026.10.05
     restart: unless-stopped
     ports:
-      - 7002:7002
+      - target: *api-vmetajson-port
+        published: *api-vmetajson-port
+        protocol: tcp
     environment:
-      - MAX_CONTENT_LENGTH=5000000      
+      PORT: *api-vmetajson-port
+      MAX_CONTENT_LENGTH: "5000000"
     build:
       context: ../../../../docker/flask_vmetajson/
       dockerfile: ./Dockerfile
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7002/health', timeout=3)"]
+      # Docker Compose'il on ainult üks healthcheck.
+      # Kuna see teenus on kasutusel service dependency jaoks
+      # (`depends_on: condition: service_healthy`),
+      # on mõistlikam kontrollida `/ready`, mitte `/health`.
+      test: ["CMD", "python", "-c", "import os, sys, urllib.request; r = urllib.request.urlopen('http://localhost:' + os.environ['PORT'] + '/ready', timeout=3); sys.exit(0 if r.status == 200 else 1)"]
       interval: 30s     # Kontrolli iga 30 sekundi tagant
       timeout: 5s       # Oota vastust kuni 5 sekundit
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
-      start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks      
+      start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
     depends_on:
       api_estnltk_sentok:
         condition: service_healthy
 
   api_vm_vmetyjson:
-    image: tilluteenused/api_vm_vmetyjson:2024.02.29
+    image: tilluteenused/api_vm_vmetyjson:2024.10.05
     ports:
-      - 7003:7003
+      - target: *api-vmetyjson-port
+        published: *api-vmetyjson-port
+        protocol: tcp
     restart: unless-stopped
     environment:
-      - MAX_CONTENT_LENGTH=5000000      
+      PORT: *api-vmetyjson-port
+      MAX_CONTENT_LENGTH: "5000000"
     build:
       context: ../../../../docker/flask_vmetyjson/
       dockerfile: ./Dockerfile
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7003/health', timeout=3)"]
+      test: ["CMD", "python", "-c", "import os, sys, urllib.request; r = urllib.request.urlopen('http://localhost:' + os.environ['PORT'] + '/ready', timeout=3); sys.exit(0 if r.status == 200 else 1)"]
       interval: 30s     # Kontrolli iga 30 sekundi tagant
       timeout: 5s       # Oota vastust kuni 5 sekundit
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks

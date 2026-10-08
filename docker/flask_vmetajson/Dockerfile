@@ -1,39 +1,48 @@
-FROM ubuntu
+FROM ubuntu:26.04
 
-# install C++ json-library for vmetajson and other stuff
-RUN apt-get update && apt-get install -y \
+WORKDIR /app
+
+# Paigaldame tini, vmetajson jaoks vajaliku libjsoncpp teegi, Pythoni ja sertifikaadid
+RUN apt-get update && apt-get install -y --no-install-recommends \
     tini \
     libjsoncpp-dev \
     python3 \
-    python3-pip \
     python3-venv \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# create an unprivileged user
-RUN groupadd --gid 1001 mere_mortal \
-    && useradd --create-home --home-dir /home4mere_mortal --gid 1001 --uid 1001 --shell /bin/bash mere_mortal
-    
-# everything from here down runs as the unprivileged user account 
-USER mere_mortal:mere_mortal
-WORKDIR /home4mere_mortal
+# Paigaldame uv otse ametlikust binaarkujutisest
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# copy in the requirements file, create a Python virtual environment and install dependencies
-COPY --chown=mere_mortal:mere_mortal requirements.txt ./
-RUN python3 -m venv ./venv 
-RUN ./venv/bin/python3 -m pip install --upgrade pip
-RUN ./venv/bin/pip3 --no-cache-dir install -r ./requirements.txt 
+# Pythoni ja uv keskkonnamuutujad
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    UV_PROJECT_ENVIRONMENT=/app/.venv \
+    PATH="/app/.venv/bin:${PATH}"
 
-# copy current task related skripts
-COPY --chown=mere_mortal:mere_mortal docker-entrypoint.sh flask_vmetajson.py vmetajson et.dct ./
+# Sõltuvuste paigaldus vahemälu efektiivseks ärakasutamiseks
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-install-project --no-dev
+
+
+
+
+# Mitte-root kasutaja loomine
+RUN groupadd --gid 1001 app_group \
+    && useradd --create-home --home-dir /home/appuser --uid 1001 --gid 1001 --shell /bin/bash appuser
+
+# Kopeerime veebiserveri lähtekoodi, sõnastiku ja vmetajson binaari (omanikuks saab appuser)
+COPY --chown=appuser:app_group . .
+
+# Tagame vajalike skriptide ja binaari käivitusõigused
 RUN chmod +x docker-entrypoint.sh flask_vmetajson.py vmetajson
 
-# parameters for gunicorn
-ENV WORKERS=1
-ENV TIMEOUT=30
-ENV WORKER_CLASS=sync
-ENV LOGURU_LEVEL=INFO
+# Gunicorn parameetrid
+ENV WORKERS=1 \
+    TIMEOUT=30 \
+    WORKER_CLASS=sync \
+    LOGURU_LEVEL=INFO
 
-# start web server
+USER appuser
+
 ENTRYPOINT ["./docker-entrypoint.sh"]
-# keep running 4ever 4 db
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
