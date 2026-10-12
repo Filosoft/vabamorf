@@ -1,0 +1,8 @@
+[project]
+name = "flask-vmetsjson"
+version = "2026.10.12"
+requires-python = ">=3.10"
+dependencies = [
+  "Flask",
+  "gunicorn",
+]

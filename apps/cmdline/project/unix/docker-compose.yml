@@ -7,6 +7,7 @@
 x-api-estnltk-port:   &api-estnltk-port   "7001"
 x-api-vmetajson-port: &api-vmetajson-port "7002"
 x-api-vmetyjson-port: &api-vmetyjson-port "7003"
+x-api-vmetsjson-port: &api-vmetsjson-port "7004"
 
 services:
   api_estnltk_sentok:
@@ -59,7 +60,7 @@ services:
         condition: service_healthy
 
   api_vm_vmetyjson:
-    image: tilluteenused/api_vm_vmetyjson:2024.10.05
+    image: tilluteenused/api_vm_vmetyjson:2026.10.12
     ports:
       - target: *api-vmetyjson-port
         published: *api-vmetyjson-port
@@ -80,3 +81,23 @@ services:
     depends_on:
       api_vm_vmetajson:
         condition: service_healthy
+
+  api_vm_vmetsjson:
+    image: tilluteenused/api_vm_vmetsjson:2026.10.12
+    ports:
+      - target: *api-vmetsjson-port
+        published: *api-vmetsjson-port
+        protocol: tcp
+    restart: unless-stopped
+    environment:
+      PORT: *api-vmetsjson-port
+      MAX_CONTENT_LENGTH: "5000000"
+    build:
+      context: ../../../../docker/flask_vmetsjson/
+      dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, sys, urllib.request; r = urllib.request.urlopen('http://localhost:' + os.environ['PORT'] + '/ready', timeout=3); sys.exit(0 if r.status == 200 else 1)"]
+      interval: 30s     # Kontrolli iga 30 sekundi tagant
+      timeout: 5s       # Oota vastust kuni 5 sekundit
+      retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
+      start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks

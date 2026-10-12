@@ -39,8 +39,7 @@ Kasutab UBUNTU 22.04 LTS peal eelkompileeritud programmi `vmetajson`.
 2 Lähtekoodist konteineri tegemine ja käivitamine
 2.1 Lähtekoodi allalaadimine: järgi punkti 1.1
 2.2 Konteinerite kokkupanemine (morf analüsaator ja sõnestaja)
-    $ cd ~/git/vabamorf_github/apps/cmdline/project/unix
-    $ docker compose build api_vm_vmetajson
+    $ cd ~/git/vabamorf_github/apps/cmdline/project/unix && docker compose build api_vm_vmetajson
     # docker login -u tilluteenused
     # docker compose push api_vm_vmetajson
 2.3 Konteinerite käivitamine (morf analüsaator ja sõnestaja)
