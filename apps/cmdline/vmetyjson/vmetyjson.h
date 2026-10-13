@@ -15,6 +15,8 @@ Jsoni käitlemiseks käsurealt: jq, gron
 #include <fstream>
 #include <sstream>
 #include <string> 
+#include <limits>
+#include <stdexcept>
 #include <assert.h>
 #include <iterator>
 
@@ -58,7 +60,7 @@ Jsoni käitlemiseks käsurealt: jq, gron
 /**
  * @brief JSONit käsitleva käsureaprogrammi templiit
  * 
- * @tparam MAIN VMETAJSON või VMETYJSON (realiseerimata)
+ * @tparam MAIN VMETYJSON
  * @param argc käsurea parameetrite arv
  * @param argv käsurea parameetrite massiiv
  * @return int 
@@ -69,9 +71,11 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
     try
     {
         FSCInit();
-        MAIN m;
-        m.Start(argc, argv);
-        m.Run();
+        {
+            MAIN m;
+            m.Start(argc, argv);
+            m.Run();
+        }
         FSCTerminate();
         return EXIT_SUCCESS;
     }
@@ -124,13 +128,16 @@ public:
     }
 
     /**
-     * @brief Käsurealt antud parameetrite käsitlemine
-     * 
-     * @param argc 
-     * @param argv 
+     * @brief Avame ühestaja sõnastiku ja salvestame päringute algseadistused.
+     * @param argc Käsurea argumentide arv.
+     * @param argv Käsurea argumentide massiiv.
+     * @throws VEAD Sõnastiku avamine või mootori käivitamine ebaõnnestus.
+     * @throws std::logic_error Mootor on juba käivitatud.
      */
     void Start(int argc, FSTCHAR** argv)
     {
+        if(started)
+            throw std::logic_error("Ühestamismootor on juba käivitatud");
         LipuStringidKasurealt(argc, argv);
         lipud_yhh_cl_dflt.Set(LipuBitidPaika()); // kui jsonist lippe ei tule kasutame sedas
         // siin peab ühestaja sõnastiku pathname'i väljakammima
@@ -141,6 +148,64 @@ public:
                                 "Ei saanud ühestaja sõnastiku avamisega hakkama"));
         }
         yhh.Start(lipud_yhh_cl_dflt.Get(), yhestajaSonastikuPikkNimi);
+        startup_options = CurrentOptions();
+        started = true;
+    }
+
+    /**
+     * @brief Ühestame ühe JSON-päringu ilma stdin/stdout'i kasutamata.
+     *
+     * Start() peab olema eelnevalt kutsutud. Päring algab Start() ajal määratud
+     * valikutega; params.vmetyjson massiiv asendab need vaikevalikutega ja
+     * päringus nimetatud lippudega. Sõnastik jääb päringute vahel avatuks.
+     * Sama instantsi kasutavad lõimed peavad selle meetodi kutsed järjestama.
+     * Analüüsita sõnedele tekitatakse ainult mootori sees ajutine analüüs;
+     * sisend-JSONi puuduvad või tühjad mrf massiivid säilivad.
+     *
+     * @param[in,out] jsonobj Sisend-JSON, mille analüüsivariantidele lisame
+     * preferred väärtused või mille errors massiivi lisame veateate.
+     * @return 200 Ühestatud; 400 vigane sisend; 500 mootori viga.
+     */
+    int Process(Json::Value& jsonobj)
+    {
+        if(!started)
+            return RequestError(jsonobj, "Ühestamismootor ei ole käivitatud", 500);
+
+        RestoreOptions(startup_options);
+        try
+        {
+            std::string error;
+            if(!ValidateInput(jsonobj, error))
+                return RequestError(jsonobj, error);
+
+            if(jsonobj.isMember("params") && jsonobj["params"].isMember("vmetyjson"))
+            {
+                VaikeLipudPaika();
+                for(const Json::Value& option : jsonobj["params"]["vmetyjson"])
+                {
+                    const std::string flag = option.asString();
+                    if(flag.compare(0, 7, "--path=") == 0 || flag.compare(0, 7, "--json=") == 0)
+                        return RequestError(jsonobj, "Ainult käivitamisel lubatud lipp: " + flag);
+                    if(!LipuStringPaika(flag.c_str()))
+                        return RequestError(jsonobj, "Illegaalne lipp: " + flag);
+                }
+            }
+
+            yhh.SetFlags(LipuBitidPaika());
+            if(lipp_version)
+                jsonobj["version_vmetyjson"] = VERSION;
+            TeeSedaLausekaupa(jsonobj);
+            assert(ClassInvariant());
+            return 200;
+        }
+        catch(VEAD& viga)
+        {
+            return RequestError(jsonobj, (const char*)viga.Teade(), 500);
+        }
+        catch(...)
+        {
+            return RequestError(jsonobj, "Morfoloogilise ühestamise viga", 500);
+        }
     }
 
     /**
@@ -164,27 +229,20 @@ public:
         }
         else
         { 
-            try
+            // JSON sisend tuleb std-sisendist
+            sisend_torust = true;
+            std::string line;
+            while(std::getline(std::cin,line))
             {
-                // JSON sisend tuleb std-sisendist
-                sisend_torust = true;
-                std::string line;  
-                while(std::getline(std::cin,line))
-                {
-                    trim(line);
-                    if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
-                        continue;
-                    Json::Value jsonobj;
-                    std::string json_parse_error_message;
-                    if(fsJsonCpp.JsonParse(line, json_parse_error_message, jsonobj)==false)
-                        fsJsonCpp.JsonWarning(json_parse_error_message.c_str());
-                    else
-                        TeeSeda(jsonobj);
-                }
-            }
-            catch(...)
-            {
-                fsJsonCpp.JsonWarning("Mingi JAMA");
+                trim(line);
+                if(line.length() <= 0 || line[0]=='#') // tühje ridasid ja kommentaare ignoreerime
+                    continue;
+                Json::Value jsonobj;
+                std::string json_parse_error_message;
+                if(fsJsonCpp.JsonParse(line, json_parse_error_message, jsonobj)==false)
+                    fsJsonCpp.JsonWarning(json_parse_error_message.c_str());
+                else
+                    TeeSeda(jsonobj);
             }
         }
     }
@@ -196,12 +254,19 @@ public:
     void Stop(void)
     {
         yhh.Stop();
-        //??? InitClassVariables();
+        InitClassVariables();
     }
 
     const char* VERSION = "2024.02.29";
 
 private:
+    struct RequestOptions
+    {
+        bool taanded, utf8, version;
+    };
+
+    RequestOptions startup_options;
+    bool started;
     bool lipp_taanded;          // --formattedjson
     bool lipp_utf8;             // --utf8json
     bool lipp_version;          // versiooni-info kuvamine
@@ -216,12 +281,196 @@ private:
     ET3UTF8AHEL yhh;
     MRF_FLAGS lipud_yhh_cl_dflt; // käsureaga määratud lipud
 
+    /** @brief Koondame praegused väljundvalikud salvestatavaks koopiaks.
+     * @return Kõigi väljundlippude väärtused.
+     */
+    RequestOptions CurrentOptions(void) const
+    {
+        return {lipp_taanded, lipp_utf8, lipp_version};
+    }
+
+    /** @brief Taastame väljundvalikud päringu alguses.
+     * @param options Start() ajal salvestatud valikud.
+     */
+    void RestoreOptions(const RequestOptions& options)
+    {
+        lipp_taanded = options.taanded;
+        lipp_utf8 = options.utf8;
+        lipp_version = options.version;
+    }
+
+    /** @brief Lisame veateate JSONi ilma standardväljundisse kirjutamata.
+     * @param[in,out] jsonobj Vastuse objekt; muu sisendtüüp asendatakse objektiga.
+     * @param error Veateade.
+     * @param status Process() tagastatav HTTP olekukood.
+     * @return Parameetrina antud olekukood.
+     */
+    static int RequestError(Json::Value& jsonobj, const std::string& error, int status=400)
+    {
+        if(!jsonobj.isObject())
+            jsonobj = Json::Value(Json::objectValue);
+        if(!jsonobj["errors"].isArray())
+            jsonobj["errors"] = Json::Value(Json::arrayValue);
+        jsonobj["errors"].append(error);
+        return status;
+    }
+
+    /** @brief Kontrollime, et string sobib C-stringina mootorile edastamiseks.
+     * @param value Kontrollitav JSON-väärtus.
+     * @return true Kui väärtus on NUL-märgita string.
+     */
+    static bool IsText(const Json::Value& value)
+    {
+        return value.isString() && value.asString().find('\0') == std::string::npos;
+    }
+
+    /** @brief Kontrollime, kas sõne on tühi või koosneb ainult tühimärkidest.
+     * @param token Kontrollitav sõne.
+     * @return true Kui sõne ei sisalda ühtegi mittetühimärki.
+     */
+    static bool IsBlankToken(const std::string& token)
+    {
+        return token.find_first_not_of(" \t\r\n\f\v") == std::string::npos;
+    }
+
+    /** @brief Võtame ki/gi-liite praeguse või vanema nimega JSON-väljast.
+     * @param mrf Analüüsivariant.
+     * @return Liite string; välja puudumisel tühi string.
+     */
+    static std::string Enclitic(const Json::Value& mrf)
+    {
+        if(mrf.isMember("enclitic-gi"))
+            return mrf["enclitic-gi"].asString();
+        if(mrf.isMember("enclitic_gi"))
+            return mrf["enclitic_gi"].asString();
+        return "";
+    }
+
+    /**
+     * @brief Kontrollime kogu sisendi enne esimese lause ühestamist.
+     * @param jsonobj Kontrollitav JSON-päring.
+     * @param[out] error Esimese vigase välja kirjeldus.
+     * @return true Kui sisend vastab ühestamispäringu kujule.
+     */
+    static bool ValidateInput(const Json::Value& jsonobj, std::string& error)
+    {
+        if(!jsonobj.isObject())
+            error = "Sisend peab olema JSON-objekt";
+        else if(jsonobj.isMember("params") && !jsonobj["params"].isObject())
+            error = "params peab olema JSON-objekt";
+        else if(!jsonobj["annotations"].isObject())
+            error = "Ühestamiseks on vaja objekti annotations";
+        if(!error.empty())
+            return false;
+
+        if(jsonobj.isMember("params") && jsonobj["params"].isMember("vmetyjson"))
+        {
+            const Json::Value& options = jsonobj["params"]["vmetyjson"];
+            if(!options.isArray())
+            {
+                error = "params.vmetyjson peab olema stringide massiiv";
+                return false;
+            }
+            for(const Json::Value& option : options)
+                if(!IsText(option))
+                {
+                    error = "params.vmetyjson peab sisaldama NUL-märgita stringe";
+                    return false;
+                }
+        }
+
+        const Json::Value& annotations = jsonobj["annotations"];
+        const Json::Value& tokens = annotations["tokens"];
+        const Json::Value& sentences = annotations["sentences"];
+        if(!tokens.isArray() || !sentences.isArray())
+        {
+            error = "Ühestamiseks peavad annotations.tokens ja annotations.sentences olema massiivid";
+            return false;
+        }
+        if(tokens.size() > static_cast<Json::ArrayIndex>(std::numeric_limits<int>::max()))
+        {
+            error = "Ühestamispäring sisaldab liiga palju sõnesid";
+            return false;
+        }
+        for(const Json::Value& token : tokens)
+        {
+            if(!token.isObject() || !token["features"].isObject() ||
+                !IsText(token["features"]["token"]) ||
+                IsBlankToken(token["features"]["token"].asString()))
+            {
+                error = "Iga sõne features.token peab olema mittetühi NUL-märgita string";
+                return false;
+            }
+            const Json::Value& features = token["features"];
+            // Morfoloogilise analüsaatori tundmatu sõne väljundis võib mrf puududa.
+            if(!features.isMember("mrf"))
+                continue;
+            if(!features["mrf"].isArray())
+            {
+                error = "features.mrf peab olema analüüsivariantide massiiv";
+                return false;
+            }
+            for(const Json::Value& mrf : features["mrf"])
+            {
+                if(!mrf.isObject())
+                {
+                    error = "Iga morfoloogiline analüüsivariant peab olema JSON-objekt";
+                    return false;
+                }
+                if((!mrf.isMember("lemma") && !mrf.isMember("stem")) ||
+                    (mrf.isMember("lemma") && !IsText(mrf["lemma"])) ||
+                    (mrf.isMember("stem") && !IsText(mrf["stem"])))
+                {
+                    error = "Iga analüüsivariant peab sisaldama NUL-märgita stringi lemma või stem";
+                    return false;
+                }
+                for(const char* field : {"ending", "pos", "fs-category"})
+                    if(!IsText(mrf[field]))
+                    {
+                        error = std::string("Analüüsivariandi ") + field + " peab olema NUL-märgita string";
+                        return false;
+                    }
+                const std::string pos = mrf["pos"].asString();
+                if(pos.size() != 1 || std::string("ACDGHIJKNOPSUVXYZ").find(pos[0]) == std::string::npos)
+                {
+                    error = "Analüüsivariandi pos peab olema tuntud Vabamorfi sõnaliigikood";
+                    return false;
+                }
+                for(const char* field : {"enclitic-gi", "enclitic_gi", "result-string-as-discrete"})
+                    if(mrf.isMember(field) && !IsText(mrf[field]))
+                    {
+                        error = std::string("Analüüsivariandi ") + field + " peab olema NUL-märgita string";
+                        return false;
+                    }
+            }
+        }
+        for(const Json::Value& sentence : sentences)
+        {
+            if(!sentence.isObject() || !sentence["features"].isObject())
+            {
+                error = "Iga lause peab sisaldama objekti features";
+                return false;
+            }
+            const Json::Value& features = sentence["features"];
+            if(!features["start"].isIntegral() || !features["end"].isIntegral() ||
+                !features["start"].isUInt() || !features["end"].isUInt() ||
+                features["start"].asUInt() > features["end"].asUInt() ||
+                features["end"].asUInt() > tokens.size())
+            {
+                error = "Lause sõnevahemik peab vastama tingimusele 0 <= start <= end <= sõnede arv";
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * @brief Panema paika lippude vaikeväärtused
      * 
      */
     void VaikeLipudPaika(void)
     {
+        lipp_taanded=false;     // kogu json ühel real
         lipp_utf8=false;        // utf8 sümbolid koodidena
         lipp_version=false;     // EI kuva väljundis versiooniinfot
     }
@@ -297,9 +546,7 @@ private:
         }
         if(strcmp("--formattedjson", lipuString)==0)
         {
-            // --formattedjson lippu ei saa kasutada standardsisendist tuleva JSONi korrral
-            if(sisend_torust == false)
-                lipp_taanded=true;
+            lipp_taanded=true;
             return true;
         }
         if(strcmp("--utf8json", lipuString)==0)
@@ -329,191 +576,124 @@ private:
         return lipuBitid.Get();
     }
 
-    /** 
-     * @brief Laseme ühe jsoni päringu läbi
+    /**
+     * @brief Käitleme ühe käsureapäringu ja kirjutame vastuse stdout'i.
+     * @param[in,out] jsonobj Sisend-JSON, kuhu lisame ühestamistulemuse või vea.
      */
     void TeeSeda(Json::Value& jsonobj)
     {
-        bool ret;
-        CFSWString rida;
-        LYLI lyli;
-
-        try
-        {
-            if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetyjson")==true)
-            {
-                // võtame jsonist lipud morfimiseks ja tulemuse kuvamiseks
-                VaikeLipudPaika();
-                bool lipudOK=true;           
-                for(Json::Value::const_iterator i=jsonobj["params"]["vmetyjson"].begin(); i != jsonobj["params"]["vmetyjson"].end(); ++i)
-                {
-                    if(LipuStringPaika(i->asCString())==false)
-                    {
-                        lipudOK=false;
-                        std::string warning = "Illegaalne lipp: " + i->asString();
-                        fsJsonCpp.AddJsonWarning(warning.c_str(), jsonobj);
-                    }
-                }
-                if(lipudOK==false)
-                {
-                    fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
-                    return;
-                }
-                yhh.SetFlags(LipuBitidPaika()); // ühestamine ja kuvamine hakkab toimuma jsonist saadud lippudega
-            }
-            else
-                yhh.SetFlags(lipud_yhh_cl_dflt.Get()); // ühestamine ja kuvamine hakkab toimuma käsurealt saadud lippudega
-            
-            if(lipp_version==true)
-            {
-                jsonobj["version_vmetyjson"] = VERSION;
-            }
-
-            if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("sentences")==false)
-            {
-                fsJsonCpp.AddJsonWarning("Ühestamiseks peavad laused olema annoteeritud", jsonobj);
-            }
-            else
-            {
-                TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
-            }
-        }
-        catch(...)
-        {
-            fsJsonCpp.AddJsonWarning("Application Error", jsonobj);
-        }
-        fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
+        Process(jsonobj);
+        // Stdin sisaldab ühe päringu rea kohta, seega on ka vastus ühel real.
+        fsJsonCpp.JsonWriter(jsonobj, lipp_taanded && !sisend_torust, lipp_utf8);
     }
- 
+
+    /** @brief Eemaldame FS-kategooria lõpust klassikalise kuju koma ja tühiku.
+     * @param category JSONi või mootori FS-kategooria.
+     * @return Võrdlemiseks kasutatav kategooria.
+     */
+    static std::string NormalizeCategory(std::string category)
+    {
+        const std::string::size_type last = category.find_last_not_of(" ,");
+        if(last == std::string::npos)
+            return "";
+        category.erase(last + 1);
+        return category;
+    }
+
+    /** @brief Märgime, kas sisendi analüüsivariant säilis ühestamisel.
+     * @param mrf Sisendi analüüsivariant.
+     * @param selected Ühestaja valitud analüüsivariandid.
+     * @return true Kui vähemalt üks valitud analüüs vastab sisendvariandile.
+     */
+    static bool IsPreferred(const Json::Value& mrf, const MRFTULEMUSED_UTF8& selected)
+    {
+        const std::string stem = mrf.isMember("lemma")
+            ? mrf["lemma"].asString() : mrf["stem"].asString();
+        const std::string pos = mrf["pos"].asString();
+        const std::string category = NormalizeCategory(mrf["fs-category"].asString());
+        const std::string ending = mrf["ending"].asString();
+        const std::string enclitic = Enclitic(mrf);
+        for(int a=0; a<selected.idxLast; ++a)
+            if(stem == (const char*)selected[a]->tyvi &&
+                pos == (const char*)selected[a]->sl &&
+                category == NormalizeCategory((const char*)selected[a]->vormid) &&
+                ending == (const char*)selected[a]->lopp &&
+                enclitic == (const char*)selected[a]->kigi)
+                return true;
+        return false;
+    }
+
+    /** @brief Asendame klassikalise analüüsistringi varasema ühestamismärgise.
+     * @param[in,out] mrf Analüüsivariant, mille preferred väärtus on määratud.
+     */
+    static void MarkDiscreteResult(Json::Value& mrf)
+    {
+        if(!mrf.isMember("result-string-as-discrete"))
+            return;
+        std::string result = mrf["result-string-as-discrete"].asString();
+        while(result.compare(0, 2, "+ ") == 0 || result.compare(0, 2, "- ") == 0)
+            result.erase(0, 2);
+        mrf["result-string-as-discrete"] =
+            (mrf["preferred"].asBool() ? "+ " : "- ") + result;
+    }
+
     /**
-     * @brief Ühestame lausekaupa
-     * 
-     * @param jsonobj 
+     * @brief Ühestame valideeritud päringu lausekaupa ja märgime eelistatud analüüsid.
+     *
+     * Iga lause ahel on lokaalne ja vabaneb ka erandi korral. Puuduva või tühja
+     * mrf massiiviga sõnele loob FsTags2YmmTags() ajutise ühestamismärgendi;
+     * seda ei lisata sisend-JSONi.
+     *
+     * @param[in,out] jsonobj Valideeritud päring koos sõnede ja lausepiiridega.
+     * @throws VEAD Ühestaja või teisendaja ebaõnnestus.
+     * @throws std::runtime_error Mootori väljund ei vasta sisendlause pikkusele.
      */
     void TeeSedaLausekaupa(Json::Value& jsonobj)
     {
-        if(jsonobj.isMember("annotations")==false 
-            || jsonobj["annotations"].isMember("tokens")==false
-            || jsonobj["annotations"].isMember("sentences")==false)
-        {
-            jsonobj["warnings"].append("JSON ei sisalda ühestamiseks vajalikku infot");
-            return;
-        }
         Json::Value& tokens = jsonobj["annotations"]["tokens"];
-        try
+        for(const Json::Value& sentence : jsonobj["annotations"]["sentences"])
         {
-            Json::Value& tokens = jsonobj["annotations"]["tokens"];
-            // tsükkel üle lausete
-            for(Json::Value::const_iterator sentence=jsonobj["annotations"]["sentences"].begin(); 
-                    sentence != jsonobj["annotations"]["sentences"].end(); sentence++)
+            AHEL2_UTF8 analyysid;
+            const Json::ArrayIndex start = sentence["features"]["start"].asUInt();
+            const Json::ArrayIndex end = sentence["features"]["end"].asUInt();
+            for(Json::ArrayIndex t=start; t<end; ++t)
             {
-                AHEL2_UTF8 analyysid;
-                // paneme ühestajasse lausejagu morf analüüse
-                unsigned sent_start = (*sentence)["features"]["start"].asUInt();
-                unsigned sent_end   = (*sentence)["features"]["end"].asUInt();
-                assert(sent_start <= sent_end);
-                assert(sent_end <= tokens.size());
-                // JSONsisendis tsükkel üle sõne+analüüside lauses
-                for(int t = sent_start; t < sent_end; t++)
+                const Json::Value& features = tokens[t]["features"];
+                MRFTULEMUSED_UTF8 utf8;
+                utf8.s6na = features["token"].asString().c_str();
+                for(const Json::Value& mrf : features["mrf"])
+                    utf8.Add(
+                        mrf.isMember("lemma")
+                            ? mrf["lemma"].asString().c_str() : mrf["stem"].asString().c_str(),
+                        mrf["ending"].asString().c_str(),
+                        Enclitic(mrf).c_str(),
+                        mrf["pos"].asString().c_str(),
+                        mrf["fs-category"].asString().c_str());
+
+                MRFTULEMUSED unicode(utf8);
+                fs_2_hmm.FsTags2YmmTags(&unicode);
+                MRFTULEMUSED_UTF8 with_hmm = unicode;
+                LYLI_UTF8 lyli(with_hmm);
+                analyysid.LisaSappaKoopia(lyli);
+            }
+            if(end-start != static_cast<unsigned>(analyysid.idxLast))
+                throw std::runtime_error("Ühestaja sisendi pikkus ei vasta lause pikkusele");
+            yhh.Run(analyysid);
+
+            for(Json::ArrayIndex t=start; t<end; ++t)
+            {
+                Json::Value& features = tokens[t]["features"];
+                if(!features.isMember("mrf"))
+                    continue;
+                LYLI_UTF8* lyli = analyysid.Lyli(t-start, PRMS_MRF);
+                if(lyli == NULL || lyli->ptr.pMrfAnal == NULL)
+                    throw std::runtime_error("Ühestaja ei tagastanud sõne analüüsi");
+                for(Json::Value& mrf : features["mrf"])
                 {
-                    MRFTULEMUSED_UTF8 mrftulemused_utf8;
-
-                    mrftulemused_utf8.s6na = tokens[t]["features"]["token"].asString().c_str();
-                    // tsükkel üle sama sõne erinevate analüüsivariantide
-                    for(Json::Value::const_iterator mrf=tokens[t]["features"]["mrf"].begin();
-                            mrf != tokens[t]["features"]["mrf"].end(); mrf++)
-                    {
-                        // S_TYYP tyvi;     // tüvi|lemma
-                        // S_TYYP lopp;     // lõpp
-                        // S_TYYP kigi;     // liide ki|gi
-                        // S_TYYP sl;       // sõnaliigistring, sl[0]==POS, sl[1]==EOS
-                        // S_TYYP vormid;   // FS-kujul vorm 
-
-                        // S_TYYP mrg1st;   // ühestaja märgend
-                        // S_TYYP lemma;    // lemma-ma, kui leiti lemma
-
-                        mrftulemused_utf8.Add(
-                            mrf->isMember("lemma")                      // lemma|tüvi
-                                ? (*mrf)["lemma"].asString().c_str() 
-                                : (*mrf)["stem"].asString().c_str(),
-                            (*mrf)["ending"].asString().c_str(),        // lõpp
-                            (*mrf)["enclitic_gi"].asString().c_str(),   // ki|gi
-                            (*mrf)["pos"].asString().c_str(),           // sõnaliik
-                            (*mrf)["fs-category"].asString().c_str() ); // FS-vorm
-                    }
-                    
-                    // ühestamismärgendite saamiseks on vajalik utf-16 {{
-                    MRFTULEMUSED mrftulemused(mrftulemused_utf8);
-                    fs_2_hmm.FsTags2YmmTags(&mrftulemused);
-                    MRFTULEMUSED_UTF8 mrftulemused_utf8_with_yhm = mrftulemused;
-                    // }} jura lõpp
-                    LYLI_UTF8 lyli_utf8(mrftulemused_utf8_with_yhm);
-                    analyysid.LisaSappaKoopia(lyli_utf8);
-                }
-                // jooksev lause kokkukorjatud
-                if((sent_end-sent_start) != analyysid.idxLast)
-                    throw std::string("tokens.size() != analyysid.idxLast"); // midagi väga valesti
-
-                yhh.Run(analyysid); // ühestame lause
-                
-                // ajame ühestatud lause tagasi JSONisse
-
-                // JSONsisendis tsükkel üle sõne+analüüside lauses
-                for(int t = sent_start; t < sent_end; t++)
-                {
-                    Json::Value& token=tokens[t];
-                    MRFTULEMUSED_UTF8* mrftulemused_utf8 = analyysid.Lyli(t-sent_start, PRMS_MRF)->ptr.pMrfAnal;
-                    
-                    // tsükkel üle analüüsivariantide JSONsisendis
-                    // lemma|tüvi + sl + vorm on ühestaja väljundis ? preferred == true : preferred == false
-                    for(int m=0; m < token["features"]["mrf"].size(); m++)
-                    {
-                        Json::Value& mrf = token["features"]["mrf"][m];
-                        // tsükkel üle analüüsivariantide ühestaja väljundis
-                        
-                        const std::string& json_stem_lemma = mrf.isMember("lemma") ? mrf["lemma"].asString() : mrf["stem"].asString();
-                        const std::string& json_pos = mrf["pos"].asString();
-                        const std::string& json_fs = mrf["fs-category"].asString();
-
-                        for(int a=0; a < mrftulemused_utf8->idxLast; a++)
-                        {                  
-                            std::string hmm_stem_lemma = (const char*)((*mrftulemused_utf8)[a]->tyvi);
-                            std::string hmm_pos = (const char*)((*mrftulemused_utf8)[a]->sl);
-                            std::string hmm_fs  = (const char*)((*mrftulemused_utf8)[a]->vormid);
-
-                            if (json_pos != hmm_pos || json_fs != hmm_fs || hmm_stem_lemma != json_stem_lemma)
-                            {
-                                mrf["preferred"] = false;
-                                continue;
-                            }
-                            // kõik klappis: sõnaliik, vorm, tüvi|lemma
-                            mrf["preferred"] = true;
-                        }
-                    }
-                }
-                if(sent_start < sent_end 
-                        && tokens[0]["features"]["mrf"].size() > 0
-                        && tokens[0]["features"]["mrf"][0].isMember("result-string-as-discrete") == true)
-                {
-                    for(int t = sent_start; t < sent_end; t++)
-                    {
-                        Json::Value& token=tokens[t];
-                        for(int m=0; m < token["features"]["mrf"].size(); m++)
-                        {
-                            Json::Value& mrf = token["features"]["mrf"][m];
-                            if(mrf["preferred"].asBool()==true)
-                                mrf["result-string-as-discrete"] = "+ " + mrf["result-string-as-discrete"].asString();
-                            else
-                                mrf["result-string-as-discrete"] = "- " + mrf["result-string-as-discrete"].asString();
-                        }
-                    }
+                    mrf["preferred"] = IsPreferred(mrf, *lyli->ptr.pMrfAnal);
+                    MarkDiscreteResult(mrf);
                 }
             }
-        }
-        catch(...)
-        {
-            jsonobj["warnings"].append("Application error");
-            return;
         }
     }
 
@@ -522,7 +702,13 @@ private:
      */
     void InitClassVariables(void)
     {
-
+        started = false;
+        sisend_torust = false;
+        VaikeLipudPaika();
+        startup_options = CurrentOptions();
+        path.Empty();
+        json_str_fs.Empty();
+        lipud_yhh_cl_dflt.Set(MF_DFLT_MORFY);
     }
 
     /** 
@@ -530,7 +716,7 @@ private:
      */
     bool EmptyClassInvariant(void)
     {
-        return true;
+        return !started && yhh.EmptyClassInvariant();
     }
 
     /** 
@@ -539,7 +725,7 @@ private:
 
     bool ClassInvariant(void)
     {
-        return true;
+        return started && yhh.ClassInvariant();
     }
 
     /** 

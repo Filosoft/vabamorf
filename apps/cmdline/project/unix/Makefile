@@ -6,7 +6,7 @@ include Makefile.base
 
 LIBS=json.ar proof.ar etyhh.ar etana.ar fsc.ar
 LIBS_DB=$(LIBS:.ar=.db.ar)
-EXE=vmetyjson vmetsjson vmetsjsonhttp vmetltjson vmetajson vmetajsonhttp vmets vmeta vmety etdisamb etana etsyn stlspeller stlspellerjson
+EXE=vmetyjson vmetyjsonhttp vmetsjson vmetsjsonhttp vmetltjson vmetajson vmetajsonhttp vmets vmeta vmety etdisamb etana etsyn stlspeller stlspellerjson
 #EXE=vmetsjson vmetltjson vmetajson vmets vmeta vmety etdisamb etana etsyn stlspeller stlspellerjson
 EXE_DB=$(addsuffix .db,$(EXE))
 
@@ -103,6 +103,12 @@ vmetsjsonhttp : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmetsjsonhttp/*.cpp) 
 	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
 vmetsjsonhttp.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmetsjsonhttp/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetsjson/*.h)
+	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+vmetyjsonhttp : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjsonhttp/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjson/*.h)
+	$(call compile2bin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
+
+vmetyjsonhttp.db : $(LIBS_DB) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjsonhttp/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/vmetyjson/*.h)
 	$(call compile2dbbin,$@,../$(ROOTDIR)/apps/cmdline/$(basename $@))
 
 test : $(LIBS) $(wildcard $(ROOTDIR)/apps/cmdline/test/*.cpp) $(wildcard $(ROOTDIR)/apps/cmdline/test/*.h)
