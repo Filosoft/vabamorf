@@ -1,7 +1,13 @@
 # muutujad (globaalsed)
 CC=g++
-FLAGS=-O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
-FLAGS_DB=-ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+#FLAGS=-O2 -DNDEBUG -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+#FLAGS_DB=-ggdb  -D_DEBUG -fno-inline -std=gnu++0x -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections -ljsoncpp
+
+HTTP_JSON_FLAGS := $(shell pkg-config --cflags --libs cpp-httplib jsoncpp)
+
+FLAGS=-O2 -DNDEBUG -std=gnu++11 -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections $(HTTP_JSON_FLAGS)
+FLAGS_DB=-ggdb -D_DEBUG -fno-inline -std=gnu++11 -fno-delete-null-pointer-checks -pthread -fdata-sections -ffunction-sections -Wl,--gc-sections $(HTTP_JSON_FLAGS)
+
 ROOTDIR=../../../..
 
 # funktsioonid

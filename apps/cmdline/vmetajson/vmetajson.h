@@ -27,6 +27,10 @@ Mida uut:
 #include <assert.h>
 #include <iterator>
 #include <regex>
+#include <cerrno>
+#include <cstdlib>
+#include <limits>
+#include <stdexcept>
 #include "../../../lib/etana/etmrfana.h"
 #include "../../../lib/etana/viga.h"
 #include "../../../lib/etana/mrf2yh2mrf.h"
@@ -48,9 +52,11 @@ int MTemplateJson(int argc, FSTCHAR ** argv)
     try
     {
         FSCInit();
-        MAIN m;
-        m.Start(argc, argv);
-        m.Run();
+        {
+            MAIN m;
+            m.Start(argc, argv);
+            m.Run();
+        }
         FSCTerminate();
         return EXIT_SUCCESS;
     }
@@ -111,10 +117,79 @@ public:
      */
     void Start(int argc, FSTCHAR** argv)
     {
+        if(started)
+            Stop();
         LipuStringidKasurealt(argc, argv);
-        mrf.SetMaxTasand(lipp_maxcomplexity);
         lipud_mrf_cl_dflt.Set(LipuBitidPaika()); // kui jsonist lippe ei tule kasutame sedas
         mrf.Start(path, lipud_mrf_cl_dflt.Get());
+        mrf.SetMaxTasand(lipp_maxcomplexity);
+        startup_options = CurrentOptions();
+        started = true;
+    }
+
+    /**
+     * @brief Töötleme ühe päringu ilma stdin/stdout'i kasutamata.
+     * Start() peab olema eelnevalt kutsutud. Sama instantsi kasutavad
+     * lõimed peavad selle meetodi kutsed omavahel järjestama.
+     * @return 200 -- tulemus, 400 -- vigane sisend, 500 -- mootori viga.
+     */
+    int Process(Json::Value& jsonobj)
+    {
+        if(!started)
+            return RequestError(jsonobj, "Morfoloogiamootor ei ole käivitatud", 500);
+
+        // Taastame kõik Start() ajal määratud valikud, mitte ainult morfi bitilipud.
+        RestoreOptions(startup_options);
+        std::string error;
+        if(!ValidateInput(jsonobj, error))
+            return RequestError(jsonobj, error);
+
+        try
+        {
+            if(jsonobj.isMember("params") && jsonobj["params"].isMember("vmetajson"))
+            {
+                // JSONi lipumassiiv asendab käsurea valikud, nagu käsureaprogrammis.
+                VaikeLipudPaika();
+                for(const Json::Value& option : jsonobj["params"]["vmetajson"])
+                {
+                    const std::string flag = option.asString();
+                    if(flag.compare(0, 7, "--path=") == 0 || flag.compare(0, 7, "--json=") == 0)
+                        return RequestError(jsonobj, "Ainult käivitamisel lubatud lipp: " + flag);
+                    if(!LipuStringPaika(flag.c_str()))
+                        return RequestError(jsonobj, "Illegaalne lipp: " + flag);
+                }
+            }
+            if(lipp_oleta_pn && !lipp_oleta)
+                return RequestError(jsonobj, "Lipu --guesspropnames korral on lipp --guess kohustuslik");
+            if(lipp_oleta_pn && (!jsonobj.isMember("annotations") ||
+                !jsonobj["annotations"].isMember("sentences") ||
+                !jsonobj["annotations"].isMember("tokens")))
+                return RequestError(jsonobj, "Lipu --guesspropnames korral peavad sõned ja laused olema annoteeritud");
+
+            mrf.Clr();
+            mrf.SetMaxTasand(lipp_maxcomplexity);
+            mrf.mrfFlags->Set(LipuBitidPaika());
+            if(lipp_version)
+                jsonobj["version_vmetajson"] = VERSION;
+            if(lipp_oleta_pn)
+                TeeSedaLausekaupa(jsonobj);
+            else
+                TeeSedaSonekaupa(jsonobj);
+            mrf.Clr();
+            assert(ClassInvariant());
+            return 200;
+        }
+        catch(VEAD& viga)
+        {
+            mrf.Clr();
+            return RequestError(jsonobj, (const char*)viga.Teade(), 500);
+        }
+        catch(...)
+        {
+            // Pooliku päringu sõned ei tohi järgmise päringu sisendisse jääda.
+            mrf.Clr();
+            return RequestError(jsonobj, "Morfoloogilise analüüsi viga", 500);
+        }
     }
 
     /**
@@ -171,6 +246,15 @@ public:
     }
 
 private:
+    struct RequestOptions
+    {
+        int maxcomplexity;
+        bool result_string_as_joined, result_string_as_discrete;
+        bool gt, hmm, stem, oleta, oleta_pn, haaldus, taanded, utf8, version;
+    };
+
+    RequestOptions startup_options;
+    bool started;
     int lipp_maxcomplexity;     // --depth=MAXTASAND
     bool lipp_result_string_as_joined;          // --classic1 # vmeta stiilis väljundstring sõne juures
     bool lipp_result_string_as_discrete;          // --classic2 # vmeta stiilis väljundstring analüüsivariandi juures
@@ -193,6 +277,145 @@ private:
 
     ETMRFA    mrf;
     MRF_FLAGS lipud_mrf_cl_dflt; // käsureaga määratud lipud
+
+    RequestOptions CurrentOptions(void) const
+    {
+        return {lipp_maxcomplexity, lipp_result_string_as_joined,
+            lipp_result_string_as_discrete, lipp_gt, lipp_hmm, lipp_stem,
+            lipp_oleta, lipp_oleta_pn, lipp_haaldus, lipp_taanded,
+            lipp_utf8, lipp_version};
+    }
+
+    void RestoreOptions(const RequestOptions& options)
+    {
+        lipp_maxcomplexity = options.maxcomplexity;
+        lipp_result_string_as_joined = options.result_string_as_joined;
+        lipp_result_string_as_discrete = options.result_string_as_discrete;
+        lipp_gt = options.gt;
+        lipp_hmm = options.hmm;
+        lipp_stem = options.stem;
+        lipp_oleta = options.oleta;
+        lipp_oleta_pn = options.oleta_pn;
+        lipp_haaldus = options.haaldus;
+        lipp_taanded = options.taanded;
+        lipp_utf8 = options.utf8;
+        lipp_version = options.version;
+    }
+
+    static int RequestError(Json::Value& jsonobj, const std::string& error, int status=400)
+    {
+        if(!jsonobj.isObject())
+            jsonobj = Json::Value(Json::objectValue);
+        if(!jsonobj["errors"].isArray())
+            jsonobj["errors"] = Json::Value(Json::arrayValue);
+        jsonobj["errors"].append(error);
+        return status;
+    }
+
+    static bool IsText(const Json::Value& value)
+    {
+        return value.isString() && value.asString().find('\0') == std::string::npos;
+    }
+
+    static bool IsBlankToken(const std::string& token)
+    {
+        return token.find_first_not_of(" \t\r\n\f\v") == std::string::npos;
+    }
+
+    /** Kontrollime kogu sisendi enne esimese sõne morfi järjekorda lisamist. */
+    static bool ValidateInput(const Json::Value& jsonobj, std::string& error)
+    {
+        if(!jsonobj.isObject())
+            error = "Sisend peab olema JSON-objekt";
+        else if(jsonobj.isMember("content") && !IsText(jsonobj["content"]))
+            error = "content peab olema NUL-märgita string";
+        else if(jsonobj.isMember("tss") && !IsText(jsonobj["tss"]))
+            error = "tss peab olema NUL-märgita string";
+        else if(jsonobj.isMember("params") && !jsonobj["params"].isObject())
+            error = "params peab olema JSON-objekt";
+        else if(jsonobj.isMember("annotations") && !jsonobj["annotations"].isObject())
+            error = "annotations peab olema JSON-objekt";
+        if(!error.empty())
+            return false;
+
+        if(jsonobj.isMember("params") && jsonobj["params"].isMember("vmetajson"))
+        {
+            const Json::Value& options = jsonobj["params"]["vmetajson"];
+            if(!options.isArray())
+            {
+                error = "params.vmetajson peab olema stringide massiiv";
+                return false;
+            }
+            for(const Json::Value& option : options)
+                if(!IsText(option))
+                {
+                    error = "params.vmetajson peab sisaldama NUL-märgita stringe";
+                    return false;
+                }
+        }
+
+        const Json::Value& annotations = jsonobj["annotations"];
+        const bool hasTokens = annotations.isMember("tokens");
+        const Json::Value& tokens = annotations["tokens"];
+        if(hasTokens)
+        {
+            if(!tokens.isArray())
+            {
+                error = "annotations.tokens peab olema massiiv";
+                return false;
+            }
+            for(const Json::Value& token : tokens)
+                if(!token.isObject() || !token["features"].isObject() ||
+                    !IsText(token["features"]["token"]) ||
+                    IsBlankToken(token["features"]["token"].asString()))
+                {
+                    error = "Iga sõne features.token peab olema mittetühi NUL-märgita string";
+                    return false;
+                }
+        }
+        else if(!jsonobj.isMember("content") && !jsonobj.isMember("tss"))
+        {
+            error = "JSON ei sisalda morfimiseks vajalikku infot";
+            return false;
+        }
+        if(!hasTokens && !jsonobj.isMember("content") && jsonobj.isMember("tss"))
+        {
+            std::istringstream fields(jsonobj["tss"].asString());
+            std::string token;
+            while(std::getline(fields, token, '\t'))
+                if(IsBlankToken(token))
+                {
+                    error = "tss ei tohi sisaldada tühje või ainult tühikutest koosnevaid sõnesid";
+                    return false;
+                }
+        }
+        if(annotations.isMember("sentences"))
+        {
+            const Json::Value& sentences = annotations["sentences"];
+            if(!hasTokens || !sentences.isArray())
+            {
+                error = "annotations.sentences eeldab lausete ja sõnede massiive";
+                return false;
+            }
+            for(const Json::Value& sentence : sentences)
+            {
+                if(!sentence.isObject() || !sentence["features"].isObject())
+                {
+                    error = "Iga lause peab sisaldama objekti features";
+                    return false;
+                }
+                const Json::Value& features = sentence["features"];
+                if(!features["start"].isUInt() || !features["end"].isUInt() ||
+                    features["start"].asUInt() > features["end"].asUInt() ||
+                    features["end"].asUInt() > tokens.size())
+                {
+                    error = "Lause sõnevahemik peab vastama tingimusele 0 <= start <= end <= sõnede arv";
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     /**
      * @brief Panema paika lippude vaikeväärtused
@@ -304,7 +527,14 @@ private:
         //=============================
         if(strncmp("--maxcomplexity=", lipuString, sizeof("--maxcomplexity=")-1)==0)
         {
-            lipp_maxcomplexity=atoi(lipuString+(strchr(lipuString, '=')-lipuString+1));
+            const char* number = strchr(lipuString, '=') + 1;
+            char* end = NULL;
+            errno = 0;
+            const long value = std::strtol(number, &end, 10);
+            if(*number < '0' || *number > '9' || *end != '\0' || errno == ERANGE ||
+                value < 0 || value > std::numeric_limits<int>::max())
+                return false;
+            lipp_maxcomplexity = static_cast<int>(value);
             return true;
         }
         //=============================
@@ -400,77 +630,17 @@ private:
     }
 
     /** 
-     * @brief Laseme ühe jsoni päringu läbi
+     * @brief Laseme ühe jsoni päringu läbi, tulemus väljundfaili/stdout'i
      */
-    void TeeSeda(Json::Value& jsonobj)
+    void TeeSeda(Json::Value& jsonobj, bool tulemusFaili=true)
     {
-        bool ret;
-        CFSWString rida;
-        LYLI lyli;
-
-        try
-        {
-            if(jsonobj.isMember("params")==true && jsonobj["params"].isMember("vmetajson")==true)
-            {
-                // võtame JSONist lipud morfimiseks ja tulemuse kuvamiseks
-                VaikeLipudPaika();
-                bool lipudOK=true;           
-                for(Json::Value::const_iterator i=jsonobj["params"]["vmetajson"].begin(); i != jsonobj["params"]["vmetajson"].end(); ++i)
-                {
-
-                    if(LipuStringPaika(i->asCString())==false)
-                    {
-                        lipudOK=false;
-                        std::string warning = "Illegaalne lipp: " + i->asString();
-                        jsonobj["warnings"].append(warning);
-                    }
-                }
-                if(lipudOK==false)
-                {
-                    fsJsonCpp.JsonWriter(jsonobj);
-                    return;
-                }
-                mrf.SetMaxTasand(lipp_maxcomplexity);
-                mrf.mrfFlags->Set(LipuBitidPaika()); // morfimine ja kuvamine hakkab toimuma jsonist saadud lippudega
-            }
-            else
-                {
-                    // morfimine ja kuvamine hakkab toimuma käsurealt saadud lippudega
-                    mrf.SetMaxTasand(lipp_maxcomplexity);
-                    mrf.mrfFlags->Set(lipud_mrf_cl_dflt.Get()); // Kasutame Start()'ist meeldejäetud
-                }
-            if(lipp_version==true)
-            {
-                jsonobj["version_vmetajson"] = VERSION;
-            }
-            if(lipp_oleta_pn==true)
-            {
-                if(lipp_oleta==false)
-                {
-                    fsJsonCpp.JsonWarning("Lipu --guesspropnames korral on lipp --guess kohustuslik");
-                    return;
-                }
-                if(jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("sentences")==false)
-                {
-                    fsJsonCpp.JsonWarning("Lipu --guesspropnames korral peavad olema laused annoteeritud");
-                    return;
-                }
-                TeeSedaLausekaupa(jsonobj); // jsonobj["annotations"]["sentences"] on kohustuslik
-            }
-            else   
-            {                               // jsonobj["annotations"]["tokens"] või jsonobj["content"] on kohustuslik
-                TeeSedaSonekaupa(jsonobj);  // jsonobj["annotations"]["sentences"] ei ole kohustuslik
-            }
-            if(json_str_fs.GetLength() <= 0)
-                lipp_taanded = false;
+        Process(jsonobj);
+        if(json_str_fs.GetLength() <= 0)
+            lipp_taanded = false;
+        if(tulemusFaili)
             fsJsonCpp.JsonWriter(jsonobj, lipp_taanded, lipp_utf8);
-        }
-        catch(...)
-        {
-            fsJsonCpp.JsonWarning("Mingi JAMA");
-        }
-        
     }
+
 
     /**
      * @brief Morfime sõnekaupa
@@ -481,7 +651,7 @@ private:
     {
         if(jsonobj.isMember("content")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
         {
-            
+            jsonobj["annotations"]["tokens"] = Json::Value(Json::arrayValue);
             // "content" on olemas, aga annoteeritud sõnesid pole, tekitame need
             std::stringstream tokens(jsonobj["content"].asString());
             std::istream_iterator<std::string> begin(tokens);
@@ -497,6 +667,7 @@ private:
         }
         if(jsonobj.isMember("tss")==true && (jsonobj.isMember("annotations")==false || jsonobj["annotations"].isMember("tokens")==false))
         {
+            jsonobj["annotations"]["tokens"] = Json::Value(Json::arrayValue);
             // "tss" on olemas, aga annoteeritud sõnesid pole, tekitame need
             std::string tokens = jsonobj["tss"].asString();
             std::istringstream iss(tokens);
@@ -516,7 +687,8 @@ private:
                 Json::Value& jsonFeatures = jsonToken["features"]; 
                 mrf.Set1(jsonFeatures["token"].asCString());
                 LYLI lyli;
-                mrf.Flush(lyli);
+                if(!mrf.Flush(lyli) || (lyli.lipp & PRMS_MRF) != PRMS_MRF)
+                    throw std::runtime_error("Morfoloogiamootor ei tagastanud sõne analüüsi");
                 MrfTulemused_2_JSON(jsonFeatures, lyli);
             }
             return;
@@ -538,7 +710,7 @@ private:
         }
         Json::Value& sentences = jsonobj["annotations"]["sentences"];
         Json::Value& tokens = jsonobj["annotations"]["tokens"];
-        for(int s=0; s<sentences.size(); s++) // tsükkel üle lausete
+        for(Json::ArrayIndex s=0; s<sentences.size(); s++) // tsükkel üle lausete
         {
             // paneme morfi lausejagu sõnesid
             unsigned start = sentences[s]["features"]["start"].asUInt();
@@ -546,9 +718,8 @@ private:
             assert(start <= end);
             assert(end <= tokens.size());
             mrf.Set1(new LYLI(FSWSTR("<s>"), PRMS_TAGBOS));
-            for(int t=start; t<end; t++) // tsükkel üle sõnede lauses
+            for(Json::ArrayIndex t=start; t<end; t++) // tsükkel üle sõnede lauses
             {
-                std::string tmp_db =  tokens[t]["features"]["token"].asString();
                 mrf.Set1(tokens[t]["features"]["token"].asString().c_str());
             }
             mrf.Set1(new LYLI(FSWSTR("</s>"), PRMS_TAGEOS));
@@ -556,15 +727,18 @@ private:
             // võtame morfist lausejagu morfitud sõnesid
             LYLI lyli;
             bool ret = mrf.Flush(lyli); // <s>
-            assert(ret==true && (lyli.lipp & PRMS_TAGBOS)==PRMS_TAGBOS);
-            for(int t=start; t<end; t++) // tsükkel üle sõnede lauses
+            if(!ret || (lyli.lipp & PRMS_TAGBOS) != PRMS_TAGBOS)
+                throw std::runtime_error("Lause algusmärgend puudub morfi väljundis");
+            for(Json::ArrayIndex t=start; t<end; t++) // tsükkel üle sõnede lauses
             {
                 ret = mrf.Flush(lyli);
-                assert(ret==true && (lyli.lipp & PRMS_MRF)==PRMS_MRF);
+                if(!ret || (lyli.lipp & PRMS_MRF) != PRMS_MRF)
+                    throw std::runtime_error("Morfoloogiamootor ei tagastanud sõne analüüsi");
                 MrfTulemused_2_JSON(tokens[t]["features"], lyli);
             }
-            mrf.Flush(lyli); // </s>
-            assert(ret==true && (lyli.lipp & PRMS_TAGEOS)==PRMS_TAGEOS);
+            ret = mrf.Flush(lyli); // </s>
+            if(!ret || (lyli.lipp & PRMS_TAGEOS) != PRMS_TAGEOS)
+                throw std::runtime_error("Lause lõpumärgend puudub morfi väljundis");
         }
     }
 
@@ -576,6 +750,10 @@ private:
      */
     void MrfTulemused_2_JSON(Json::Value& features, LYLI& lyli)
     {
+        // Sama JSONi uuesti töötlemine peab varasema tulemuse asendama.
+        features.removeMember("mrf");
+        features.removeMember("lexicon-based-effort-level");
+        features.removeMember("result-string-as-joined");
         lyli.ptr.pMrfAnal->StrctKomadLahku();
         if(mrf.mrfFlags->ChkB(MF_LISAPNANAL)==true)
             lyli.ptr.pMrfAnal->SortUniq();
@@ -653,7 +831,11 @@ private:
      */
     void InitClassVariables(void)
     {
-
+        started = false;
+        VaikeLipudPaika();
+        startup_options = CurrentOptions();
+        path.Empty();
+        json_str_fs.Empty();
     }
 
     /** 
@@ -661,7 +843,7 @@ private:
      */
     bool EmptyClassInvariant(void)
     {
-        return true;
+        return !started;
     }
 
     /** 
@@ -670,7 +852,7 @@ private:
 
     bool ClassInvariant(void)
     {
-        return true;
+        return started && mrf.ClassInvariant();
     }
 
     /** 
