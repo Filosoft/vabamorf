@@ -10,8 +10,8 @@ x-api-vmetyjson-port: &api-vmetyjson-port "7003"
 x-api-vmetsjson-port: &api-vmetsjson-port "7004"
 
 services:
-  api_estnltk_sentok:
-    image: tilluteenused/api_estnltk_sentok:2026.10.05
+  api_flask_estnltk_sentok:
+    image: tilluteenused/api_flask_estnltk_sentok:2026.10.05
     restart: unless-stopped
     ports:
       - target: *api-estnltk-port
@@ -32,8 +32,8 @@ services:
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
       start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
 
-  api_vm_vmetajson:
-    image: tilluteenused/api_vm_vmetajson:2026.10.05
+  api_flask_vmetajson:
+    image: tilluteenused/api_flask_vmetajson:2026.10.05
     restart: unless-stopped
     ports:
       - target: *api-vmetajson-port
@@ -56,11 +56,11 @@ services:
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
       start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
     depends_on:
-      api_estnltk_sentok:
+      api_flask_estnltk_sentok:
         condition: service_healthy
 
-  api_vm_vmetyjson:
-    image: tilluteenused/api_vm_vmetyjson:2026.10.12
+  api_flask_vmetyjson:
+    image: tilluteenused/api_flask_vmetyjson:2026.10.12
     ports:
       - target: *api-vmetyjson-port
         published: *api-vmetyjson-port
@@ -79,11 +79,11 @@ services:
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
       start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
     depends_on:
-      api_vm_vmetajson:
+      api_flask_vmetajson:
         condition: service_healthy
 
-  api_vm_vmetsjson:
-    image: tilluteenused/api_vm_vmetsjson:2026.10.12
+  api_flask_vmetsjson:
+    image: tilluteenused/api_flask_vmetsjson:2026.10.12
     ports:
       - target: *api-vmetsjson-port
         published: *api-vmetsjson-port
