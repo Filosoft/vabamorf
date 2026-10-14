@@ -9,6 +9,8 @@ x-api-vmetajson-port: &api-vmetajson-port "7002"
 x-api-vmetyjson-port: &api-vmetyjson-port "7003"
 x-api-vmetsjson-port: &api-vmetsjson-port "7004"
 
+x-api-httplib-vmetsjson-port: &api-httplib-vmetsjson-port "7005"
+
 services:
   api_flask_estnltk_sentok:
     image: tilluteenused/api_flask_estnltk_sentok:2026.10.05
@@ -101,3 +103,22 @@ services:
       timeout: 5s       # Oota vastust kuni 5 sekundit
       retries: 3        # Kui 3 korda järjest ebaõnnestub, loe vigaseks
       start_period: 10s # Anna alguses 10 sekundit aega käivitumiseks
+
+  api_httplib_vmetajson:
+    image: tilluteenused/api_httplib_vmetajson:2026.10.14
+    restart: unless-stopped
+    ports:
+      - target: *api-httplib-vmetsjson-port
+        published: *api-httplib-vmetsjson-port
+        protocol: tcp
+    environment:
+      PORT: *api-httplib-vmetsjson-port
+    build:
+      context: ../../../../docker/httplib_vmetajson/
+      dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD-SHELL", 'curl --fail --silent --show-error --max-time 3 "http://127.0.0.1:$${PORT}/health" > /dev/null']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
