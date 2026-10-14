@@ -11,8 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libstdc++6 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PORT=7005
-
 # Mitte-root kasutaja loomine
 RUN groupadd --gid 1001 app_group \
     && useradd --create-home --home-dir /home/appuser --uid 1001 --gid 1001 --shell /bin/bash appuser
@@ -24,7 +22,5 @@ COPY --chown=appuser:app_group vmetajsonhttp et.dct docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh vmetajsonhttp
 
 USER appuser
-
-EXPOSE 7005
 
 ENTRYPOINT ["/usr/bin/tini", "--", "/app/docker-entrypoint.sh"]

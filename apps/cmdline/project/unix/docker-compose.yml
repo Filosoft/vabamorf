@@ -9,7 +9,9 @@ x-api-vmetajson-port: &api-vmetajson-port "7002"
 x-api-vmetyjson-port: &api-vmetyjson-port "7003"
 x-api-vmetsjson-port: &api-vmetsjson-port "7004"
 
-x-api-httplib-vmetsjson-port: &api-httplib-vmetsjson-port "7005"
+x-api-httplib-vmetajson-port: &api-httplib-vmetajson-port "7005"
+x-api-httplib-vmetyjson-port: &api-httplib-vmetyjson-port "7006"
+x-api-httplib-vmetsjson-port: &api-httplib-vmetsjson-port "7007"
 
 services:
   api_flask_estnltk_sentok:
@@ -108,11 +110,11 @@ services:
     image: tilluteenused/api_httplib_vmetajson:2026.10.14
     restart: unless-stopped
     ports:
-      - target: *api-httplib-vmetsjson-port
-        published: *api-httplib-vmetsjson-port
+      - target: *api-httplib-vmetajson-port
+        published: *api-httplib-vmetajson-port
         protocol: tcp
     environment:
-      PORT: *api-httplib-vmetsjson-port
+      PORT: *api-httplib-vmetajson-port
     build:
       context: ../../../../docker/httplib_vmetajson/
       dockerfile: ./Dockerfile
@@ -122,3 +124,48 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    depends_on:
+      api_flask_vmetajson:
+        condition: service_healthy
+
+  api_httplib_vmetyjson:
+    image: tilluteenused/api_httplib_vmetyjson:2026.10.14
+    restart: unless-stopped
+    ports:
+      - target: *api-httplib-vmetyjson-port
+        published: *api-httplib-vmetyjson-port
+        protocol: tcp
+    environment:
+      PORT: *api-httplib-vmetyjson-port
+    build:
+      context: ../../../../docker/httplib_vmetyjson/
+      dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD-SHELL", 'curl --fail --silent --show-error --max-time 3 "http://127.0.0.1:$${PORT}/health" > /dev/null']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      api_httplib_vmetajson:
+        condition: service_healthy
+
+  api_httplib_vmetsjson:
+    image: tilluteenused/api_httplib_vmetsjson:2026.10.14
+    restart: unless-stopped
+    ports:
+      - target: *api-httplib-vmetsjson-port
+        published: *api-httplib-vmetsjson-port
+        protocol: tcp
+    environment:
+      PORT: *api-httplib-vmetsjson-port
+    build:
+      context: ../../../../docker/httplib_vmetsjson/
+      dockerfile: ./Dockerfile
+    healthcheck:
+      test: ["CMD-SHELL", 'curl --fail --silent --show-error --max-time 3 "http://127.0.0.1:$${PORT}/health" > /dev/null']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+     
