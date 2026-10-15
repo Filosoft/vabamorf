@@ -154,7 +154,12 @@ def check_default_server(base_url):
     request(base_url, "/process", payload, content_type="text/plain", status=415)
     request(base_url, "/process", payload, content_type=None, status=415)
 
-    # Check the body limit without transferring 9 MiB to the local server.
+    # A body exactly at the unchanged 8 MiB default is accepted.
+    encoded = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    default_sized_body = encoded + b" " * (8 * 1024 * 1024 - len(encoded))
+    assert preferred(request(base_url, "/process", raw=default_sized_body), 1) == {("tee", "S", "sg n")}
+
+    # Check rejection above the limit without transferring 9 MiB to the server.
     url = urllib.parse.urlsplit(base_url)
     connection = http.client.HTTPConnection(url.hostname, url.port, timeout=10)
     try:
@@ -357,6 +362,51 @@ def check_startup_defaults(base_url):
     assert request(base_url, "/process", payload) == baseline
 
 
+def check_content_length_limits(binary, dictionary_dir):
+    payload = prohibition_payload()
+    json_text = json.dumps(payload, ensure_ascii=False)
+    encoded = json_text.encode("utf-8")
+    limit = len(encoded) + 32
+    exact_body = encoded + b" " * (limit - len(encoded))
+    with running_server(binary, dictionary_dir,
+                        "--max_content_length={}".format(limit)) as base_url:
+        # Whitespace padding changes the HTTP body size without changing the JSON.
+        result = request(base_url, "/process", raw=exact_body)
+        assert preferred(result, 1) == {("tegema", "V", "o")}
+        request(base_url, "/process", raw=exact_body + b" ", status=413)
+
+        # The limit counts UTF-8 bytes, so limit characters exceed limit bytes.
+        character_sized = (json_text + " " * (limit - len(json_text))).encode("utf-8")
+        assert len(character_sized) > limit
+        request(base_url, "/process", raw=character_sized, status=413)
+        assert request(base_url, "/process", raw=exact_body) == result
+        assert request(base_url, "/health")["status"] == "ok"
+
+    # A configured limit can increase the default of 8 MiB. Trailing JSON
+    # whitespace keeps the disambiguation work and response small.
+    raised_limit = 8 * 1024 * 1024 + 1
+    large_body = encoded + b" " * (raised_limit - len(encoded))
+    with running_server(binary, dictionary_dir,
+                        "--max_content_length={}".format(raised_limit)) as base_url:
+        result = request(base_url, "/process", raw=large_body)
+        assert preferred(result, 1) == {("tegema", "V", "o")}
+
+
+def check_invalid_content_length_flags(binary):
+    for value in ("", "0", "-1", "+128", "1.5", "1e3", "0x100", "abc",
+                  " 128", "128 ", "9" * 100):
+        # --help avoids dictionary loading if a bad value is accidentally accepted.
+        result = subprocess.run(
+            [str(binary), "--max_content_length=" + value, "--help"],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=10,
+        )
+        assert result.returncode != 0, (value, result.stdout, result.stderr)
+        assert b"max_content_length" in result.stderr, (value, result.stderr)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("binary", type=pathlib.Path)
@@ -372,7 +422,9 @@ def main():
         check_default_server(base_url)
     with running_server(binary, dictionary_dir, "--version", "--formattedjson", "--utf8json") as base_url:
         check_startup_defaults(base_url)
-    print("HTTP integration checks passed (including disambiguation, request isolation and concurrent requests).")
+    check_content_length_limits(binary, dictionary_dir)
+    check_invalid_content_length_flags(binary)
+    print("HTTP integration checks passed (including disambiguation, content limits, request isolation and concurrent requests).")
 
 
 if __name__ == "__main__":

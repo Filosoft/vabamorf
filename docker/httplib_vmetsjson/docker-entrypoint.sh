@@ -7,6 +7,7 @@ if [ $# -eq 0 ] || [ "${1#-}" != "$1" ]; then
         --path=/app \
         --host=0.0.0.0 \
         "--port=${PORT:-7007}" \
+        "--max_content_length=${MAX_CONTENT_LENGTH:-8388608}" \
         "$@"
 fi
 

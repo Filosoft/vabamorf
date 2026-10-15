@@ -38,6 +38,19 @@ ilma taaneteta; `--utf8json` ja `--formattedjson` mõjutavad käsureaprogrammi
 väljundit. `--help` kuvab kasutuse. `--json` ei ole serveri käivituslipp:
 sisend tuleb HTTP-päringust.
 
+`--max_content_length=MAX` määrab päringu keha ülempiiri baitides. `MAX` peab
+olema positiivne täisarv; vaikeväärtus on `8388608` ehk 8 MiB. Näiteks
+`--max_content_length=5000000` lubab kuni 5 000 000 baiti, kaasa arvatud
+JSON-i süntaks ja UTF-8 kodeeringu baidid. Piiri ületamisel tagastatakse HTTP 413.
+
+Docker Compose'i teenuse `api_httplib_vmetyjson` keskkonnamuutuja
+`MAX_CONTENT_LENGTH: "5000000"` antakse käivitusskriptis edasi sama
+käsurealipuna. Ilma keskkonnamuutujata kasutab skript väärtust `8388608`;
+eraldi antud käsurealipp saab keskkonnamuutuja väärtuse üle kirjutada.
+Dockerfile kasutab valmis binaari: pärast programmi uuesti kompileerimist
+kopeeri `apps/cmdline/project/unix/vmetyjsonhttp` faili
+`docker/httplib_vmetyjson/vmetyjsonhttp` ja ehita konteineritõmmis uuesti.
+
 ## Otspunktid
 
 | Meetod ja tee | Sisend | Väljund |
@@ -90,7 +103,8 @@ Vastused on UTF-8 JSON. Edukas päring annab HTTP 200. Vigane JSON,
 sisendstruktuur või parameeter annab HTTP 400; vale või puuduv
 Content-Type annab HTTP 415; ühestamismootori viga annab HTTP 500.
 Veavastus sisaldab `errors` sõnumite massiivi. Päringu keha ülempiir on
-8 MiB (HTTP 413). JSON-kommentaarid, korduvad objektivõtmed ja JSON-i
+vaikimisi 8 MiB, seda muudab `--max_content_length` (HTTP 413).
+JSON-kommentaarid, korduvad objektivõtmed ja JSON-i
 järgne lisatekst on keelatud.
 
 `/health` saab vastata pärast sõnastiku edukat laadimist. Kui käivitamine
@@ -106,5 +120,5 @@ python3 apps/cmdline/vmetyjsonhttp/test_http.py \
 ```
 
 Test käivitab serverid ajutistel portidel ning kontrollib ühestamist,
-veavastuseid, päringute seadistuste sõltumatust, paralleelpäringuid ja
+veavastuseid, päringu keha ülempiiri, päringute seadistuste sõltumatust, paralleelpäringuid ja
 korrektset sulgemist. Sama testi saab käivitada ka `.db` binaariga.

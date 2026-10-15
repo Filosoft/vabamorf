@@ -115,6 +115,7 @@ services:
         protocol: tcp
     environment:
       PORT: *api-httplib-vmetajson-port
+      MAX_CONTENT_LENGTH: "5000000"
     build:
       context: ../../../../docker/httplib_vmetajson/
       dockerfile: ./Dockerfile
@@ -137,6 +138,7 @@ services:
         protocol: tcp
     environment:
       PORT: *api-httplib-vmetyjson-port
+      MAX_CONTENT_LENGTH: "5000000"
     build:
       context: ../../../../docker/httplib_vmetyjson/
       dockerfile: ./Dockerfile
@@ -159,6 +161,7 @@ services:
         protocol: tcp
     environment:
       PORT: *api-httplib-vmetsjson-port
+      MAX_CONTENT_LENGTH: "5000000"
     build:
       context: ../../../../docker/httplib_vmetsjson/
       dockerfile: ./Dockerfile
@@ -168,4 +171,3 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-     

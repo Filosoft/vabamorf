@@ -8,9 +8,11 @@
 #include <atomic>
 #include <cctype>
 #include <chrono>
+#include <cstddef>
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 #include <memory>
 #include <mutex>
 #include <stdexcept>
@@ -155,6 +157,32 @@ namespace
     }
 
     /**
+     * @brief Teisendab käsurealt saadud päringu keha ülempiiri baitide arvuks.
+     * @param[in] text Positiivse kümnendsüsteemi täisarvu string.
+     * @return Päringu keha lubatud suurim pikkus baitides.
+     * @throws std::invalid_argument Kui string on tühi, sisaldab muid märke
+     * kui numbrid või väärtus on null.
+     * @throws std::out_of_range Kui väärtus ei mahu std::size_t tüüpi.
+     */
+    std::size_t ParseMaxContentLength(const std::string& text)
+    {
+        if (text.empty() || text.find_first_not_of("0123456789") != std::string::npos)
+            throw std::invalid_argument("--max_content_length peab olema positiivne täisarv baitides");
+
+        std::size_t length = 0;
+        for (char c : text)
+        {
+            const std::size_t digit = static_cast<std::size_t>(c - '0');
+            if (length > (std::numeric_limits<std::size_t>::max() - digit) / 10)
+                throw std::out_of_range("--max_content_length väärtus on liiga suur");
+            length = length * 10 + digit;
+        }
+        if (length == 0)
+            throw std::invalid_argument("--max_content_length peab olema positiivne täisarv baitides");
+        return length;
+    }
+
+    /**
      * @brief Kontrollib, kas päringu Content-Type on application/json.
      * @param[in] request Kontrollitav HTTP-päring.
      * @details Võrdlus ei erista suur- ja väiketähti. Sisutüübi ümbert
@@ -176,9 +204,11 @@ namespace
 /**
  * @brief Käivitab VMETSJSON HTTP-serveri ja haldab selle elutsüklit.
  * @param[in] argc Käsurea argumentide arv koos programmi nimega.
- * @param[in] argv Käsurea argumendid: --host, --port ja VMETSJSON käivituslipud.
+ * @param[in] argv Käsurea argumendid: --host, --port, --max_content_length
+ * ja VMETSJSON käivituslipud.
  * @details Vaikimisi kuulab server aadressil 0.0.0.0:8080. Sõnastik laaditakse
  * üks kord ning sünteesipäringud järjestatakse morfoloogiamootori mutex-i abil.
+ * Päringu keha ülempiir on vaikimisi 8388608 baiti (8 MiB).
  * --json on keelatud; JSON-sisend loetakse HTTP-päringu kehast.
  * SIGINT ja SIGTERM sulgevad kuulaja ning server lõpetab alustatud päringud.
  * FSC suletakse pärast mootori hävitamist ja käivitusvigade käsitlemist.
@@ -199,6 +229,7 @@ int main(int argc, char** argv)
     {
         std::string host = "0.0.0.0";
         int port = 8080;
+        std::size_t maxContentLength = 8 * 1024 * 1024;
         std::vector<char*> synthesizerArgs(1, argv[0]);
         for (int i = 1; i < argc; ++i)
         {
@@ -206,7 +237,9 @@ int main(int argc, char** argv)
             if (arg == "--help" || arg == "-h")
             {
                 std::cerr << "Kasutamine: " << argv[0]
-                    << " [--host=0.0.0.0] [--port=8080] [--path=SÕNASTIKE_KATALOOG] [VMETSJSON lipud]\n"
+                    << " [--host=0.0.0.0] [--port=8080] [--max_content_length=MAX]"
+                    << " [--path=SÕNASTIKE_KATALOOG] [VMETSJSON lipud]\n"
+                    << "MAX: päringu keha ülempiir baitides, vaikimisi 8388608 (8 MiB)\n"
                     << "POST /process, GET /version, GET /health\n";
                 return EXIT_SUCCESS;
             }
@@ -218,6 +251,8 @@ int main(int argc, char** argv)
             }
             else if (arg.compare(0, 7, "--port=") == 0)
                 port = ParsePort(arg.substr(7));
+            else if (arg.compare(0, 21, "--max_content_length=") == 0)
+                maxContentLength = ParseMaxContentLength(arg.substr(21));
             else if (arg.compare(0, 7, "--json=") == 0)
                 throw std::invalid_argument("Serveri JSON-sisend tuleb POST /process päringust");
             else
@@ -232,7 +267,7 @@ int main(int argc, char** argv)
         std::mutex synthesizerMutex;
 
         httplib::Server server;
-        server.set_payload_max_length(8 * 1024 * 1024);
+        server.set_payload_max_length(maxContentLength);
         server.set_read_timeout(5);
         server.set_write_timeout(5);
         server.set_keep_alive_timeout(1);
